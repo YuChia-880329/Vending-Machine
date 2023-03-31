@@ -1,3 +1,4 @@
+<!-- url : /vendingMachine/machine -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,10 +8,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>販賣機</title>
 	
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
 	
 	<script type="text/javascript">
 	</script>
@@ -38,12 +39,12 @@
 			<div class="row">
 			
 				<div class="col-4 text-center">
-					<img class="mb-4" alt="VendingMachine" src="../images/vending_machine.jpg" width="200" height="200" />
+					<img class="mb-4" alt="VendingMachine" src="images/vending_machine.jpg" width="200" height="200" />
 				
 					<h1 class="mb-4">歡迎光臨，Andy！</h1>
 					
 					<div class="mb-5">
-						<a href="#" class="link-primary h4">後臺頁面</a>&nbsp; &nbsp;
+						<a href="machine/backend/goodsList" class="link-primary h4">後臺頁面</a>&nbsp; &nbsp;
 						<a href="#" class="link-primary h4">登出</a>
 					</div>
 					
@@ -98,7 +99,7 @@
 							      	
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="../images/20130813154445805.jpg" alt="Drink" width="150" height="150" />
+								    		<img src="images/20130813154445805.jpg" alt="Drink" width="150" height="150" />
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -132,7 +133,7 @@
 							      	
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="../images/20130813155636918.jpg" alt="Drink" width="150" height="150" />
+								    		<img src="images/20130813155636918.jpg" alt="Drink" width="150" height="150" />
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -165,7 +166,7 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="../images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -198,7 +199,7 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="../images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -231,7 +232,7 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="../images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -264,7 +265,7 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="../images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">

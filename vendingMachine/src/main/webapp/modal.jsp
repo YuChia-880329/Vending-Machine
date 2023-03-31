@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body" id="confirm_modal_body"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="confirm_modal_ok_btn"></button>
       </div>
     </div>
@@ -27,7 +27,7 @@
       </div>
       <div class="modal-body" id="alert_modal_body"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>
       </div>
     </div>
   </div>

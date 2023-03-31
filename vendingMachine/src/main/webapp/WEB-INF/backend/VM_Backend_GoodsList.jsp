@@ -1,3 +1,4 @@
+<!-- url : /vendingMachine/machine/backend/goodsList -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,11 +7,11 @@
 	<meta http-equiv="Content-Language" content="zh-tw">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>販賣機-後臺</title>
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
 	
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/bootstrap.bundle.min.js"></script>
-	<script src="../js/util.js"></script>
+	<script src="../../js/jquery.min.js"></script>
+	<script src="../../js/bootstrap.bundle.min.js"></script>
+	<script src="../../js/util.js"></script>
 	
 	<script type="text/javascript">
 	
@@ -26,9 +27,9 @@
 	
 		function filterBtnClicked(){
 			
-			var titleText = 'Filter';
+			var titleText = '篩選條件';
 			var bodyHtml = $('#' + filterModalBodyTmplId).clone()[0].content;
-			var okBtnText = 'Search';
+			var okBtnText = '搜尋';
 			var okBtnFtcn = function(){
 				
 				console.log('Search');
@@ -90,7 +91,7 @@
 				</table>
 				
 				<div class="d-flex">
-					<div>
+					<div class="me-auto">
 						<nav aria-label="Page navigation" class="pt-4">
 							<ul class="pagination">
 						    <li class="page-item">
@@ -128,7 +129,7 @@
 	
 	
 	
-	<%@ include file="../modal.jsp" %>
+	<%@ include file="../../modal.jsp" %>
 	
 	<template id="filter_modal_body_tmpl">
 		<div class="container">
@@ -207,29 +208,6 @@
 			</form>
 		</div>
 	</template>
-
-		<!-- 	<tr>
-				<td>
-					<br/>
-					<c:if test="${drinkPage.pageId>1 }">
-						<a href="goodsList?pageId=${drinkPage.pageId-1 }" id="navPage_last">上一頁</a>
-					</c:if>
-		
-		
-					<c:forEach var="i" begin="${drinkPage.basePageId+1 }" end="${((drinkPage.basePageId+3)<maxPageId) ? (drinkPage.basePageId+3) : maxPageId }">
-						<a href="goodsList?pageId=${i }" id="navPage_${i }">${i }</a>
-					</c:forEach>
-		
-
-					<c:if test="${drinkPage.pageId<maxPageId }">
-						<a href="goodsList?pageId=${drinkPage.pageId+1 }" id="navPage_next">下一頁</a>
-					</c:if>
-				
-				</td>
-				<td align="right">
-					<br/>
-					<button type="submit" onclick="return location.replace('../nav?destination=goods_list');">All Drinks</button>
-				</td>
-			</tr>-->
+	
 </body>
 </html>
