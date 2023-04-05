@@ -11,32 +11,9 @@
 	
 	<script src="../../js/jquery.min.js"></script>
 	<script src="../../js/bootstrap.bundle.min.js"></script>
-	<script src="../../js/util.js"></script>
 	
 	<script type="text/javascript">
 	
-		let filterBtnId = 'filter_btn';
-		let filterModalBodyTmplId = 'filter_modal_body_tmpl';
-		
-		$(document).ready(readyFctn);
-		
-		function readyFctn(){
-			
-			$('#' + filterBtnId).click(filterBtnClicked);
-		}
-	
-		function filterBtnClicked(){
-			
-			var titleText = '篩選條件';
-			var bodyHtml = $('#' + filterModalBodyTmplId).clone()[0].content;
-			var okBtnText = '搜尋';
-			var okBtnFtcn = function(){
-				
-				console.log('Search');
-			}
-			
-			confirmModal(titleText, bodyHtml, okBtnText, okBtnFtcn).show();
-		}
 	</script>
 </head>
 <body>
@@ -50,7 +27,7 @@
 			<div class="row">
 				<div class="col-8">
 					<div class="mb-4">
-						<button class="btn btn-outline-primary" id="filter_btn">篩選條件</button>
+						<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filter_modal">篩選條件</button>
 					</div>
 					
 					<table class="table table-bordered text-center">
@@ -132,10 +109,15 @@
 	</div>
 	
 	
-	<%@ include file="../../modal.jsp" %>
-	
-	<template id="filter_modal_body_tmpl">
-		<div class="container">
+	<div class="modal fade" id="filter_modal">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<h4 class="modal-title">篩選條件</h4>
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+	      		<div class="modal-body">
+	      			<div class="container">
 			<form>
 				
 				<div class="mb-3">
@@ -218,6 +200,15 @@
 				
 			</form>
 		</div>
-	</template>
+	      		</div>
+	      		<div class="modal-footer">
+	      			<button class="btn btn-primary me-auto">清空</button>
+	        		<button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+	        		<button class="btn btn-primary" data-bs-dismiss="modal">搜尋</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+
 </body>
 </html>

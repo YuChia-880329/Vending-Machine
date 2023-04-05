@@ -1,6 +1,6 @@
 package bean.vo.backend.goodsList.writeout;
 
-public class BGLGoodVO {
+public class BGLGTGoodsWOVO {
 
 	private String id;
 	private String name;
@@ -9,9 +9,9 @@ public class BGLGoodVO {
 	private String status;
 	
 	
-	public BGLGoodVO() {
+	public BGLGTGoodsWOVO() {
 	}
-	public BGLGoodVO(String id, String name, String price, String quantity, String status) {
+	public BGLGTGoodsWOVO(String id, String name, String price, String quantity, String status) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -20,36 +20,36 @@ public class BGLGoodVO {
 	}
 	
 	
-	String getId() {
+	public String getId() {
 		return id;
 	}
-	String getName() {
+	public String getName() {
 		return name;
 	}
-	String getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	String getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
-	String getStatus() {
+	public String getStatus() {
 		return status;
 	}
 	
 	
-	void setId(String id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
-	void setPrice(String price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
-	void setQuantity(String quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
-	void setStatus(String status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 }

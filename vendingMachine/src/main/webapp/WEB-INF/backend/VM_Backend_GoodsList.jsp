@@ -11,32 +11,9 @@
 	
 	<script src="../../js/jquery.min.js"></script>
 	<script src="../../js/bootstrap.bundle.min.js"></script>
-	<script src="../../js/util.js"></script>
 	
 	<script type="text/javascript">
-	
-		let filterBtnId = 'filter_btn';
-		let filterModalBodyTmplId = 'filter_modal_body_tmpl';
-		
-		$(document).ready(readyFctn);
-		
-		function readyFctn(){
-			
-			$('#' + filterBtnId).click(filterBtnClicked);
-		}
-	
-		function filterBtnClicked(){
-			
-			var titleText = '篩選條件';
-			var bodyHtml = $('#' + filterModalBodyTmplId).clone()[0].content;
-			var okBtnText = '搜尋';
-			var okBtnFtcn = function(){
-				
-				console.log('Search');
-			}
-			
-			confirmModal(titleText, bodyHtml, okBtnText, okBtnFtcn).show();
-		}
+
 	</script>
 </head>
 <body>
@@ -51,7 +28,7 @@
 		<div class="ms-4 row">
 			<div class="col-8">
 				<div class="mb-4">
-					<button class="btn btn-outline-primary" id="filter_btn">篩選條件</button>
+					<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filter_modal">篩選條件</button>
 				</div>
 				
 				<table class="table table-bordered text-center">
@@ -127,87 +104,105 @@
 	</div>
 	
 	
-	
-	
-	<%@ include file="../../modal.jsp" %>
-	
-	<template id="filter_modal_body_tmpl">
-		<div class="container">
-			<form>
-				<div class="mb-3">
-					<label for="filter_id_min" class="form-label">商品編號</label>
-					<div class="d-flex">
-						<div>
-							<input type="number" class="form-control" id="filter_id_min" min="1" max="999999" />
-						</div>
-						<div class="mx-3">
-							<p>~</p>
-						</div>
-						<div>
-							<input type="number" class="form-control" id="filter_id_max" min="1" max="999999" />
-						</div>
-					</div>
-				</div>
-					
-				<div class="mb-3">
-					<label for="filter_name" class="form-label">商品名稱</label>
-					<div class="d-flex">
-						<div>
-							<input type="text" class="form-control" id="filter_name" size="50" />
-						</div>
-					</div>
-				</div>
-					
-				<div class="mb-3">
-					<label for="filter_price_min" class="form-label">商品價格</label>
-					<div class="d-flex">
-						<div>
-							<input type="number" class="form-control" id="filter_price_min" min="1" max="999999" />
-						</div>
-						<div class="mx-3">
-							<p>~</p>
-						</div>
-						<div>
-							<input type="number" class="form-control" id="filter_price_max" min="1" max="999999" />
-						</div>
-					</div>
-				</div>
-					
-				<div class="mb-3">
-					<label for="filter_quantity_min" class="form-label">現有庫存</label>
-					<div class="d-flex">
-						<div>
-							<input type="number" class="form-control" id="filter_quantity_min" min="1" max="999999" />
-						</div>
-						<div class="mx-3">
-							<p>~</p>
-						</div>
-						<div>
-							<input type="number" class="form-control" id="filter_quantity_max" min="1" max="999999" />
-						</div>
-					</div>
-				</div>
-					
-				<div class="mb-3">
-					<label for="filter_status_1" class="form-label">商品狀態</label>
-					<div class="d-flex mt-2">
-						<div class="me-3">
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="filter_status" id="filter_status_1" value="1">
-								<label class="form-check-label" for="filter_status_1">上架</label>
+	<div class="modal fade" id="filter_modal">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<h4 class="modal-title">篩選條件</h4>
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+	      		<div class="modal-body">
+	      			<div class="container">
+						<form>
+							<div class="mb-3">
+								<label for="filter_id_min" class="form-label">商品編號</label>
+								<div class="d-flex">
+									<div>
+										<input type="number" class="form-control" id="filter_id_min" min="1" max="999999" />
+									</div>
+									<div class="mx-3">
+										<p>~</p>
+									</div>
+									<div>
+										<input type="number" class="form-control" id="filter_id_max" min="1" max="999999" />
+									</div>
+								</div>
 							</div>
-						</div>
-						<div>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="filter_status" id="filter_status_0" value="0">
-								<label class="form-check-label" for="filter_status_0">下架</label>
+								
+							<div class="mb-3">
+								<label for="filter_name" class="form-label">商品名稱</label>
+								<div class="d-flex">
+									<div>
+										<input type="text" class="form-control" id="filter_name" size="50" />
+									</div>
+								</div>
 							</div>
-						</div>
+								
+							<div class="mb-3">
+								<label for="filter_price_min" class="form-label">商品價格</label>
+								<div class="d-flex">
+									<div>
+										<input type="number" class="form-control" id="filter_price_min" min="1" max="999999" />
+									</div>
+									<div class="mx-3">
+										<p>~</p>
+									</div>
+									<div>
+										<input type="number" class="form-control" id="filter_price_max" min="1" max="999999" />
+									</div>
+								</div>
+							</div>
+								
+							<div class="mb-3">
+								<label for="filter_quantity_min" class="form-label">現有庫存</label>
+								<div class="d-flex">
+									<div>
+										<input type="number" class="form-control" id="filter_quantity_min" min="1" max="999999" />
+									</div>
+									<div class="mx-3">
+										<p>~</p>
+									</div>
+									<div>
+										<input type="number" class="form-control" id="filter_quantity_max" min="1" max="999999" />
+									</div>
+								</div>
+							</div>
+								
+							<div class="mb-3">
+								<label for="filter_status_1" class="form-label">商品狀態</label>
+								<div class="d-flex mt-2">
+									<div class="me-3 d-flex align-items-center">
+										<div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" name="filter_status" id="filter_status_1" value="1">
+												<label class="form-check-label" for="filter_status_1">上架</label>
+											</div>
+										</div>
+									</div>
+									<div class="me-3 d-flex align-items-center">
+										<div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" name="filter_status" id="filter_status_0" value="0">
+												<label class="form-check-label" for="filter_status_0">下架</label>
+											</div>
+										</div>
+									</div>
+									<div>
+										<button class="btn btn-outline-primary">reset</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
-				</div>
-			</form>
-		</div>
-	</template>
+	      		</div>
+	      		<div class="modal-footer">
+	      			<button class="btn btn-primary me-auto">清空</button>
+	        		<button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+	        		<button class="btn btn-primary" data-bs-dismiss="modal">搜尋</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
 	
 </body>
 </html>

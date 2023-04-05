@@ -106,6 +106,28 @@ public class GoodDAO {
 		return SQLUtil.searchListTemplate(GoodDAO::getConnection, sql, getSearchFunctionSQLException());
 	}
 	
+	public int searchRowNumber(QueryObj... objs) {
+		
+		String subTableSqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s, ROW_NUMBER()OVER(ORDER BY %s) AS RN FROM %s";
+		String subTableSql = String.format(subTableSqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
+				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
+				COL_NAME_IMAGE, COL_NAME_STATUS, COL_NAME_ID, TABLE_NAME);
+		
+		
+		for(int i=0; i<objs.length; i++) {
+			
+			if(i == 0)
+				subTableSql = StringConcatUtil.concate(subTableSql, " WHERE ", objs[i].getQueryStatement());
+			else
+				subTableSql = StringConcatUtil.concate(subTableSql, " AND ", objs[i].getQueryStatement());
+		}
+		
+		String sqlFormatStr = StringConcatUtil.concate("SELECT COUNT(RN) FROM (%s)");
+		String sql = String.format(sqlFormatStr, subTableSql);
+		
+		return SQLUtil.searchOneTemplate(GoodDAO::getConnection, sql, getSearchRowNumberFunctionSQLException());
+	}
+	
 	public GoodModel add(GoodModel model) {
 		
 		String sqlFormatStr = "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s) VALUES (%s, ?, ?, ?, ?, ?, ?)";
@@ -149,11 +171,16 @@ public class GoodDAO {
 			model.setDescription(rs.getString(COL_NAME_DESCRIPTION));
 			model.setPrice(rs.getInt(COL_NAME_PRICE));
 			model.setQuantity(rs.getInt(COL_NAME_QUANTITY));
-			model.setImage(rs.getString(COL_NAME_IMAGE));
+			model.setImageName(COL_NAME_IMAGE);
 			model.setStatus(rs.getString(COL_NAME_STATUS));
 			
 			return model;
 		};
+	}
+	
+	private FunctionSQLException<ResultSet, Integer> getSearchRowNumberFunctionSQLException(){
+		
+		return rs -> rs.getInt("RN");
 	}
 	
 	private BiConsumerSQLException<GoodModel, PreparedStatement> getAddBiConsumerSQLException(){
@@ -165,7 +192,7 @@ public class GoodDAO {
 			pst.setString(index++, model.getDescription());
 			pst.setInt(index++, model.getPrice());
 			pst.setInt(index++, model.getQuantity());
-			pst.setString(index++, model.getImage());
+			pst.setString(index++, model.getImageName());
 			pst.setString(index++, model.getStatus());
 		};
 	}
@@ -187,7 +214,7 @@ public class GoodDAO {
 			pst.setString(index++, model.getDescription());
 			pst.setInt(index++, model.getPrice());
 			pst.setInt(index++, model.getQuantity());
-			pst.setString(index++, model.getImage());
+			pst.setString(index++, model.getImageName());
 			pst.setString(index++, model.getStatus());
 			
 			pst.setInt(index++, model.getId());

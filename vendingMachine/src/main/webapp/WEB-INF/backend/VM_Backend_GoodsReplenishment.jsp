@@ -48,7 +48,7 @@
 								<label for="good_price" class="form-label mb-0 col-auto">更改價格：</label>
 							</div>
 							<div>
-								<input type="number" class="form-control" id="good_price" size="15" />
+								<input type="number" class="form-control" id="good_price" min="0" max="999999" />
 							</div>
 						</div>
 						
@@ -56,8 +56,13 @@
 							商品庫存量： <span>10</span>
 						</div>
 						
-						<div class="mb-4 pt-2">
-							補貨數量： <span>10</span>
+						<div class="d-flex mb-4">
+							<div class="row align-self-center justify-content-center me-3">
+								<label for="good_add_quantity" class="form-label mb-0 col-auto">補貨數量：</label>
+							</div>
+							<div>
+								<input type="number" class="form-control" id="good_add_quantity" min="0" max="999999" />
+							</div>
 						</div>
 						
 						<div class="d-flex mb-4 pt-2">

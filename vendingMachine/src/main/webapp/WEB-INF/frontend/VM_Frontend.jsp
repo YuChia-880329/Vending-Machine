@@ -12,25 +12,37 @@
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.bundle.min.js"></script>
+
 	
 	<script type="text/javascript">
+
 	</script>
 </head>
 <body>
 	<div class="container">
 		<div class="mt-5">
-			<div class="d-flex justify-content-end">
-				<div>
-					<form>
-						<div class="d-flex">
-							<div class="me-3">
-								<input type="text" class="form-control" size="50" />
-							</div>
-							<div>
-								<button class="btn btn-outline-primary">商品查詢</button>
-							</div>
+			<div class="row">
+				<div class="col-8 ms-auto">
+					<div class="d-flex">
+						<div class="me-2">
+							<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add_shopping_cart_modal">加入購物車</button>
 						</div>
-					</form>
+						<div class="me-auto">
+							<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#shopping_cart_modal">購物車</button>
+						</div>
+						<div>
+							<form>
+								<div class="d-flex">
+									<div class="me-3">
+										<input type="text" class="form-control" size="50" />
+									</div>
+									<div>
+										<button class="btn btn-outline-primary">商品查詢</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -89,6 +101,7 @@
 						<div class="row row-cols-3 g-5">
 					
 							<div class="col">
+								<input type="hidden" value="1" />
 								<div class="card text-center">
 									<div class="card-header">
 										<h3 class="mb-2">Drink</h3>
@@ -99,7 +112,9 @@
 							      	
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="images/20130813154445805.jpg" alt="Drink" width="150" height="150" />
+								    		<a href="#" data-bs-toggle="modal" data-bs-target="#goods_table_image_1_modal">
+								    			<img src="images/20130813154445805.jpg" alt="Drink" width="150" height="150" />
+								    		</a>
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -123,6 +138,7 @@
 							</div>
 							
 							<div class="col">
+								<input type="hidden" value="2" />
 								<div class="card text-center">
 									<div class="card-header">
 										<h3 class="mb-2">Drink</h3>
@@ -133,7 +149,9 @@
 							      	
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="images/20130813155636918.jpg" alt="Drink" width="150" height="150" />
+								    		<a href="#">
+								    			<img src="images/20130813155636918.jpg" alt="Drink" width="150" height="150" />
+								    		</a>
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -157,6 +175,7 @@
 							</div>
 							
 							<div class="col">
+								<input type="hidden" value="3" />
 								<div class="card text-center">
 									<div class="card-header">
 										<h3 class="mb-2">Drink</h3>
@@ -166,7 +185,9 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<a href="#">
+								    			<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		</a>
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -190,6 +211,7 @@
 							</div>
 							
 							<div class="col">
+								<input type="hidden" value="4" />
 								<div class="card text-center">
 									<div class="card-header">
 										<h3 class="mb-2">Drink</h3>
@@ -199,7 +221,9 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<a href="#">
+								    			<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		</a>
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -223,6 +247,7 @@
 							</div>
 							
 							<div class="col">
+								<input type="hidden" value="5" />
 								<div class="card text-center">
 									<div class="card-header">
 										<h3 class="mb-2">Drink</h3>
@@ -232,7 +257,9 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<a href="#">
+								    			<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		</a>
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -256,6 +283,7 @@
 							</div>
 							
 							<div class="col">
+								<input type="hidden" value="6" />
 								<div class="card text-center">
 									<div class="card-header">
 										<h3 class="mb-2">Drink</h3>
@@ -265,7 +293,9 @@
 									</div>
 								    <div class="card-body">
 								    	<div class="mb-4">
-								    		<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		<a href="#">
+								    			<img src="images/20190201101804603.jpg" alt="Drink" width="150" height="150" />
+								    		</a>
 								    	</div>
 								    	<div class="mb-3">
 								    		<div class="d-flex justify-content-center">
@@ -291,7 +321,6 @@
 						
 						</div>
 					</div>
-					
 					
 					<div class="mb-4">
 						<div class="d-flex">
@@ -331,7 +360,250 @@
 				
 			</div>
 		</div>
-		
 	</div>
+	
+	
+	<div class="modal fade" id="add_shopping_cart_modal">
+ 		<div class="modal-dialog">
+   			<div class="modal-content">
+     			<div class="modal-header">
+       				<h4 class="modal-title">加入購物車</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body">
+     				<div class="container text-center">
+     					<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+					</div>
+     			</div>
+     			<div class="modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">加入</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	
+	<div class="modal fade" id="shopping_cart_modal">
+ 		<div class="modal-dialog">
+   			<div class="modal-content">
+     			<div class="modal-header">
+       				<h4 class="modal-title">購物車</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body">
+     				<div class="container">
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+						<div>
+     						<div class="d-flex justify-content-evenly">
+     							<div>
+     								<p>
+										<span>Drink</span> : <span>1</span>罐
+									</p>
+     							</div>
+								<div>
+									<p class="text-secondary">
+										<span>10</span> 元/罐
+									</p>
+								</div>
+     						</div>
+     					</div>
+					</div>
+     			</div>
+     			<div class="modal-footer">
+     				<button class="btn btn-danger me-auto">清空購物車</button>
+  					<button class="btn btn-primary" data-bs-dismiss="modal">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	
+	
+	<div class="modal fade" id="goods_table_image_1_modal">
+ 		<div class="modal-dialog">
+   			<div class="modal-content">
+     			<div class="modal-header">
+       				<h4 class="modal-title">Drink</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body">
+     				<div class="container text-center">
+						<img src="images/20130813154445805.jpg" alt="Drink" width="300" height="300" />
+						
+						<p class="my-5">Description description description description.</p>
+						<div>
+							<div class="row">
+								<div class="col-4 text-secondary">
+									價錢 : <span>10</span> 元/罐
+								</div>
+								<div class="col-4 text-danger">
+									庫存 : <span>10</span> 罐
+								</div>
+								<div class="col-4">
+									購物車內 : <span>1</span> 罐
+								</div>
+							</div>
+						</div>
+					</div>
+     			</div>
+     			<div class="modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	
+	
 </body>
 </html>

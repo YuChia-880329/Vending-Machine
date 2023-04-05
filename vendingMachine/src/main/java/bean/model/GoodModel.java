@@ -7,19 +7,19 @@ public class GoodModel {
 	private String description;
 	private int price;
 	private int quantity;
-	private String image;
+	private String imageName;
 	private String status;
 	
 	
 	public GoodModel() {
 	}
-	public GoodModel(int id, String name, String description, int price, int quantity, String image, String status) {
+	public GoodModel(int id, String name, String description, int price, int quantity, String imageName, String status) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.quantity = quantity;
-		this.image = image;
+		this.imageName = imageName;
 		this.status = status;
 	}
 	
@@ -39,8 +39,8 @@ public class GoodModel {
 	public int getQuantity() {
 		return quantity;
 	}
-	public String getImage() {
-		return image;
+	public String getImageName() {
+		return imageName;
 	}
 	public String getStatus() {
 		return status;
@@ -62,8 +62,8 @@ public class GoodModel {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 	public void setStatus(String status) {
 		this.status = status;

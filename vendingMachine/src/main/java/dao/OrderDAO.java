@@ -106,6 +106,28 @@ public class OrderDAO {
 		
 		return SQLUtil.searchListTemplate(OrderDAO::getConnection, sql, getSearchFunctionSQLException());
 	}
+	
+	public int searchRowNumber(QueryObj... objs) {
+		
+		String subTableSqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, ROW_NUMBER()OVER(ORDER BY %s) RN FROM %s";
+		String subTableSql = String.format(subTableSqlFormatStr, COL_NAME_ID, COL_NAME_DATE_TIME, 
+				COL_NAME_CUSTOMER_ID, COL_NAME_GOODS_ID, COL_NAME_PRICE, COL_NAME_QUANTITY, 
+				COL_NAME_ID, TABLE_NAME);
+		
+		
+		for(int i=0; i<objs.length; i++) {
+			
+			if(i == 0)
+				subTableSql = StringConcatUtil.concate(subTableSql, " WHERE ", objs[i].getQueryStatement());
+			else
+				subTableSql = StringConcatUtil.concate(subTableSql, " AND ", objs[i].getQueryStatement());
+		}
+		
+		String sqlFormatStr = StringConcatUtil.concate("SELECT COUNT(RN) FROM (%s)");
+		String sql = String.format(sqlFormatStr, subTableSql);
+		
+		return SQLUtil.searchOneTemplate(OrderDAO::getConnection, sql, getSearchRowNumberFunctionSQLException());
+	}
 
 	
 	public OrderModel add(OrderModel model) {
@@ -155,6 +177,10 @@ public class OrderDAO {
 			
 			return model;
 		};
+	}
+	private FunctionSQLException<ResultSet, Integer> getSearchRowNumberFunctionSQLException(){
+		
+		return rs -> rs.getInt("RN");
 	}
 	
 	private BiConsumerSQLException<OrderModel, PreparedStatement> getAddBiConsumerSQLException(){

@@ -63,10 +63,4 @@ public class OrderModel {
 		this.quantity = quantity;
 	}
 	
-	
-	@Override
-	public String toString() {
-		return "OrderModel [id=" + id + ", dateTime=" + dateTime + ", customerId=" + customerId + ", goodId=" + goodId
-				+ ", price=" + price + ", quantity=" + quantity + "]";
-	}
 }

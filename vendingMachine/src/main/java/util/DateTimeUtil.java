@@ -1,14 +1,15 @@
 package util;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtil {
 	
-	public static final String JAVA_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
+	public static final String JAVA_LOCAL_DATE_TIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
 	
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(JAVA_FORMAT_STRING);
+	private static final DateTimeFormatter LOCAL_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(JAVA_LOCAL_DATE_TIME_FORMAT_STRING);
 	
 	
 	public static Timestamp stringToTimestamp(String dateTimeStr) {
@@ -31,10 +32,10 @@ public class DateTimeUtil {
 	
 	public static LocalDateTime stringToLocalDateTime(String dateTimeStr) {
 		
-		return LocalDateTime.parse(dateTimeStr, FORMATTER);
+		return LocalDateTime.parse(dateTimeStr, LOCAL_DATE_TIME_FORMATTER);
 	}
 	public static String localDateTimeToString(LocalDateTime localDateTime) {
 		
-		return localDateTime.format(FORMATTER);
+		return localDateTime.format(LOCAL_DATE_TIME_FORMATTER);
 	}
 }
