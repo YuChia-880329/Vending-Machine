@@ -5,7 +5,7 @@ import bean.vo.backend.goodsCreate.readin.BGCCreateFormRIVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.backend.goodsCreate.checker.readin.BGCCreateFormRIVOChecker;
+import transformer.vo.backend.goodsCreate.readin.checker.BGCCreateFormRIVOChecker;
 
 public class BGCCreateFormRIVOTransformer extends VOReanInTransformerTemplate<BGCCreateFormRIVO, BGCCreateFormRIVODTO, CheckerException, BGCCreateFormRIVOChecker> {
 

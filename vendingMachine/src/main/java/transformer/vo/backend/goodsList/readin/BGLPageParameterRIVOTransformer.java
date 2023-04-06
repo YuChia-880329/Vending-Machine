@@ -5,7 +5,7 @@ import bean.vo.backend.goodsList.readin.BGLPageParameterRIVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.backend.goodsList.checker.readin.BGLPageParameterRIVOChecker;
+import transformer.vo.backend.goodsList.readin.checker.BGLPageParameterRIVOChecker;
 
 public class BGLPageParameterRIVOTransformer extends VOReanInTransformerTemplate<BGLPageParameterRIVO, BGLPageParameterRIVODTO, CheckerException, BGLPageParameterRIVOChecker> {
 

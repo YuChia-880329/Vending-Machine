@@ -123,7 +123,7 @@ public class OrderDAO {
 				subTableSql = StringConcatUtil.concate(subTableSql, " AND ", objs[i].getQueryStatement());
 		}
 		
-		String sqlFormatStr = StringConcatUtil.concate("SELECT COUNT(RN) FROM (%s)");
+		String sqlFormatStr = StringConcatUtil.concate("SELECT COUNT(RN) CRN FROM (%s)");
 		String sql = String.format(sqlFormatStr, subTableSql);
 		
 		return SQLUtil.searchOneTemplate(OrderDAO::getConnection, sql, getSearchRowNumberFunctionSQLException());
@@ -180,7 +180,7 @@ public class OrderDAO {
 	}
 	private FunctionSQLException<ResultSet, Integer> getSearchRowNumberFunctionSQLException(){
 		
-		return rs -> rs.getInt("RN");
+		return rs -> rs.getInt("CRN");
 	}
 	
 	private BiConsumerSQLException<OrderModel, PreparedStatement> getAddBiConsumerSQLException(){

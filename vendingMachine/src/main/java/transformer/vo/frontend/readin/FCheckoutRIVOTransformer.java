@@ -4,7 +4,7 @@ import bean.dto.vo.frontend.readin.FCheckoutRIVODTO;
 import bean.vo.frontend.readin.FCheckoutRIVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.frontend.checker.readin.FCheckoutRIVOChecker;
+import transformer.vo.frontend.readin.checker.FCheckoutRIVOChecker;
 
 public class FCheckoutRIVOTransformer extends VOReanInTransformerTemplate<FCheckoutRIVO, FCheckoutRIVODTO, CheckerException, FCheckoutRIVOChecker> {
 

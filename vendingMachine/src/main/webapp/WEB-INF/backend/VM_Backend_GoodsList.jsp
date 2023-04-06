@@ -1,6 +1,7 @@
 <!-- url : /vendingMachine/machine/backend/goodsList -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,54 +44,43 @@
 					</thead>
 					
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>name1</td> 
-							<td>price1</td>
-							<td>quantity1</td>
-							<td>status1</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>name2</td> 
-							<td>price2</td>
-							<td>quantity2</td>
-							<td>status2</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>name3</td> 
-							<td>price3</td>
-							<td>quantity3</td>
-							<td>status3</td>
-						</tr>
+						<c:forEach var="good" items="${vo.goodsTable.goods}">
+							<tr>
+								<th scope="row">${good.id}</th>
+								<td>${good.name}</td> 
+								<td>${good.price}</td>
+								<td>${good.quantity}</td>
+								<td>${good.status}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				
+				<c:set var="url" value=""></c:set>
 				<div class="d-flex">
 					<div class="me-auto">
 						<nav aria-label="Page navigation" class="pt-4">
 							<ul class="pagination">
-						    <li class="page-item">
-						      <a class="page-link" href="#" aria-label="Previous">
-						        <span aria-hidden="true">&laquo;</span>
-						      </a>
-						    </li>
-						    <li class="page-item">
-						    	<a class="page-link" href="#">1</a>
-						    </li>
-						    <li class="page-item">
-						    	<a class="page-link" href="#">2</a>
-						    </li>
-						    <li class="page-item">
-						    	<a class="page-link" href="#">3</a>
-						    </li>
-						    <li class="page-item">
-						      <a class="page-link" href="#" aria-label="Next">
-						        <span aria-hidden="true">&raquo;</span>
-						      </a>
-						    </li>
-						  </ul>
+								<c:if test="${vo.pagination.hasPreviousPage}">
+									<li class="page-item">
+								      	<a class="page-link" href="#" aria-label="Previous">
+								        	<span aria-hidden="true">&laquo;</span>
+								      	</a>
+								    </li>
+								</c:if>
+							    <c:forEach var="p" items="${vo.pagination.pages}">
+							    	<li class="page-item">
+								    	<a class="page-link" href="#">${p.page}</a>
+								    </li>
+							    </c:forEach>
+							    <c:if test="${vo.pagination.hasNextPage}">
+									<li class="page-item">
+								    	<a class="page-link" href="#" aria-label="Next">
+									        <span aria-hidden="true">&raquo;</span>
+										</a>
+								    </li>
+								</c:if>
+						  	</ul>
 						</nav>
 					</div>
 					
@@ -118,13 +108,13 @@
 								<label for="filter_id_min" class="form-label">商品編號</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" id="filter_id_min" min="1" max="999999" />
+										<input type="number" class="form-control" name="filterIdMin" id="filter_id_min" min="1" max="999999" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" id="filter_id_max" min="1" max="999999" />
+										<input type="number" class="form-control" name="filterIdMax" id="filter_id_max" min="1" max="999999" />
 									</div>
 								</div>
 							</div>
@@ -133,7 +123,7 @@
 								<label for="filter_name" class="form-label">商品名稱</label>
 								<div class="d-flex">
 									<div>
-										<input type="text" class="form-control" id="filter_name" size="50" />
+										<input type="text" class="form-control" name="filterName" id="filter_name" size="50" />
 									</div>
 								</div>
 							</div>
@@ -142,13 +132,13 @@
 								<label for="filter_price_min" class="form-label">商品價格</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" id="filter_price_min" min="1" max="999999" />
+										<input type="number" class="form-control" name="filterPriceMin" id="filter_price_min" min="1" max="999999" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" id="filter_price_max" min="1" max="999999" />
+										<input type="number" class="form-control" name="filterPriceMax" id="filter_price_max" min="1" max="999999" />
 									</div>
 								</div>
 							</div>
@@ -157,13 +147,13 @@
 								<label for="filter_quantity_min" class="form-label">現有庫存</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" id="filter_quantity_min" min="1" max="999999" />
+										<input type="number" class="form-control" name="filterQuantityMin" id="filter_quantity_min" min="1" max="999999" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" id="filter_quantity_max" min="1" max="999999" />
+										<input type="number" class="form-control" name="filterQuantityMax" id="filter_quantity_max" min="1" max="999999" />
 									</div>
 								</div>
 							</div>
@@ -174,7 +164,7 @@
 									<div class="me-3 d-flex align-items-center">
 										<div>
 											<div class="form-check">
-												<input class="form-check-input" type="radio" name="filter_status" id="filter_status_1" value="1">
+												<input class="form-check-input" type="radio" name="filterStatus" id="filter_status_1" value="1">
 												<label class="form-check-label" for="filter_status_1">上架</label>
 											</div>
 										</div>
@@ -182,7 +172,7 @@
 									<div class="me-3 d-flex align-items-center">
 										<div>
 											<div class="form-check">
-												<input class="form-check-input" type="radio" name="filter_status" id="filter_status_0" value="0">
+												<input class="form-check-input" type="radio" name="filterStatus" id="filter_status_0" value="0">
 												<label class="form-check-label" for="filter_status_0">下架</label>
 											</div>
 										</div>

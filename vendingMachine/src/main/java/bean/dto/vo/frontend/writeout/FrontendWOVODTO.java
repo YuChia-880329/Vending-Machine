@@ -1,7 +1,6 @@
 package bean.dto.vo.frontend.writeout;
 
 import bean.dto.vo.writeout.PaginationWOVODTO;
-import bean.vo.writeout.PaginationWOVO;
 
 public class FrontendWOVODTO {
 

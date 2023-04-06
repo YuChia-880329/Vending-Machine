@@ -6,7 +6,6 @@ import java.util.List;
 import bean.dto.vo.writeout.PPageWOVODTO;
 import bean.dto.vo.writeout.PaginationWOVODTO;
 import enumeration.Has;
-import util.PaginationUtil;
 
 public class PaginationService {
 
@@ -20,35 +19,30 @@ public class PaginationService {
 		return INSTANCE;
 	}
 	
-	public PaginationWOVODTO getPagination(int page, int pagesPerGroup, int maxPage) {
+	public PaginationWOVODTO getPagination(int page, int startPage, int endPage, int maxPage) {
 		
 		PaginationWOVODTO pagination = new PaginationWOVODTO();
 		
-		pagination.setHasPreviousPage(hasPreviousPage(page));
-		pagination.setPages(pages(page, pagesPerGroup, maxPage));
+		pagination.setHasPreviousPage(hasPreviousPage(page, maxPage));
+		pagination.setPages(pages(startPage, endPage));
 		pagination.setHasNextPage(hasNextPage(page, maxPage));
 		
 		return pagination;
 	}
 	
-	private Has hasPreviousPage(int page) {
+	private Has hasPreviousPage(int page, int maxPage) {
 		
-		if(page == 1)
+		if(page==1 || maxPage==0)
 			return Has.FALSE;
 		else
 			return Has.TRUE;
 	}
 	
-	private List<PPageWOVODTO> pages(int page, int pagesPerGroup, int maxPage){
+	private List<PPageWOVODTO> pages(int startPage, int endPage){
 		
 		List<PPageWOVODTO> list = new ArrayList<>();
 		
-		int basePage = PaginationUtil.getBasePage(page, pagesPerGroup);
-		
-		int endPage = basePage + pagesPerGroup;
-		endPage = ((endPage>maxPage) ? maxPage : endPage);
-		
-		for(int i=basePage+1; i<=endPage; i++) {
+		for(int i=startPage; i<=endPage; i++) {
 			
 			list.add(new PPageWOVODTO(i));
 		}
@@ -58,7 +52,7 @@ public class PaginationService {
 	
 	private Has hasNextPage(int page, int maxPage) {
 		
-		if(page == maxPage)
+		if(page==maxPage || maxPage==0)
 			return Has.FALSE;
 		else
 			return Has.TRUE;

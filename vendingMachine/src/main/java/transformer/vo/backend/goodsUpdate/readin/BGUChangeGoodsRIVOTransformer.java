@@ -4,7 +4,7 @@ import bean.dto.vo.backend.goodsUpdate.readin.BGUChangeGoodsRIVODTO;
 import bean.vo.backend.goodsUpdate.readin.BGUChangeGoodsRIVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.backend.goodsUpdate.checker.readin.BGUChangeGoodsRIVOChecker;
+import transformer.vo.backend.goodsUpdate.readin.checker.BGUChangeGoodsRIVOChecker;
 
 public class BGUChangeGoodsRIVOTransformer extends VOReanInTransformerTemplate<BGUChangeGoodsRIVO, BGUChangeGoodsRIVODTO, CheckerException, BGUChangeGoodsRIVOChecker> {
 

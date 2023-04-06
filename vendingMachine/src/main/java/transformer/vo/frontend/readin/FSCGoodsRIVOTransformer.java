@@ -4,7 +4,7 @@ import bean.dto.vo.frontend.readin.FSCGoodsRIVODTO;
 import bean.vo.frontend.readin.FSCGoodsRIVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.frontend.checker.readin.FSCGoodsRIVOChecker;
+import transformer.vo.frontend.readin.checker.FSCGoodsRIVOChecker;
 
 public class FSCGoodsRIVOTransformer extends VOReanInTransformerTemplate<FSCGoodsRIVO, FSCGoodsRIVODTO, CheckerException, FSCGoodsRIVOChecker>  {
 

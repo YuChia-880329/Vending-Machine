@@ -32,4 +32,14 @@ public enum Status {
 		
 		return null;
 	}
+	
+	public static Status getByValue(int value) {
+		
+		if(value == 1)
+			return ON;
+		else if(value == 0)
+			return OFF;
+		else
+			return null;
+	}
 }

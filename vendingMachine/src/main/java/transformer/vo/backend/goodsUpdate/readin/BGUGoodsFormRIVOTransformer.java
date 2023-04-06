@@ -5,7 +5,7 @@ import bean.vo.backend.goodsUpdate.readin.BGUGoodsFormRIVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.backend.goodsUpdate.checker.readin.BGUGoodsFormRIVOChecker;
+import transformer.vo.backend.goodsUpdate.readin.checker.BGUGoodsFormRIVOChecker;
 
 public class BGUGoodsFormRIVOTransformer extends VOReanInTransformerTemplate<BGUGoodsFormRIVO, BGUGoodsFormRIVODTO, CheckerException, BGUGoodsFormRIVOChecker> {
 

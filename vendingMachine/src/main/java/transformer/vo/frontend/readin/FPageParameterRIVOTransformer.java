@@ -4,7 +4,7 @@ import bean.dto.vo.frontend.readin.FPageParameterRIVODTO;
 import bean.vo.frontend.readin.FPageParameterRIVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.frontend.checker.readin.FPageParameterRIVOChecker;
+import transformer.vo.frontend.readin.checker.FPageParameterRIVOChecker;
 
 public class FPageParameterRIVOTransformer extends VOReanInTransformerTemplate<FPageParameterRIVO, FPageParameterRIVODTO, CheckerException, FPageParameterRIVOChecker> {
 
