@@ -8,6 +8,7 @@ import transformer.vo.writeout.PaginationWOVOTransformer;
 public class BackendGoodsListWOVOTransformer extends VOWriteOutTransformerTemplate<BackendGoodsListWOVODTO, BackendGoodsListWOVO> {
 
 	private BGLGoodsTableWOVOTransformer bglGoodsTableWOVOTransformer;
+	private BGLSearchParameterWOVOTransformer bglSearchParameterWOVOTransformer;
 	private PaginationWOVOTransformer paginationWOVOTransformer;
 	
 	
@@ -16,6 +17,7 @@ public class BackendGoodsListWOVOTransformer extends VOWriteOutTransformerTempla
 	private BackendGoodsListWOVOTransformer() {
 		
 		bglGoodsTableWOVOTransformer = BGLGoodsTableWOVOTransformer.getInstance();
+		bglSearchParameterWOVOTransformer = BGLSearchParameterWOVOTransformer.getInstance();
 		paginationWOVOTransformer = PaginationWOVOTransformer.getInstance();
 	}
 	
@@ -30,6 +32,7 @@ public class BackendGoodsListWOVOTransformer extends VOWriteOutTransformerTempla
 		BackendGoodsListWOVO vo = new BackendGoodsListWOVO();
 		
 		vo.setGoodsTable(bglGoodsTableWOVOTransformer.dtoToVo(dto.getGoodsTable()));
+		vo.setSearchParameter(bglSearchParameterWOVOTransformer.dtoToVo(dto.getSearchParameter()));
 		vo.setPagination(paginationWOVOTransformer.dtoToVo(dto.getPagination()));
 		
 		return vo;

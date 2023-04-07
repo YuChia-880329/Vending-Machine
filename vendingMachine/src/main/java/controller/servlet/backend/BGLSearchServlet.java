@@ -7,15 +7,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.vo.backend.goodsList.readin.BGLPageParameterRIVO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
-import util.URLUtil;
+import service.backend.goodsList.BGLUrlService;
+import template.exception.CheckerException;
+import transformer.vo.backend.goodsList.readin.BGLPageParameterRIVOTransformer;
 
 @SuppressWarnings("serial")
 public class BGLSearchServlet extends HttpServlet {
 
 	// url
-	public static final String URL = "/machine/backend/goodsList/search";
+	public static final String URL = "/vendingMachine/machine/backend/goodsList/search";
 	private static final String REDIRECT_URL = GoBackendGoodsListServlet.URL;
+	
+	private BGLUrlService bglUrlService;
+	private BGLPageParameterRIVOTransformer bglPageParameterRIVOTransformer;
+	
+	@Override
+	public void init() throws ServletException {
+		
+		bglUrlService = BGLUrlService.getInstance();
+		bglPageParameterRIVOTransformer = BGLPageParameterRIVOTransformer.getInstance();
+	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,22 +49,24 @@ public class BGLSearchServlet extends HttpServlet {
 		String quantityMaxStr = req.getParameter(GoBackendGoodsListServlet.REQ_PARAM_QUANTITY_MAX);
 		String statusStr = req.getParameter(GoBackendGoodsListServlet.REQ_PARAM_STATUS);
 		
-		boolean isFirstParam = true;
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_ID_MIN, idMinStr, isFirstParam);
-		isFirstParam = URLUtil.isFirstParam(idMaxStr, isFirstParam);
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_ID_MAX, idMaxStr, isFirstParam);
-		isFirstParam = URLUtil.isFirstParam(nameStr, isFirstParam);
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_NAME, nameStr, isFirstParam);
-		isFirstParam = URLUtil.isFirstParam(priceMinStr, isFirstParam);
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_PRICE_MIN, priceMinStr, isFirstParam);
-		isFirstParam = URLUtil.isFirstParam(priceMaxStr, isFirstParam);
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_PRICE_MAX, priceMaxStr, isFirstParam);
-		isFirstParam = URLUtil.isFirstParam(quantityMinStr, isFirstParam);
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_QUANTITY_MIN, quantityMinStr, isFirstParam);
-		isFirstParam = URLUtil.isFirstParam(quantityMaxStr, isFirstParam);
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_QUANTITY_MAX, quantityMaxStr, isFirstParam);
-		isFirstParam = URLUtil.isFirstParam(statusStr, isFirstParam);
-		url = URLUtil.concatParameter(url, GoBackendGoodsListServlet.REQ_PARAM_STATUS, statusStr, isFirstParam);
+		BGLPageParameterRIVO pageParameterVO = new BGLPageParameterRIVO();
+		
+		pageParameterVO.setIdMin(idMinStr);
+		pageParameterVO.setIdMax(idMaxStr);
+		pageParameterVO.setName(nameStr);
+		pageParameterVO.setPriceMin(priceMinStr);
+		pageParameterVO.setPriceMax(priceMaxStr);
+		pageParameterVO.setQuantityMin(quantityMinStr);
+		pageParameterVO.setQuantityMax(quantityMaxStr);
+		pageParameterVO.setStatus(statusStr);
+		
+		try {
+			
+			url = bglUrlService.generateURL(url, bglPageParameterRIVOTransformer.voToDto(pageParameterVO));
+		} catch (CheckerException ex) {
+			
+			ex.printStackTrace();
+		}
 		
 		return url;
 	}

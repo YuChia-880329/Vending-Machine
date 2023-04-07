@@ -4,23 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 import bean.dto.model.GoodsModelDTO;
-import bean.dto.vo.writeout.PaginationWOVODTO;
 
 public class BGLGoodsRepositoryDTO {
 
 	private BGLRParameterDTO parameter;
-	private Map<Integer, List<GoodsModelDTO>> pages;
-	private PaginationWOVODTO pagination;
+	private int maxPage;
+	private Map<Integer, List<GoodsModelDTO>> goodsPages;
 	
 	
 	public BGLGoodsRepositoryDTO() {
 	}
-	public BGLGoodsRepositoryDTO(BGLRParameterDTO parameter, Map<Integer, List<GoodsModelDTO>> pages,
-			PaginationWOVODTO pagination) {
+	public BGLGoodsRepositoryDTO(BGLRParameterDTO parameter, int maxPage, Map<Integer, List<GoodsModelDTO>> goodsPages) {
 
 		this.parameter = parameter;
-		this.pages = pages;
-		this.pagination = pagination;
+		this.maxPage = maxPage;
+		this.goodsPages = goodsPages;
 	}
 
 
@@ -29,11 +27,11 @@ public class BGLGoodsRepositoryDTO {
 	public BGLRParameterDTO getParameter() {
 		return parameter;
 	}
-	public Map<Integer, List<GoodsModelDTO>> getPages() {
-		return pages;
+	public int getMaxPage() {
+		return maxPage;
 	}
-	public PaginationWOVODTO getPagination() {
-		return pagination;
+	public Map<Integer, List<GoodsModelDTO>> getGoodsPages() {
+		return goodsPages;
 	}
 
 	
@@ -42,10 +40,10 @@ public class BGLGoodsRepositoryDTO {
 	public void setParameter(BGLRParameterDTO parameter) {
 		this.parameter = parameter;
 	}
-	public void setPages(Map<Integer, List<GoodsModelDTO>> pages) {
-		this.pages = pages;
+	public void setMaxPage(int maxPage) {
+		this.maxPage = maxPage;
 	}
-	public void setPagination(PaginationWOVODTO pagination) {
-		this.pagination = pagination;
+	public void setGoodsPages(Map<Integer, List<GoodsModelDTO>> goodsPages) {
+		this.goodsPages = goodsPages;
 	}
 }

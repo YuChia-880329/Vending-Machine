@@ -22,6 +22,7 @@ public class PPageWOVOTransformer extends VOWriteOutTransformerTemplate<PPageWOV
 		PPageWOVO vo = new PPageWOVO();
 		
 		vo.setPage(String.valueOf(dto.getPage()));
+		vo.setUrl(dto.getUrl());
 		
 		return vo;
 	}

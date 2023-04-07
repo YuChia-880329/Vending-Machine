@@ -48,7 +48,7 @@ public class BGLPageParameterRIVOTransformer extends VOReanInTransformerTemplate
 		dto.setQuantityMax((quantityMax==null||"".equals(quantityMax)) ? null : Integer.parseInt(quantityMax));
 		
 		String status = vo.getStatus();
-		dto.setStatus((status==null||"".equals(status)) ? null : Status.getByDescription(status));
+		dto.setStatus((status==null||"".equals(status)) ? null : Status.getByValue(Integer.parseInt(status)));
 		
 		return dto;
 	}

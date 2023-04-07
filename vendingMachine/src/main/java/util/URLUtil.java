@@ -17,7 +17,9 @@ public class URLUtil {
 	
 	public static boolean isFirstParam(String param, boolean isFirstParam) {
 		
-		return isFirstParam && hasParameter(param);
+		if(isFirstParam && hasParameter(param))
+			return false;
+		return isFirstParam;
 	}
 	
 	private static boolean hasParameter(String param) {

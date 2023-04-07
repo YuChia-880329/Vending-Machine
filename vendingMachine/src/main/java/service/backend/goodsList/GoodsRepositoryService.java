@@ -6,11 +6,11 @@ import java.util.Map;
 
 import bean.dto.model.GoodsModelDTO;
 import bean.dto.vo.backend.goodsList.BGLRParameterDTO;
-import bean.dto.vo.writeout.PaginationWOVODTO;
+import bean.dto.vo.backend.goodsList.readin.BGLPageParameterRIVODTO;
+import bean.dto.vo.backend.goodsList.BGLRepositoryObj;
 import bean.dto.vo.backend.goodsList.BGLGoodsRepositoryDTO;
 import dao.GoodsDAO;
 import dao.QueryObj;
-import service.PaginationService;
 import transformer.model.GoodsModelTransformer;
 import util.PaginationUtil;
 
@@ -25,7 +25,6 @@ public class GoodsRepositoryService {
 	private GoodsDAO goodsDAO;
 	private GoodsModelTransformer goodsModelTransformer;
 	private BGLRParameterService bglrParameterService;
-	private PaginationService paginationService;
 	
 	private static final GoodsRepositoryService INSTANCE = new GoodsRepositoryService();
 	
@@ -34,7 +33,6 @@ public class GoodsRepositoryService {
 		goodsDAO = GoodsDAO.getInstance();
 		goodsModelTransformer = GoodsModelTransformer.getInstance();
 		bglrParameterService = BGLRParameterService.getInstance();
-		paginationService = PaginationService.getInstance();
 		
 		BGLRParameterDTO parameter = new BGLRParameterDTO();
 		parameter.setIdMin(null);
@@ -55,47 +53,67 @@ public class GoodsRepositoryService {
 		return INSTANCE;
 	}
 	
-	public void updateRepository(BGLRParameterDTO parameter, int page) {
+	public BGLRepositoryObj getRepositoryObj(BGLRParameterDTO parameter, int page) {
 		
 		if(!bglrParameterService.equals(parameter, repository.getParameter())
-				|| repository.getPages().get(page) == null
-				|| needUpdate)
+				|| repository.getGoodsPages().get(page)==null
+				|| needUpdate) {
+			
 			repository = getRepository(parameter, page);
-	}
-	public List<GoodsModelDTO> getPage(int page){
+			needUpdate = false;
+		}
 		
-		return repository.getPages().get(page);
-	}
-	public PaginationWOVODTO getPagination() {
+		BGLRepositoryObj repositoryObj = new BGLRepositoryObj();
+		repositoryObj.setGoodsPage(repository.getGoodsPages().get(page));
+		repositoryObj.setMaxPage(repository.getMaxPage());
+		repositoryObj.setParameter(parameter);
 		
-		return repository.getPagination();
+		return repositoryObj;
 	}
+
 	
-	public BGLGoodsRepositoryDTO getRepository(BGLRParameterDTO parameter, int currentPage) {
+	public BGLGoodsRepositoryDTO getRepository(BGLRParameterDTO parameter, int page) {
 		
 		BGLGoodsRepositoryDTO repository = new BGLGoodsRepositoryDTO();
 		
 		repository.setParameter(parameter);
 		
 		QueryObj[] queryObjs = bglrParameterService.getQueryObjs(parameter);
-
-		
-		Map<Integer, List<GoodsModelDTO>> pages = new HashMap<>();
 		int maxPage = PaginationUtil.getMaxPage(goodsDAO.searchRowNumber(queryObjs), GOODS_PER_PAGE);
-		int startPage = PaginationUtil.getStartPage(currentPage, PAGES_PER_GROUP);
-		int endPage = PaginationUtil.getEndPage(currentPage, PAGES_PER_GROUP, maxPage);
+		repository.setMaxPage(maxPage);
+		
+		
+		Map<Integer, List<GoodsModelDTO>> goodsPages = new HashMap<>();
+		int startPage = PaginationUtil.getStartPage(page, PAGES_PER_GROUP);
+		int endPage = PaginationUtil.getEndPage(page, PAGES_PER_GROUP, maxPage);
 		for(int i=startPage; i<=endPage; i++) {
 			
-			pages.put(i, goodsModelTransformer.modelListToDtoList(goodsDAO.searchByQueryObjPage(i, GOODS_PER_PAGE, queryObjs)));
+			goodsPages.put(i, goodsModelTransformer.modelListToDtoList(goodsDAO.searchByQueryObjPage(i, GOODS_PER_PAGE, queryObjs)));
 		}
-		repository.setPages(pages);
-		
-		repository.setPagination(paginationService.getPagination(currentPage, startPage, endPage, maxPage));
+		repository.setGoodsPages(goodsPages);
+
 		return repository;
 	}
 	
 	public void needUpdate() {
 		
 		needUpdate = true;
+	}
+
+	
+	public static BGLRParameterDTO transform(BGLPageParameterRIVODTO pageParameter) {
+		
+		BGLRParameterDTO bglrParameterDTO = new BGLRParameterDTO();
+		
+		bglrParameterDTO.setIdMin(pageParameter.getIdMin());
+		bglrParameterDTO.setIdMax(pageParameter.getIdMax());
+		bglrParameterDTO.setName(pageParameter.getName());
+		bglrParameterDTO.setPriceMin(pageParameter.getPriceMin());
+		bglrParameterDTO.setPriceMax(pageParameter.getPriceMax());
+		bglrParameterDTO.setQuantityMin(pageParameter.getQuantityMin());
+		bglrParameterDTO.setQuantityMax(pageParameter.getQuantityMax());
+		bglrParameterDTO.setStatus(pageParameter.getStatus());
+		
+		return bglrParameterDTO;
 	}
 }

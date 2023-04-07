@@ -2,42 +2,40 @@ package bean.dto.vo.writeout;
 
 import java.util.List;
 
-import enumeration.Has;
-
 public class PaginationWOVODTO {
 
-	private Has hasPreviousPage;
+	private PPageTurningWOVODTO previousPage;
 	private List<PPageWOVODTO> pages;
-	private Has hasNextPage;
+	private PPageTurningWOVODTO nextPage;
 
 	public PaginationWOVODTO() {
 	}
-	public PaginationWOVODTO(Has hasPreviousPage, List<PPageWOVODTO> pages, Has hasNextPage) {
+	public PaginationWOVODTO(PPageTurningWOVODTO previousPage, List<PPageWOVODTO> pages, PPageTurningWOVODTO nextPage) {
 		
-		this.hasPreviousPage = hasPreviousPage;
+		this.previousPage = previousPage;
 		this.pages = pages;
-		this.hasNextPage = hasNextPage;
+		this.nextPage = nextPage;
 	}
 	
 	
-	public Has getHasPreviousPage() {
-		return hasPreviousPage;
+	public PPageTurningWOVODTO getPreviousPage() {
+		return previousPage;
 	}
 	public List<PPageWOVODTO> getPages() {
 		return pages;
 	}
-	public Has getHasNextPage() {
-		return hasNextPage;
+	public PPageTurningWOVODTO getNextPage() {
+		return nextPage;
 	}
 	
 	
-	public void setHasPreviousPage(Has hasPreviousPage) {
-		this.hasPreviousPage = hasPreviousPage;
+	public void setPreviousPage(PPageTurningWOVODTO previousPage) {
+		this.previousPage = previousPage;
 	}
 	public void setPages(List<PPageWOVODTO> pages) {
 		this.pages = pages;
 	}
-	public void setHasNextPage(Has hasNextPage) {
-		this.hasNextPage = hasNextPage;
+	public void setNextPage(PPageTurningWOVODTO nextPage) {
+		this.nextPage = nextPage;
 	}
 }

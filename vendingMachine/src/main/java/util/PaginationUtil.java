@@ -5,7 +5,7 @@ public class PaginationUtil {
 	public static int getMaxPage(int dataNumber, int dataPerPage) {
 		
 		if(dataNumber == 0)
-			return 0;
+			return 1;
 		
 		return (dataNumber-1)/dataPerPage + 1;
 	}

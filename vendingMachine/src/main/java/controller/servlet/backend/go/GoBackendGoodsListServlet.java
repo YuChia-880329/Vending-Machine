@@ -56,8 +56,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 			
 			BackendGoodsListWOVO backendGoodsListWOVO = backendGoodsListWOVOTransformer.dtoToVo(
 					goBackendGoodsListService.prepare(
-							bglPageParameterRIVOTransformer.voToDto(
-									pageParamterVO)));
+							bglPageParameterRIVOTransformer.voToDto(pageParamterVO)));
 			req.setAttribute(REQ_ATTR_VO, backendGoodsListWOVO);
 			req.getRequestDispatcher(FORWARD_URL).forward(req, resp);
 		} catch (CheckerException ex) {
@@ -71,7 +70,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		
 		BGLPageParameterRIVO pageParameter = new BGLPageParameterRIVO();
 		
-		String pageStr = req.getParameter(REQ_PARAM_NAME);
+		String pageStr = req.getParameter(REQ_PARAM_PAGE);
 		String idMinStr = req.getParameter(REQ_PARAM_ID_MIN);
 		String idMaxStr = req.getParameter(REQ_PARAM_ID_MAX);
 		String nameStr = req.getParameter(REQ_PARAM_NAME);

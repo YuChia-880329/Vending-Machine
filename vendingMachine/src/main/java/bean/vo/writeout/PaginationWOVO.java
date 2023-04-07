@@ -4,38 +4,38 @@ import java.util.List;
 
 public class PaginationWOVO {
 
-	private String hasPreviousPage;
+	private PPageTurningWOVO previousPage;
 	private List<PPageWOVO> pages;
-	private String hasNextPage;
+	private PPageTurningWOVO nextPage;
 
 	public PaginationWOVO() {
 	}
-	public PaginationWOVO(String hasPreviousPage, List<PPageWOVO> pages, String hasNextPage) {
+	public PaginationWOVO(PPageTurningWOVO previousPage, List<PPageWOVO> pages, PPageTurningWOVO nextPage) {
 
-		this.hasPreviousPage = hasPreviousPage;
+		this.previousPage = previousPage;
 		this.pages = pages;
-		this.hasNextPage = hasNextPage;
+		this.nextPage = nextPage;
 	}
 	
 	
-	public String getHasPreviousPage() {
-		return hasPreviousPage;
+	public PPageTurningWOVO getPreviousPage() {
+		return previousPage;
 	}
 	public List<PPageWOVO> getPages() {
 		return pages;
 	}
-	public String getHasNextPage() {
-		return hasNextPage;
+	public PPageTurningWOVO getNextPage() {
+		return nextPage;
 	}
 	
 	
-	public void setHasPreviousPage(String hasPreviousPage) {
-		this.hasPreviousPage = hasPreviousPage;
+	public void setPreviousPage(PPageTurningWOVO previousPage) {
+		this.previousPage = previousPage;
 	}
 	public void setPages(List<PPageWOVO> pages) {
 		this.pages = pages;
 	}
-	public void setHasNextPage(String hasNextPage) {
-		this.hasNextPage = hasNextPage;
+	public void setNextPage(PPageTurningWOVO nextPage) {
+		this.nextPage = nextPage;
 	}
 }
