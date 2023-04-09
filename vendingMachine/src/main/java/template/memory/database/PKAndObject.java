@@ -1,4 +1,4 @@
-package template.memory;
+package template.memory.database;
 
 public class PKAndObject<P, O> {
 

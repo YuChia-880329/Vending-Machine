@@ -7,11 +7,11 @@ import java.util.Map;
 import bean.dto.model.GoodsModelDTO;
 import bean.dto.vo.backend.goodsList.BGLRParameterDTO;
 import bean.dto.vo.backend.goodsList.readin.BGLPageParameterRIVODTO;
+import database.goods.GoodsModelDAO;
+import database.goods.GoodsModelTransformer;
 import bean.dto.vo.backend.goodsList.BGLRepositoryObj;
 import bean.dto.vo.backend.goodsList.BGLGoodsRepositoryDTO;
-import dao.GoodsDAO;
-import dao.QueryObj;
-import transformer.model.GoodsModelTransformer;
+import service.dao.QueryObj;
 import util.PaginationUtil;
 
 public class GoodsRepositoryService {
@@ -22,7 +22,7 @@ public class GoodsRepositoryService {
 	private BGLGoodsRepositoryDTO repository;
 	private boolean needUpdate;
 	
-	private GoodsDAO goodsDAO;
+	private GoodsModelDAO goodsDAO;
 	private GoodsModelTransformer goodsModelTransformer;
 	private BGLRParameterService bglrParameterService;
 	
@@ -30,7 +30,7 @@ public class GoodsRepositoryService {
 	
 	private GoodsRepositoryService() {
 		
-		goodsDAO = GoodsDAO.getInstance();
+		goodsDAO = GoodsModelDAO.getInstance();
 		goodsModelTransformer = GoodsModelTransformer.getInstance();
 		bglrParameterService = BGLRParameterService.getInstance();
 		

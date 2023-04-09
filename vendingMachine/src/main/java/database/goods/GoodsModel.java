@@ -1,6 +1,5 @@
-package bean.model;
-
-public class GoodsModel {
+package database.goods;
+class GoodsModel {
 
 	private int id;
 	private String name;
@@ -11,9 +10,9 @@ public class GoodsModel {
 	private String status;
 	
 	
-	public GoodsModel() {
+	GoodsModel() {
 	}
-	public GoodsModel(int id, String name, String description, int price, int quantity, String imageName, String status) {
+	GoodsModel(int id, String name, String description, int price, int quantity, String imageName, String status) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -24,48 +23,48 @@ public class GoodsModel {
 	}
 	
 	
-	public int getId() {
+	int getId() {
 		return id;
 	}
-	public String getName() {
+	String getName() {
 		return name;
 	}
-	public String getDescription() {
+	String getDescription() {
 		return description;
 	}
-	public int getPrice() {
+	int getPrice() {
 		return price;
 	}
-	public int getQuantity() {
+	int getQuantity() {
 		return quantity;
 	}
-	public String getImageName() {
+	String getImageName() {
 		return imageName;
 	}
-	public String getStatus() {
+	String getStatus() {
 		return status;
 	}
 	
 	
-	public void setId(int id) {
+	void setId(int id) {
 		this.id = id;
 	}
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
-	public void setDescription(String description) {
+	void setDescription(String description) {
 		this.description = description;
 	}
-	public void setPrice(int price) {
+	void setPrice(int price) {
 		this.price = price;
 	}
-	public void setQuantity(int quantity) {
+	void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public void setImageName(String imageName) {
+	void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
-	public void setStatus(String status) {
+	void setStatus(String status) {
 		this.status = status;
 	}
 }

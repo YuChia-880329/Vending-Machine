@@ -2,7 +2,7 @@ package transformer.model;
 
 import bean.dto.model.OrderModelDTO;
 import bean.model.OrderModel;
-import template.transformer.bean.model.ModelTransformerTemplate;
+import template.database.ModelTransformerTemplate;
 import util.DateTimeUtil;
 
 public class OrderModelTransformer extends ModelTransformerTemplate<OrderModel, OrderModelDTO> {

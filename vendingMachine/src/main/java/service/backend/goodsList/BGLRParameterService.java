@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.dto.vo.backend.goodsList.BGLRParameterDTO;
-import dao.GoodsDAO;
-import dao.QueryObj;
+import database.goods.GoodsModelDAO;
 import enumeration.Status;
+import service.dao.QueryObj;
 
 public class BGLRParameterService {
 
@@ -64,49 +64,49 @@ public class BGLRParameterService {
 		if(idMin==null && idMax==null)
 			return null;
 		else if(idMin!=null && idMax!=null)
-			return GoodsDAO.getIdBetweenQueryObj(idMin, idMax);
+			return GoodsModelDAO.getIdBetweenQueryObj(idMin, idMax);
 		else if(idMin != null)
-			return GoodsDAO.getIdGreaterThanOrEqualToQueryObj(idMin);
+			return GoodsModelDAO.getIdGreaterThanOrEqualToQueryObj(idMin);
 		else
-			return GoodsDAO.getIdLessThanOrEqualToQueryObj(idMax);
+			return GoodsModelDAO.getIdLessThanOrEqualToQueryObj(idMax);
 	}
 	private QueryObj getNameQueryObj(String name) {
 		
 		if(name == null)
 			return null;
 		else
-			return GoodsDAO.getNameLikeQueryObj(name);
+			return GoodsModelDAO.getNameLikeQueryObj(name);
 	}
 	private QueryObj getPriceQueryObj(Integer priceMin, Integer priceMax) {
 		
 		if(priceMin==null && priceMax==null)
 			return null;
 		else if(priceMin!=null && priceMax!=null)
-			return GoodsDAO.getPriceBetweenQueryObj(priceMin, priceMax);
+			return GoodsModelDAO.getPriceBetweenQueryObj(priceMin, priceMax);
 		else if(priceMin != null)
-			return GoodsDAO.getPriceGreaterThanOrEqualToQueryObj(priceMin);
+			return GoodsModelDAO.getPriceGreaterThanOrEqualToQueryObj(priceMin);
 		else
-			return GoodsDAO.getPriceLessThanOrEqualToQueryObj(priceMax);
+			return GoodsModelDAO.getPriceLessThanOrEqualToQueryObj(priceMax);
 	}
 	private QueryObj getQuantityQueryObj(Integer quantityMin, Integer quantityMax) {
 		
 		if(quantityMin==null && quantityMax==null)
 			return null;
 		else if(quantityMin!=null && quantityMax!=null)
-			return GoodsDAO.getQuantityBetweenQueryObj(quantityMin, quantityMax);
+			return GoodsModelDAO.getQuantityBetweenQueryObj(quantityMin, quantityMax);
 		else if(quantityMin != null)
-			return GoodsDAO.getQuantityGreaterThanOrEqualToQueryObj(quantityMin);
+			return GoodsModelDAO.getQuantityGreaterThanOrEqualToQueryObj(quantityMin);
 		else
-			return GoodsDAO.getQuantityLessThanOrEqualToQueryObj(quantityMax);
+			return GoodsModelDAO.getQuantityLessThanOrEqualToQueryObj(quantityMax);
 	}
 	private QueryObj getStatusQueryObj(Status status) {
 		
 		if(status == null)
 			return null;
 		else if(status == Status.ON)
-			return GoodsDAO.getStatus1QueryObj();
+			return GoodsModelDAO.getStatus1QueryObj();
 		else
-			return GoodsDAO.getStatus0QueryObj();
+			return GoodsModelDAO.getStatus0QueryObj();
 			
 	}
 	

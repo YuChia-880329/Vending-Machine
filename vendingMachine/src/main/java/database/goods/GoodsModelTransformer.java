@@ -1,11 +1,10 @@
-package transformer.model;
+package database.goods;
 
 import bean.dto.model.GoodsModelDTO;
-import bean.model.GoodsModel;
 import enumeration.Status;
-import template.transformer.bean.model.ModelTransformerTemplate;
+import template.database.ModelTransformerTemplate;
 
-public class GoodsModelTransformer extends ModelTransformerTemplate<GoodsModel, GoodsModelDTO> {
+class GoodsModelTransformer extends ModelTransformerTemplate<GoodsModel, GoodsModelDTO> {
 
 	private static final GoodsModelTransformer INSTANCE = new GoodsModelTransformer();
 	

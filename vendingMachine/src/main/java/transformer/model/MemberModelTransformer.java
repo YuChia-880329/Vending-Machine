@@ -2,7 +2,7 @@ package transformer.model;
 
 import bean.dto.model.MemberModelDTO;
 import bean.model.MemberModel;
-import template.transformer.bean.model.ModelTransformerTemplate;
+import template.database.ModelTransformerTemplate;
 
 public class MemberModelTransformer extends ModelTransformerTemplate<MemberModel, MemberModelDTO> {
 

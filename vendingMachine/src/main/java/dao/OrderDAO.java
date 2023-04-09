@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import bean.model.OrderModel;
+import service.dao.QueryObj;
 import util.OracleDBUtil;
 import util.SQLUtil;
 import util.StringConcatUtil;

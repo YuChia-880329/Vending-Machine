@@ -2,21 +2,21 @@ package util;
 
 public class PaginationUtil {
 
-	public static int getMaxPage(int dataNumber, int dataPerPage) {
+	public static int getMaxPage(int dataNumber, int datasPerPage) {
 		
 		if(dataNumber == 0)
 			return 1;
 		
-		return (dataNumber-1)/dataPerPage + 1;
+		return (dataNumber-1)/datasPerPage + 1;
 	}
 	
-	public static int getStartPage(int page, int pagesPerGroup) {
+	public static int getStartPage(int page, int pagesPerPageGroup) {
 		
-		return getBasePage(page, pagesPerGroup) + 1;
+		return getBasePage(page, pagesPerPageGroup) + 1;
 	}
-	public static int getEndPage(int page, int pagesPerGroup, int maxPage) {
+	public static int getEndPage(int page, int pagesPerPageGroup, int maxPage) {
 		
-		int endPage = getBasePage(page, pagesPerGroup) + pagesPerGroup;
+		int endPage = getBasePage(page, pagesPerPageGroup) + pagesPerPageGroup;
 		
 		return (endPage<maxPage ? endPage : maxPage);
 	}

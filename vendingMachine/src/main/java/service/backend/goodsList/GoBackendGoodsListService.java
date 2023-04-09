@@ -17,6 +17,9 @@ import util.PaginationUtil;
 
 public class GoBackendGoodsListService {
 	
+	public static final int PAGES_PER_GROUP = 3;
+	public static final int GOODS_PER_PAGE = 10;
+	
 	private GoodsRepositoryService goodsRepositoryService;
 	private PaginationService paginationService;
 	private BGLUrlService bglUrlService;

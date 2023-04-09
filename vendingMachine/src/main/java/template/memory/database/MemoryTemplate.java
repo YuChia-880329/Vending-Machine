@@ -1,4 +1,4 @@
-package template.memory;
+package template.memory.database;
 
 import java.util.HashMap;
 import java.util.Map;

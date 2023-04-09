@@ -1,24 +1,24 @@
-package dao;
+package service.dao;
 
 public class QueryObj {
 
 	private String queryStatement;
 	
 	
-	QueryObj() {
+	public QueryObj() {
 	}
-	QueryObj(String queryStatement) {
+	public QueryObj(String queryStatement) {
 		
 		this.queryStatement = queryStatement;
 	}
 	
 	
-	String getQueryStatement() {
+	public String getQueryStatement() {
 		return queryStatement;
 	}
 	
 	
-	void setQueryStatement(String queryStatement) {
+	public void setQueryStatement(String queryStatement) {
 		this.queryStatement = queryStatement;
 	}
 }
