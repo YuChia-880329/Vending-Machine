@@ -1,4 +1,4 @@
-package template.database;
+package template.transformer.bean.model;
 
 import java.util.List;
 

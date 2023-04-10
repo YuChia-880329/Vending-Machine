@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.function.Supplier;
 
-import service.dao.QueryObj;
 import template.database.ModelDAOTemplate;
+import template.database.QueryObj;
 import util.OracleDBUtil;
 import util.SQLUtil;
 import util.StringConcatUtil;
@@ -139,9 +139,8 @@ class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 	}
 	
 	
-	
 	@Override
-	public GoodsModel add(GoodsModel model) {
+	protected GoodsModel add(GoodsModel model) {
 		
 		return SQLUtil.addTemplateGeneratedKey(
 				getConnectionSupplier(), 
@@ -151,23 +150,34 @@ class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 				new String[] {COL_NAME_ID}, 
 				getAddGeneratedKeyBiConsumerSQLException());
 	}
-	private BiConsumerSQLException<GoodsModel, ResultSet> getAddGeneratedKeyBiConsumerSQLException(){
-	
-		return (model, rs) -> {
-			
-			int id = rs.getInt(1);
-			model.setId(id);
-		};
-	}
-	
-	
-	
-	
-	public List<GoodsModel> searchByQueryObj(QueryObj... objs) {
+	List<GoodsModel> searchByQueryObj(QueryObj... objs) {
 		
 		if(objs.length == 0)
 			return searchAll();
 		
+		return SQLUtil.searchListTemplate(
+				getConnectionSupplier(), 
+				getSearchByQueryObjSql(objs), 
+				getSearchFunctionSQLException());
+	}
+	List<GoodsModel> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs){
+		
+		return SQLUtil.searchListTemplate(
+				getConnectionSupplier(), 
+				getSearchByQueryObjPage(page, numPerPage, objs), 
+				getSearchFunctionSQLException());
+	}
+	int searchRowNumber(QueryObj... objs) {
+		
+		return SQLUtil.searchOneTemplate(
+				getConnectionSupplier(), 
+				getSearchRowNumber(objs), 
+				getSearchRowNumberFunctionSQLException());
+	}
+
+	
+	
+	private String getSearchByQueryObjSql(QueryObj... objs) {
 		
 		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s FROM %s";
 		String sql = String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
@@ -183,11 +193,9 @@ class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 				sql = StringConcatUtil.concate(sql, " AND ", objs[i].getQueryStatement());
 		}
 		
-		
-		return SQLUtil.searchListTemplate(getConnectionSupplier(), sql, getSearchFunctionSQLException());
+		return sql;
 	}
-	
-	public List<GoodsModel> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs){
+	private String getSearchByQueryObjPage(int page, int numPerPage, QueryObj... objs) {
 		
 		String subTableSqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s, ROW_NUMBER()OVER(ORDER BY %s) AS RN FROM %s";
 		String subTableSql = String.format(subTableSqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
@@ -208,10 +216,9 @@ class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
 				COL_NAME_IMAGE, COL_NAME_STATUS, subTableSql);
 		
-		return SQLUtil.searchListTemplate(getConnectionSupplier(), sql, getSearchFunctionSQLException());
+		return sql;
 	}
-	
-	public int searchRowNumber(QueryObj... objs) {
+	private String getSearchRowNumber(QueryObj... objs) {
 		
 		String subTableSqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s, ROW_NUMBER()OVER(ORDER BY %s) AS RN FROM %s";
 		String subTableSql = String.format(subTableSqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
@@ -230,259 +237,79 @@ class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 		String sqlFormatStr = "SELECT COUNT(RN) CRN FROM (%s)";
 		String sql = String.format(sqlFormatStr, subTableSql);
 		
-		return SQLUtil.searchOneTemplate(getConnectionSupplier(), sql, getSearchRowNumberFunctionSQLException());
+		return sql;
+	}
+	
+	
+	
+	private BiConsumerSQLException<GoodsModel, ResultSet> getAddGeneratedKeyBiConsumerSQLException(){
+		
+		return (model, rs) -> {
+			
+			int id = rs.getInt(1);
+			model.setId(id);
+		};
 	}
 	private FunctionSQLException<ResultSet, Integer> getSearchRowNumberFunctionSQLException(){
-	
+		
 		return rs -> rs.getInt("CRN");
 	}
 	
+
+	static QueryObj getIdGreaterThanOrEqualToQueryObj(int id) {
+		
+		return new QueryObj(SQLUtil.getIntGreaterThanOrEqualToStatement(COL_NAME_ID, id));
+	}
+	static QueryObj getIdLessThanOrEqualToQueryObj(int id) {
+		
+		return new QueryObj(SQLUtil.getIntLessThanOrEqualToStatement(COL_NAME_ID, id));
+	}
+	static QueryObj getIdBetweenQueryObj(int id1, int id2) {
+		
+		return new QueryObj(SQLUtil.getIntBetweenStatement(COL_NAME_ID, id1, id2));
+	}
 	
+	static QueryObj getNameLikeQueryObj(String name) {
+		
+		return new QueryObj(SQLUtil.getStringLikeStatement(COL_NAME_NAME, name));
+	}
 	
-//	public List<GoodsModel> searchAll(){
-//		
-//		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s FROM %s";
-//		String sql = String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-//				COL_NAME_IMAGE, COL_NAME_STATUS, TABLE_NAME);
-//
-//		return SQLUtil.searchListTemplate(GoodsDAO::getConnection, sql, getSearchFunctionSQLException());
-//	}
-//	
-//	public GoodsModel searchById(int id) {
-//		
-//		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s FROM %s WHERE %s = %d";
-//		String sql = String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-//				COL_NAME_IMAGE, COL_NAME_STATUS, TABLE_NAME, COL_NAME_ID, id);
-//		
-//		return SQLUtil.searchOneTemplate(GoodsDAO::getConnection, sql, getSearchFunctionSQLException());
-//	}
-//	
-//	public List<GoodsModel> searchByQueryObj(QueryObj... objs) {
-//		
-//		if(objs.length == 0)
-//			return searchAll();
-//		
-//		
-//		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s FROM %s";
-//		String sql = String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-//				COL_NAME_IMAGE, COL_NAME_STATUS, TABLE_NAME);
-//		
-//		
-//		for(int i=0; i<objs.length; i++) {
-//			
-//			if(i == 0)
-//				sql = StringConcatUtil.concate(sql, " WHERE ", objs[i].getQueryStatement());
-//			else
-//				sql = StringConcatUtil.concate(sql, " AND ", objs[i].getQueryStatement());
-//		}
-//		
-//		
-//		return SQLUtil.searchListTemplate(GoodsDAO::getConnection, sql, getSearchFunctionSQLException());
-//	}
-//	
-//	public List<GoodsModel> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs){
-//		
-//		String subTableSqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s, ROW_NUMBER()OVER(ORDER BY %s) AS RN FROM %s";
-//		String subTableSql = String.format(subTableSqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-//				COL_NAME_IMAGE, COL_NAME_STATUS, COL_NAME_ID, TABLE_NAME);
-//		
-//		
-//		for(int i=0; i<objs.length; i++) {
-//			
-//			if(i == 0)
-//				subTableSql = StringConcatUtil.concate(subTableSql, " WHERE ", objs[i].getQueryStatement());
-//			else
-//				subTableSql = StringConcatUtil.concate(subTableSql, " AND ", objs[i].getQueryStatement());
-//		}
-//		
-//		String sqlFormatStr = StringConcatUtil.concate("SELECT %s, %s, %s, %s, %s, %s, %s FROM (%s) WHERE RN ", SQLUtil.pageStatement(page, numPerPage));
-//		String sql = String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-//				COL_NAME_IMAGE, COL_NAME_STATUS, subTableSql);
-//		
-//		return SQLUtil.searchListTemplate(GoodsDAO::getConnection, sql, getSearchFunctionSQLException());
-//	}
-//	
-//	public int searchRowNumber(QueryObj... objs) {
-//		
-//		String subTableSqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s, ROW_NUMBER()OVER(ORDER BY %s) AS RN FROM %s";
-//		String subTableSql = String.format(subTableSqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-//				COL_NAME_IMAGE, COL_NAME_STATUS, COL_NAME_ID, TABLE_NAME);
-//		
-//		
-//		for(int i=0; i<objs.length; i++) {
-//			
-//			if(i == 0)
-//				subTableSql = StringConcatUtil.concate(subTableSql, " WHERE ", objs[i].getQueryStatement());
-//			else
-//				subTableSql = StringConcatUtil.concate(subTableSql, " AND ", objs[i].getQueryStatement());
-//		}
-//		
-//		String sqlFormatStr = "SELECT COUNT(RN) CRN FROM (%s)";
-//		String sql = String.format(sqlFormatStr, subTableSql);
-//		
-//		return SQLUtil.searchOneTemplate(GoodsDAO::getConnection, sql, getSearchRowNumberFunctionSQLException());
-//	}
-//	
-//	public GoodsModel add(GoodsModel model) {
-//		
-//		String sqlFormatStr = "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s) VALUES (%s, ?, ?, ?, ?, ?, ?)";
-//		String sql = String.format(sqlFormatStr, TABLE_NAME, COL_NAME_ID, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, COL_NAME_IMAGE, 
-//				COL_NAME_STATUS, ID_GENERATE_SEQ_NAME + ".NEXTVAL");
-//		
-//		return SQLUtil.addTemplateGeneratedKey(GoodsDAO::getConnection, sql, model, 
-//				getAddBiConsumerSQLException(), new String[] {COL_NAME_ID}, getAddGeneratedKeyBiConsumerSQLException());
-//	}
-//	
-//	public int update(GoodsModel model) {
-//		
-//		String sqlFormatStr = "UPDATE %s SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? WHERE %s = ?";
-//		String sql = String.format(sqlFormatStr, TABLE_NAME, COL_NAME_NAME, 
-//				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-//				COL_NAME_IMAGE, COL_NAME_STATUS, COL_NAME_ID);
-//		
-//		return SQLUtil.updateTemplate(GoodsDAO::getConnection, sql, getUpdateConsumerSQLException(model));
-//	}
-//	
-//	public int delete(int id) {
-//		
-//		String sqlFormatStr = "DELETE FROM %s WHERE %s = %d";
-//		String sql = String.format(sqlFormatStr, TABLE_NAME, COL_NAME_ID, id);
-//		
-//		return SQLUtil.deleteTemplate(GoodsDAO::getConnection, sql);
-//	}
-//	
-//	
-//	
-//	
-//	private FunctionSQLException<ResultSet, GoodsModel> getSearchFunctionSQLException(){
-//		
-//		return rs -> {
-//			
-//			GoodsModel model = new GoodsModel();
-//			
-//			model.setId(rs.getInt(COL_NAME_ID));
-//			model.setName(rs.getString(COL_NAME_NAME));
-//			model.setDescription(rs.getString(COL_NAME_DESCRIPTION));
-//			model.setPrice(rs.getInt(COL_NAME_PRICE));
-//			model.setQuantity(rs.getInt(COL_NAME_QUANTITY));
-//			model.setImageName(rs.getString(COL_NAME_IMAGE));
-//			model.setStatus(rs.getString(COL_NAME_STATUS));
-//			
-//			return model;
-//		};
-//	}
-//	
-//	private FunctionSQLException<ResultSet, Integer> getSearchRowNumberFunctionSQLException(){
-//		
-//		return rs -> rs.getInt("CRN");
-//	}
-//	
-//	private BiConsumerSQLException<GoodsModel, PreparedStatement> getAddBiConsumerSQLException(){
-//		
-//		return (model, pst) -> {
-//			
-//			int index = 1;
-//			pst.setString(index++, model.getName());
-//			pst.setString(index++, model.getDescription());
-//			pst.setInt(index++, model.getPrice());
-//			pst.setInt(index++, model.getQuantity());
-//			pst.setString(index++, model.getImageName());
-//			pst.setString(index++, model.getStatus());
-//		};
-//	}
-//	private BiConsumerSQLException<GoodsModel, ResultSet> getAddGeneratedKeyBiConsumerSQLException(){
-//		
-//		return (model, rs) -> {
-//			
-//			int id = rs.getInt(1);
-//			model.setId(id);
-//		};
-//	}
-//	
-//	private ConsumerSQLException<PreparedStatement> getUpdateConsumerSQLException(GoodsModel model){
-//		
-//		return pst -> {
-//			
-//			int index = 1;
-//			pst.setString(index++, model.getName());
-//			pst.setString(index++, model.getDescription());
-//			pst.setInt(index++, model.getPrice());
-//			pst.setInt(index++, model.getQuantity());
-//			pst.setString(index++, model.getImageName());
-//			pst.setString(index++, model.getStatus());
-//			
-//			pst.setInt(index++, model.getId());
-//		};
-//	}
-//	
-//	
-//	
-//	public static QueryObj getIdGreaterThanOrEqualToQueryObj(int id) {
-//		
-//		return new QueryObj(SQLUtil.getIntGreaterThanOrEqualToStatement(COL_NAME_ID, id));
-//	}
-//	public static QueryObj getIdLessThanOrEqualToQueryObj(int id) {
-//		
-//		return new QueryObj(SQLUtil.getIntLessThanOrEqualToStatement(COL_NAME_ID, id));
-//	}
-//	public static QueryObj getIdBetweenQueryObj(int id1, int id2) {
-//		
-//		return new QueryObj(SQLUtil.getIntBetweenStatement(COL_NAME_ID, id1, id2));
-//	}
-//	
-//	public static QueryObj getNameLikeQueryObj(String name) {
-//		
-//		return new QueryObj(SQLUtil.getStringLikeStatement(COL_NAME_NAME, name));
-//	}
-//	
-//	public static QueryObj getPriceGreaterThanOrEqualToQueryObj(int price) {
-//		
-//		return new QueryObj(SQLUtil.getIntGreaterThanOrEqualToStatement(COL_NAME_PRICE, price));
-//	}
-//	public static QueryObj getPriceLessThanOrEqualToQueryObj(int price) {
-//		
-//		return new QueryObj(SQLUtil.getIntLessThanOrEqualToStatement(COL_NAME_PRICE, price));
-//	}
-//	public static QueryObj getPriceBetweenQueryObj(int price1, int price2) {
-//		
-//		return new QueryObj(SQLUtil.getIntBetweenStatement(COL_NAME_PRICE, price1, price2));
-//	}
-//	
-//	public static QueryObj getQuantityGreaterThanOrEqualToQueryObj(int quantity) {
-//		
-//		return new QueryObj(SQLUtil.getIntGreaterThanOrEqualToStatement(COL_NAME_QUANTITY, quantity));
-//	}
-//	public static QueryObj getQuantityLessThanOrEqualToQueryObj(int quantity) {
-//		
-//		return new QueryObj(SQLUtil.getIntLessThanOrEqualToStatement(COL_NAME_QUANTITY, quantity));
-//	}
-//	public static QueryObj getQuantityBetweenQueryObj(int quantity1, int quantity2) {
-//		
-//		return new QueryObj(SQLUtil.getIntBetweenStatement(COL_NAME_QUANTITY, quantity1, quantity2));
-//	}
-//	
-//	public static QueryObj getStatusQueryObj(String status) {
-//		
-//		return new QueryObj(SQLUtil.getStringEqualToStatement(COL_NAME_STATUS, status));
-//	}
-//	public static QueryObj getStatus1QueryObj() {
-//		
-//		return getStatusQueryObj("1");
-//	}
-//	public static QueryObj getStatus0QueryObj() {
-//		
-//		return getStatusQueryObj("0");
-//	}
-//	
-//	private static Connection getConnection() {
-//		
-//		return OracleDBUtil.getConnection();
-//	}
+	static QueryObj getPriceGreaterThanOrEqualToQueryObj(int price) {
+		
+		return new QueryObj(SQLUtil.getIntGreaterThanOrEqualToStatement(COL_NAME_PRICE, price));
+	}
+	static QueryObj getPriceLessThanOrEqualToQueryObj(int price) {
+		
+		return new QueryObj(SQLUtil.getIntLessThanOrEqualToStatement(COL_NAME_PRICE, price));
+	}
+	static QueryObj getPriceBetweenQueryObj(int price1, int price2) {
+		
+		return new QueryObj(SQLUtil.getIntBetweenStatement(COL_NAME_PRICE, price1, price2));
+	}
+	
+	static QueryObj getQuantityGreaterThanOrEqualToQueryObj(int quantity) {
+		
+		return new QueryObj(SQLUtil.getIntGreaterThanOrEqualToStatement(COL_NAME_QUANTITY, quantity));
+	}
+	static QueryObj getQuantityLessThanOrEqualToQueryObj(int quantity) {
+		
+		return new QueryObj(SQLUtil.getIntLessThanOrEqualToStatement(COL_NAME_QUANTITY, quantity));
+	}
+	static QueryObj getQuantityBetweenQueryObj(int quantity1, int quantity2) {
+		
+		return new QueryObj(SQLUtil.getIntBetweenStatement(COL_NAME_QUANTITY, quantity1, quantity2));
+	}
+	
+	static QueryObj getStatusQueryObj(String status) {
+		
+		return new QueryObj(SQLUtil.getStringEqualToStatement(COL_NAME_STATUS, status));
+	}
+	static QueryObj getStatus1QueryObj() {
+		
+		return getStatusQueryObj("1");
+	}
+	static QueryObj getStatus0QueryObj() {
+		
+		return getStatusQueryObj("0");
+	}
 }

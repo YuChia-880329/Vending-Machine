@@ -2,7 +2,7 @@ package database.goods;
 
 import bean.dto.model.GoodsModelDTO;
 import enumeration.Status;
-import template.database.ModelTransformerTemplate;
+import template.transformer.bean.model.ModelTransformerTemplate;
 
 class GoodsModelTransformer extends ModelTransformerTemplate<GoodsModel, GoodsModelDTO> {
 

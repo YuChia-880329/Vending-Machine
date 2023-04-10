@@ -1,8 +1,7 @@
-package bean.vo.backend.goodsList.readin;
+package bean.vo.backend.goodsList;
 
-public class BGLPageParameterRIVO {
+public class BGLSearchParameterVO {
 
-	private String page;
 	private String idMin;
 	private String idMax;
 	private String name;
@@ -13,12 +12,11 @@ public class BGLPageParameterRIVO {
 	private String status;
 	
 	
-	public BGLPageParameterRIVO() {
+	public BGLSearchParameterVO() {
 	}
-	public BGLPageParameterRIVO(String page, String idMin, String idMax, String name, String priceMin, String priceMax,
+	public BGLSearchParameterVO(String idMin, String idMax, String name, String priceMin, String priceMax,
 			String quantityMin, String quantityMax, String status) {
-		
-		this.page = page;
+
 		this.idMin = idMin;
 		this.idMax = idMax;
 		this.name = name;
@@ -30,9 +28,6 @@ public class BGLPageParameterRIVO {
 	}
 	
 	
-	public String getPage() {
-		return page;
-	}
 	public String getIdMin() {
 		return idMin;
 	}
@@ -59,9 +54,6 @@ public class BGLPageParameterRIVO {
 	}
 	
 	
-	public void setPage(String page) {
-		this.page = page;
-	}
 	public void setIdMin(String idMin) {
 		this.idMin = idMin;
 	}

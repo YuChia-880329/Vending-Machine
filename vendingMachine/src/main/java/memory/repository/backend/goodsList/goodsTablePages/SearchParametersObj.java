@@ -2,7 +2,7 @@ package memory.repository.backend.goodsList.goodsTablePages;
 
 import enumeration.Status;
 
-public class SearchParametersObj {
+class SearchParametersObj {
 
 	private Integer idMin;
 	private Integer idMax;

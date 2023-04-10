@@ -2,6 +2,8 @@ package template.database;
 
 import java.util.List;
 
+import template.transformer.bean.model.ModelTransformerTemplate;
+
 public abstract class ModelServiceTemplate<M, P, D, A extends ModelDAOTemplate<M, P>, T extends ModelTransformerTemplate<M, D>> {
 
 	protected A modelDAO;

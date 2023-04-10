@@ -69,4 +69,9 @@
 	</servlet-mapping>
 	
   	
+  	
+  	<!-- listener -->
+  	<listener>
+  		<listener-class>memory.repository.backend.goodsList.goodsTablePages.GoodsTablePagesSessionListener</listener-class>
+  	</listener>
 </web-app>

@@ -1,33 +1,33 @@
 package memory.repository.backend.goodsList.goodsTablePages;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import database.goods.GoodsModel;
-import database.goods.GoodsModelDAO;
-import service.backend.goodsList.BGLRParameterService;
-import service.backend.goodsList.GoBackendGoodsListService;
+import bean.dto.model.GoodsModelDTO;
+import database.goods.GoodsModelService;
 import service.backend.goodsList.GoodsTablePagesService;
-import service.dao.QueryObj;
+import template.database.QueryObj;
 import template.memory.repository.RepositoryTemplate;
 import util.PaginationUtil;
 
 class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputObj, GoodsTablePagesObj> {
 
-	private boolean needUpdate;
+	private boolean updateRequired;
 	
 	private SearchParametersService searchParametersService;
-	private GoodsModelDAO goodsDAO;
+	private GoodsModelService goodsModelService;
+	private GoodsObjTransformer goodsModelTransformer;
 	
+
 	@Override
 	protected void init() {
 		
-		needUpdate = false;
+		updateRequired = false;
 		
 		searchParametersService = SearchParametersService.getInstance();
-		goodsDAO = GoodsModelDAO.getInstance();
+		goodsModelService = GoodsModelService.getInstance();
+		goodsModelTransformer = GoodsObjTransformer.getInstance();
 	}
 
 	@Override
@@ -53,11 +53,11 @@ class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputO
 	}
 
 	@Override
-	protected boolean needUpdate(GoodsTablePagesInputObj input) {
+	protected boolean isNeedUpdate(GoodsTablePagesInputObj input) {
 
 		return !searchParametersService.equals(input.getSearchParameters(), obj.getSearchParameters())
 				|| obj.getGoodsTablePageMap().get(input.getCurrentPage())==null
-				|| needUpdate;
+				|| updateRequired;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputO
 		GoodsTablePagesObj goodsTablePages = new GoodsTablePagesObj();
 		
 		QueryObj[] queryObjs = searchParametersService.getQueryObjs(input.getSearchParameters());
-		int maxPage = PaginationUtil.getMaxPage(goodsDAO.searchRowNumber(queryObjs), GoodsTablePagesService.GOODS_PER_PAGE);
+		int maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePagesService.GOODS_PER_PAGE);
 		int startPage = PaginationUtil.getStartPage(input.getCurrentPage(), GoodsTablePagesService.PAGES_PER_PAGE_GROUP);
 		int endpage = PaginationUtil.getEndPage(input.getCurrentPage(), GoodsTablePagesService.PAGES_PER_PAGE_GROUP, maxPage);
 		Map<Integer, GoodsTablePageObj> goodsTablePageMap = new HashMap<>();
@@ -76,24 +76,24 @@ class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputO
 			
 			GoodsTableObj goodsTable = new GoodsTableObj();
 			
-			List<GoodsObj> goodsList = new ArrayList<GoodsObj>();
-			List<GoodsModel> goodsModelList = goodsDAO.searchByQueryObjPage(i, GoodsTablePagesService.GOODS_PER_PAGE, queryObjs);
+			List<GoodsModelDTO> goodsModelDTOList = goodsModelService.searchByQueryObjPage(i, GoodsTablePagesService.GOODS_PER_PAGE, queryObjs);
 			
-			
-			goodsTable.setGoodsList(goodsList);
+			goodsTable.setGoodsList(goodsModelTransformer.dtoListToObjList(goodsModelDTOList));
 			
 			goodsTablePage.setGoodsTable(goodsTable);
+			goodsTablePageMap.put(i, goodsTablePage);
 		}
 
 		goodsTablePages.setSearchParameters(input.getSearchParameters());
 		goodsTablePages.setGoodsTablePageMap(goodsTablePageMap);
 		goodsTablePages.setMaxPage(maxPage);
+		
+		if(updateRequired)
+			updateRequired = false;
+		
 		return goodsTablePages;
 	}
 
-	
-	private GoodsObj transform(GoodsModel model) {
-		
-		
-	}
+
+
 }

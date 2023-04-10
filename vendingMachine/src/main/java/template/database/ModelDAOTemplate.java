@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.function.Supplier;
 
-import database.goods.GoodsModel;
 import util.SQLUtil;
 import util.SQLUtil.BiConsumerSQLException;
 import util.SQLUtil.ConsumerSQLException;
@@ -14,29 +13,29 @@ import util.SQLUtil.FunctionSQLException;
 
 public abstract class ModelDAOTemplate<M, P> {
 
-	public List<M> searchAll(){
+	protected List<M> searchAll(){
 		
 		return SQLUtil.searchListTemplate(
 				getConnectionSupplier(), 
 				getSearchAllSql(), 
 				getSearchFunctionSQLException());
 	}
-	public M searchById(P pk) {
+	protected M searchById(P pk) {
 		
 		return SQLUtil.searchOneTemplate(
 				getConnectionSupplier(), 
 				getSearchByIdSql(pk), 
 				getSearchFunctionSQLException());
 	};
-	public M add(M model) {
+	protected M add(M model) {
 		
 		return SQLUtil.addTemplate(getConnectionSupplier(), getAddSql(), model, getAddBiConsumerSQLException());
 	}
-	public int update(M model) {
+	protected int update(M model) {
 		
 		return SQLUtil.updateTemplate(getConnectionSupplier(), getUpdateSql(), getUpdateConsumerSQLException(model));
 	}
-	public int delete(P pk) {
+	protected int delete(P pk) {
 		
 		return SQLUtil.deleteTemplate(getConnectionSupplier(), getDeleteSql(pk));
 	}

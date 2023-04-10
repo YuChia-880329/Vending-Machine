@@ -1,14 +1,21 @@
 package template.memory.repository;
 
+import java.util.List;
+
 import template.transformer.TransformerTemplate;
 
 public abstract class RepositoryInputTransformerTemplate<P, I> extends TransformerTemplate<P, I> {
 
-	@Override
-	public I aToB(P inputDto) {
+	public List<I> dtoListToInputList(List<P> dtoList){
 		
-		return inputDtoToInput(inputDto);
+		return aListToBList(dtoList);
+	}
+	
+	@Override
+	public I aToB(P dto) {
+		
+		return dtoToInput(dto);
 	}
 
-	public abstract I inputDtoToInput(P inputDto);
+	public abstract I dtoToInput(P dto);
 }

@@ -6,9 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import bean.vo.backend.goodsList.readin.BGLPageParameterRIVO;
+import bean.vo.backend.goodsList.BGLSearchParameterVO;
+import bean.vo.backend.goodsList.readin.BGLPageParameteRIVO;
 import bean.vo.backend.goodsList.writeout.BackendGoodsListWOVO;
+import memory.repository.backend.goodsList.goodsTablePages.GoodsTablePagesDAO;
+import memory.repository.backend.goodsList.goodsTablePages.GoodsTablePagesSessionListener;
 import service.backend.goodsList.GoBackendGoodsListService;
 import template.exception.CheckerException;
 import transformer.vo.backend.goodsList.readin.BGLPageParameterRIVOTransformer;
@@ -51,12 +55,17 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		BGLPageParameterRIVO pageParamterVO = getPageParameter(req);
+		HttpSession session = req.getSession();
+		
+		GoodsTablePagesDAO goodsTablePagesDAO = (GoodsTablePagesDAO)session.getAttribute(GoodsTablePagesSessionListener.GOODS_TABLE_PAGES_REPOSITORY_DAO);
+		
+		BGLPageParameteRIVO pageParamterVO = getPageParameter(req);
 		try {
 			
-			BackendGoodsListWOVO backendGoodsListWOVO = backendGoodsListWOVOTransformer.dtoToVo(
-					goBackendGoodsListService.prepare(
-							bglPageParameterRIVOTransformer.voToDto(pageParamterVO)));
+			BackendGoodsListWOVO backendGoodsListWOVO = 
+					backendGoodsListWOVOTransformer.dtoToVo(
+							goBackendGoodsListService.prepare(
+							bglPageParameterRIVOTransformer.voToDto(pageParamterVO), goodsTablePagesDAO));
 			req.setAttribute(REQ_ATTR_VO, backendGoodsListWOVO);
 			req.getRequestDispatcher(FORWARD_URL).forward(req, resp);
 		} catch (CheckerException ex) {
@@ -66,9 +75,9 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		
 	}
 	
-	private BGLPageParameterRIVO getPageParameter(HttpServletRequest req) {
+	private BGLPageParameteRIVO getPageParameter(HttpServletRequest req) {
 		
-		BGLPageParameterRIVO pageParameter = new BGLPageParameterRIVO();
+		BGLPageParameteRIVO pageParameter = new BGLPageParameteRIVO();
 		
 		String pageStr = req.getParameter(REQ_PARAM_PAGE);
 		String idMinStr = req.getParameter(REQ_PARAM_ID_MIN);
@@ -80,15 +89,19 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		String quantityMaxStr = req.getParameter(REQ_PARAM_QUANTITY_MAX);
 		String statusStr = req.getParameter(REQ_PARAM_STATUS);
 		
+		BGLSearchParameterVO bglSearchParameterVO = new BGLSearchParameterVO();
+		
+		bglSearchParameterVO.setIdMin(idMinStr);
+		bglSearchParameterVO.setIdMax(idMaxStr);
+		bglSearchParameterVO.setName(nameStr);
+		bglSearchParameterVO.setPriceMin(priceMinStr);
+		bglSearchParameterVO.setPriceMax(priceMaxStr);
+		bglSearchParameterVO.setQuantityMin(quantityMinStr);
+		bglSearchParameterVO.setQuantityMax(quantityMaxStr);
+		bglSearchParameterVO.setStatus(statusStr);
+		
 		pageParameter.setPage(pageStr);
-		pageParameter.setIdMin(idMinStr);
-		pageParameter.setIdMax(idMaxStr);
-		pageParameter.setName(nameStr);
-		pageParameter.setPriceMin(priceMinStr);
-		pageParameter.setPriceMax(priceMaxStr);
-		pageParameter.setQuantityMin(quantityMinStr);
-		pageParameter.setQuantityMax(quantityMaxStr);
-		pageParameter.setStatus(statusStr);
+		pageParameter.setSearchParameters(bglSearchParameterVO);
 		
 		return pageParameter;
 	}

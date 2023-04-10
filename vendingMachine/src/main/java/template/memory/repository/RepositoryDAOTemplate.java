@@ -7,24 +7,21 @@ public abstract class RepositoryDAOTemplate<I, O, P, D, R extends RepositoryTemp
 	protected T inputTransformer;
 	protected S objTransformer;
 	
-	protected RepositoryDAOTemplate() {
+	protected RepositoryDAOTemplate(R repository) {
 		
-		repository = getRepository();
+		this.repository = repository;
 		inputTransformer = getInputTransformer();
 		objTransformer = getObjTransformer();
 	}
 	
 	public D getObjDto(P inputDto) {
 		
-		return objTransformer.objToObjDto(
+		return objTransformer.objToDto(
 				repository.getObj(
-						inputTransformer.inputDtoToInput(inputDto)));
+						inputTransformer.dtoToInput(inputDto)));
 	}
 	
-	
-	
-	
-	protected abstract R getRepository();
+
 	protected abstract T getInputTransformer();
 	protected abstract S getObjTransformer();
 }

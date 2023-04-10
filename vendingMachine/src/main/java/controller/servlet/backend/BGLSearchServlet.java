@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.vo.backend.goodsList.readin.BGLPageParameterRIVO;
+import bean.vo.backend.goodsList.BGLSearchParameterVO;
+import bean.vo.backend.goodsList.readin.BGLPageParameteRIVO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import service.backend.goodsList.BGLUrlService;
 import template.exception.CheckerException;
@@ -49,16 +50,21 @@ public class BGLSearchServlet extends HttpServlet {
 		String quantityMaxStr = req.getParameter(GoBackendGoodsListServlet.REQ_PARAM_QUANTITY_MAX);
 		String statusStr = req.getParameter(GoBackendGoodsListServlet.REQ_PARAM_STATUS);
 		
-		BGLPageParameterRIVO pageParameterVO = new BGLPageParameterRIVO();
+		BGLPageParameteRIVO pageParameterVO = new BGLPageParameteRIVO();
 		
-		pageParameterVO.setIdMin(idMinStr);
-		pageParameterVO.setIdMax(idMaxStr);
-		pageParameterVO.setName(nameStr);
-		pageParameterVO.setPriceMin(priceMinStr);
-		pageParameterVO.setPriceMax(priceMaxStr);
-		pageParameterVO.setQuantityMin(quantityMinStr);
-		pageParameterVO.setQuantityMax(quantityMaxStr);
-		pageParameterVO.setStatus(statusStr);
+		BGLSearchParameterVO bglSearchParameterVO = new BGLSearchParameterVO();
+		
+		bglSearchParameterVO.setIdMin(idMinStr);
+		bglSearchParameterVO.setIdMax(idMaxStr);
+		bglSearchParameterVO.setName(nameStr);
+		bglSearchParameterVO.setPriceMin(priceMinStr);
+		bglSearchParameterVO.setPriceMax(priceMaxStr);
+		bglSearchParameterVO.setQuantityMin(quantityMinStr);
+		bglSearchParameterVO.setQuantityMax(quantityMaxStr);
+		bglSearchParameterVO.setStatus(statusStr);
+		
+		pageParameterVO.setPage(null);
+		pageParameterVO.setSearchParameters(bglSearchParameterVO);
 		
 		try {
 			

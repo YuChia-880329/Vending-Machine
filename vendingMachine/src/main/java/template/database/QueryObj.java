@@ -1,4 +1,4 @@
-package service.dao;
+package template.database;
 
 public class QueryObj {
 

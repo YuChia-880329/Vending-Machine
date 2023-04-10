@@ -12,26 +12,40 @@
 	
 	<script src="../../js/jquery.min.js"></script>
 	<script src="../../js/bootstrap.bundle.min.js"></script>
+	<script src="../../js/util.js"></script>
 	
 	<script type="text/javascript">
 	
+		let allGoodsBtn = 'all_goods_btn';
+		
 		let searchBtnId = 'search_btn';
 		let searchFormId = 'search_form';
 		
+		// filter
+		let filterIdMinInputId = 'filter_id_min';
+		let filterIdMaxInputId = 'filter_id_max';
+		let filterNameInputId = 'filter_name';
+		let filterPriceMinInputId = 'filter_price_min';
+		let filterPriceMaxInputId = 'filter_price_max';
+		let filterQuantityMinInputId = 'filter_quantity_min';
+		let filterQuantityMaxInputId = 'filter_quantity_max';
 		let filterStatusValueInputId = 'filter_status_value';
 		let filterStatus1InputId = 'filter_status_1';
 		let filterStatus0InputId = 'filter_status_0';
 		
 		let filterStatusResetBtnId = 'filter_status_reset_btn';
+		let filterFormResetBtnId = 'filter_form_reset_btn';
 		
 		
 		$(document).ready(readyFctn);
 		
 		function readyFctn(){
 			
+			$('#' + allGoodsBtn).click(allGoodsBtnClicked);
 			$('#' + searchBtnId).click(searchBtnClicked);
 			initFilterStatus();
 			$('#' + filterStatusResetBtnId).click(filterStatusResetBtnClicked);
+			$('#' + filterFormResetBtnId).click(filterFormResetBtnClicked);
 		}
 		
 		function searchBtnClicked(){
@@ -52,6 +66,31 @@
 			$('#' + filterStatus1InputId).prop('checked', false);
 			$('#' + filterStatus0InputId).prop('checked', false);
 		}
+		
+		function filterFormResetBtnClicked(){
+			
+			confirmModal('確定要清空篩選欄位?', function(){
+				
+				$('#' + filterIdMinInputId).val('');
+				$('#' + filterIdMaxInputId).val('');
+				$('#' + filterNameInputId).val('');
+				$('#' + filterPriceMinInputId).val('');
+				$('#' + filterPriceMaxInputId).val('');
+				$('#' + filterQuantityMinInputId).val('');
+				$('#' + filterQuantityMaxInputId).val('');
+				$('#' + filterStatusValueInputId).val('');
+				$('#' + filterStatus1InputId).prop('checked', false);
+				$('#' + filterStatus0InputId).prop('checked', false);
+			}).show();
+		}
+		function allGoodsBtnClicked(){
+			
+			confirmModal('即將更新頁面至全部商品', function(){
+				
+				window.location.replace("/vendingMachine/machine/backend/goodsList");
+			}).show();
+		}
+		
 	</script>
 </head>
 <body>
@@ -81,13 +120,13 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach var="good" items="${vo.goodsTable.goods}">
+						<c:forEach var="goods" items="${vo.goodsTablePage.goodsTable.goods}">
 							<tr>
-								<th scope="row">${good.id}</th>
-								<td>${good.name}</td> 
-								<td>${good.price}</td>
-								<td>${good.quantity}</td>
-								<td>${good.status}</td>
+								<th scope="row">${goods.id}</th>
+								<td>${goods.name}</td> 
+								<td>${goods.price}</td>
+								<td>${goods.quantity}</td>
+								<td>${goods.status}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -98,21 +137,21 @@
 					<div class="me-auto">
 						<nav aria-label="Page navigation" class="pt-4">
 							<ul class="pagination">
-								<c:if test="${vo.pagination.previousPage.existence}">
+								<c:if test="${vo.goodsTablePage.pagination.previousPage.existence}">
 									<li class="page-item">
-								      	<a class="page-link" href="${vo.pagination.previousPage.url}" aria-label="Previous">
+								      	<a class="page-link" href="${vo.goodsTablePage.pagination.previousPage.url}" aria-label="Previous">
 								        	<span aria-hidden="true">&laquo;</span>
 								      	</a>
 								    </li>
 								</c:if>
-							    <c:forEach var="p" items="${vo.pagination.pages}">
+							    <c:forEach var="p" items="${vo.goodsTablePage.pagination.pages}">
 							    	<li class="page-item">
 								    	<a class="page-link" href="${p.url}">${p.page}</a>
 								    </li>
 							    </c:forEach>
-							    <c:if test="${vo.pagination.nextPage.existence}">
+							    <c:if test="${vo.goodsTablePage.pagination.nextPage.existence}">
 									<li class="page-item">
-								    	<a class="page-link" href="${vo.pagination.nextPage.url}" aria-label="Next">
+								    	<a class="page-link" href="${vo.goodsTablePage.pagination.nextPage.url}" aria-label="Next">
 									        <span aria-hidden="true">&raquo;</span>
 										</a>
 								    </li>
@@ -122,7 +161,7 @@
 					</div>
 					
 					<div class="d-flex">
-						<button class="btn btn-outline-primary align-self-center">全部商品</button>
+						<button type="button" class="btn btn-outline-primary align-self-center" id="all_goods_btn">全部商品</button>
 					</div>
 				</div>
 				
@@ -132,7 +171,7 @@
 	
 	
 	<div class="modal fade" id="filter_modal">
-	  	<div class="modal-dialog">
+	  	<div class="modal-dialog modal-dialog-centered">
 	    	<div class="modal-content">
 	      		<div class="modal-header">
 	        		<h4 class="modal-title">篩選條件</h4>
@@ -145,13 +184,13 @@
 								<label for="filter_id_min" class="form-label">商品編號</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" name="filterIdMin" id="filter_id_min" min="1" max="999999" value="${vo.searchParameter.idMin}" />
+										<input type="number" class="form-control" name="filterIdMin" id="filter_id_min" min="1" max="999999" value="${vo.goodsTablePage.searchParameters.idMin}" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" name="filterIdMax" id="filter_id_max" min="1" max="999999" value="${vo.searchParameter.idMax}" />
+										<input type="number" class="form-control" name="filterIdMax" id="filter_id_max" min="1" max="999999" value="${vo.goodsTablePage.searchParameters.idMax}" />
 									</div>
 								</div>
 							</div>
@@ -160,7 +199,7 @@
 								<label for="filter_name" class="form-label">商品名稱</label>
 								<div class="d-flex">
 									<div>
-										<input type="text" class="form-control" name="filterName" id="filter_name" size="50" value="${vo.searchParameter.name}" />
+										<input type="text" class="form-control" name="filterName" id="filter_name" size="50" value="${vo.goodsTablePage.searchParameters.name}" />
 									</div>
 								</div>
 							</div>
@@ -169,13 +208,13 @@
 								<label for="filter_price_min" class="form-label">商品價格</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" name="filterPriceMin" id="filter_price_min" min="1" max="999999" value="${vo.searchParameter.priceMin}" />
+										<input type="number" class="form-control" name="filterPriceMin" id="filter_price_min" min="1" max="999999" value="${vo.goodsTablePage.searchParameters.priceMin}" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" name="filterPriceMax" id="filter_price_max" min="1" max="999999" value="${vo.searchParameter.priceMax}" />
+										<input type="number" class="form-control" name="filterPriceMax" id="filter_price_max" min="1" max="999999" value="${vo.goodsTablePage.searchParameters.priceMax}" />
 									</div>
 								</div>
 							</div>
@@ -184,19 +223,19 @@
 								<label for="filter_quantity_min" class="form-label">現有庫存</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" name="filterQuantityMin" id="filter_quantity_min" min="1" max="999999" value="${vo.searchParameter.quantityMin}" />
+										<input type="number" class="form-control" name="filterQuantityMin" id="filter_quantity_min" min="1" max="999999" value="${vo.goodsTablePage.searchParameters.quantityMin}" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" name="filterQuantityMax" id="filter_quantity_max" min="1" max="999999" value="${vo.searchParameter.quantityMax}" />
+										<input type="number" class="form-control" name="filterQuantityMax" id="filter_quantity_max" min="1" max="999999" value="${vo.goodsTablePage.searchParameters.quantityMax}" />
 									</div>
 								</div>
 							</div>
 								
 							<div class="mb-3">
-								<input type="hidden" id="filter_status_value" value="${vo.searchParameter.status}" />
+								<input type="hidden" id="filter_status_value" value="${vo.goodsTablePage.searchParameters.status}" />
 								<label for="filter_status_1" class="form-label">商品狀態</label>
 								<div class="d-flex mt-2">
 									<div class="me-3 d-flex align-items-center">
@@ -224,7 +263,7 @@
 					</div>
 	      		</div>
 	      		<div class="modal-footer">
-	      			<button type="button" class="btn btn-primary me-auto">清空</button>
+	      			<button type="button" class="btn btn-primary me-auto" id="filter_form_reset_btn">清空</button>
 	        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
 	        		<button type="button" class="btn btn-primary" id="search_btn" data-bs-dismiss="modal">搜尋</button>
 	      		</div>
@@ -232,5 +271,7 @@
 	  	</div>
 	</div>
 	
+	
+	<%@ include file="../../modal.jsp" %>
 </body>
 </html>

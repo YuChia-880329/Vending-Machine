@@ -1,8 +1,8 @@
-package bean.dto.vo.backend.goodsList.writeout;
+package bean.dto.vo.backend.goodsList;
 
 import enumeration.Status;
 
-public class BGLSearchParameterWOVODTO {
+public class BGLSearchParameterVODTO {
 
 	private Integer idMin;
 	private Integer idMax;
@@ -14,9 +14,9 @@ public class BGLSearchParameterWOVODTO {
 	private Status status;
 	
 	
-	public BGLSearchParameterWOVODTO() {
+	public BGLSearchParameterVODTO() {
 	}
-	public BGLSearchParameterWOVODTO(Integer idMin, Integer idMax, String name, Integer priceMin, Integer priceMax,
+	public BGLSearchParameterVODTO(Integer idMin, Integer idMax, String name, Integer priceMin, Integer priceMax,
 			Integer quantityMin, Integer quantityMax, Status status) {
 
 		this.idMin = idMin;

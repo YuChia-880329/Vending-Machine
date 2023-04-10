@@ -1,43 +1,23 @@
 package bean.vo.backend.goodsList.writeout;
 
-import bean.vo.writeout.PaginationWOVO;
-
 public class BackendGoodsListWOVO {
 
-	private BGLGoodsTableWOVO goodsTable;
-	private BGLSearchParameterWOVO searchParameter;
-	private PaginationWOVO pagination;
+	private BGLGoodsTablePageWOVO goodsTablePage;
 
 	
 	public BackendGoodsListWOVO() {
 	}
-	public BackendGoodsListWOVO(BGLGoodsTableWOVO goodsTable, 
-			BGLSearchParameterWOVO searchParameter, PaginationWOVO pagination) {
-		
-		this.goodsTable = goodsTable;
-		this.searchParameter = searchParameter;
-		this.pagination = pagination;
+	public BackendGoodsListWOVO(BGLGoodsTablePageWOVO goodsTablePage) {
+
+		this.goodsTablePage = goodsTablePage;
 	}
 	
 	
-	public BGLGoodsTableWOVO getGoodsTable() {
-		return goodsTable;
-	}
-	public BGLSearchParameterWOVO getSearchParameter() {
-		return searchParameter;
-	}
-	public PaginationWOVO getPagination() {
-		return pagination;
+	public BGLGoodsTablePageWOVO getGoodsTablePage() {
+		return goodsTablePage;
 	}
 	
-	
-	public void setGoodsTable(BGLGoodsTableWOVO goodsTable) {
-		this.goodsTable = goodsTable;
-	}
-	public void setSearchParameter(BGLSearchParameterWOVO searchParameter) {
-		this.searchParameter = searchParameter;
-	}
-	public void setPagination(PaginationWOVO pagination) {
-		this.pagination = pagination;
+	public void setGoodsTablePage(BGLGoodsTablePageWOVO goodsTablePage) {
+		this.goodsTablePage = goodsTablePage;
 	}
 }

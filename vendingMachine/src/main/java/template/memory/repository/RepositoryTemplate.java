@@ -12,8 +12,8 @@ public abstract class RepositoryTemplate<I, O> {
 	
 	public O getObj(I i) {
 		
-		if(needUpdate(i))
-			update(i);
+		if(isNeedUpdate(i))
+			obj = update(i);
 		return obj;
 	}
 	
@@ -22,6 +22,6 @@ public abstract class RepositoryTemplate<I, O> {
 	}
 	
 	protected abstract I initialInput();
-	protected abstract boolean needUpdate(I i);
+	protected abstract boolean isNeedUpdate(I i);
 	protected abstract O update(I i);
 }
