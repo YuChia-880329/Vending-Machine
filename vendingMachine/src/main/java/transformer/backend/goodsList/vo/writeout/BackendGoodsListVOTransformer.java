@@ -7,12 +7,14 @@ import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 public class BackendGoodsListVOTransformer extends VOWriteOutTransformerTemplate<BackendGoodsListVODTO, BackendGoodsListVO> {
 
 	private GoodsTablePageVOTransformer goodsTablePageVOTransformer;
+	private FilterFormVOTransformer filterFormVOTransformer;
 	
 	private static final BackendGoodsListVOTransformer INSTANCE = new BackendGoodsListVOTransformer();
 	
 	private BackendGoodsListVOTransformer() {
 		
 		goodsTablePageVOTransformer = GoodsTablePageVOTransformer.getInstance();
+		filterFormVOTransformer = FilterFormVOTransformer.getInstance();
 	}
 	
 	public static BackendGoodsListVOTransformer getInstance() {
@@ -26,6 +28,7 @@ public class BackendGoodsListVOTransformer extends VOWriteOutTransformerTemplate
 		BackendGoodsListVO vo = new BackendGoodsListVO();
 		
 		vo.setGoodsTablePage(goodsTablePageVOTransformer.dtoToVo(dto.getGoodsTablePage()));
+		vo.setFilterForm(filterFormVOTransformer.dtoToVo(dto.getFilterForm()));
 		
 		return vo;
 	}

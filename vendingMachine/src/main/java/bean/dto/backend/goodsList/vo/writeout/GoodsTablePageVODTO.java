@@ -1,22 +1,18 @@
 package bean.dto.backend.goodsList.vo.writeout;
 
-import bean.dto.backend.goodsList.vo.SearchParameterVODTO;
-import bean.dto.vo.writeout.PaginationWOVODTO;
+import bean.dto.vo.writeout.PaginationVODTO;
 
 public class GoodsTablePageVODTO {
 
 	private GoodsTableVODTO goodsTable;
-	private SearchParameterVODTO searchParameter;
-	private PaginationWOVODTO pagination;
+	private PaginationVODTO pagination;
 	
 	
 	public GoodsTablePageVODTO() {
 	}
-	public GoodsTablePageVODTO(GoodsTableVODTO goodsTable, SearchParameterVODTO searchParameter,
-			PaginationWOVODTO pagination) {
+	public GoodsTablePageVODTO(GoodsTableVODTO goodsTable, PaginationVODTO pagination) {
 
 		this.goodsTable = goodsTable;
-		this.searchParameter = searchParameter;
 		this.pagination = pagination;
 	}
 	
@@ -24,10 +20,7 @@ public class GoodsTablePageVODTO {
 	public GoodsTableVODTO getGoodsTable() {
 		return goodsTable;
 	}
-	public SearchParameterVODTO getSearchParameter() {
-		return searchParameter;
-	}
-	public PaginationWOVODTO getPagination() {
+	public PaginationVODTO getPagination() {
 		return pagination;
 	}
 	
@@ -35,10 +28,7 @@ public class GoodsTablePageVODTO {
 	public void setGoodsTable(GoodsTableVODTO goodsTable) {
 		this.goodsTable = goodsTable;
 	}
-	public void setSearchParameter(SearchParameterVODTO searchParameter) {
-		this.searchParameter = searchParameter;
-	}
-	public void setPagination(PaginationWOVODTO pagination) {
+	public void setPagination(PaginationVODTO pagination) {
 		this.pagination = pagination;
 	}
 }

@@ -1,22 +1,18 @@
 package bean.vo.backend.goodsList.writeout;
 
-import bean.vo.backend.goodsList.SearchParameterVO;
-import bean.vo.writeout.PaginationWOVO;
+import bean.vo.writeout.PaginationVO;
 
 public class GoodsTablePageVO {
 
 	private GoodsTableVO goodsTable;
-	private SearchParameterVO searchParameter;
-	private PaginationWOVO pagination;
+	private PaginationVO pagination;
 	
 	
 	public GoodsTablePageVO() {
 	}
-	public GoodsTablePageVO(GoodsTableVO goodsTable, SearchParameterVO searchParameter,
-			PaginationWOVO pagination) {
+	public GoodsTablePageVO(GoodsTableVO goodsTable, PaginationVO pagination) {
 
 		this.goodsTable = goodsTable;
-		this.searchParameter = searchParameter;
 		this.pagination = pagination;
 	}
 	
@@ -24,10 +20,7 @@ public class GoodsTablePageVO {
 	public GoodsTableVO getGoodsTable() {
 		return goodsTable;
 	}
-	public SearchParameterVO getSearchParameter() {
-		return searchParameter;
-	}
-	public PaginationWOVO getPagination() {
+	public PaginationVO getPagination() {
 		return pagination;
 	}
 	
@@ -35,10 +28,7 @@ public class GoodsTablePageVO {
 	public void setGoodsTable(GoodsTableVO goodsTable) {
 		this.goodsTable = goodsTable;
 	}
-	public void setSearchParameter(SearchParameterVO searchParameter) {
-		this.searchParameter = searchParameter;
-	}
-	public void setPagination(PaginationWOVO pagination) {
+	public void setPagination(PaginationVO pagination) {
 		this.pagination = pagination;
 	}
 }

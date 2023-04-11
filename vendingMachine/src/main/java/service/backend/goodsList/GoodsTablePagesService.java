@@ -49,7 +49,7 @@ public class GoodsTablePagesService {
 				.getGoodsTablePageMap().get(currentPage)
 				.getGoodsTable().getGoodsList());
 		
-		goodsTableVODTO.setGoodsTableRow(goodsTableRowVODTOs);
+		goodsTableVODTO.setGoodsTableRows(goodsTableRowVODTOs);
 		
 		int maxPage = goodsTablePagesOBJDTO.getMaxPage();
 		goodsTablePageVODTO.setGoodsTable(goodsTableVODTO);

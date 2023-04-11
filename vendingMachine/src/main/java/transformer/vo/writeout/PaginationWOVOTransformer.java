@@ -1,10 +1,10 @@
 package transformer.vo.writeout;
 
-import bean.dto.vo.writeout.PaginationWOVODTO;
-import bean.vo.writeout.PaginationWOVO;
+import bean.dto.vo.writeout.PaginationVODTO;
+import bean.vo.writeout.PaginationVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
-public class PaginationWOVOTransformer extends VOWriteOutTransformerTemplate<PaginationWOVODTO, PaginationWOVO> {
+public class PaginationWOVOTransformer extends VOWriteOutTransformerTemplate<PaginationVODTO, PaginationVO> {
 
 	private PPageTurningWOVOTransformer pPageTurningWOVOTransformer;
 	private PPageWOVOTransformer pPageWOVOTransformer;
@@ -24,9 +24,9 @@ public class PaginationWOVOTransformer extends VOWriteOutTransformerTemplate<Pag
 	}
 
 	@Override
-	public PaginationWOVO dtoToVo(PaginationWOVODTO dto) {
+	public PaginationVO dtoToVo(PaginationVODTO dto) {
 
-		PaginationWOVO vo = new PaginationWOVO();
+		PaginationVO vo = new PaginationVO();
 		
 		vo.setPreviousPage(pPageTurningWOVOTransformer.dtoToVo(dto.getPreviousPage()));
 		vo.setPages(pPageWOVOTransformer.dtoListToVoList(dto.getPages()));

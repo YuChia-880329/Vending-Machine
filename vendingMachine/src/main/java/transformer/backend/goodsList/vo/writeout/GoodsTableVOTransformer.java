@@ -26,7 +26,7 @@ public class GoodsTableVOTransformer extends VOWriteOutTransformerTemplate<Goods
 
 		GoodsTableVO vo = new GoodsTableVO();
 		
-		vo.setGoodsTableRow(goodsTableRowVOTransformer.dtoListToVoList(dto.getGoodsTableRow()));
+		vo.setGoodsTableRows(goodsTableRowVOTransformer.dtoListToVoList(dto.getGoodsTableRows()));
 		
 		return vo;
 	}

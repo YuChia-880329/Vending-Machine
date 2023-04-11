@@ -1,10 +1,10 @@
 package transformer.vo.writeout;
 
-import bean.dto.vo.writeout.PPageTurningWOVODTO;
-import bean.vo.writeout.PPageTurningWOVO;
+import bean.dto.vo.writeout.PageTurningVODTO;
+import bean.vo.writeout.PageTurningVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
-public class PPageTurningWOVOTransformer extends VOWriteOutTransformerTemplate<PPageTurningWOVODTO, PPageTurningWOVO> {
+public class PPageTurningWOVOTransformer extends VOWriteOutTransformerTemplate<PageTurningVODTO, PageTurningVO> {
 
 	private static final PPageTurningWOVOTransformer INSTANCE = new PPageTurningWOVOTransformer();
 	
@@ -17,9 +17,9 @@ public class PPageTurningWOVOTransformer extends VOWriteOutTransformerTemplate<P
 	}
 
 	@Override
-	public PPageTurningWOVO dtoToVo(PPageTurningWOVODTO dto) {
+	public PageTurningVO dtoToVo(PageTurningVODTO dto) {
 
-		PPageTurningWOVO vo = new PPageTurningWOVO();
+		PageTurningVO vo = new PageTurningVO();
 		
 		vo.setExistence(dto.getExistence().getDescription());
 		vo.setUrl(dto.getUrl());

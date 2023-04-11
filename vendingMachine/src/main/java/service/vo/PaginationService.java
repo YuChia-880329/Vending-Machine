@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import bean.dto.vo.writeout.PPageTurningWOVODTO;
-import bean.dto.vo.writeout.PPageWOVODTO;
-import bean.dto.vo.writeout.PaginationWOVODTO;
+import bean.dto.vo.writeout.PageTurningVODTO;
+import bean.dto.vo.writeout.PageVODTO;
+import bean.dto.vo.writeout.PaginationVODTO;
 import enumeration.Has;
 
 public class PaginationService {
@@ -21,9 +21,9 @@ public class PaginationService {
 		return INSTANCE;
 	}
 	
-	public PaginationWOVODTO getPagination(int page, int startPage, int endPage, int maxPage, Function<Integer, String> urlFctn) {
+	public PaginationVODTO getPagination(int page, int startPage, int endPage, int maxPage, Function<Integer, String> urlFctn) {
 		
-		PaginationWOVODTO pagination = new PaginationWOVODTO();
+		PaginationVODTO pagination = new PaginationVODTO();
 		
 		pagination.setPreviousPage(previousPage(page, maxPage, urlFctn));
 		pagination.setPages(pages(startPage, endPage, urlFctn));
@@ -32,9 +32,9 @@ public class PaginationService {
 		return pagination;
 	}
 	
-	private PPageTurningWOVODTO previousPage(int page, int maxPage, Function<Integer, String> urlFctn) {
+	private PageTurningVODTO previousPage(int page, int maxPage, Function<Integer, String> urlFctn) {
 		
-		PPageTurningWOVODTO previousPage = new PPageTurningWOVODTO();
+		PageTurningVODTO previousPage = new PageTurningVODTO();
 		
 		if(page==1 || maxPage==0) {
 			
@@ -49,13 +49,13 @@ public class PaginationService {
 		return previousPage;
 	}
 	
-	private List<PPageWOVODTO> pages(int startPage, int endPage, Function<Integer, String> urlFctn){
+	private List<PageVODTO> pages(int startPage, int endPage, Function<Integer, String> urlFctn){
 		
-		List<PPageWOVODTO> list = new ArrayList<>();
+		List<PageVODTO> list = new ArrayList<>();
 		
 		for(int i=startPage; i<=endPage; i++) {
 			
-			PPageWOVODTO page = new PPageWOVODTO();
+			PageVODTO page = new PageVODTO();
 			
 			page.setPage(i);
 			page.setUrl(urlFctn.apply(i));
@@ -66,9 +66,9 @@ public class PaginationService {
 		return list;
 	}
 	
-	private PPageTurningWOVODTO nextPage(int page, int maxPage, Function<Integer, String> urlFctn) {
+	private PageTurningVODTO nextPage(int page, int maxPage, Function<Integer, String> urlFctn) {
 		
-		PPageTurningWOVODTO previousPage = new PPageTurningWOVODTO();
+		PageTurningVODTO previousPage = new PageTurningVODTO();
 		
 		if(page==maxPage || maxPage==0) {
 			

@@ -1,8 +1,8 @@
-package bean.dto.backend.goodsList.obj.repository.goodsTablePages;
+package bean.obj.backend.goodsList.repository.goodsTablePages.writeout;
 
 import enumeration.Status;
 
-public class SearchParameterOBJDTO {
+public class FilterParameterOBJ {
 
 	private Integer idMin;
 	private Integer idMax;
@@ -14,9 +14,9 @@ public class SearchParameterOBJDTO {
 	private Status status;
 	
 	
-	public SearchParameterOBJDTO() {
+	public FilterParameterOBJ() {
 	}
-	public SearchParameterOBJDTO(Integer idMin, Integer idMax, String name, Integer priceMin, Integer priceMax,
+	public FilterParameterOBJ(Integer idMin, Integer idMax, String name, Integer priceMin, Integer priceMax,
 			Integer quantityMin, Integer quantityMax, Status status) {
 
 		this.idMin = idMin;

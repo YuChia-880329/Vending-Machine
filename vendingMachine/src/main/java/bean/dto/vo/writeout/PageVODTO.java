@@ -1,28 +1,28 @@
-package bean.vo.writeout;
+package bean.dto.vo.writeout;
 
-public class PPageWOVO {
+public class PageVODTO {
 
-	private String page;
+	private int page;
 	private String url;
 
-	public PPageWOVO() {
+	public PageVODTO() {
 	}
-	public PPageWOVO(String page, String url) {
+	public PageVODTO(int page, String url) {
 
 		this.page = page;
 		this.url = url;
 	}
 	
 	
-	public String getPage() {
+	public int getPage() {
 		return page;
 	}
 	public String getUrl() {
 		return url;
 	}
-
 	
-	public void setPage(String page) {
+	
+	public void setPage(int page) {
 		this.page = page;
 	}
 	public void setUrl(String url) {

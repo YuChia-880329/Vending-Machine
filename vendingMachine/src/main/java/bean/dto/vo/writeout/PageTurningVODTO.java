@@ -2,14 +2,14 @@ package bean.dto.vo.writeout;
 
 import enumeration.Has;
 
-public class PPageTurningWOVODTO {
+public class PageTurningVODTO {
 
 	private Has existence;
 	private String url;
 	
-	public PPageTurningWOVODTO() {
+	public PageTurningVODTO() {
 	}
-	public PPageTurningWOVODTO(Has existence, String url) {
+	public PageTurningVODTO(Has existence, String url) {
 
 		this.existence = existence;
 		this.url = url;

@@ -1,12 +1,12 @@
 package transformer.vo.backend.orderList.readin.checker;
 
-import bean.vo.backend.orderList.readin.BOLPageParameterRIVO;
+import bean.vo.backend.orderList.readin.PageParameterVO;
 import template.CheckerTemplate;
 import template.exception.CheckerException;
 import util.CheckUtil;
 import util.StringConcatUtil;
 
-public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParameterRIVO, CheckerException> {
+public class BOLPageParameterRIVOChecker extends CheckerTemplate<PageParameterVO, CheckerException> {
 
 	private static final String NAME_PREFIX = "backend order list, search form, ";
 	
@@ -21,7 +21,7 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 	}
 
 	@Override
-	public void check(BOLPageParameterRIVO vo) throws CheckerException {
+	public void check(PageParameterVO vo) throws CheckerException {
 		
 		checkVo(vo);
 		
@@ -38,12 +38,12 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 		checkTotalPriceMax(vo);
 	}
 	
-	private void checkVo(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkVo(PageParameterVO vo) throws CheckerException {
 		
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
 	
-	private void checkPage(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkPage(PageParameterVO vo) throws CheckerException {
 		
 		String page = vo.getPage();
 		
@@ -52,15 +52,15 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(page, StringConcatUtil.concate(NAME_PREFIX, "page"));
 	}
-	private void checkCustomerName(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkCustomerName(PageParameterVO vo) throws CheckerException {
 	}
-	private void checkStartDate(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkStartDate(PageParameterVO vo) throws CheckerException {
 	}
-	private void checkEndDate(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkEndDate(PageParameterVO vo) throws CheckerException {
 	}
-	private void checkGoodsName(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkGoodsName(PageParameterVO vo) throws CheckerException {
 	}
-	private void checkGoodsPriceMin(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkGoodsPriceMin(PageParameterVO vo) throws CheckerException {
 		
 		String goodsPriceMin = vo.getGoodsPriceMin();
 		
@@ -69,7 +69,7 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(goodsPriceMin, StringConcatUtil.concate(NAME_PREFIX, "goodsPriceMin"));
 	}
-	private void checkGoodsPriceMax(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkGoodsPriceMax(PageParameterVO vo) throws CheckerException {
 		
 		String goodsPriceMax = vo.getGoodsPriceMax();
 		
@@ -78,7 +78,7 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(goodsPriceMax, StringConcatUtil.concate(NAME_PREFIX, "goodsPriceMax"));
 	}
-	private void checkQuantityMin(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkQuantityMin(PageParameterVO vo) throws CheckerException {
 		
 		String quantityMin = vo.getQuantityMin();
 		
@@ -87,7 +87,7 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(quantityMin, StringConcatUtil.concate(NAME_PREFIX, "quantityMin"));
 	}
-	private void checkQuantityMax(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkQuantityMax(PageParameterVO vo) throws CheckerException {
 		
 		String quantityMax = vo.getQuantityMax();
 		
@@ -96,7 +96,7 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(quantityMax, StringConcatUtil.concate(NAME_PREFIX, "quantityMax"));
 	}
-	private void checkTotalPriceMin(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkTotalPriceMin(PageParameterVO vo) throws CheckerException {
 		
 		String totalPriceMin = vo.getTotalPriceMin();
 		
@@ -105,7 +105,7 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<BOLPageParamete
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(totalPriceMin, StringConcatUtil.concate(NAME_PREFIX, "totalPriceMin"));
 	}
-	private void checkTotalPriceMax(BOLPageParameterRIVO vo) throws CheckerException {
+	private void checkTotalPriceMax(PageParameterVO vo) throws CheckerException {
 		
 		String totalPriceMax = vo.getTotalPriceMax();
 		

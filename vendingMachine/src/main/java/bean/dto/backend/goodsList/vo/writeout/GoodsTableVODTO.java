@@ -4,21 +4,21 @@ import java.util.List;
 
 public class GoodsTableVODTO {
 
-	private List<GoodsTableRowVODTO> goodsTableRow;
+	private List<GoodsTableRowVODTO> goodsTableRows;
 
 	public GoodsTableVODTO() {
 	}
-	public GoodsTableVODTO(List<GoodsTableRowVODTO> goodsTableRow) {
+	public GoodsTableVODTO(List<GoodsTableRowVODTO> goodsTableRows) {
 
-		this.goodsTableRow = goodsTableRow;
+		this.goodsTableRows = goodsTableRows;
 	}
 	
 	
-	public List<GoodsTableRowVODTO> getGoodsTableRow() {
-		return goodsTableRow;
+	public List<GoodsTableRowVODTO> getGoodsTableRows() {
+		return goodsTableRows;
 	}
 	
-	public void setGoodsTableRow(List<GoodsTableRowVODTO> goodsTableRow) {
-		this.goodsTableRow = goodsTableRow;
+	public void setGoodsTableRows(List<GoodsTableRowVODTO> goodsTableRows) {
+		this.goodsTableRows = goodsTableRows;
 	}
 }

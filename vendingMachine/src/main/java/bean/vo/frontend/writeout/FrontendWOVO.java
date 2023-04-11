@@ -1,18 +1,18 @@
 package bean.vo.frontend.writeout;
 
-import bean.vo.writeout.PaginationWOVO;
+import bean.vo.writeout.PaginationVO;
 
 public class FrontendWOVO {
 
 	private FWelcomeMsgWOVO welcomeMsg;
 	private FReceiptWOVO receipt;
 	private FGoodsTableWOVO goodsTable;
-	private PaginationWOVO pagination;
+	private PaginationVO pagination;
 	
 	
 	public FrontendWOVO() {
 	}
-	public FrontendWOVO(FWelcomeMsgWOVO welcomeMsg, FReceiptWOVO receipt, FGoodsTableWOVO goodsTable, PaginationWOVO pagination) {
+	public FrontendWOVO(FWelcomeMsgWOVO welcomeMsg, FReceiptWOVO receipt, FGoodsTableWOVO goodsTable, PaginationVO pagination) {
 
 		this.welcomeMsg = welcomeMsg;
 		this.receipt = receipt;
@@ -30,7 +30,7 @@ public class FrontendWOVO {
 	public FGoodsTableWOVO getGoodsTable() {
 		return goodsTable;
 	}
-	public PaginationWOVO getPagination() {
+	public PaginationVO getPagination() {
 		return pagination;
 	}
 	
@@ -44,7 +44,7 @@ public class FrontendWOVO {
 	public void setGoodsTable(FGoodsTableWOVO goodsTable) {
 		this.goodsTable = goodsTable;
 	}
-	public void setPagination(PaginationWOVO pagination) {
+	public void setPagination(PaginationVO pagination) {
 		this.pagination = pagination;
 	}
 }

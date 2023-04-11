@@ -1,10 +1,9 @@
-package bean.dto.backend.goodsList.vo.readin;
+package bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout;
 
 import enumeration.Status;
 
-public class PageParameterVODTO {
+public class FilterParameterOBJDTO {
 
-	private Integer page;
 	private Integer idMin;
 	private Integer idMax;
 	private String name;
@@ -15,12 +14,11 @@ public class PageParameterVODTO {
 	private Status status;
 	
 	
-	public PageParameterVODTO() {
+	public FilterParameterOBJDTO() {
 	}
-	public PageParameterVODTO(Integer page, Integer idMin, Integer idMax, String name, Integer priceMin,
-			Integer priceMax, Integer quantityMin, Integer quantityMax, Status status) {
+	public FilterParameterOBJDTO(Integer idMin, Integer idMax, String name, Integer priceMin, Integer priceMax,
+			Integer quantityMin, Integer quantityMax, Status status) {
 
-		this.page = page;
 		this.idMin = idMin;
 		this.idMax = idMax;
 		this.name = name;
@@ -32,9 +30,6 @@ public class PageParameterVODTO {
 	}
 	
 	
-	public Integer getPage() {
-		return page;
-	}
 	public Integer getIdMin() {
 		return idMin;
 	}
@@ -61,9 +56,6 @@ public class PageParameterVODTO {
 	}
 	
 	
-	public void setPage(Integer page) {
-		this.page = page;
-	}
 	public void setIdMin(Integer idMin) {
 		this.idMin = idMin;
 	}

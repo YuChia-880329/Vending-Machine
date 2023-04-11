@@ -9,6 +9,7 @@ import template.memory.repository.RepositoryObjTransformerTemplate;
 public class GoodsTablePagesOBJTransformer extends RepositoryObjTransformerTemplate<GoodsTablePagesOBJ, GoodsTablePagesOBJDTO> {
 
 	private GoodsTablePageOBJTransformer goodsTablePageOBJTransformer;
+	private FilterParameterOBJTransformer filterParameterOBJTransformer;
 	
 	
 	private static final GoodsTablePagesOBJTransformer INSTANCE = new GoodsTablePagesOBJTransformer();
@@ -16,6 +17,7 @@ public class GoodsTablePagesOBJTransformer extends RepositoryObjTransformerTempl
 	private GoodsTablePagesOBJTransformer() {
 
 		goodsTablePageOBJTransformer = GoodsTablePageOBJTransformer.getInstance();
+		filterParameterOBJTransformer = FilterParameterOBJTransformer.getInstance();
 	}
 	
 	public static GoodsTablePagesOBJTransformer getInstance() {
@@ -33,6 +35,7 @@ public class GoodsTablePagesOBJTransformer extends RepositoryObjTransformerTempl
 						entry -> entry.getKey(), 
 						entry -> goodsTablePageOBJTransformer.objToDto(entry.getValue()))));
 		dto.setMaxPage(obj.getMaxPage());
+		dto.setFilterParameter(filterParameterOBJTransformer.objToDto(obj.getFilterParameter()));
 		
 		return dto;
 	}

@@ -3,7 +3,7 @@ package service.backend.goodsList.memory.repository.goodsTablePages;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.obj.backend.goodsList.repository.goodsTablePages.SearchParameterOBJ;
+import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.FilterParameterOBJ;
 import enumeration.Status;
 import service.model.GoodsModelService;
 import template.model.QueryObj;
@@ -20,43 +20,43 @@ public class SearchParameterService {
 		return INSTANCE;
 	}
 	
-	public QueryObj[] getQueryObjs(SearchParameterOBJ searchParameter) {
+	public QueryObj[] getQueryObjs(FilterParameterOBJ filterParameter) {
 		
 		List<QueryObj> list = new ArrayList<>();
 		
-		QueryObj idQueryObj = getIdQueryObj(searchParameter.getIdMin(), searchParameter.getIdMax());
+		QueryObj idQueryObj = getIdQueryObj(filterParameter.getIdMin(), filterParameter.getIdMax());
 		if(idQueryObj != null)
 			list.add(idQueryObj);
 		
-		QueryObj nameQueryObj = getNameQueryObj(searchParameter.getName());
+		QueryObj nameQueryObj = getNameQueryObj(filterParameter.getName());
 		if(nameQueryObj != null)
 			list.add(nameQueryObj);
 		
-		QueryObj priceQueryObj = getPriceQueryObj(searchParameter.getPriceMin(), searchParameter.getPriceMax());
+		QueryObj priceQueryObj = getPriceQueryObj(filterParameter.getPriceMin(), filterParameter.getPriceMax());
 		if(priceQueryObj != null)
 			list.add(priceQueryObj);
 		
-		QueryObj quantityQueryObj = getQuantityQueryObj(searchParameter.getQuantityMin(), searchParameter.getQuantityMax());
+		QueryObj quantityQueryObj = getQuantityQueryObj(filterParameter.getQuantityMin(), filterParameter.getQuantityMax());
 		if(quantityQueryObj != null)
 			list.add(quantityQueryObj);
 		
-		QueryObj statusQueryObj = getStatusQueryObj(searchParameter.getStatus());
+		QueryObj statusQueryObj = getStatusQueryObj(filterParameter.getStatus());
 		if(statusQueryObj != null)
 			list.add(statusQueryObj);
 		
 		return list.toArray(new QueryObj[list.size()]);
 	}
 	
-	public boolean equals(SearchParameterOBJ searchParameter1, SearchParameterOBJ searchParameter2) {
+	public boolean equals(FilterParameterOBJ filterParameter1, FilterParameterOBJ filterParameter2) {
 		
-		return idMinEquals(searchParameter1.getIdMin(), searchParameter2.getIdMin())
-				&& idMaxEquals(searchParameter1.getIdMax(), searchParameter2.getIdMax())
-				&& nameEquals(searchParameter1.getName(), searchParameter2.getName())
-				&& priceMinEquals(searchParameter1.getPriceMin(), searchParameter2.getPriceMin())
-				&& priceMaxEquals(searchParameter1.getPriceMax(), searchParameter2.getPriceMax())
-				&& quantityMinEquals(searchParameter1.getQuantityMin(), searchParameter2.getQuantityMin())
-				&& quantityMaxEquals(searchParameter1.getQuantityMax(), searchParameter2.getQuantityMax())
-				&& statusEquals(searchParameter1.getStatus(), searchParameter2.getStatus());
+		return idMinEquals(filterParameter1.getIdMin(), filterParameter2.getIdMin())
+				&& idMaxEquals(filterParameter1.getIdMax(), filterParameter2.getIdMax())
+				&& nameEquals(filterParameter1.getName(), filterParameter2.getName())
+				&& priceMinEquals(filterParameter1.getPriceMin(), filterParameter2.getPriceMin())
+				&& priceMaxEquals(filterParameter1.getPriceMax(), filterParameter2.getPriceMax())
+				&& quantityMinEquals(filterParameter1.getQuantityMin(), filterParameter2.getQuantityMin())
+				&& quantityMaxEquals(filterParameter1.getQuantityMax(), filterParameter2.getQuantityMax())
+				&& statusEquals(filterParameter1.getStatus(), filterParameter2.getStatus());
 	}
 	
 	private QueryObj getIdQueryObj(Integer idMin, Integer idMax) {

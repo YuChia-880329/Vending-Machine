@@ -1,14 +1,14 @@
 package bean.vo.writeout;
 
-public class PPageTurningWOVO {
+public class PageTurningVO {
 
 	private String existence;
 	private String url;
 	
 	
-	public PPageTurningWOVO() {
+	public PageTurningVO() {
 	}
-	public PPageTurningWOVO(String existence, String url) {
+	public PageTurningVO(String existence, String url) {
 
 		this.existence = existence;
 		this.url = url;

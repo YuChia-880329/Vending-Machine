@@ -1,16 +1,16 @@
 package bean.vo.backend.orderList.writeout;
 
-import bean.vo.writeout.PaginationWOVO;
+import bean.vo.writeout.PaginationVO;
 
 public class BackendOrderListWOVO {
 
 	private BOLOrderTableLWOVO orderTable;
-	private PaginationWOVO pagination;
+	private PaginationVO pagination;
 	
 	
 	public BackendOrderListWOVO() {
 	}
-	public BackendOrderListWOVO(BOLOrderTableLWOVO orderTable, PaginationWOVO pagination) {
+	public BackendOrderListWOVO(BOLOrderTableLWOVO orderTable, PaginationVO pagination) {
 
 		this.orderTable = orderTable;
 		this.pagination = pagination;
@@ -20,7 +20,7 @@ public class BackendOrderListWOVO {
 	public BOLOrderTableLWOVO getOrderTable() {
 		return orderTable;
 	}
-	public PaginationWOVO getPagination() {
+	public PaginationVO getPagination() {
 		return pagination;
 	}
 	
@@ -28,7 +28,7 @@ public class BackendOrderListWOVO {
 	public void setOrderTable(BOLOrderTableLWOVO orderTable) {
 		this.orderTable = orderTable;
 	}
-	public void setPagination(PaginationWOVO pagination) {
+	public void setPagination(PaginationVO pagination) {
 		this.pagination = pagination;
 	}
 }

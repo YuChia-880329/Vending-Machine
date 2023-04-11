@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import bean.dto.model.GoodsModelDTO;
-import bean.obj.backend.goodsList.repository.goodsTablePages.SearchParameterOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.readin.GoodsTablePagesInputOBJ;
+import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.FilterParameterOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTableOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePageOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePagesOBJ;
 import service.backend.goodsList.DTOTransformService;
 import service.backend.goodsList.GoodsTablePagesService;
+import service.backend.goodsList.memory.repository.goodsTablePages.OBJTransformService;
 import service.backend.goodsList.memory.repository.goodsTablePages.SearchParameterService;
 import service.model.GoodsModelService;
 import template.memory.repository.RepositoryTemplate;
@@ -27,6 +28,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	private GoodsModelService goodsModelService;
 	private GoodsOBJTransformer goodsModelTransformer;
 	private DTOTransformService dtoTransformService;
+	private OBJTransformService objTransformService;
 	
 
 	@Override
@@ -38,6 +40,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		goodsModelService = GoodsModelService.getInstance();
 		goodsModelTransformer = GoodsOBJTransformer.getInstance();
 		dtoTransformService = DTOTransformService.getInstance();
+		objTransformService = OBJTransformService.getInstance();
 	}
 
 	@Override
@@ -45,19 +48,15 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 
 		GoodsTablePagesInputOBJ goodsTablePagesInput = new GoodsTablePagesInputOBJ();
 		
-		SearchParameterOBJ searchParameter = new SearchParameterOBJ();
-		
-		searchParameter.setIdMin(null);
-		searchParameter.setIdMax(null);
-		searchParameter.setName(null);
-		searchParameter.setPriceMin(null);
-		searchParameter.setPriceMax(null);
-		searchParameter.setQuantityMin(null);
-		searchParameter.setQuantityMax(null);
-		searchParameter.setStatus(null);
-		
-		goodsTablePagesInput.setSearchParameter(searchParameter);
 		goodsTablePagesInput.setCurrentPage(1);
+		goodsTablePagesInput.setIdMin(null);
+		goodsTablePagesInput.setIdMax(null);
+		goodsTablePagesInput.setName(null);
+		goodsTablePagesInput.setPriceMin(null);
+		goodsTablePagesInput.setPriceMax(null);
+		goodsTablePagesInput.setQuantityMin(null);
+		goodsTablePagesInput.setQuantityMax(null);
+		goodsTablePagesInput.setStatus(null);
 		
 		return goodsTablePagesInput;
 	}
@@ -65,7 +64,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	@Override
 	protected boolean isNeedUpdate(GoodsTablePagesInputOBJ inputObj) {
 
-		return !searchParameterService.equals(inputObj.getSearchParameter(), obj.getSearchParameter())
+		return !searchParameterService.equals(objTransformService.goodsTablePagesInputToFilterParameter(inputObj), obj.getFilterParameter())
 				|| obj.getGoodsTablePageMap().get(inputObj.getCurrentPage())==null
 				|| updateRequired;
 	}
@@ -75,7 +74,8 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 
 		GoodsTablePagesOBJ goodsTablePages = new GoodsTablePagesOBJ();
 		
-		QueryObj[] queryObjs = searchParameterService.getQueryObjs(inputObj.getSearchParameter());
+		FilterParameterOBJ filterParameterOBJ = objTransformService.goodsTablePagesInputToFilterParameter(inputObj);
+		QueryObj[] queryObjs = searchParameterService.getQueryObjs(filterParameterOBJ);
 		int maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePagesService.GOODS_PER_PAGE);
 		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePagesService.PAGES_PER_PAGE_GROUP);
 		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePagesService.PAGES_PER_PAGE_GROUP, maxPage);
@@ -96,9 +96,9 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 			goodsTablePageMap.put(i, goodsTablePage);
 		}
 
-		goodsTablePages.setSearchParameter(inputObj.getSearchParameter());
 		goodsTablePages.setGoodsTablePageMap(goodsTablePageMap);
 		goodsTablePages.setMaxPage(maxPage);
+		goodsTablePages.setFilterParameter(filterParameterOBJ);
 		
 		if(updateRequired)
 			updateRequired = false;

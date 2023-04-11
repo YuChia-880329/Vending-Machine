@@ -1,8 +1,8 @@
-package bean.dto.backend.goodsList.vo;
+package bean.dto.backend.goodsList.vo.writeout;
 
 import enumeration.Status;
 
-public class SearchParameterVODTO {
+public class FilterFormVODTO {
 
 	private Integer idMin;
 	private Integer idMax;
@@ -14,9 +14,9 @@ public class SearchParameterVODTO {
 	private Status status;
 	
 	
-	public SearchParameterVODTO() {
+	public FilterFormVODTO() {
 	}
-	public SearchParameterVODTO(Integer idMin, Integer idMax, String name, Integer priceMin, Integer priceMax,
+	public FilterFormVODTO(Integer idMin, Integer idMax, String name, Integer priceMin, Integer priceMax,
 			Integer quantityMin, Integer quantityMax, Status status) {
 
 		this.idMin = idMin;

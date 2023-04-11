@@ -1,6 +1,6 @@
-package bean.vo.backend.goodsList;
+package bean.vo.backend.goodsList.writeout;
 
-public class SearchParameterVO {
+public class FilterFormVO {
 
 	private String idMin;
 	private String idMax;
@@ -12,10 +12,10 @@ public class SearchParameterVO {
 	private String status;
 	
 	
-	public SearchParameterVO() {
+	public FilterFormVO() {
 	}
-	public SearchParameterVO(String idMin, String idMax, String name, String priceMin, String priceMax,
-			String quantityMin, String quantityMax, String status) {
+	public FilterFormVO(String idMin, String idMax, String name, String priceMin, String priceMax, String quantityMin,
+			String quantityMax, String status) {
 
 		this.idMin = idMin;
 		this.idMax = idMax;

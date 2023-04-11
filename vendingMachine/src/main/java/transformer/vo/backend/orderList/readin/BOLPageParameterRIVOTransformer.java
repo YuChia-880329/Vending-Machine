@@ -3,14 +3,14 @@ package transformer.vo.backend.orderList.readin;
 import java.time.LocalDateTime;
 
 import bean.dto.vo.backend.orderList.readin.BOLPageParameterRIVODTO;
-import bean.vo.backend.orderList.readin.BOLPageParameterRIVO;
+import bean.vo.backend.orderList.readin.PageParameterVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
 import transformer.vo.backend.orderList.readin.checker.BOLPageParameterRIVOChecker;
 import util.DateTimeUtil;
 import util.StringConcatUtil;
 
-public class BOLPageParameterRIVOTransformer extends VOReanInTransformerTemplate<BOLPageParameterRIVO, BOLPageParameterRIVODTO, CheckerException, BOLPageParameterRIVOChecker>  {
+public class BOLPageParameterRIVOTransformer extends VOReanInTransformerTemplate<PageParameterVO, BOLPageParameterRIVODTO, CheckerException, BOLPageParameterRIVOChecker>  {
 
 	private static final BOLPageParameterRIVOTransformer INSTANCE = new BOLPageParameterRIVOTransformer();
 	
@@ -23,7 +23,7 @@ public class BOLPageParameterRIVOTransformer extends VOReanInTransformerTemplate
 	}
 
 	@Override
-	public BOLPageParameterRIVODTO voToDto(BOLPageParameterRIVO vo) throws CheckerException {
+	public BOLPageParameterRIVODTO voToDto(PageParameterVO vo) throws CheckerException {
 
 		BOLPageParameterRIVODTO dto = new BOLPageParameterRIVODTO();
 		

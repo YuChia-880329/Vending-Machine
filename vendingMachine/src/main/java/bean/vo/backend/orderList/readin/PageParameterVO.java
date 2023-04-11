@@ -1,6 +1,6 @@
 package bean.vo.backend.orderList.readin;
 
-public class BOLPageParameterRIVO {
+public class PageParameterVO {
 
 	private String page;
 	private String customerName;
@@ -15,9 +15,9 @@ public class BOLPageParameterRIVO {
 	private String totalPriceMax;
 	
 	
-	public BOLPageParameterRIVO() {
+	public PageParameterVO() {
 	}
-	public BOLPageParameterRIVO(String page, String customerName, String startDate, String endDate, String goodsName,
+	public PageParameterVO(String page, String customerName, String startDate, String endDate, String goodsName,
 			String goodsPriceMin, String goodsPriceMax, String quantityMin, String quantityMax, String totalPriceMin,
 			String totalPriceMax) {
 
