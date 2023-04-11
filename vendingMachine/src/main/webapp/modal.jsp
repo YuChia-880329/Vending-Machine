@@ -31,7 +31,7 @@
       			<p id="alert_modal_msg"></p>
       		</div>
       		<div class="modal-footer" style="border-top:0">
-	  			<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="alert_modal_ok_btn">確認</button>
+	  			<button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>
       		</div>
     	</div>
   	</div>

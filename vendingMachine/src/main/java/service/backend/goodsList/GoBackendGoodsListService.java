@@ -2,7 +2,7 @@ package service.backend.goodsList;
 
 import bean.dto.vo.backend.goodsList.readin.BGLPageParameterRIVODTO;
 import bean.dto.vo.backend.goodsList.writeout.BackendGoodsListWOVODTO;
-import memory.repository.backend.goodsList.goodsTablePages.GoodsTablePagesDAO;
+import dao.memory.repository.GoodsTablePagesDAO;
 
 public class GoBackendGoodsListService {
 	

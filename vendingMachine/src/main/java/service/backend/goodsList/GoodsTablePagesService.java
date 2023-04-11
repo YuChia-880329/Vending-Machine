@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import bean.dto.model.GoodsModelDTO;
-import bean.dto.vo.backend.goodsList.BGLGoodsTablePagesDTO;
-import bean.dto.vo.backend.goodsList.BGLGoodsTablePagesInputDTO;
+import bean.dto.obj.repository.bglGoodsTablePages.readin.BGLGoodsTablePagesInputRIOBJDTO;
+import bean.dto.obj.repository.bglGoodsTablePages.writeout.BGLGoodsTablePagesDTO;
 import bean.dto.vo.backend.goodsList.readin.BGLPageParameterRIVODTO;
 import bean.dto.vo.backend.goodsList.writeout.BGLGTGoodsWOVODTO;
 import bean.dto.vo.backend.goodsList.writeout.BGLGoodsTablePageWOVODTO;
 import bean.dto.vo.backend.goodsList.writeout.BGLGoodsTableWOVODTO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
-import memory.repository.backend.goodsList.goodsTablePages.GoodsTablePagesDAO;
+import dao.memory.repository.GoodsTablePagesDAO;
 import service.PaginationService;
 import util.PaginationUtil;
 
@@ -66,9 +66,9 @@ public class GoodsTablePagesService {
 	}
 	
 	
-	private BGLGoodsTablePagesInputDTO transform(BGLPageParameterRIVODTO pageParameter) {
+	private BGLGoodsTablePagesInputRIOBJDTO transform(BGLPageParameterRIVODTO pageParameter) {
 		
-		BGLGoodsTablePagesInputDTO bglGoodsTablePagesInputDTO = new BGLGoodsTablePagesInputDTO();
+		BGLGoodsTablePagesInputRIOBJDTO bglGoodsTablePagesInputDTO = new BGLGoodsTablePagesInputRIOBJDTO();
 		
 		bglGoodsTablePagesInputDTO.setSearchParameters(pageParameter.getSearchParameters());
 		bglGoodsTablePagesInputDTO.setCurrentPage(pageParameter.getPage());

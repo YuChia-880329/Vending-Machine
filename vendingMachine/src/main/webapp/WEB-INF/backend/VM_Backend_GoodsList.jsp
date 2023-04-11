@@ -18,8 +18,8 @@
 	
 		let allGoodsBtn = 'all_goods_btn';
 		
-		let searchBtnId = 'search_btn';
-		let searchFormId = 'search_form';
+		let filterBtnId = 'filter_btn';
+		let filterFormId = 'filter_form';
 		
 		// filter
 		let filterIdMinInputId = 'filter_id_min';
@@ -42,15 +42,30 @@
 		function readyFctn(){
 			
 			$('#' + allGoodsBtn).click(allGoodsBtnClicked);
-			$('#' + searchBtnId).click(searchBtnClicked);
+			$('#' + filterBtnId).click(filterBtnClicked);
 			initFilterStatus();
 			$('#' + filterStatusResetBtnId).click(filterStatusResetBtnClicked);
 			$('#' + filterFormResetBtnId).click(filterFormResetBtnClicked);
 		}
 		
-		function searchBtnClicked(){
+		function filterBtnClicked(){
 			
-			$('#' + searchFormId).submit();
+			if(filterInputCheck())
+				$('#' + filterFormId).submit();
+		}
+		function filterInputCheck(){
+			
+			return checkIntegerInput(filterIdMinInputId, '商品編號(小)')
+				&& checkIntegerInput(filterIdMaxInputId, '商品編號(大)')
+				&& checkIntegerInputMinMax(filterIdMinInputId, '商品編號(小)', filterIdMaxInputId, '商品編號(大)')
+			
+				&& checkIntegerInput(filterPriceMinInputId, '商品價格(小)')
+				&& checkIntegerInput(filterPriceMaxInputId, '商品價格(大)')
+				&& checkIntegerInputMinMax(filterPriceMinInputId, '商品價格(小)', filterPriceMaxInputId, '商品價格(大)')
+			
+				&& checkIntegerInput(filterQuantityMinInputId, '現有庫存(小)')
+				&& checkIntegerInput(filterQuantityMaxInputId, '現有庫存(大)')
+				&& checkIntegerInputMinMax(filterQuantityMinInputId, '現有庫存(小)', filterQuantityMaxInputId, '現有庫存(大)');
 		}
 		function initFilterStatus(){
 			
@@ -179,7 +194,7 @@
 	      		</div>
 	      		<div class="modal-body">
 	      			<div class="container">
-						<form action="goodsList/search" method="GET" id="search_form">
+						<form action="goodsList/search" method="GET" id="filter_form">
 							<div class="mb-3">
 								<label for="filter_id_min" class="form-label">商品編號</label>
 								<div class="d-flex">
@@ -265,7 +280,7 @@
 	      		<div class="modal-footer">
 	      			<button type="button" class="btn btn-primary me-auto" id="filter_form_reset_btn">清空</button>
 	        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-	        		<button type="button" class="btn btn-primary" id="search_btn" data-bs-dismiss="modal">搜尋</button>
+	        		<button type="button" class="btn btn-primary" id="filter_btn">搜尋</button>
 	      		</div>
 	    	</div>
 	  	</div>
