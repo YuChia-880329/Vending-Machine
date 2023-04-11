@@ -72,6 +72,6 @@
   	
   	<!-- listener -->
   	<listener>
-  		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesSessionListener</listener-class>
+  		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesContextListener</listener-class>
   	</listener>
 </web-app>

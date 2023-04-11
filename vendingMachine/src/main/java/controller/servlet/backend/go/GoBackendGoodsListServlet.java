@@ -1,8 +1,9 @@
 package controller.servlet.backend.go;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,8 @@ import bean.vo.backend.goodsList.SearchParameterVO;
 import bean.vo.backend.goodsList.readin.PageParameteVO;
 import bean.vo.backend.goodsList.writeout.BackendGoodsListVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesSessionListener;
+import memory.repository.backend.goodsList.GoodsTablePagesRepository;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesContextListener;
 import service.backend.goodsList.GoBackendGoodsListService;
 import template.exception.CheckerException;
 import transformer.backend.goodsList.vo.readin.PageParameterVOTransformer;
@@ -56,22 +58,10 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesDAO goodsTablePagesDAO = (GoodsTablePagesDAO)session.getAttribute(GoodsTablePagesSessionListener.GOODS_TABLE_PAGES_REPOSITORY_DAO);
-		
-		if(goodsTablePagesDAO == null) {
-			
-			try {
-				
-				TimeUnit.MILLISECONDS.sleep(500);
-			} catch (InterruptedException ex) {
-				ex.printStackTrace();
-			}
-			
-			goodsTablePagesDAO = (GoodsTablePagesDAO)session.getAttribute(GoodsTablePagesSessionListener.GOODS_TABLE_PAGES_REPOSITORY_DAO);
-		}
-		
+		GoodsTablePagesDAO goodsTablePagesDAO = getGoodsTablePagesDAO(context, session);
 		PageParameteVO pageParamterVO = getPageParameter(req);
 		try {
 			
@@ -117,5 +107,23 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		pageParameter.setSearchParameter(bglSearchParameterVO);
 		
 		return pageParameter;
+	}
+	
+	private GoodsTablePagesDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
+		
+		@SuppressWarnings("unchecked")
+		Map<HttpSession, GoodsTablePagesDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesDAO>)context.getAttribute(GoodsTablePagesContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		
+		GoodsTablePagesDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
+		
+		if(goodsTablePagesDAO == null) {
+			
+			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
+			goodsTablePagesDAO = new GoodsTablePagesDAO(goodsTablePagesRepository);
+			
+			goodsTablePagesDAOMap.put(session, goodsTablePagesDAO);
+		}
+		
+		return goodsTablePagesDAO;
 	}
 }

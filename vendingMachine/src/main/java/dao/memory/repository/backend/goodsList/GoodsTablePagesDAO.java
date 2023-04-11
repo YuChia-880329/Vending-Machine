@@ -13,7 +13,7 @@ public class GoodsTablePagesDAO extends RepositoryDAOTemplate<GoodsTablePagesInp
 		GoodsTablePagesOBJ, GoodsTablePagesInputOBJDTO, GoodsTablePagesOBJDTO, 
 		GoodsTablePagesRepository, GoodsTablePagesInputOBJTransformer, GoodsTablePagesOBJTransformer> {
 	
-	GoodsTablePagesDAO(GoodsTablePagesRepository repository) {
+	public GoodsTablePagesDAO(GoodsTablePagesRepository repository) {
 		
 		super(repository);
 	}

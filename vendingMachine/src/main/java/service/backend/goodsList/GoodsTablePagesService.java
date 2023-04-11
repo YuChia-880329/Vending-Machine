@@ -9,7 +9,7 @@ import bean.dto.backend.goodsList.vo.writeout.GoodsTableRowVODTO;
 import bean.dto.backend.goodsList.vo.writeout.GoodsTableVODTO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
-import service.PaginationService;
+import service.vo.PaginationService;
 import util.PaginationUtil;
 
 public class GoodsTablePagesService {
