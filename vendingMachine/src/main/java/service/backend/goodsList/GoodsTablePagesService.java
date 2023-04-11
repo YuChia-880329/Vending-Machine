@@ -1,17 +1,14 @@
 package service.backend.goodsList;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import bean.dto.model.GoodsModelDTO;
-import bean.dto.obj.repository.bglGoodsTablePages.readin.BGLGoodsTablePagesInputRIOBJDTO;
-import bean.dto.obj.repository.bglGoodsTablePages.writeout.BGLGoodsTablePagesDTO;
-import bean.dto.vo.backend.goodsList.readin.BGLPageParameterRIVODTO;
-import bean.dto.vo.backend.goodsList.writeout.BGLGTGoodsWOVODTO;
-import bean.dto.vo.backend.goodsList.writeout.BGLGoodsTablePageWOVODTO;
-import bean.dto.vo.backend.goodsList.writeout.BGLGoodsTableWOVODTO;
+import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsTablePagesOBJDTO;
+import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
+import bean.dto.backend.goodsList.vo.writeout.GoodsTablePageVODTO;
+import bean.dto.backend.goodsList.vo.writeout.GoodsTableRowVODTO;
+import bean.dto.backend.goodsList.vo.writeout.GoodsTableVODTO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
-import dao.memory.repository.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
 import service.PaginationService;
 import util.PaginationUtil;
 
@@ -21,7 +18,8 @@ public class GoodsTablePagesService {
 	public static final int GOODS_PER_PAGE = 10;
 	
 	private PaginationService paginationService;
-	private BGLUrlService bglUrlService;
+	private UrlService urlService;
+	private DTOTransformService dtoTransformService;
 	
 	
 	private static final GoodsTablePagesService INSTANCE = new GoodsTablePagesService();
@@ -29,7 +27,8 @@ public class GoodsTablePagesService {
 	private GoodsTablePagesService() {
 		
 		paginationService = PaginationService.getInstance();
-		bglUrlService = BGLUrlService.getInstance();
+		urlService = UrlService.getInstance();
+		dtoTransformService = DTOTransformService.getInstance();
 	}
 	
 	public static GoodsTablePagesService getInstance() {
@@ -37,61 +36,31 @@ public class GoodsTablePagesService {
 		return INSTANCE;
 	}
 	
-	public BGLGoodsTablePageWOVODTO prepare(BGLPageParameterRIVODTO pageParameter, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public GoodsTablePageVODTO prepare(PageParameterVODTO pageParameter, GoodsTablePagesDAO goodsTablePagesDAO) {
 		
-		BGLGoodsTablePageWOVODTO bglGoodsTablePageWOVODTO = new BGLGoodsTablePageWOVODTO();
+		GoodsTablePageVODTO goodsTablePageVODTO = new GoodsTablePageVODTO();
 		
-		BGLGoodsTableWOVODTO bglGoodsTableWOVODTO = new BGLGoodsTableWOVODTO();
+		GoodsTableVODTO goodsTableVODTO = new GoodsTableVODTO();
 		
-		BGLGoodsTablePagesDTO bglGoodsTablePagesDTO = goodsTablePagesDAO.getObjDto(transform(pageParameter));
+		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO = goodsTablePagesDAO.getObjDto(dtoTransformService.pageParameterVOToGoodsTablePagesInputOBJ(pageParameter));
 		
 		int currentPage = pageParameter.getPage();
-		List<BGLGTGoodsWOVODTO> goods = transform(bglGoodsTablePagesDTO
+		List<GoodsTableRowVODTO> goodsTableRowVODTOs = dtoTransformService.goodsOBJsToGoodsTableRowVOs(goodsTablePagesOBJDTO
 				.getGoodsTablePageMap().get(currentPage)
 				.getGoodsTable().getGoodsList());
 		
-		bglGoodsTableWOVODTO.setGoods(goods);
+		goodsTableVODTO.setGoodsTableRow(goodsTableRowVODTOs);
 		
-		int maxPage = bglGoodsTablePagesDTO.getMaxPage();
-		bglGoodsTablePageWOVODTO.setGoodsTable(bglGoodsTableWOVODTO);
-		bglGoodsTablePageWOVODTO.setSearchParameters(pageParameter.getSearchParameters());
-		bglGoodsTablePageWOVODTO.setPagination(paginationService.getPagination(
+		int maxPage = goodsTablePagesOBJDTO.getMaxPage();
+		goodsTablePageVODTO.setGoodsTable(goodsTableVODTO);
+		goodsTablePageVODTO.setSearchParameter(pageParameter.getSearchParameter());
+		goodsTablePageVODTO.setPagination(paginationService.getPagination(
 				currentPage, 
 				PaginationUtil.getStartPage(currentPage, PAGES_PER_PAGE_GROUP), 
 				PaginationUtil.getEndPage(currentPage, PAGES_PER_PAGE_GROUP, maxPage), 
 				maxPage, 
-				bglUrlService.getUrlFctn(GoBackendGoodsListServlet.URL, pageParameter)));
+				urlService.getUrlFctn(GoBackendGoodsListServlet.URL, pageParameter)));
 		
-		return bglGoodsTablePageWOVODTO;
-	}
-	
-	
-	private BGLGoodsTablePagesInputRIOBJDTO transform(BGLPageParameterRIVODTO pageParameter) {
-		
-		BGLGoodsTablePagesInputRIOBJDTO bglGoodsTablePagesInputDTO = new BGLGoodsTablePagesInputRIOBJDTO();
-		
-		bglGoodsTablePagesInputDTO.setSearchParameters(pageParameter.getSearchParameters());
-		bglGoodsTablePagesInputDTO.setCurrentPage(pageParameter.getPage());
-		
-		return bglGoodsTablePagesInputDTO;
-	}
-	
-	private List<BGLGTGoodsWOVODTO> transform(List<GoodsModelDTO> goodsModelDTOList){
-		
-		return goodsModelDTOList.stream()
-				.map(dto -> transform(dto))
-				.collect(Collectors.toList());
-	}
-	private BGLGTGoodsWOVODTO transform(GoodsModelDTO goodsModelDTO) {
-		
-		BGLGTGoodsWOVODTO bglgtGoodsWOVODTO = new BGLGTGoodsWOVODTO();
-		
-		bglgtGoodsWOVODTO.setId(goodsModelDTO.getId());
-		bglgtGoodsWOVODTO.setName(goodsModelDTO.getName());
-		bglgtGoodsWOVODTO.setPrice(goodsModelDTO.getPrice());
-		bglgtGoodsWOVODTO.setQuantity(goodsModelDTO.getQuantity());
-		bglgtGoodsWOVODTO.setStatus(goodsModelDTO.getStatus());
-		
-		return bglgtGoodsWOVODTO;
+		return goodsTablePageVODTO;
 	}
 }

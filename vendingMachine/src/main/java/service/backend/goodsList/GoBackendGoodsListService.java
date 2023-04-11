@@ -1,8 +1,8 @@
 package service.backend.goodsList;
 
-import bean.dto.vo.backend.goodsList.readin.BGLPageParameterRIVODTO;
-import bean.dto.vo.backend.goodsList.writeout.BackendGoodsListWOVODTO;
-import dao.memory.repository.GoodsTablePagesDAO;
+import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
+import bean.dto.backend.goodsList.vo.writeout.BackendGoodsListVODTO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
 
 public class GoBackendGoodsListService {
 	
@@ -21,7 +21,7 @@ public class GoBackendGoodsListService {
 		return INSTANCE;
 	}
 	
-	public BackendGoodsListWOVODTO prepare(BGLPageParameterRIVODTO pageParameter, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public BackendGoodsListVODTO prepare(PageParameterVODTO pageParameter, GoodsTablePagesDAO goodsTablePagesDAO) {
 		
 		Integer currentPage = pageParameter.getPage();
 		if(currentPage == null) {
@@ -30,10 +30,10 @@ public class GoBackendGoodsListService {
 			pageParameter.setPage(currentPage);
 		}
 		
-		BackendGoodsListWOVODTO backendGoodsListWOVODTO = new BackendGoodsListWOVODTO();
+		BackendGoodsListVODTO backendGoodsListVODTO = new BackendGoodsListVODTO();
 
-		backendGoodsListWOVODTO.setGoodsTablePage(goodsTablePagesService.prepare(pageParameter, goodsTablePagesDAO));
+		backendGoodsListVODTO.setGoodsTablePage(goodsTablePagesService.prepare(pageParameter, goodsTablePagesDAO));
 		
-		return backendGoodsListWOVODTO;
+		return backendGoodsListVODTO;
 	}
 }

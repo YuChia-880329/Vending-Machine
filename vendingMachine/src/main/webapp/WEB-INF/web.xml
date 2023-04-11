@@ -6,12 +6,6 @@
   	</welcome-file-list>
 
 	<!-- servlet -->
-	<!-- controller.servlet.backend -->
-	<servlet>
-		<servlet-name>bglSearchServlet</servlet-name>
-		<servlet-class>controller.servlet.backend.BGLSearchServlet</servlet-class>
-	</servlet>
-	
 	<!-- controller.servlet.backend.go -->
 	<servlet>
 		<servlet-name>goBackendGoodsCreateServlet</servlet-name>
@@ -35,15 +29,15 @@
 		<servlet-name>goFrontendServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.go.GoFrontendServlet</servlet-class>
 	</servlet>
+	
+	<!-- controller.servlet.backend.* -->
+	<servlet>
+		<servlet-name>searchServlet</servlet-name>
+		<servlet-class>controller.servlet.backend.goodsList.SearchServlet</servlet-class>
+	</servlet>
   	
   	
 	<!-- servlet mapping -->
-	<!-- controller.servlet.backend -->
-	<servlet-mapping>
-		<servlet-name>bglSearchServlet</servlet-name>
-		<url-pattern>/machine/backend/goodsList/search</url-pattern>
-	</servlet-mapping>
-	
 	<!-- controller.servlet.backend.go -->
 	<servlet-mapping>
 		<servlet-name>goBackendGoodsCreateServlet</servlet-name>
@@ -68,10 +62,16 @@
 		<url-pattern>/machine</url-pattern>
 	</servlet-mapping>
 	
+	<!-- controller.servlet.backend.* -->
+	<servlet-mapping>
+		<servlet-name>searchServlet</servlet-name>
+		<url-pattern>/machine/backend/goodsList/search</url-pattern>
+	</servlet-mapping>
+  	
   	
   	
   	<!-- listener -->
   	<listener>
-  		<listener-class>memory.repository.backend.goodsList.goodsTablePages.GoodsTablePagesSessionListener</listener-class>
+  		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesSessionListener</listener-class>
   	</listener>
 </web-app>
