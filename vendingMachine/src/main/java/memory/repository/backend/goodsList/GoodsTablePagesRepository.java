@@ -11,13 +11,13 @@ import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTable
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePageOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePagesOBJ;
 import service.backend.goodsList.DTOTransformService;
-import service.backend.goodsList.GoodsTablePagesService;
+import service.backend.goodsList.GoodsTablePageService;
 import service.backend.goodsList.memory.repository.goodsTablePages.OBJTransformService;
 import service.backend.goodsList.memory.repository.goodsTablePages.SearchParameterService;
 import service.model.GoodsModelService;
 import template.memory.repository.RepositoryTemplate;
 import template.model.QueryObj;
-import transformer.backend.goodsList.obj.goodsTablePages.writeout.GoodsOBJTransformer;
+import transformer.backend.goodsList.obj.goodsTablePages.writeout.GoodsTableRowOBJTransformer;
 import util.PaginationUtil;
 
 public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputOBJ, GoodsTablePagesOBJ> {
@@ -26,7 +26,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	
 	private SearchParameterService searchParameterService;
 	private GoodsModelService goodsModelService;
-	private GoodsOBJTransformer goodsModelTransformer;
+	private GoodsTableRowOBJTransformer goodsTableRowOBJTransformer;
 	private DTOTransformService dtoTransformService;
 	private OBJTransformService objTransformService;
 	
@@ -38,7 +38,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		
 		searchParameterService = SearchParameterService.getInstance();
 		goodsModelService = GoodsModelService.getInstance();
-		goodsModelTransformer = GoodsOBJTransformer.getInstance();
+		goodsTableRowOBJTransformer = GoodsTableRowOBJTransformer.getInstance();
 		dtoTransformService = DTOTransformService.getInstance();
 		objTransformService = OBJTransformService.getInstance();
 	}
@@ -76,9 +76,9 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		
 		FilterParameterOBJ filterParameterOBJ = objTransformService.goodsTablePagesInputToFilterParameter(inputObj);
 		QueryObj[] queryObjs = searchParameterService.getQueryObjs(filterParameterOBJ);
-		int maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePagesService.GOODS_PER_PAGE);
-		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePagesService.PAGES_PER_PAGE_GROUP);
-		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePagesService.PAGES_PER_PAGE_GROUP, maxPage);
+		int maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePageService.GOODS_PER_PAGE);
+		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP);
+		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
 		Map<Integer, GoodsTablePageOBJ> goodsTablePageMap = new HashMap<>();
 		for(int i=startPage; i<=endpage; i++) {
 			
@@ -86,10 +86,10 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 			
 			GoodsTableOBJ goodsTable = new GoodsTableOBJ();
 			
-			List<GoodsModelDTO> goodsModelDTOList = goodsModelService.searchByQueryObjPage(i, GoodsTablePagesService.GOODS_PER_PAGE, queryObjs);
+			List<GoodsModelDTO> goodsModelDTOList = goodsModelService.searchByQueryObjPage(i, GoodsTablePageService.GOODS_PER_PAGE, queryObjs);
 			
-			goodsTable.setGoodsList(
-					goodsModelTransformer.dtoListToObjList(
+			goodsTable.setGoodsTableRows(
+					goodsTableRowOBJTransformer.dtoListToObjList(
 							dtoTransformService.goodsModelsToGoodsOBJs(goodsModelDTOList)));
 			
 			goodsTablePage.setGoodsTable(goodsTable);

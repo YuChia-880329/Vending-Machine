@@ -1,4 +1,4 @@
-package transformer.vo.backend.orderList.readin.checker;
+package transformer.backend.orderList.vo.readin.checker;
 
 import bean.vo.backend.orderList.readin.PageParameterVO;
 import template.CheckerTemplate;
@@ -6,16 +6,16 @@ import template.exception.CheckerException;
 import util.CheckUtil;
 import util.StringConcatUtil;
 
-public class BOLPageParameterRIVOChecker extends CheckerTemplate<PageParameterVO, CheckerException> {
+public class PageParameterVOChecker extends CheckerTemplate<PageParameterVO, CheckerException> {
 
-	private static final String NAME_PREFIX = "backend order list, search form, ";
+	private static final String NAME_PREFIX = "backend order list, filter form, ";
 	
-	private static final BOLPageParameterRIVOChecker INSTANCE = new BOLPageParameterRIVOChecker();
+	private static final PageParameterVOChecker INSTANCE = new PageParameterVOChecker();
 	
-	private BOLPageParameterRIVOChecker() {
+	private PageParameterVOChecker() {
 	}
 	
-	public static BOLPageParameterRIVOChecker getInstance() {
+	public static PageParameterVOChecker getInstance() {
 		
 		return INSTANCE;
 	}
@@ -32,8 +32,8 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<PageParameterVO
 		checkGoodsName(vo);
 		checkGoodsPriceMin(vo);
 		checkGoodsPriceMax(vo);
-		checkQuantityMin(vo);
-		checkQuantityMax(vo);
+		checkBuyQuantityMin(vo);
+		checkBuyQuantityMax(vo);
 		checkTotalPriceMin(vo);
 		checkTotalPriceMax(vo);
 	}
@@ -78,23 +78,23 @@ public class BOLPageParameterRIVOChecker extends CheckerTemplate<PageParameterVO
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(goodsPriceMax, StringConcatUtil.concate(NAME_PREFIX, "goodsPriceMax"));
 	}
-	private void checkQuantityMin(PageParameterVO vo) throws CheckerException {
+	private void checkBuyQuantityMin(PageParameterVO vo) throws CheckerException {
 		
-		String quantityMin = vo.getQuantityMin();
+		String buyQuantityMin = vo.getBuyQuantityMin();
 		
-		if(quantityMin==null || "".equals(quantityMin))
+		if(buyQuantityMin==null || "".equals(buyQuantityMin))
 			return;
 		
-		CheckUtil.checkStringIsNonNegativeIntegerNumberString(quantityMin, StringConcatUtil.concate(NAME_PREFIX, "quantityMin"));
+		CheckUtil.checkStringIsNonNegativeIntegerNumberString(buyQuantityMin, StringConcatUtil.concate(NAME_PREFIX, "buyQuantityMin"));
 	}
-	private void checkQuantityMax(PageParameterVO vo) throws CheckerException {
+	private void checkBuyQuantityMax(PageParameterVO vo) throws CheckerException {
 		
-		String quantityMax = vo.getQuantityMax();
+		String buyQuantityMax = vo.getBuyQuantityMax();
 		
-		if(quantityMax==null || "".equals(quantityMax))
+		if(buyQuantityMax==null || "".equals(buyQuantityMax))
 			return;
 		
-		CheckUtil.checkStringIsNonNegativeIntegerNumberString(quantityMax, StringConcatUtil.concate(NAME_PREFIX, "quantityMax"));
+		CheckUtil.checkStringIsNonNegativeIntegerNumberString(buyQuantityMax, StringConcatUtil.concate(NAME_PREFIX, "buyQuantityMax"));
 	}
 	private void checkTotalPriceMin(PageParameterVO vo) throws CheckerException {
 		

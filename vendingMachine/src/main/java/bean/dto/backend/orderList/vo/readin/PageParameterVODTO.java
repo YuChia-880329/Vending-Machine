@@ -1,26 +1,26 @@
-package bean.dto.vo.backend.orderList.readin;
+package bean.dto.backend.orderList.vo.readin;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-public class BOLPageParameterRIVODTO {
+public class PageParameterVODTO {
 
 	private Integer page;
 	private String customerName;
-	private LocalDateTime startDate;
-	private LocalDateTime endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private String goodsName;
 	private Integer goodsPriceMin;
 	private Integer goodsPriceMax;
-	private Integer quantityMin;
-	private Integer quantityMax;
+	private Integer buyQuantityMin;
+	private Integer buyQuantityMax;
 	private Integer totalPriceMin;
 	private Integer totalPriceMax;
 	
 	
-	public BOLPageParameterRIVODTO() {
+	public PageParameterVODTO() {
 	}
-	public BOLPageParameterRIVODTO(Integer page, String customerName, LocalDateTime startDate, LocalDateTime endDate,
-			String goodsName, Integer goodsPriceMin, Integer goodsPriceMax, Integer quantityMin, Integer quantityMax,
+	public PageParameterVODTO(Integer page, String customerName, LocalDate startDate, LocalDate endDate,
+			String goodsName, Integer goodsPriceMin, Integer goodsPriceMax, Integer buyQuantityMin, Integer buyQuantityMax,
 			Integer totalPriceMin, Integer totalPriceMax) {
 
 		this.page = page;
@@ -30,8 +30,8 @@ public class BOLPageParameterRIVODTO {
 		this.goodsName = goodsName;
 		this.goodsPriceMin = goodsPriceMin;
 		this.goodsPriceMax = goodsPriceMax;
-		this.quantityMin = quantityMin;
-		this.quantityMax = quantityMax;
+		this.buyQuantityMin = buyQuantityMin;
+		this.buyQuantityMax = buyQuantityMax;
 		this.totalPriceMin = totalPriceMin;
 		this.totalPriceMax = totalPriceMax;
 	}
@@ -43,10 +43,10 @@ public class BOLPageParameterRIVODTO {
 	public String getCustomerName() {
 		return customerName;
 	}
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public LocalDateTime getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 	public String getGoodsName() {
@@ -58,11 +58,11 @@ public class BOLPageParameterRIVODTO {
 	public Integer getGoodsPriceMax() {
 		return goodsPriceMax;
 	}
-	public Integer getQuantityMin() {
-		return quantityMin;
+	public Integer getBuyQuantityMin() {
+		return buyQuantityMin;
 	}
-	public Integer getQuantityMax() {
-		return quantityMax;
+	public Integer getBuyQuantityMax() {
+		return buyQuantityMax;
 	}
 	public Integer getTotalPriceMin() {
 		return totalPriceMin;
@@ -78,10 +78,10 @@ public class BOLPageParameterRIVODTO {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	public void setGoodsName(String goodsName) {
@@ -93,11 +93,11 @@ public class BOLPageParameterRIVODTO {
 	public void setGoodsPriceMax(Integer goodsPriceMax) {
 		this.goodsPriceMax = goodsPriceMax;
 	}
-	public void setQuantityMin(Integer quantityMin) {
-		this.quantityMin = quantityMin;
+	public void setBuyQuantityMin(Integer buyQuantityMin) {
+		this.buyQuantityMin = buyQuantityMin;
 	}
-	public void setQuantityMax(Integer quantityMax) {
-		this.quantityMax = quantityMax;
+	public void setBuyQuantityMax(Integer buyQuantityMax) {
+		this.buyQuantityMax = buyQuantityMax;
 	}
 	public void setTotalPriceMin(Integer totalPriceMin) {
 		this.totalPriceMin = totalPriceMin;

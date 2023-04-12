@@ -9,8 +9,8 @@ public class PageParameterVO {
 	private String goodsName;
 	private String goodsPriceMin;
 	private String goodsPriceMax;
-	private String quantityMin;
-	private String quantityMax;
+	private String buyQuantityMin;
+	private String buyQuantityMax;
 	private String totalPriceMin;
 	private String totalPriceMax;
 	
@@ -18,7 +18,7 @@ public class PageParameterVO {
 	public PageParameterVO() {
 	}
 	public PageParameterVO(String page, String customerName, String startDate, String endDate, String goodsName,
-			String goodsPriceMin, String goodsPriceMax, String quantityMin, String quantityMax, String totalPriceMin,
+			String goodsPriceMin, String goodsPriceMax, String buyQuantityMin, String buyQuantityMax, String totalPriceMin,
 			String totalPriceMax) {
 
 		this.page = page;
@@ -28,8 +28,8 @@ public class PageParameterVO {
 		this.goodsName = goodsName;
 		this.goodsPriceMin = goodsPriceMin;
 		this.goodsPriceMax = goodsPriceMax;
-		this.quantityMin = quantityMin;
-		this.quantityMax = quantityMax;
+		this.buyQuantityMin = buyQuantityMin;
+		this.buyQuantityMax = buyQuantityMax;
 		this.totalPriceMin = totalPriceMin;
 		this.totalPriceMax = totalPriceMax;
 	}
@@ -57,11 +57,11 @@ public class PageParameterVO {
 	public String getGoodsPriceMax() {
 		return goodsPriceMax;
 	}
-	public String getQuantityMin() {
-		return quantityMin;
+	public String getBuyQuantityMin() {
+		return buyQuantityMin;
 	}
-	public String getQuantityMax() {
-		return quantityMax;
+	public String getBuyQuantityMax() {
+		return buyQuantityMax;
 	}
 	public String getTotalPriceMin() {
 		return totalPriceMin;
@@ -92,11 +92,11 @@ public class PageParameterVO {
 	public void setGoodsPriceMax(String goodsPriceMax) {
 		this.goodsPriceMax = goodsPriceMax;
 	}
-	public void setQuantityMin(String quantityMin) {
-		this.quantityMin = quantityMin;
+	public void setBuyQuantityMin(String buyQuantityMin) {
+		this.buyQuantityMin = buyQuantityMin;
 	}
-	public void setQuantityMax(String quantityMax) {
-		this.quantityMax = quantityMax;
+	public void setBuyQuantityMax(String buyQuantityMax) {
+		this.buyQuantityMax = buyQuantityMax;
 	}
 	public void setTotalPriceMin(String totalPriceMin) {
 		this.totalPriceMin = totalPriceMin;

@@ -2,7 +2,6 @@ package service.backend.goodsList;
 
 import java.util.function.Function;
 
-import bean.dto.backend.goodsList.vo.SearchParameterVODTO;
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import enumeration.Status;
@@ -23,17 +22,14 @@ public class UrlService {
 	public String generateURL(String url, PageParameterVODTO pageParameter) {
 		
 		Integer page = pageParameter.getPage();
-		
-		SearchParameterVODTO searchParameter = pageParameter.getSearchParameter();
-		
-		Integer idMin = searchParameter.getIdMin();
-		Integer idMax = searchParameter.getIdMax();
-		String name = searchParameter.getName();
-		Integer priceMin = searchParameter.getPriceMin();
-		Integer priceMax = searchParameter.getPriceMax();
-		Integer quantityMin = searchParameter.getQuantityMin();
-		Integer quantityMax = searchParameter.getQuantityMax();
-		Status status = searchParameter.getStatus();
+		Integer idMin = pageParameter.getIdMin();
+		Integer idMax = pageParameter.getIdMax();
+		String name = pageParameter.getName();
+		Integer priceMin = pageParameter.getPriceMin();
+		Integer priceMax = pageParameter.getPriceMax();
+		Integer quantityMin = pageParameter.getQuantityMin();
+		Integer quantityMax = pageParameter.getQuantityMax();
+		Status status = pageParameter.getStatus();
 		
 		return generateURL(url, 
 				page==null ? null : String.valueOf(page), 

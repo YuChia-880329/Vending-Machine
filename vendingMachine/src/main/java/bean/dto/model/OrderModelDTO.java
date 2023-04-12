@@ -7,20 +7,20 @@ public class OrderModelDTO {
 	private int id;
 	private LocalDateTime dateTime;
 	private String customerId;
-	private int goodId;
-	private int price;
-	private int quantity;
+	private int goodsId;
+	private int goodsPrice;
+	private int buyQuantity;
 	
 	
 	public OrderModelDTO() {
 	}
-	public OrderModelDTO(int id, LocalDateTime dateTime, String customerId, int goodId, int price, int quantity) {
+	public OrderModelDTO(int id, LocalDateTime dateTime, String customerId, int goodsId, int goodsPrice, int buyQuantity) {
 		this.id = id;
 		this.dateTime = dateTime;
 		this.customerId = customerId;
-		this.goodId = goodId;
-		this.price = price;
-		this.quantity = quantity;
+		this.goodsId = goodsId;
+		this.goodsPrice = goodsPrice;
+		this.buyQuantity = buyQuantity;
 	}
 	
 	
@@ -33,14 +33,14 @@ public class OrderModelDTO {
 	public String getCustomerId() {
 		return customerId;
 	}
-	public int getGoodId() {
-		return goodId;
+	public int getGoodsId() {
+		return goodsId;
 	}
-	public int getPrice() {
-		return price;
+	public int getGoodsPrice() {
+		return goodsPrice;
 	}
-	public int getQuantity() {
-		return quantity;
+	public int getBuyQuantity() {
+		return buyQuantity;
 	}
 	
 	
@@ -53,20 +53,13 @@ public class OrderModelDTO {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
-	public void setGoodId(int goodId) {
-		this.goodId = goodId;
+	public void setGoodsId(int goodsId) {
+		this.goodsId = goodsId;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setGoodsPrice(int goodsPrice) {
+		this.goodsPrice = goodsPrice;
 	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "OrderModel [id=" + id + ", dateTime=" + dateTime + ", customerId=" + customerId + ", goodId=" + goodId
-				+ ", price=" + price + ", quantity=" + quantity + "]";
+	public void setBuyQuantity(int buyQuantity) {
+		this.buyQuantity = buyQuantity;
 	}
 }

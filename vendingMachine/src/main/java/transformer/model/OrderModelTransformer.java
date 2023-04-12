@@ -25,9 +25,9 @@ public class OrderModelTransformer extends ModelTransformerTemplate<OrderModel, 
 		dto.setId(model.getId());
 		dto.setDateTime(DateTimeUtil.timestampToLocalDateTime(model.getDateTime()));
 		dto.setCustomerId(model.getCustomerId());
-		dto.setGoodId(model.getGoodId());
-		dto.setPrice(model.getPrice());
-		dto.setQuantity(model.getQuantity());
+		dto.setGoodsId(model.getGoodsId());
+		dto.setGoodsPrice(model.getGoodsPrice());
+		dto.setBuyQuantity(model.getBuyQuantity());
 		
 		return dto;
 	}
@@ -40,9 +40,9 @@ public class OrderModelTransformer extends ModelTransformerTemplate<OrderModel, 
 		model.setId(dto.getId());
 		model.setDateTime(DateTimeUtil.localDateTimeToTimestamp(dto.getDateTime()));
 		model.setCustomerId(dto.getCustomerId());
-		model.setGoodId(dto.getGoodId());
-		model.setPrice(dto.getPrice());
-		model.setQuantity(dto.getQuantity());
+		model.setGoodsId(dto.getGoodsId());
+		model.setGoodsPrice(dto.getGoodsPrice());
+		model.setBuyQuantity(dto.getBuyQuantity());
 		
 		return model;
 	}

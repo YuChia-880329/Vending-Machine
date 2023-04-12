@@ -172,9 +172,9 @@ public class OrderDAO {
 			model.setId(rs.getInt(COL_NAME_ID));
 			model.setDateTime(rs.getTimestamp(COL_NAME_DATE_TIME));
 			model.setCustomerId(rs.getString(COL_NAME_CUSTOMER_ID));
-			model.setGoodId(rs.getInt(COL_NAME_GOODS_ID));
-			model.setPrice(rs.getInt(COL_NAME_PRICE));
-			model.setQuantity(rs.getInt(COL_NAME_QUANTITY));
+			model.setGoodsId(rs.getInt(COL_NAME_GOODS_ID));
+			model.setGoodsPrice(rs.getInt(COL_NAME_PRICE));
+			model.setBuyQuantity(rs.getInt(COL_NAME_QUANTITY));
 			
 			return model;
 		};
@@ -191,9 +191,9 @@ public class OrderDAO {
 			int index = 1;
 			pst.setTimestamp(index++, model.getDateTime());
 			pst.setString(index++, model.getCustomerId());
-			pst.setInt(index++, model.getGoodId());
-			pst.setInt(index++, model.getPrice());
-			pst.setInt(index++, model.getQuantity());
+			pst.setInt(index++, model.getGoodsId());
+			pst.setInt(index++, model.getGoodsPrice());
+			pst.setInt(index++, model.getBuyQuantity());
 		};
 	}
 	private BiConsumerSQLException<OrderModel, ResultSet> getAddGeneratedKeyBiConsumerSQLException(){
@@ -212,9 +212,9 @@ public class OrderDAO {
 			int index = 1;
 			pst.setTimestamp(index++, model.getDateTime());
 			pst.setString(index++, model.getCustomerId());
-			pst.setInt(index++, model.getGoodId());
-			pst.setInt(index++, model.getPrice());
-			pst.setInt(index++, model.getQuantity());
+			pst.setInt(index++, model.getGoodsId());
+			pst.setInt(index++, model.getGoodsPrice());
+			pst.setInt(index++, model.getBuyQuantity());
 			
 			pst.setInt(index++, model.getId());
 		};

@@ -4,22 +4,22 @@ import java.util.List;
 
 public class GoodsTableOBJDTO {
 
-	private List<GoodsOBJDTO> goodsList;
+	private List<GoodsTableRowOBJDTO> goodsTableRows;
 
 	public GoodsTableOBJDTO() {
 	}
-	public GoodsTableOBJDTO(List<GoodsOBJDTO> goodsList) {
+	public GoodsTableOBJDTO(List<GoodsTableRowOBJDTO> goodsTableRows) {
 
-		this.goodsList = goodsList;
+		this.goodsTableRows = goodsTableRows;
 	}
 	
 	
-	public List<GoodsOBJDTO> getGoodsList() {
-		return goodsList;
+	public List<GoodsTableRowOBJDTO> getGoodsTableRows() {
+		return goodsTableRows;
 	}
 	
 	
-	public void setGoodsList(List<GoodsOBJDTO> goodsList) {
-		this.goodsList = goodsList;
+	public void setGoodsTableRows(List<GoodsTableRowOBJDTO> goodsTableRows) {
+		this.goodsTableRows = goodsTableRows;
 	}
 }

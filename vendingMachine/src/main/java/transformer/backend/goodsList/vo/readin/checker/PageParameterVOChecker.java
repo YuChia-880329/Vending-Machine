@@ -9,7 +9,7 @@ import util.StringConcatUtil;
 
 public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, CheckerException> {
 
-	private static final String NAME_PREFIX = "backend goods list, search form, ";
+	private static final String NAME_PREFIX = "backend goods list, filter form, ";
 	
 	
 	private static final PageParameterVOChecker INSTANCE = new PageParameterVOChecker();

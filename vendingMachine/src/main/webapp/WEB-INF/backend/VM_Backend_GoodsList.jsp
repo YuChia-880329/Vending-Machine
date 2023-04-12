@@ -135,7 +135,7 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach var="goods" items="${vo.goodsTablePage.goodsTable.goodsTableRow}">
+						<c:forEach var="goods" items="${vo.goodsTablePage.goodsTable.goodsTableRows}">
 							<tr>
 								<th scope="row">${goods.id}</th>
 								<td>${goods.name}</td> 
@@ -199,13 +199,13 @@
 								<label for="filter_id_min" class="form-label">商品編號</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" name="filterIdMin" id="filter_id_min" min="1" max="999999" value="${vo.goodsTablePage.searchParameter.idMin}" />
+										<input type="number" class="form-control" name="filterIdMin" id="filter_id_min" min="1" max="999999" value="${vo.filterForm.idMin}" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" name="filterIdMax" id="filter_id_max" min="1" max="999999" value="${vo.goodsTablePage.searchParameter.idMax}" />
+										<input type="number" class="form-control" name="filterIdMax" id="filter_id_max" min="1" max="999999" value="${vo.filterForm.idMax}" />
 									</div>
 								</div>
 							</div>
@@ -214,7 +214,7 @@
 								<label for="filter_name" class="form-label">商品名稱</label>
 								<div class="d-flex">
 									<div>
-										<input type="text" class="form-control" name="filterName" id="filter_name" size="50" value="${vo.goodsTablePage.searchParameter.name}" />
+										<input type="text" class="form-control" name="filterName" id="filter_name" size="50" value="${vo.filterForm.name}" />
 									</div>
 								</div>
 							</div>
@@ -223,13 +223,13 @@
 								<label for="filter_price_min" class="form-label">商品價格</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" name="filterPriceMin" id="filter_price_min" min="1" max="999999" value="${vo.goodsTablePage.searchParameter.priceMin}" />
+										<input type="number" class="form-control" name="filterPriceMin" id="filter_price_min" min="1" max="999999" value="${vo.filterForm.priceMin}" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" name="filterPriceMax" id="filter_price_max" min="1" max="999999" value="${vo.goodsTablePage.searchParameter.priceMax}" />
+										<input type="number" class="form-control" name="filterPriceMax" id="filter_price_max" min="1" max="999999" value="${vo.filterForm.priceMax}" />
 									</div>
 								</div>
 							</div>
@@ -238,19 +238,19 @@
 								<label for="filter_quantity_min" class="form-label">現有庫存</label>
 								<div class="d-flex">
 									<div>
-										<input type="number" class="form-control" name="filterQuantityMin" id="filter_quantity_min" min="1" max="999999" value="${vo.goodsTablePage.searchParameter.quantityMin}" />
+										<input type="number" class="form-control" name="filterQuantityMin" id="filter_quantity_min" min="1" max="999999" value="${vo.filterForm.quantityMin}" />
 									</div>
 									<div class="mx-3">
 										<p>~</p>
 									</div>
 									<div>
-										<input type="number" class="form-control" name="filterQuantityMax" id="filter_quantity_max" min="1" max="999999" value="${vo.goodsTablePage.searchParameter.quantityMax}" />
+										<input type="number" class="form-control" name="filterQuantityMax" id="filter_quantity_max" min="1" max="999999" value="${vo.filterForm.quantityMax}" />
 									</div>
 								</div>
 							</div>
 								
 							<div class="mb-3">
-								<input type="hidden" id="filter_status_value" value="${vo.goodsTablePage.searchParameter.status}" />
+								<input type="hidden" id="filter_status_value" value="${vo.filterForm.status}" />
 								<label for="filter_status_1" class="form-label">商品狀態</label>
 								<div class="d-flex mt-2">
 									<div class="me-3 d-flex align-items-center">

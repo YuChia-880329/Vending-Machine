@@ -1,26 +1,26 @@
-package bean.dto.vo.backend.orderList.writeout;
+package bean.vo.backend.orderList.writeout;
 
-public class BOLOTOrderWOVODTO {
+public class OrderTableRowVO {
 
 	private String customerName;
 	private String date;
 	private String goodsName;
-	private int goodsPrice;
-	private int quantity;
-	private int totalPrice;
+	private String goodsPrice;
+	private String buyQuantity;
+	private String totalPrice;
 	
 	
 	
-	public BOLOTOrderWOVODTO() {
+	public OrderTableRowVO() {
 	}
-	public BOLOTOrderWOVODTO(String customerName, String date, String goodsName, int goodsPrice, int quantity,
-			int totalPrice) {
+	public OrderTableRowVO(String customerName, String date, String goodsName, String goodsPrice, String buyQuantity,
+			String totalPrice) {
 
 		this.customerName = customerName;
 		this.date = date;
 		this.goodsName = goodsName;
 		this.goodsPrice = goodsPrice;
-		this.quantity = quantity;
+		this.buyQuantity = buyQuantity;
 		this.totalPrice = totalPrice;
 	}
 	
@@ -34,13 +34,13 @@ public class BOLOTOrderWOVODTO {
 	public String getGoodsName() {
 		return goodsName;
 	}
-	public int getGoodsPrice() {
+	public String getGoodsPrice() {
 		return goodsPrice;
 	}
-	public int getQuantity() {
-		return quantity;
+	public String getBuyQuantity() {
+		return buyQuantity;
 	}
-	public int getTotalPrice() {
+	public String getTotalPrice() {
 		return totalPrice;
 	}
 	
@@ -54,13 +54,13 @@ public class BOLOTOrderWOVODTO {
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
 	}
-	public void setGoodsPrice(int goodsPrice) {
+	public void setGoodsPrice(String goodsPrice) {
 		this.goodsPrice = goodsPrice;
 	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setBuyQuantity(String buyQuantity) {
+		this.buyQuantity = buyQuantity;
 	}
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 }

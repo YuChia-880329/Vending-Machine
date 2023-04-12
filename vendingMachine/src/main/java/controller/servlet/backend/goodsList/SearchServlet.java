@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.vo.backend.goodsList.SearchParameterVO;
 import bean.vo.backend.goodsList.readin.PageParameteVO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import service.backend.goodsList.UrlService;
@@ -21,14 +20,14 @@ public class SearchServlet extends HttpServlet {
 	public static final String URL = "/vendingMachine/machine/backend/goodsList/search";
 	private static final String REDIRECT_URL = GoBackendGoodsListServlet.URL;
 	
-	private UrlService bglUrlService;
-	private PageParameterVOTransformer bglPageParameterRIVOTransformer;
+	private UrlService urlService;
+	private PageParameterVOTransformer pageParameterVOTransformer;
 	
 	@Override
 	public void init() throws ServletException {
 		
-		bglUrlService = UrlService.getInstance();
-		bglPageParameterRIVOTransformer = PageParameterVOTransformer.getInstance();
+		urlService = UrlService.getInstance();
+		pageParameterVOTransformer = PageParameterVOTransformer.getInstance();
 	}
 	
 	@Override
@@ -52,23 +51,19 @@ public class SearchServlet extends HttpServlet {
 		
 		PageParameteVO pageParameterVO = new PageParameteVO();
 		
-		SearchParameterVO bglSearchParameterVO = new SearchParameterVO();
-		
-		bglSearchParameterVO.setIdMin(idMinStr);
-		bglSearchParameterVO.setIdMax(idMaxStr);
-		bglSearchParameterVO.setName(nameStr);
-		bglSearchParameterVO.setPriceMin(priceMinStr);
-		bglSearchParameterVO.setPriceMax(priceMaxStr);
-		bglSearchParameterVO.setQuantityMin(quantityMinStr);
-		bglSearchParameterVO.setQuantityMax(quantityMaxStr);
-		bglSearchParameterVO.setStatus(statusStr);
-		
 		pageParameterVO.setPage(null);
-		pageParameterVO.setSearchParameter(bglSearchParameterVO);
+		pageParameterVO.setIdMin(idMinStr);
+		pageParameterVO.setIdMax(idMaxStr);
+		pageParameterVO.setName(nameStr);
+		pageParameterVO.setPriceMin(priceMinStr);
+		pageParameterVO.setPriceMax(priceMaxStr);
+		pageParameterVO.setQuantityMin(quantityMinStr);
+		pageParameterVO.setQuantityMax(quantityMaxStr);
+		pageParameterVO.setStatus(statusStr);
 		
 		try {
 			
-			url = bglUrlService.generateURL(url, bglPageParameterRIVOTransformer.voToDto(pageParameterVO));
+			url = urlService.generateURL(url, pageParameterVOTransformer.voToDto(pageParameterVO));
 		} catch (CheckerException ex) {
 			
 			ex.printStackTrace();

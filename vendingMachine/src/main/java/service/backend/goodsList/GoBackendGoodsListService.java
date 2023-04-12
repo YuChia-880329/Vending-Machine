@@ -6,14 +6,16 @@ import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
 
 public class GoBackendGoodsListService {
 	
-	private GoodsTablePagesService goodsTablePagesService;
+	private GoodsTablePageService goodsTablePageService;
+	private FilterFormService filterFormService;
 	
 
 	private static final GoBackendGoodsListService INSTANCE = new GoBackendGoodsListService();
 	
 	private GoBackendGoodsListService() {
 		
-		goodsTablePagesService = GoodsTablePagesService.getInstance();
+		goodsTablePageService = GoodsTablePageService.getInstance();
+		filterFormService = FilterFormService.getInstance();
 	}
 	
 	public static GoBackendGoodsListService getInstance() {
@@ -21,18 +23,19 @@ public class GoBackendGoodsListService {
 		return INSTANCE;
 	}
 	
-	public BackendGoodsListVODTO prepare(PageParameterVODTO pageParameter, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public BackendGoodsListVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesDAO goodsTablePagesDAO) {
 		
-		Integer currentPage = pageParameter.getPage();
+		Integer currentPage = pageParameterVODTO.getPage();
 		if(currentPage == null) {
 			
 			currentPage = 1;
-			pageParameter.setPage(currentPage);
+			pageParameterVODTO.setPage(currentPage);
 		}
 		
 		BackendGoodsListVODTO backendGoodsListVODTO = new BackendGoodsListVODTO();
 
-		backendGoodsListVODTO.setGoodsTablePage(goodsTablePagesService.prepare(pageParameter, goodsTablePagesDAO));
+		backendGoodsListVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesDAO));
+		backendGoodsListVODTO.setFilterForm(filterFormService.prepare(pageParameterVODTO));
 		
 		return backendGoodsListVODTO;
 	}

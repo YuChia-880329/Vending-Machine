@@ -1,31 +1,31 @@
-package transformer.vo.backend.orderList.readin;
+package transformer.backend.orderList.vo.readin;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-import bean.dto.vo.backend.orderList.readin.BOLPageParameterRIVODTO;
+import bean.dto.backend.orderList.vo.readin.PageParameterVODTO;
 import bean.vo.backend.orderList.readin.PageParameterVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.backend.orderList.readin.checker.BOLPageParameterRIVOChecker;
+import transformer.backend.orderList.vo.readin.checker.PageParameterVOChecker;
 import util.DateTimeUtil;
 import util.StringConcatUtil;
 
-public class BOLPageParameterRIVOTransformer extends VOReanInTransformerTemplate<PageParameterVO, BOLPageParameterRIVODTO, CheckerException, BOLPageParameterRIVOChecker>  {
+public class PageParameterVOTransformer extends VOReanInTransformerTemplate<PageParameterVO, PageParameterVODTO, CheckerException, PageParameterVOChecker>  {
 
-	private static final BOLPageParameterRIVOTransformer INSTANCE = new BOLPageParameterRIVOTransformer();
+	private static final PageParameterVOTransformer INSTANCE = new PageParameterVOTransformer();
 	
-	private BOLPageParameterRIVOTransformer() {
+	private PageParameterVOTransformer() {
 	}
 	
-	public static BOLPageParameterRIVOTransformer getInstance() {
+	public static PageParameterVOTransformer getInstance() {
 		
 		return INSTANCE;
 	}
 
 	@Override
-	public BOLPageParameterRIVODTO voToDto(PageParameterVO vo) throws CheckerException {
+	public PageParameterVODTO voToDto(PageParameterVO vo) throws CheckerException {
 
-		BOLPageParameterRIVODTO dto = new BOLPageParameterRIVODTO();
+		PageParameterVODTO dto = new PageParameterVODTO();
 		
 		String page = vo.getPage();
 		dto.setPage((page==null||"".equals(page)) ? null : Integer.parseInt(page));
@@ -34,16 +34,16 @@ public class BOLPageParameterRIVOTransformer extends VOReanInTransformerTemplate
 
 		
 		String startDateStr = vo.getStartDate();
-		LocalDateTime startDate = null;
+		LocalDate startDate = null;
 		if(startDateStr!=null && !"".equals(startDateStr))
-			startDate = DateTimeUtil.stringToLocalDateTime(StringConcatUtil.concate(startDateStr, " 00:00:00"));
+			startDate = DateTimeUtil.stringToLocalDate(StringConcatUtil.concate(startDateStr));
 		dto.setStartDate(startDate);
 		
 		
 		String endDateStr = vo.getEndDate();
-		LocalDateTime endDate = null;
+		LocalDate endDate = null;
 		if(endDateStr!=null && !"".equals(endDateStr))
-			endDate = DateTimeUtil.stringToLocalDateTime(StringConcatUtil.concate(endDateStr, " 23:59:59"));
+			endDate = DateTimeUtil.stringToLocalDate(StringConcatUtil.concate(endDateStr));
 		dto.setEndDate(endDate);
 		
 		
@@ -55,11 +55,11 @@ public class BOLPageParameterRIVOTransformer extends VOReanInTransformerTemplate
 		String goodsPriceMax = vo.getGoodsPriceMax();
 		dto.setGoodsPriceMax((goodsPriceMax==null||"".equals(goodsPriceMax)) ? null : Integer.parseInt(goodsPriceMax));
 		
-		String quantityMin = vo.getQuantityMin();
-		dto.setQuantityMin((quantityMin==null||"".equals(quantityMin)) ? null : Integer.parseInt(quantityMin));
+		String buyQuantityMin = vo.getBuyQuantityMin();
+		dto.setBuyQuantityMin((buyQuantityMin==null||"".equals(buyQuantityMin)) ? null : Integer.parseInt(buyQuantityMin));
 		
-		String quantityMax = vo.getQuantityMax();
-		dto.setQuantityMax((quantityMax==null||"".equals(quantityMax)) ? null : Integer.parseInt(quantityMax));
+		String buyQuantityMax = vo.getBuyQuantityMax();
+		dto.setBuyQuantityMax((buyQuantityMax==null||"".equals(buyQuantityMax)) ? null : Integer.parseInt(buyQuantityMax));
 		
 		String totalPriceMin = vo.getTotalPriceMin();
 		dto.setTotalPriceMin((totalPriceMin==null||"".equals(totalPriceMin)) ? null : Integer.parseInt(totalPriceMin));
@@ -71,8 +71,8 @@ public class BOLPageParameterRIVOTransformer extends VOReanInTransformerTemplate
 	}
 
 	@Override
-	protected BOLPageParameterRIVOChecker getChecker() {
+	protected PageParameterVOChecker getChecker() {
 
-		return BOLPageParameterRIVOChecker.getInstance();
+		return PageParameterVOChecker.getInstance();
 	}
 }

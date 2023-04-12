@@ -6,14 +6,14 @@ import template.memory.repository.RepositoryObjTransformerTemplate;
 
 public class GoodsTableOBJTransformer extends RepositoryObjTransformerTemplate<GoodsTableOBJ, GoodsTableOBJDTO> {
 
-	private GoodsOBJTransformer goodsOBJTransformer;
+	private GoodsTableRowOBJTransformer goodsTableRowOBJTransformer;
 	
 	
 	private static final GoodsTableOBJTransformer INSTANCE = new GoodsTableOBJTransformer();
 	
 	private GoodsTableOBJTransformer() {
 		
-		goodsOBJTransformer = GoodsOBJTransformer.getInstance();
+		goodsTableRowOBJTransformer = GoodsTableRowOBJTransformer.getInstance();
 	}
 	
 	public static GoodsTableOBJTransformer getInstance() {
@@ -26,7 +26,7 @@ public class GoodsTableOBJTransformer extends RepositoryObjTransformerTemplate<G
 		
 		GoodsTableOBJDTO dto = new GoodsTableOBJDTO();
 		
-		dto.setGoodsList(goodsOBJTransformer.objListToDtoList(obj.getGoodsList()));
+		dto.setGoodsTableRows(goodsTableRowOBJTransformer.objListToDtoList(obj.getGoodsTableRows()));
 		
 		return dto;
 	}
