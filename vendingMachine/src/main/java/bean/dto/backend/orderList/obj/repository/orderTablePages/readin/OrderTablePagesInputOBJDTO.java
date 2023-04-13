@@ -1,8 +1,8 @@
-package bean.obj.backend.orderList.repository.orderTablePages.readin;
+package bean.dto.backend.orderList.obj.repository.orderTablePages.readin;
 
 import java.time.LocalDateTime;
 
-public class OrderTablePagesInputOBJ {
+public class OrderTablePagesInputOBJDTO {
 
 	private int currentPage;
 	private String customerName;
@@ -18,9 +18,9 @@ public class OrderTablePagesInputOBJ {
 	
 	
 	
-	public OrderTablePagesInputOBJ() {
+	public OrderTablePagesInputOBJDTO() {
 	}
-	public OrderTablePagesInputOBJ(int currentPage, String customerName, LocalDateTime startDate,
+	public OrderTablePagesInputOBJDTO(int currentPage, String customerName, LocalDateTime startDate,
 			LocalDateTime endDate, String goodsName, Integer goodsPriceMin, Integer goodsPriceMax,
 			Integer buyQuantityMin, Integer buyQuantityMax, Integer totalPriceMin, Integer totalPriceMax) {
 		

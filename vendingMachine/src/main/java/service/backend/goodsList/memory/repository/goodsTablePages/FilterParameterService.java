@@ -8,14 +8,14 @@ import enumeration.Status;
 import service.model.GoodsModelService;
 import template.model.QueryObj;
 
-public class SearchParameterService {
+public class FilterParameterService {
 
-	private static final SearchParameterService INSTANCE = new SearchParameterService();
+	private static final FilterParameterService INSTANCE = new FilterParameterService();
 	
-	private SearchParameterService() {
+	private FilterParameterService() {
 	}
 	
-	public static SearchParameterService getInstance() {
+	public static FilterParameterService getInstance() {
 		
 		return INSTANCE;
 	}

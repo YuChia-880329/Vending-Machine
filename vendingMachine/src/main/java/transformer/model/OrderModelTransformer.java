@@ -23,7 +23,7 @@ public class OrderModelTransformer extends ModelTransformerTemplate<OrderModel, 
 		OrderModelDTO dto = new OrderModelDTO();
 		
 		dto.setId(model.getId());
-		dto.setDateTime(DateTimeUtil.timestampToLocalDateTime(model.getDateTime()));
+		dto.setDateTime(DateTimeUtil.timestampToLocalDateTime(model.getTimestamp()));
 		dto.setCustomerId(model.getCustomerId());
 		dto.setGoodsId(model.getGoodsId());
 		dto.setGoodsPrice(model.getGoodsPrice());
@@ -38,7 +38,7 @@ public class OrderModelTransformer extends ModelTransformerTemplate<OrderModel, 
 		OrderModel model = new OrderModel();
 		
 		model.setId(dto.getId());
-		model.setDateTime(DateTimeUtil.localDateTimeToTimestamp(dto.getDateTime()));
+		model.setTimestamp(DateTimeUtil.localDateTimeToTimestamp(dto.getDateTime()));
 		model.setCustomerId(dto.getCustomerId());
 		model.setGoodsId(dto.getGoodsId());
 		model.setGoodsPrice(dto.getGoodsPrice());

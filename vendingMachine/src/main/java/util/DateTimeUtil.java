@@ -22,7 +22,6 @@ public class DateTimeUtil {
 		
 		return localDateTimeToString(timestampToLocalDateTime(timestamp));
 	}
-	
 	public static LocalDateTime timestampToLocalDateTime(Timestamp timestamp) {
 		
 		return timestamp.toLocalDateTime();
@@ -54,8 +53,16 @@ public class DateTimeUtil {
 		
 		return localDateTime.toLocalDate();
 	}
-	public static LocalDateTime localDateToLocalDateTime(LocalDate localDate) {
+	public static LocalDateTime localDateToLocalDateTime(LocalDate localDate, int hour, int minute, int second) {
 		
-		return localDate.atTime(0, 0);
+		return localDate.atTime(hour, minute, second);
+	}
+	public static LocalDateTime localDateToLocalDateTimeStart(LocalDate localDate) {
+		
+		return localDateToLocalDateTime(localDate, 0, 0, 0);
+	}
+	public static LocalDateTime localDateToLocalDateTimeEnd(LocalDate localDate) {
+		
+		return localDateToLocalDateTime(localDate, 23, 59, 59);
 	}
 }
