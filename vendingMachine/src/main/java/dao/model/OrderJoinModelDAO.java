@@ -34,6 +34,17 @@ public class OrderJoinModelDAO {
 	private static final String BEVERAGE_ORDER_COL_NAME_ORDER_ID = "ORDER_ID";
 	
 	
+	private static final OrderJoinModelDAO INSTANCE = new OrderJoinModelDAO();
+	
+	private OrderJoinModelDAO() {
+	}
+	
+	public static OrderJoinModelDAO getInstance() {
+		
+		return INSTANCE;
+	}
+	
+	
 	protected Supplier<Connection> getConnectionSupplier() {
 		
 		return () -> OracleDBUtil.getConnection();
