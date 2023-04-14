@@ -1,13 +1,13 @@
-package transformer.vo.backend.goodsUpdate.readin;
+package transformer.backend.goodsUpdate.vo.readin;
 
-import bean.dto.vo.backend.goodsUpdate.readin.BGUGoodsFormRIVODTO;
-import bean.vo.backend.goodsUpdate.readin.BGUGoodsFormRIVO;
+import bean.dto.backend.goodsUpdate.vo.readin.BGUGoodsFormRIVODTO;
+import bean.vo.backend.goodsUpdate.readin.GoodsFormVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.vo.backend.goodsUpdate.readin.checker.BGUGoodsFormRIVOChecker;
+import transformer.backend.goodsUpdate.vo.readin.checker.BGUGoodsFormRIVOChecker;
 
-public class BGUGoodsFormRIVOTransformer extends VOReanInTransformerTemplate<BGUGoodsFormRIVO, BGUGoodsFormRIVODTO, CheckerException, BGUGoodsFormRIVOChecker> {
+public class BGUGoodsFormRIVOTransformer extends VOReanInTransformerTemplate<GoodsFormVO, BGUGoodsFormRIVODTO, CheckerException, BGUGoodsFormRIVOChecker> {
 
 	private static final BGUGoodsFormRIVOTransformer INSTANCE = new BGUGoodsFormRIVOTransformer();
 	
@@ -20,7 +20,7 @@ public class BGUGoodsFormRIVOTransformer extends VOReanInTransformerTemplate<BGU
 	}
 
 	@Override
-	public BGUGoodsFormRIVODTO voToDto(BGUGoodsFormRIVO vo) throws CheckerException {
+	public BGUGoodsFormRIVODTO voToDto(GoodsFormVO vo) throws CheckerException {
 
 		BGUGoodsFormRIVODTO dto = new BGUGoodsFormRIVODTO();
 		

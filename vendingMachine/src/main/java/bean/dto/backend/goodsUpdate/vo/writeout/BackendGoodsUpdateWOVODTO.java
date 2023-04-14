@@ -1,4 +1,4 @@
-package bean.dto.vo.backend.goodsUpdate.writeout;
+package bean.dto.backend.goodsUpdate.vo.writeout;
 
 public class BackendGoodsUpdateWOVODTO {
 

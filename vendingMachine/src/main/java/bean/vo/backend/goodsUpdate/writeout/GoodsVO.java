@@ -1,15 +1,15 @@
 package bean.vo.backend.goodsUpdate.writeout;
 
-public class BGUUFGoodsWOVO {
+public class GoodsVO {
 
 	private String id;
 	private String quantity;
 	private String status;
 	
 	
-	public BGUUFGoodsWOVO() {
+	public GoodsVO() {
 	}
-	public BGUUFGoodsWOVO(String id, String quantity, String status) {
+	public GoodsVO(String id, String quantity, String status) {
 
 		this.id = id;
 		this.quantity = quantity;

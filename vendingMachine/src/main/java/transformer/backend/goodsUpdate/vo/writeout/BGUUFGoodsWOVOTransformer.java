@@ -1,10 +1,10 @@
-package transformer.vo.backend.goodsUpdate.writeout;
+package transformer.backend.goodsUpdate.vo.writeout;
 
-import bean.dto.vo.backend.goodsUpdate.writeout.BGUUFGoodsWOVODTO;
-import bean.vo.backend.goodsUpdate.writeout.BGUUFGoodsWOVO;
+import bean.dto.backend.goodsUpdate.vo.writeout.BGUUFGoodsWOVODTO;
+import bean.vo.backend.goodsUpdate.writeout.GoodsVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
-public class BGUUFGoodsWOVOTransformer extends VOWriteOutTransformerTemplate<BGUUFGoodsWOVODTO, BGUUFGoodsWOVO> {
+public class BGUUFGoodsWOVOTransformer extends VOWriteOutTransformerTemplate<BGUUFGoodsWOVODTO, GoodsVO> {
 
 	private static final BGUUFGoodsWOVOTransformer INSTANCE = new BGUUFGoodsWOVOTransformer();
 	
@@ -17,9 +17,9 @@ public class BGUUFGoodsWOVOTransformer extends VOWriteOutTransformerTemplate<BGU
 	}
 
 	@Override
-	public BGUUFGoodsWOVO dtoToVo(BGUUFGoodsWOVODTO dto) {
+	public GoodsVO dtoToVo(BGUUFGoodsWOVODTO dto) {
 		
-		BGUUFGoodsWOVO vo = new BGUUFGoodsWOVO();
+		GoodsVO vo = new GoodsVO();
 		
 		vo.setId(String.valueOf(dto.getId()));
 		vo.setQuantity(String.valueOf(dto.getQuantity()));

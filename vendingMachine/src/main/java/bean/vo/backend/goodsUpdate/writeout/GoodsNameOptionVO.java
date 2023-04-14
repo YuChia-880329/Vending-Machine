@@ -1,14 +1,14 @@
 package bean.vo.backend.goodsUpdate.writeout;
 
-public class BGUUFGoodsNameOptionWOVO {
+public class GoodsNameOptionVO {
 
 	private String id;
 	private String name;
 	
 	
-	public BGUUFGoodsNameOptionWOVO() {
+	public GoodsNameOptionVO() {
 	}
-	public BGUUFGoodsNameOptionWOVO(String id, String name) {
+	public GoodsNameOptionVO(String id, String name) {
 		
 		this.id = id;
 		this.name = name;

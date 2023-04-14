@@ -1,12 +1,12 @@
 package bean.vo.backend.goodsUpdate.readin;
 
-public class BGUChangeGoodsRIVO {
+public class ChangeGoodsVO {
 
 	private String id;
 
-	public BGUChangeGoodsRIVO() {
+	public ChangeGoodsVO() {
 	}
-	public BGUChangeGoodsRIVO(String id) {
+	public ChangeGoodsVO(String id) {
 
 		this.id = id;
 	}

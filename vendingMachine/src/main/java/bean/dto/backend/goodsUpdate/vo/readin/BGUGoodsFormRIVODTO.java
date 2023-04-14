@@ -1,4 +1,4 @@
-package bean.dto.vo.backend.goodsUpdate.readin;
+package bean.dto.backend.goodsUpdate.vo.readin;
 
 import enumeration.Status;
 

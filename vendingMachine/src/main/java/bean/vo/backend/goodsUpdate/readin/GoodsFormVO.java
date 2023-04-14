@@ -1,6 +1,6 @@
 package bean.vo.backend.goodsUpdate.readin;
 
-public class BGUGoodsFormRIVO {
+public class GoodsFormVO {
 
 	private String id;
 	private String price;
@@ -8,9 +8,9 @@ public class BGUGoodsFormRIVO {
 	private String status;
 	
 	
-	public BGUGoodsFormRIVO() {
+	public GoodsFormVO() {
 	}
-	public BGUGoodsFormRIVO(String id, String price, String addQuantity, String status) {
+	public GoodsFormVO(String id, String price, String addQuantity, String status) {
 
 		this.id = id;
 		this.price = price;

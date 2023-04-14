@@ -1,13 +1,13 @@
-package transformer.vo.backend.goodsUpdate.readin.checker;
+package transformer.backend.goodsUpdate.vo.readin.checker;
 
-import bean.vo.backend.goodsUpdate.readin.BGUGoodsFormRIVO;
+import bean.vo.backend.goodsUpdate.readin.GoodsFormVO;
 import enumeration.Status;
 import template.CheckerTemplate;
 import template.exception.CheckerException;
 import util.CheckUtil;
 import util.StringConcatUtil;
 
-public class BGUGoodsFormRIVOChecker extends CheckerTemplate<BGUGoodsFormRIVO, CheckerException> {
+public class BGUGoodsFormRIVOChecker extends CheckerTemplate<GoodsFormVO, CheckerException> {
 
 	private static final String NAME_PREFIX = "backend goods update, goods form, ";
 	
@@ -22,7 +22,7 @@ public class BGUGoodsFormRIVOChecker extends CheckerTemplate<BGUGoodsFormRIVO, C
 	}
 
 	@Override
-	public void check(BGUGoodsFormRIVO vo) throws CheckerException {
+	public void check(GoodsFormVO vo) throws CheckerException {
 		
 		checkVo(vo);
 		
@@ -32,29 +32,29 @@ public class BGUGoodsFormRIVOChecker extends CheckerTemplate<BGUGoodsFormRIVO, C
 		checkStatus(vo);
 	}
 	
-	private void checkVo(BGUGoodsFormRIVO vo) throws CheckerException {
+	private void checkVo(GoodsFormVO vo) throws CheckerException {
 		
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
-	private void checkId(BGUGoodsFormRIVO vo) throws CheckerException {
+	private void checkId(GoodsFormVO vo) throws CheckerException {
 		
 		String id = vo.getId();
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(id, StringConcatUtil.concate(NAME_PREFIX, "id"));
 	}
-	private void checkPrice(BGUGoodsFormRIVO vo) throws CheckerException {
+	private void checkPrice(GoodsFormVO vo) throws CheckerException {
 		
 		String price = vo.getPrice();
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(price, StringConcatUtil.concate(NAME_PREFIX, "price"));
 	}
-	private void checkAddQuantity(BGUGoodsFormRIVO vo) throws CheckerException {
+	private void checkAddQuantity(GoodsFormVO vo) throws CheckerException {
 		
 		String addQuantity = vo.getAddQuantity();
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(addQuantity, StringConcatUtil.concate(NAME_PREFIX, "addQuantity"));
 	}
-	private void checkStatus(BGUGoodsFormRIVO vo) throws CheckerException {
+	private void checkStatus(GoodsFormVO vo) throws CheckerException {
 		
 		String status = vo.getStatus();
 		
