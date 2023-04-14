@@ -18,4 +18,9 @@ public class GoodsTablePagesContextListener implements ServletContextListener {
 		
 		sce.getServletContext().setAttribute(GOODS_TABLE_PAGES_DAO_MAP, goodsTablePagesDAOMap);
 	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		
+	}
 }
