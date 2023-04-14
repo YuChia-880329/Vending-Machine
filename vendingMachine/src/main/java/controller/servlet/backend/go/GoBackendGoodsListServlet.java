@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.vo.backend.goodsList.readin.PageParameteVO;
+import bean.vo.backend.goodsList.readin.PageParameterVO;
 import bean.vo.backend.goodsList.writeout.BackendGoodsListVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesContextListener;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener;
 import service.backend.goodsList.GoBackendGoodsListService;
 import template.exception.CheckerException;
 import transformer.backend.goodsList.vo.readin.PageParameterVOTransformer;
@@ -60,7 +60,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		GoodsTablePagesDAO goodsTablePagesDAO = getGoodsTablePagesDAO(context, session);
-		PageParameteVO pageParamterVO = getPageParameter(req);
+		PageParameterVO pageParamterVO = getPageParameter(req);
 		try {
 			
 			BackendGoodsListVO backendGoodsListWOVO = 
@@ -76,7 +76,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		
 	}
 	
-	private PageParameteVO getPageParameter(HttpServletRequest req) {
+	private PageParameterVO getPageParameter(HttpServletRequest req) {
 		
 		String pageStr = req.getParameter(REQ_PARAM_PAGE);
 		String idMinStr = req.getParameter(REQ_PARAM_ID_MIN);
@@ -88,7 +88,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		String quantityMaxStr = req.getParameter(REQ_PARAM_QUANTITY_MAX);
 		String statusStr = req.getParameter(REQ_PARAM_STATUS);
 		
-		PageParameteVO pageParameter = new PageParameteVO();
+		PageParameterVO pageParameter = new PageParameterVO();
 		
 		pageParameter.setPage(pageStr);
 		pageParameter.setIdMin(idMinStr);
@@ -106,7 +106,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 	private GoodsTablePagesDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesDAO>)context.getAttribute(GoodsTablePagesContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, GoodsTablePagesDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesDAO>)context.getAttribute(GoodsTablePagesDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
 		
 		GoodsTablePagesDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
 		

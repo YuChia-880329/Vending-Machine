@@ -20,8 +20,8 @@
 		<servlet-class>controller.servlet.backend.go.GoBackendGoodsUpdateServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>goBackendGoodsSaleServlet</servlet-name>
-		<servlet-class>controller.servlet.backend.go.GoBackendGoodsSaleServlet</servlet-class>
+		<servlet-name>goBackendOrderListServlet</servlet-name>
+		<servlet-class>controller.servlet.backend.go.GoBackendOrderListServlet</servlet-class>
 	</servlet>
 	
 	<!-- controller.servlet.frontend.go -->
@@ -30,11 +30,17 @@
 		<servlet-class>controller.servlet.frontend.go.GoFrontendServlet</servlet-class>
 	</servlet>
 	
-	<!-- controller.servlet.backend.* -->
+	<!-- controller.servlet.backend.goodsList -->
 	<servlet>
-		<servlet-name>searchServlet</servlet-name>
+		<servlet-name>goodsListSearchServlet</servlet-name>
 		<servlet-class>controller.servlet.backend.goodsList.SearchServlet</servlet-class>
 	</servlet>
+	<!-- controller.servlet.backend.orderList -->
+	<servlet>
+		<servlet-name>orderListSearchServlet</servlet-name>
+		<servlet-class>controller.servlet.backend.orderList.SearchServlet</servlet-class>
+	</servlet>
+  	
   	
   	
 	<!-- servlet mapping -->
@@ -52,8 +58,8 @@
 		<url-pattern>/machine/backend/goodsUpdate</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>goBackendGoodsSaleServlet</servlet-name>
-		<url-pattern>/machine/backend/goodsSale</url-pattern>
+		<servlet-name>goBackendOrderListServlet</servlet-name>
+		<url-pattern>/machine/backend/orderList</url-pattern>
 	</servlet-mapping>
 	
 	<!-- controller.servlet.frontend.go -->
@@ -62,16 +68,24 @@
 		<url-pattern>/machine</url-pattern>
 	</servlet-mapping>
 	
-	<!-- controller.servlet.backend.* -->
+	<!-- controller.servlet.backend.goodsList -->
 	<servlet-mapping>
-		<servlet-name>searchServlet</servlet-name>
+		<servlet-name>goodsListSearchServlet</servlet-name>
 		<url-pattern>/machine/backend/goodsList/search</url-pattern>
+	</servlet-mapping>
+	<!-- controller.servlet.backend.orderList -->
+	<servlet-mapping>
+		<servlet-name>orderListSearchServlet</servlet-name>
+		<url-pattern>/machine/backend/orderList/search</url-pattern>
 	</servlet-mapping>
   	
   	
   	
   	<!-- listener -->
   	<listener>
-  		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesContextListener</listener-class>
+  		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener</listener-class>
+  	</listener>
+  	  	<listener>
+  		<listener-class>dao.memory.repository.backend.orderList.OrderTablePagesDAOContextListener</listener-class>
   	</listener>
 </web-app>

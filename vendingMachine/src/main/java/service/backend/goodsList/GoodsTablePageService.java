@@ -45,13 +45,14 @@ public class GoodsTablePageService {
 		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO = goodsTablePagesDAO.getObjDto(dtoTransformService.pageParameterVOToGoodsTablePagesInputOBJ(pageParameterVODTO));
 		
 		int currentPage = pageParameterVODTO.getPage();
-		List<GoodsTableRowVODTO> goodsTableRowVODTOs = dtoTransformService.goodsOBJsToGoodsTableRowVOs(goodsTablePagesOBJDTO
+		List<GoodsTableRowVODTO> goodsTableRowVODTOs = dtoTransformService.goodsTableRowOBJsToGoodsTableRowVOs(goodsTablePagesOBJDTO
 				.getGoodsTablePageMap().get(currentPage)
 				.getGoodsTable().getGoodsTableRows());
 		
 		goodsTableVODTO.setGoodsTableRows(goodsTableRowVODTOs);
 		
 		int maxPage = goodsTablePagesOBJDTO.getMaxPage();
+		
 		goodsTablePageVODTO.setGoodsTable(goodsTableVODTO);
 		goodsTablePageVODTO.setPagination(paginationService.getPagination(
 				currentPage, 

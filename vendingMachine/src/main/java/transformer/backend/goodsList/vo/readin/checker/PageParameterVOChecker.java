@@ -1,13 +1,13 @@
 package transformer.backend.goodsList.vo.readin.checker;
 
-import bean.vo.backend.goodsList.readin.PageParameteVO;
+import bean.vo.backend.goodsList.readin.PageParameterVO;
 import enumeration.Status;
 import template.CheckerTemplate;
 import template.exception.CheckerException;
 import util.CheckUtil;
 import util.StringConcatUtil;
 
-public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, CheckerException> {
+public class PageParameterVOChecker extends CheckerTemplate<PageParameterVO, CheckerException> {
 
 	private static final String NAME_PREFIX = "backend goods list, filter form, ";
 	
@@ -23,7 +23,7 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 	}
 
 	@Override
-	public void check(PageParameteVO vo) throws CheckerException {
+	public void check(PageParameterVO vo) throws CheckerException {
 		
 		checkVo(vo);
 		
@@ -38,11 +38,11 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 		checkStatus(vo);
 	}
 	
-	private void checkVo(PageParameteVO vo) throws CheckerException {
+	private void checkVo(PageParameterVO vo) throws CheckerException {
 		
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
-	private void checkPage(PageParameteVO vo) throws CheckerException {
+	private void checkPage(PageParameterVO vo) throws CheckerException {
 		
 		String page = vo.getPage();
 		
@@ -53,7 +53,7 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 	}
 	
 	
-	private void checkIdMin(PageParameteVO vo) throws CheckerException {
+	private void checkIdMin(PageParameterVO vo) throws CheckerException {
 		
 		String idMin = vo.getIdMin();
 		
@@ -62,7 +62,7 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(idMin, StringConcatUtil.concate(NAME_PREFIX, "idMin"));
 	}
-	private void checkIdMax(PageParameteVO vo) throws CheckerException {
+	private void checkIdMax(PageParameterVO vo) throws CheckerException {
 		
 		String idMax = vo.getIdMax();
 		
@@ -71,9 +71,9 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(idMax, StringConcatUtil.concate(NAME_PREFIX, "idMax"));
 	}
-	private void checkName(PageParameteVO vo) {
+	private void checkName(PageParameterVO vo) {
 	}
-	private void checkPriceMin(PageParameteVO vo) throws CheckerException {
+	private void checkPriceMin(PageParameterVO vo) throws CheckerException {
 		
 		String priceMin = vo.getPriceMin();
 		
@@ -82,7 +82,7 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(priceMin, StringConcatUtil.concate(NAME_PREFIX, "priceMin"));
 	}
-	private void checkPriceMax(PageParameteVO vo) throws CheckerException {
+	private void checkPriceMax(PageParameterVO vo) throws CheckerException {
 		
 		String priceMax = vo.getPriceMax();
 		
@@ -91,7 +91,7 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(priceMax, StringConcatUtil.concate(NAME_PREFIX, "priceMax"));
 	}
-	private void checkQuantityMin(PageParameteVO vo) throws CheckerException {
+	private void checkQuantityMin(PageParameterVO vo) throws CheckerException {
 		
 		String quantityMin = vo.getQuantityMin();
 		
@@ -100,7 +100,7 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(quantityMin, StringConcatUtil.concate(NAME_PREFIX, "quantityMin"));
 	}
-	private void checkQuantityMax(PageParameteVO vo) throws CheckerException {
+	private void checkQuantityMax(PageParameterVO vo) throws CheckerException {
 		
 		String quantityMax = vo.getQuantityMax();
 		
@@ -109,7 +109,7 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameteVO, Chec
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(quantityMax, StringConcatUtil.concate(NAME_PREFIX, "quantityMax"));
 	}
-	private void checkStatus(PageParameteVO vo) throws CheckerException {
+	private void checkStatus(PageParameterVO vo) throws CheckerException {
 		
 		String status = vo.getStatus();
 		

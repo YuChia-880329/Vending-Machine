@@ -71,7 +71,7 @@
 	}
 	
 	
-	function checkIntegerInput(inputId, name){
+	function checkPositiveIntegerInput(inputId, name){
 		
 		if(checkHasValue(inputId)){
 			

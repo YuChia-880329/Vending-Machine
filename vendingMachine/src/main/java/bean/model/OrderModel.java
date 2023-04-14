@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class OrderModel {
 
 	private int id;
-	private Timestamp dateTime;
+	private Timestamp timestamp;
 	private String customerId;
 	private int goodsId;
 	private int goodsPrice;
@@ -14,9 +14,9 @@ public class OrderModel {
 	
 	public OrderModel() {
 	}
-	public OrderModel(int id, Timestamp dateTime, String customerId, int goodsId, int goodsPrice, int buyQuantity) {
+	public OrderModel(int id, Timestamp timestamp, String customerId, int goodsId, int goodsPrice, int buyQuantity) {
 		this.id = id;
-		this.dateTime = dateTime;
+		this.timestamp = timestamp;
 		this.customerId = customerId;
 		this.goodsId = goodsId;
 		this.goodsPrice = goodsPrice;
@@ -27,8 +27,8 @@ public class OrderModel {
 	public int getId() {
 		return id;
 	}
-	public Timestamp getDateTime() {
-		return dateTime;
+	public Timestamp getTimestamp() {
+		return timestamp;
 	}
 	public String getCustomerId() {
 		return customerId;
@@ -47,8 +47,8 @@ public class OrderModel {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setDateTime(Timestamp dateTime) {
-		this.dateTime = dateTime;
+	public void setTimestamp(Timestamp dateTime) {
+		this.timestamp = dateTime;
 	}
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
