@@ -1,14 +1,14 @@
 package bean.dto.backend.orderList.vo.writeout;
 
-public class BackendOrderListWOVODTO {
+public class BackendOrderListVODTO {
 
 	private OrderTablePageVODTO orderTablePage;
 	private FilterFormVODTO filterForm;
 	
 	
-	public BackendOrderListWOVODTO() {
+	public BackendOrderListVODTO() {
 	}
-	public BackendOrderListWOVODTO(OrderTablePageVODTO orderTablePage, FilterFormVODTO filterForm) {
+	public BackendOrderListVODTO(OrderTablePageVODTO orderTablePage, FilterFormVODTO filterForm) {
 
 		this.orderTablePage = orderTablePage;
 		this.filterForm = filterForm;

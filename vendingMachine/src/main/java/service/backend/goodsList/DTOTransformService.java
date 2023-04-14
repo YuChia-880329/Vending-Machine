@@ -41,7 +41,7 @@ public class DTOTransformService {
 				.collect(Collectors.toList());
 	}
 	
-	public GoodsTableRowVODTO goodsOBJToGoodsTableRowVO(GoodsTableRowOBJDTO goodsOBJDTO){
+	public GoodsTableRowVODTO goodsTableRowOBJToGoodsTableRowVO(GoodsTableRowOBJDTO goodsOBJDTO){
 		
 		GoodsTableRowVODTO goodsTableRowVODTO = new GoodsTableRowVODTO();
 		
@@ -54,28 +54,12 @@ public class DTOTransformService {
 		return goodsTableRowVODTO;
 	}
 	
-	public List<GoodsTableRowVODTO> goodsOBJsToGoodsTableRowVOs(List<GoodsTableRowOBJDTO> goodsOBJDTOs){
+	public List<GoodsTableRowVODTO> goodsTableRowOBJsToGoodsTableRowVOs(List<GoodsTableRowOBJDTO> goodsOBJDTOs){
 		
 		return goodsOBJDTOs.stream()
-				.map(goodsOBJDTO -> goodsOBJToGoodsTableRowVO(goodsOBJDTO))
+				.map(goodsOBJDTO -> goodsTableRowOBJToGoodsTableRowVO(goodsOBJDTO))
 				.collect(Collectors.toList());
 	}
-	
-//	public SearchParameterOBJDTO searchParameterVOToSearchParameterOBJ(SearchParameterVODTO searchParameterVODTO) {
-//		
-//		SearchParameterOBJDTO searchParameterOBJDTO = new SearchParameterOBJDTO();
-//		
-//		searchParameterOBJDTO.setIdMin(searchParameterVODTO.getIdMin());
-//		searchParameterOBJDTO.setIdMax(searchParameterVODTO.getIdMax());
-//		searchParameterOBJDTO.setName(searchParameterVODTO.getName());
-//		searchParameterOBJDTO.setPriceMin(searchParameterVODTO.getPriceMin());
-//		searchParameterOBJDTO.setPriceMax(searchParameterVODTO.getPriceMax());
-//		searchParameterOBJDTO.setQuantityMin(searchParameterVODTO.getQuantityMin());
-//		searchParameterOBJDTO.setQuantityMax(searchParameterVODTO.getQuantityMax());
-//		searchParameterOBJDTO.setStatus(searchParameterVODTO.getStatus());
-//		
-//		return searchParameterOBJDTO;
-//	}
 	
 	public GoodsTablePagesInputOBJDTO pageParameterVOToGoodsTablePagesInputOBJ(PageParameterVODTO pageParameterVODTO) {
 		

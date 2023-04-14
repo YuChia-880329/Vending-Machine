@@ -1,30 +1,30 @@
 package transformer.backend.orderList.vo.writeout;
 
-import bean.dto.backend.orderList.vo.writeout.BackendOrderListWOVODTO;
+import bean.dto.backend.orderList.vo.writeout.BackendOrderListVODTO;
 import bean.vo.backend.orderList.writeout.BackendOrderListVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
-public class BackendOrderListWOVOTransformer extends VOWriteOutTransformerTemplate<BackendOrderListWOVODTO, BackendOrderListVO> {
+public class BackendOrderListVOTransformer extends VOWriteOutTransformerTemplate<BackendOrderListVODTO, BackendOrderListVO> {
 
 	private OrderTablePageVOTransformer orderTablePageVOTransformer;
 	private FilterFormVOTransformer filterFormVOTransformer;
 	
 	
-	private static final BackendOrderListWOVOTransformer INSTANCE = new BackendOrderListWOVOTransformer();
+	private static final BackendOrderListVOTransformer INSTANCE = new BackendOrderListVOTransformer();
 	
-	private BackendOrderListWOVOTransformer() {
+	private BackendOrderListVOTransformer() {
 		
 		orderTablePageVOTransformer = OrderTablePageVOTransformer.getInstance();
 		filterFormVOTransformer = FilterFormVOTransformer.getInstance();
 	}
 	
-	public static BackendOrderListWOVOTransformer getInstance() {
+	public static BackendOrderListVOTransformer getInstance() {
 		
 		return INSTANCE;
 	}
 
 	@Override
-	public BackendOrderListVO dtoToVo(BackendOrderListWOVODTO dto) {
+	public BackendOrderListVO dtoToVo(BackendOrderListVODTO dto) {
 		
 		BackendOrderListVO vo = new BackendOrderListVO();
 		

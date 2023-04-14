@@ -64,4 +64,11 @@ public class OrderJoinModelDTO {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "OrderJoinModelDTO [customerName=" + customerName + ", dateTime=" + dateTime + ", goodsName=" + goodsName
+				+ ", goodsPrice=" + goodsPrice + ", buyQuantity=" + buyQuantity + ", totalPrice=" + totalPrice + "]";
+	}
 }

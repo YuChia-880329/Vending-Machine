@@ -1,13 +1,13 @@
 package bean.dto.backend.orderList.obj.repository.orderTablePages.readin;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class OrderTablePagesInputOBJDTO {
 
 	private int currentPage;
 	private String customerName;
-	private LocalDateTime startDate;
-	private LocalDateTime endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private String goodsName;
 	private Integer goodsPriceMin;
 	private Integer goodsPriceMax;
@@ -20,8 +20,8 @@ public class OrderTablePagesInputOBJDTO {
 	
 	public OrderTablePagesInputOBJDTO() {
 	}
-	public OrderTablePagesInputOBJDTO(int currentPage, String customerName, LocalDateTime startDate,
-			LocalDateTime endDate, String goodsName, Integer goodsPriceMin, Integer goodsPriceMax,
+	public OrderTablePagesInputOBJDTO(int currentPage, String customerName, LocalDate startDate,
+			LocalDate endDate, String goodsName, Integer goodsPriceMin, Integer goodsPriceMax,
 			Integer buyQuantityMin, Integer buyQuantityMax, Integer totalPriceMin, Integer totalPriceMax) {
 		
 		this.currentPage = currentPage;
@@ -44,10 +44,10 @@ public class OrderTablePagesInputOBJDTO {
 	public String getCustomerName() {
 		return customerName;
 	}
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public LocalDateTime getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 	public String getGoodsName() {
@@ -79,10 +79,10 @@ public class OrderTablePagesInputOBJDTO {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	public void setGoodsName(String goodsName) {

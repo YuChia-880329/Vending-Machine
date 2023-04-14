@@ -1,13 +1,13 @@
 package transformer.backend.goodsList.vo.readin;
 
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
-import bean.vo.backend.goodsList.readin.PageParameteVO;
+import bean.vo.backend.goodsList.readin.PageParameterVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
 import transformer.backend.goodsList.vo.readin.checker.PageParameterVOChecker;
 
-public class PageParameterVOTransformer extends VOReanInTransformerTemplate<PageParameteVO, PageParameterVODTO, CheckerException, PageParameterVOChecker> {
+public class PageParameterVOTransformer extends VOReanInTransformerTemplate<PageParameterVO, PageParameterVODTO, CheckerException, PageParameterVOChecker> {
 	
 	private static final PageParameterVOTransformer INSTANCE = new PageParameterVOTransformer();
 	
@@ -20,7 +20,7 @@ public class PageParameterVOTransformer extends VOReanInTransformerTemplate<Page
 	}
 
 	@Override
-	public PageParameterVODTO voToDto(PageParameteVO vo) throws CheckerException {
+	public PageParameterVODTO voToDto(PageParameterVO vo) throws CheckerException {
 
 		PageParameterVODTO dto = new PageParameterVODTO();
 		

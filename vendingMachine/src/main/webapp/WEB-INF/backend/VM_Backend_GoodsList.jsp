@@ -17,10 +17,7 @@
 	<script type="text/javascript">
 	
 		let allGoodsBtn = 'all_goods_btn';
-		
-		let filterBtnId = 'filter_btn';
-		let filterFormId = 'filter_form';
-		
+
 		// filter
 		let filterIdMinInputId = 'filter_id_min';
 		let filterIdMaxInputId = 'filter_id_max';
@@ -35,6 +32,8 @@
 		
 		let filterStatusResetBtnId = 'filter_status_reset_btn';
 		let filterFormResetBtnId = 'filter_form_reset_btn';
+		let filterBtnId = 'filter_btn';
+		let filterFormId = 'filter_form';
 		
 		
 		$(document).ready(readyFctn);
@@ -55,16 +54,16 @@
 		}
 		function filterInputCheck(){
 			
-			return checkIntegerInput(filterIdMinInputId, '商品編號(小)')
-				&& checkIntegerInput(filterIdMaxInputId, '商品編號(大)')
+			return checkPositiveIntegerInput(filterIdMinInputId, '商品編號(小)')
+				&& checkPositiveIntegerInput(filterIdMaxInputId, '商品編號(大)')
 				&& checkIntegerInputMinMax(filterIdMinInputId, '商品編號(小)', filterIdMaxInputId, '商品編號(大)')
 			
-				&& checkIntegerInput(filterPriceMinInputId, '商品價格(小)')
-				&& checkIntegerInput(filterPriceMaxInputId, '商品價格(大)')
+				&& checkPositiveIntegerInput(filterPriceMinInputId, '商品價格(小)')
+				&& checkPositiveIntegerInput(filterPriceMaxInputId, '商品價格(大)')
 				&& checkIntegerInputMinMax(filterPriceMinInputId, '商品價格(小)', filterPriceMaxInputId, '商品價格(大)')
 			
-				&& checkIntegerInput(filterQuantityMinInputId, '現有庫存(小)')
-				&& checkIntegerInput(filterQuantityMaxInputId, '現有庫存(大)')
+				&& checkPositiveIntegerInput(filterQuantityMinInputId, '現有庫存(小)')
+				&& checkPositiveIntegerInput(filterQuantityMaxInputId, '現有庫存(大)')
 				&& checkIntegerInputMinMax(filterQuantityMinInputId, '現有庫存(小)', filterQuantityMaxInputId, '現有庫存(大)');
 		}
 		function initFilterStatus(){

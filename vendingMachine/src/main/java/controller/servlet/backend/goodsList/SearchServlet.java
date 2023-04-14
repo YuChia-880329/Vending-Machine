@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.vo.backend.goodsList.readin.PageParameteVO;
+import bean.vo.backend.goodsList.readin.PageParameterVO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import service.backend.goodsList.UrlService;
 import template.exception.CheckerException;
@@ -49,7 +49,7 @@ public class SearchServlet extends HttpServlet {
 		String quantityMaxStr = req.getParameter(GoBackendGoodsListServlet.REQ_PARAM_QUANTITY_MAX);
 		String statusStr = req.getParameter(GoBackendGoodsListServlet.REQ_PARAM_STATUS);
 		
-		PageParameteVO pageParameterVO = new PageParameteVO();
+		PageParameterVO pageParameterVO = new PageParameterVO();
 		
 		pageParameterVO.setPage(null);
 		pageParameterVO.setIdMin(idMinStr);

@@ -46,7 +46,7 @@ public class DateTimeUtil {
 	}
 	public static String localDateToString(LocalDate localDate) {
 		
-		return localDate.format(LOCAL_DATE_TIME_FORMATTER);
+		return localDate.format(LOCAL_DATE_FORMATTER);
 	}
 	
 	public static LocalDate localDateTimeToLocalDate(LocalDateTime localDateTime) {

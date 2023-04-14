@@ -7,7 +7,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSession;
 
-public class GoodsTablePagesContextListener implements ServletContextListener {
+public class GoodsTablePagesDAOContextListener implements ServletContextListener {
 
 	public static final String GOODS_TABLE_PAGES_DAO_MAP = "goodsTablePagesDAOMap";
 
@@ -17,5 +17,11 @@ public class GoodsTablePagesContextListener implements ServletContextListener {
 		Map<HttpSession, GoodsTablePagesDAO> goodsTablePagesDAOMap = new HashMap<>();
 		
 		sce.getServletContext().setAttribute(GOODS_TABLE_PAGES_DAO_MAP, goodsTablePagesDAOMap);
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		
+		ServletContextListener.super.contextDestroyed(sce);
 	}
 }

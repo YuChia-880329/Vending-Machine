@@ -1,6 +1,6 @@
 package bean.vo.backend.goodsList.readin;
 
-public class PageParameteVO {
+public class PageParameterVO {
 
 	private String page;
 	private String idMin;
@@ -13,9 +13,9 @@ public class PageParameteVO {
 	private String status;
 	
 	
-	public PageParameteVO() {
+	public PageParameterVO() {
 	}
-	public PageParameteVO(String page, String idMin, String idMax, String name, String priceMin, String priceMax,
+	public PageParameterVO(String page, String idMin, String idMax, String name, String priceMin, String priceMax,
 			String quantityMin, String quantityMax, String status) {
 
 		this.page = page;

@@ -128,7 +128,7 @@ public class OrderJoinModelDAO {
 				sql = StringConcatUtil.concate(sql, " AND ", objs[i].getQueryStatement());
 		}
 		
-		String sqlFormatStr = StringConcatUtil.concate("SELECT %s %s %s %s %s %s FROM (%s) WHERE RN ", SQLUtil.pageStatement(page, numPerPage));
+		String sqlFormatStr = StringConcatUtil.concate("SELECT %s, %s, %s, %s, %s, %s FROM (%s) WHERE RN ", SQLUtil.pageStatement(page, numPerPage));
 		return String.format(sqlFormatStr, 
 				BEVERAGE_MEMBER_COL_NAME_CUSTOMER_NAME, 
 				BEVERAGE_ORDER_COL_NAME_ORDER_DATE, 
@@ -179,7 +179,7 @@ public class OrderJoinModelDAO {
 	
 	private String getSelectSubTableSql() {
 		
-		String subTableSqlFormatStr = "SELECT O.%s M.%s O.%s O.%s O.%s O.%s O.%s*O.%s %s FROM %s O INNER JOIN %s M ON O.%s = M.%s";
+		String subTableSqlFormatStr = "SELECT O.%s, M.%s, O.%s, O.%s, O.%s, O.%s, O.%s*O.%s %s FROM %s O INNER JOIN %s M ON O.%s = M.%s";
 		return String.format(subTableSqlFormatStr, 
 				BEVERAGE_ORDER_COL_NAME_ORDER_ID,
 				BEVERAGE_MEMBER_COL_NAME_CUSTOMER_NAME, 
@@ -197,7 +197,7 @@ public class OrderJoinModelDAO {
 	}
 	private String getSelectSql(String subTableSql) {
 		
-		String sqlFormatStr = "SELECT T.%s T.%s G.%s T.%s T.%s T.%s FROM (%s) T INNER JOIN %s G ON T.%s = G.%s";
+		String sqlFormatStr = "SELECT T.%s, T.%s, G.%s, T.%s, T.%s, T.%s FROM (%s) T INNER JOIN %s G ON T.%s = G.%s";
 		return String.format(sqlFormatStr, 
 				BEVERAGE_MEMBER_COL_NAME_CUSTOMER_NAME, 
 				BEVERAGE_ORDER_COL_NAME_ORDER_DATE, 
@@ -212,7 +212,7 @@ public class OrderJoinModelDAO {
 	}
 	private String getRowNumberSelectSql(String subTableSql) {
 		
-		String sqlFormatStr = "SELECT T.%s T.%s G.%s T.%s T.%s %T.%s ROW_NUMBER()OVER(ORDER BY T.%s) FROM (%s) T INNER JOIN %s G ON T.%s = G.%s";
+		String sqlFormatStr = "SELECT T.%s, T.%s, G.%s, T.%s, T.%s, T.%s, ROW_NUMBER()OVER(ORDER BY T.%s) RN FROM (%s) T INNER JOIN %s G ON T.%s = G.%s";
 		return String.format(sqlFormatStr, 
 				BEVERAGE_MEMBER_COL_NAME_CUSTOMER_NAME, 
 				BEVERAGE_ORDER_COL_NAME_ORDER_DATE, 

@@ -50,7 +50,7 @@ public class OrderTableRowOBJTransformer extends BiTransformerTemplate<OrderTabl
 		
 		return bListToAList(objList);
 	}
-	public List<OrderTableRowOBJ> dtoToObj(List<OrderTableRowOBJDTO> dtoList) {
+	public List<OrderTableRowOBJ> dtoListToObjList(List<OrderTableRowOBJDTO> dtoList) {
 		
 		return aListToBList(dtoList);
 	}

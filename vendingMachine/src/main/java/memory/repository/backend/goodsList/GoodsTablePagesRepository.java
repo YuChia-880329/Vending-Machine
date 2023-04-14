@@ -87,7 +87,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 			GoodsTableOBJ goodsTable = new GoodsTableOBJ();
 			
 			List<GoodsModelDTO> goodsModelDTOList = goodsModelService.searchByQueryObjPage(i, GoodsTablePageService.GOODS_PER_PAGE, queryObjs);
-			
+
 			goodsTable.setGoodsTableRows(
 					goodsTableRowOBJTransformer.dtoListToObjList(
 							dtoTransformService.goodsModelsToGoodsOBJs(goodsModelDTOList)));
