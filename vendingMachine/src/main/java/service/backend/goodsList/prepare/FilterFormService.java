@@ -1,4 +1,4 @@
-package service.backend.goodsList;
+package service.backend.goodsList.prepare;
 
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.goodsList.vo.writeout.FilterFormVODTO;

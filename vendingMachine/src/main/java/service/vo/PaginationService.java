@@ -7,7 +7,9 @@ import java.util.function.Function;
 import bean.dto.vo.writeout.PageTurningVODTO;
 import bean.dto.vo.writeout.PageVODTO;
 import bean.dto.vo.writeout.PaginationVODTO;
+import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import enumeration.Has;
+import util.PaginationUtil;
 
 public class PaginationService {
 
@@ -20,8 +22,17 @@ public class PaginationService {
 		
 		return INSTANCE;
 	}
+	public PaginationVODTO prepare(int page, int pagesPerPageGroup, int maxPage, Function<Integer, String> urlFctn) {
+		
+		return prepare(
+				page, 
+				PaginationUtil.getStartPage(page, pagesPerPageGroup), 
+				PaginationUtil.getEndPage(page, pagesPerPageGroup, maxPage), 
+				maxPage, 
+				urlFctn);
+	}
 	
-	public PaginationVODTO getPagination(int page, int startPage, int endPage, int maxPage, Function<Integer, String> urlFctn) {
+	public PaginationVODTO prepare(int page, int startPage, int endPage, int maxPage, Function<Integer, String> urlFctn) {
 		
 		PaginationVODTO pagination = new PaginationVODTO();
 		

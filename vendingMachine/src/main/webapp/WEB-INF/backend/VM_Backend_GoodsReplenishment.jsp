@@ -1,6 +1,7 @@
 <!-- url : /vendingMachine/machine/backend/goodsUpdate -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,9 +37,9 @@
 							<div>
 								<select class="form-select" id="good_name" aria-label="Good Name Select">
 									  <option value="0" selected>---- 請選擇 ----</option>
-									  <option value="1">One</option>
-									  <option value="2">Two</option>
-									  <option value="3">Three</option>
+									<c:forEach var="goodsNameOption" items="${vo.updateForm.goodsNameOptions}">
+									  	<option value="${goodsNameOption.id}">${goodsNameOption.name}</option>
+									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -80,7 +81,7 @@
 						</div>
 						
 						<div class="mb-4 pt-2">
-							<button class="btn btn-outline-primary">更新</button>
+							<button type="button" class="btn btn-outline-primary">更新</button>
 						</div>
 						
 					</div>

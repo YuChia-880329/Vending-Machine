@@ -33,7 +33,7 @@
 	    			</td>
 	    			<td>
 	    				<div class="m-0 row justify-content-center align-content-center vmb-nav-td-div">
-	    					<a class="w-auto h-auto p-0 m-0 h5 link-primary" href="goodsSale">銷售報表</a>
+	    					<a class="w-auto h-auto p-0 m-0 h5 link-primary" href="orderList">銷售報表</a>
 	    				</div>
 	    			</td>
 	    			<td>

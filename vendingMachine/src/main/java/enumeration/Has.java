@@ -2,15 +2,17 @@ package enumeration;
 
 public enum Has {
 
-	TRUE(true, "true"), FALSE(false, "false");
+	TRUE(true, "true", 1), FALSE(false, "false", 0);
 	
 	private boolean value;
 	private String description;
+	private int code;
 	
 	
-	private Has(boolean value, String description) {
+	private Has(boolean value, String description, int code) {
 		this.value = value;
 		this.description = description;
+		this.code = code;
 	}
 
 
@@ -19,6 +21,10 @@ public enum Has {
 	}
 	public String getDescription() {
 		return description;
+	}
+	public int getCode() {
+		
+		return code;
 	}
 	
 	public static Has getByDescription(String description) {
@@ -32,5 +38,14 @@ public enum Has {
 			return FALSE;
 		
 		return null;
+	}
+	public static Has getByCode(int code) {
+		
+		if(code == 1)
+			return TRUE;
+		else if(code == 0)
+			return FALSE;
+		else
+			return null;
 	}
 }

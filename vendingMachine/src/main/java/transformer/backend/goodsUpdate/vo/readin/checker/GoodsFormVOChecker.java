@@ -7,16 +7,16 @@ import template.exception.CheckerException;
 import util.CheckUtil;
 import util.StringConcatUtil;
 
-public class BGUGoodsFormRIVOChecker extends CheckerTemplate<GoodsFormVO, CheckerException> {
+public class GoodsFormVOChecker extends CheckerTemplate<GoodsFormVO, CheckerException> {
 
 	private static final String NAME_PREFIX = "backend goods update, goods form, ";
 	
-	private static final BGUGoodsFormRIVOChecker INSTANCE = new BGUGoodsFormRIVOChecker();
+	private static final GoodsFormVOChecker INSTANCE = new GoodsFormVOChecker();
 	
-	private BGUGoodsFormRIVOChecker() {
+	private GoodsFormVOChecker() {
 	}
 	
-	public static BGUGoodsFormRIVOChecker getInstance() {
+	public static GoodsFormVOChecker getInstance() {
 		
 		return INSTANCE;
 	}

@@ -1,14 +1,14 @@
 package bean.dto.backend.goodsUpdate.vo.writeout;
 
-public class BGUUFGoodsNameOptionWOVODTO {
+public class GoodsNameOptionVODTO {
 
 	private int id;
 	private String name;
 	
 	
-	public BGUUFGoodsNameOptionWOVODTO() {
+	public GoodsNameOptionVODTO() {
 	}
-	public BGUUFGoodsNameOptionWOVODTO(int id, String name) {
+	public GoodsNameOptionVODTO(int id, String name) {
 		
 		this.id = id;
 		this.name = name;

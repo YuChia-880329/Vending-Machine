@@ -3,16 +3,17 @@ package memory.repository.backend.goodsList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsTableRowOBJDTO;
 import bean.dto.model.GoodsModelDTO;
 import bean.obj.backend.goodsList.repository.goodsTablePages.readin.GoodsTablePagesInputOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.FilterParameterOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTableOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePageOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePagesOBJ;
-import service.backend.goodsList.DTOTransformService;
-import service.backend.goodsList.GoodsTablePageService;
 import service.backend.goodsList.memory.repository.goodsTablePages.OBJTransformService;
+import service.backend.goodsList.prepare.GoodsTablePageService;
 import service.backend.goodsList.memory.repository.goodsTablePages.FilterParameterService;
 import service.model.GoodsModelService;
 import template.memory.repository.RepositoryTemplate;
@@ -27,7 +28,6 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	private FilterParameterService filterParameterService;
 	private GoodsModelService goodsModelService;
 	private GoodsTableRowOBJTransformer goodsTableRowOBJTransformer;
-	private DTOTransformService dtoTransformService;
 	private OBJTransformService objTransformService;
 	
 
@@ -39,7 +39,6 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		filterParameterService = FilterParameterService.getInstance();
 		goodsModelService = GoodsModelService.getInstance();
 		goodsTableRowOBJTransformer = GoodsTableRowOBJTransformer.getInstance();
-		dtoTransformService = DTOTransformService.getInstance();
 		objTransformService = OBJTransformService.getInstance();
 	}
 
@@ -90,7 +89,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 
 			goodsTable.setGoodsTableRows(
 					goodsTableRowOBJTransformer.dtoListToObjList(
-							dtoTransformService.goodsModelsToGoodsOBJs(goodsModelDTOList)));
+							goodsModelsToGoodsOBJs(goodsModelDTOList)));
 			
 			goodsTablePage.setGoodsTable(goodsTable);
 			goodsTablePageMap.put(i, goodsTablePage);
@@ -104,5 +103,24 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 			updateRequired = false;
 		
 		return goodsTablePages;
+	}
+	
+	private List<GoodsTableRowOBJDTO> goodsModelsToGoodsOBJs(List<GoodsModelDTO> goodsModelDTOs){
+		
+		return goodsModelDTOs.stream()
+				.map(goodsModelDTO -> goodsModelToGoodsOBJ(goodsModelDTO))
+				.collect(Collectors.toList());
+	}
+	private GoodsTableRowOBJDTO goodsModelToGoodsOBJ(GoodsModelDTO goodsModelDTO) {
+		
+		GoodsTableRowOBJDTO goodsTableRowOBJDTO = new GoodsTableRowOBJDTO();
+		
+		goodsTableRowOBJDTO.setId(goodsModelDTO.getId());
+		goodsTableRowOBJDTO.setName(goodsModelDTO.getName());
+		goodsTableRowOBJDTO.setPrice(goodsModelDTO.getPrice());
+		goodsTableRowOBJDTO.setQuantity(goodsModelDTO.getQuantity());
+		goodsTableRowOBJDTO.setStatus(goodsModelDTO.getStatus());
+		
+		return goodsTableRowOBJDTO;
 	}
 }

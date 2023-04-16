@@ -5,9 +5,9 @@ import bean.vo.backend.goodsUpdate.readin.GoodsFormVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.backend.goodsUpdate.vo.readin.checker.BGUGoodsFormRIVOChecker;
+import transformer.backend.goodsUpdate.vo.readin.checker.GoodsFormVOChecker;
 
-public class GoodsFormVOTransformer extends VOReanInTransformerTemplate<GoodsFormVO, GoodsFormVODTO, CheckerException, BGUGoodsFormRIVOChecker> {
+public class GoodsFormVOTransformer extends VOReanInTransformerTemplate<GoodsFormVO, GoodsFormVODTO, CheckerException, GoodsFormVOChecker> {
 
 	private static final GoodsFormVOTransformer INSTANCE = new GoodsFormVOTransformer();
 	
@@ -33,8 +33,8 @@ public class GoodsFormVOTransformer extends VOReanInTransformerTemplate<GoodsFor
 	}
 
 	@Override
-	protected BGUGoodsFormRIVOChecker getChecker() {
+	protected GoodsFormVOChecker getChecker() {
 
-		return BGUGoodsFormRIVOChecker.getInstance();
+		return GoodsFormVOChecker.getInstance();
 	}
 }

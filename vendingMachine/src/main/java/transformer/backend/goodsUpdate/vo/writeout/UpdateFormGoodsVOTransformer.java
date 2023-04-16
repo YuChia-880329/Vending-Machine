@@ -1,23 +1,23 @@
 package transformer.backend.goodsUpdate.vo.writeout;
 
-import bean.dto.backend.goodsUpdate.vo.writeout.BGUUFGoodsWOVODTO;
+import bean.dto.backend.goodsUpdate.vo.writeout.UpdateFormGoodsVODTO;
 import bean.vo.backend.goodsUpdate.writeout.UpdateFormGoodsVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
-public class BGUUFGoodsWOVOTransformer extends VOWriteOutTransformerTemplate<BGUUFGoodsWOVODTO, UpdateFormGoodsVO> {
+public class UpdateFormGoodsVOTransformer extends VOWriteOutTransformerTemplate<UpdateFormGoodsVODTO, UpdateFormGoodsVO> {
 
-	private static final BGUUFGoodsWOVOTransformer INSTANCE = new BGUUFGoodsWOVOTransformer();
+	private static final UpdateFormGoodsVOTransformer INSTANCE = new UpdateFormGoodsVOTransformer();
 	
-	private BGUUFGoodsWOVOTransformer() {
+	private UpdateFormGoodsVOTransformer() {
 	}
 	
-	public static BGUUFGoodsWOVOTransformer getInstance() {
+	public static UpdateFormGoodsVOTransformer getInstance() {
 		
 		return INSTANCE;
 	}
 
 	@Override
-	public UpdateFormGoodsVO dtoToVo(BGUUFGoodsWOVODTO dto) {
+	public UpdateFormGoodsVO dtoToVo(UpdateFormGoodsVODTO dto) {
 		
 		UpdateFormGoodsVO vo = new UpdateFormGoodsVO();
 		

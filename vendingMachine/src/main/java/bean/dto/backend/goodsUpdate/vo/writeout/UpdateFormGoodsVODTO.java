@@ -2,16 +2,16 @@ package bean.dto.backend.goodsUpdate.vo.writeout;
 
 import enumeration.Status;
 
-public class BGUUFGoodsWOVODTO {
+public class UpdateFormGoodsVODTO {
 
 	private int id;
 	private int quantity;
 	private Status status;
 	
 	
-	public BGUUFGoodsWOVODTO() {
+	public UpdateFormGoodsVODTO() {
 	}
-	public BGUUFGoodsWOVODTO(int id, int quantity, Status status) {
+	public UpdateFormGoodsVODTO(int id, int quantity, Status status) {
 
 		this.id = id;
 		this.quantity = quantity;
