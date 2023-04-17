@@ -2,23 +2,30 @@ package filter;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
-@SuppressWarnings("serial")
-public class ContentTypeFilter extends HttpFilter {
+public class ContentTypeFilter implements Filter {
 
 	@Override
-	protected void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html;charset=utf-8");
-		chain.doFilter(req, resp);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
+		chain.doFilter(request, response);
 	}
 
-	
+	@Override
+	public void destroy() {
+
+	}
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+
+	}
 }
