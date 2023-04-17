@@ -14,12 +14,14 @@ public class CreateServlet extends HttpServlet {
 	public static final String URL = "/vendingMachine/machine/backend/goodsCreate/create";
 	
 	
-	public static final String IMAGE_DIRECTORY_PATH = "vendingMachine/images";
+	// context init parameter
+	private static final String CTX_PARAM_DEPLOY_PATH = "deployPath";
 	
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println(req.getContextPath());
 		
 	}
 }

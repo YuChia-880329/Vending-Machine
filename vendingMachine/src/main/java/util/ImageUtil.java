@@ -10,11 +10,11 @@ import javax.servlet.http.Part;
 
 public class ImageUtil {
 
-	public static void uploadImage(Part imagePart, InputStream is, String directoryPath) throws IOException {
+	public static void uploadImage(Part imagePart, String imagePath) throws IOException {
 		
-		try(OutputStream os = new FileOutputStream(directoryPath);){
+		try(OutputStream os = new FileOutputStream(imagePath);){
 			
-			List<byte[]> buffers = IOUtil.readByte(is);
+			List<byte[]> buffers = IOUtil.readByte(imagePart.getInputStream());
 			IOUtil.writeByte(os, buffers);
 		}  catch (IOException ex) {
 			
