@@ -1,6 +1,5 @@
 package template.transformer.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import template.CheckerTemplate;
@@ -16,35 +15,40 @@ public abstract class BeanTransformerTemplate<B, D, E extends CheckerException, 
 		checker = getChecker();
 	}
 	
+	
 	public List<D> beanListToDtoList(List<B> bList) throws E{
 		
 		return aListToBList(bList);
 	}
 	public List<B> dtoListToBeanList(List<D> dList) {
 		
-		try {
-			return bListToAList(dList);
-		} catch (CheckerException ex) {
-		}
+		return bListToAList(dList);
+	}
+	
+	public D beanToDto(B bean) throws E{
 		
-		return new ArrayList<>();
+		checker.check(bean);
+		return aToB(bean);
+	}
+	public B dtoToBean(D dto) {
+		
+		return bToA(dto);
 	}
 	
 	
 	@Override
-	public D aToB(B a) throws E {
+	public D aToBTransform(B bean) throws E {
 		
-		return beanToDto(a);
+		return beanToDtoTransform(bean);
 	}
 	@Override
-	public B bToA(D b) {
+	public B bToATransform(D dto) {
 		
-		return dtoToBean(b);
+		return dtoToBeanTransform(dto);
 	}
-	
 
-	public abstract D beanToDto(B bean) throws E;
-	public abstract B dtoToBean(D dto);
-	
+
+	protected abstract D beanToDtoTransform(B bean) throws E;
+	protected abstract B dtoToBeanTransform(D dto);
 	protected abstract C getChecker();
 }

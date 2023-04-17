@@ -11,11 +11,17 @@ public abstract class BeanWriteOutTransformerTemplate<D, B> extends TransformerT
 		return aListToBList(dList);
 	}
 	
-	@Override
-	public B aToB(D a) {
+	public B dtoToBean(D dto) {
 		
-		return dtoToBean(a);
+		return aToB(dto);
+	}
+	
+	
+	@Override
+	public B aToBTransform(D dto) {
+		
+		return dtoToBeanTransform(dto);
 	}
 
-	public abstract B dtoToBean(D dto);
+	protected abstract B dtoToBeanTransform(D dto);
 }

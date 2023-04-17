@@ -18,7 +18,7 @@ public class OrderModelTransformer extends ModelTransformerTemplate<OrderModel, 
 	}
 
 	@Override
-	public OrderModelDTO modelToDto(OrderModel model) {
+	protected OrderModelDTO modelToDtoTransform(OrderModel model) {
 
 		OrderModelDTO dto = new OrderModelDTO();
 		
@@ -33,7 +33,7 @@ public class OrderModelTransformer extends ModelTransformerTemplate<OrderModel, 
 	}
 
 	@Override
-	public OrderModel dtoToModel(OrderModelDTO dto) {
+	protected OrderModel dtoToModelTransform(OrderModelDTO dto) {
 
 		OrderModel model = new OrderModel();
 		

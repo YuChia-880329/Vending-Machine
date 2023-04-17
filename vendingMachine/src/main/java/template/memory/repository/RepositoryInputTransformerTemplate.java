@@ -10,12 +10,17 @@ public abstract class RepositoryInputTransformerTemplate<P, I> extends Transform
 		
 		return aListToBList(dtoList);
 	}
+	public I dtoToInput(P dto) {
+		
+		return aToB(dto);
+	}
+	
 	
 	@Override
-	public I aToB(P dto) {
+	protected I aToBTransform(P dto) {
 		
-		return dtoToInput(dto);
+		return dtoToInputTransform(dto);
 	}
-
-	public abstract I dtoToInput(P dto);
+	
+	protected abstract I dtoToInputTransform(P dto);
 }

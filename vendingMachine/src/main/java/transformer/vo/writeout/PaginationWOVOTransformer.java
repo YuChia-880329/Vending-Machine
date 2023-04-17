@@ -6,16 +6,16 @@ import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
 public class PaginationWOVOTransformer extends VOWriteOutTransformerTemplate<PaginationVODTO, PaginationVO> {
 
-	private PPageTurningWOVOTransformer pPageTurningWOVOTransformer;
-	private PPageWOVOTransformer pPageWOVOTransformer;
+	private PageTurningVOTransformer pageTurningVOTransformer;
+	private PageVOTransformer pageVOTransformer;
 	
 	
 	private static final PaginationWOVOTransformer INSTANCE = new PaginationWOVOTransformer();
 	
 	private PaginationWOVOTransformer() {
 		
-		pPageTurningWOVOTransformer = PPageTurningWOVOTransformer.getInstance();
-		pPageWOVOTransformer = PPageWOVOTransformer.getInstance();
+		pageTurningVOTransformer = PageTurningVOTransformer.getInstance();
+		pageVOTransformer = PageVOTransformer.getInstance();
 	}
 	
 	public static PaginationWOVOTransformer getInstance() {
@@ -24,13 +24,13 @@ public class PaginationWOVOTransformer extends VOWriteOutTransformerTemplate<Pag
 	}
 
 	@Override
-	public PaginationVO dtoToVo(PaginationVODTO dto) {
+	protected PaginationVO dtoToVoTransform(PaginationVODTO dto) {
 
 		PaginationVO vo = new PaginationVO();
 		
-		vo.setPreviousPage(pPageTurningWOVOTransformer.dtoToVo(dto.getPreviousPage()));
-		vo.setPages(pPageWOVOTransformer.dtoListToVoList(dto.getPages()));
-		vo.setNextPage(pPageTurningWOVOTransformer.dtoToVo(dto.getNextPage()));
+		vo.setPreviousPage(pageTurningVOTransformer.dtoToVo(dto.getPreviousPage()));
+		vo.setPages(pageVOTransformer.dtoListToVoList(dto.getPages()));
+		vo.setNextPage(pageTurningVOTransformer.dtoToVo(dto.getNextPage()));
 		
 		return vo;
 	}

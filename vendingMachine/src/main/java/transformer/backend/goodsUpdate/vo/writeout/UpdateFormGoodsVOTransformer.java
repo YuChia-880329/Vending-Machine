@@ -17,13 +17,14 @@ public class UpdateFormGoodsVOTransformer extends VOWriteOutTransformerTemplate<
 	}
 
 	@Override
-	public UpdateFormGoodsVO dtoToVo(UpdateFormGoodsVODTO dto) {
+	protected UpdateFormGoodsVO dtoToVoTransform(UpdateFormGoodsVODTO dto) {
 		
 		UpdateFormGoodsVO vo = new UpdateFormGoodsVO();
 		
 		vo.setId(String.valueOf(dto.getId()));
+		vo.setPrice(String.valueOf(dto.getPrice()));
 		vo.setQuantity(String.valueOf(dto.getQuantity()));
-		vo.setStatus(dto.getStatus().getDescription());
+		vo.setStatus(String.valueOf(dto.getStatus().getValue()));
 		
 		return vo;
 	}

@@ -18,7 +18,7 @@ public class OrderTableRowVOTransformer extends VOWriteOutTransformerTemplate<Or
 	}
 
 	@Override
-	public OrderTableRowVO dtoToVo(OrderTableRowVODTO dto) {
+	protected OrderTableRowVO dtoToVoTransform(OrderTableRowVODTO dto) {
 		
 		OrderTableRowVO vo = new OrderTableRowVO();
 		

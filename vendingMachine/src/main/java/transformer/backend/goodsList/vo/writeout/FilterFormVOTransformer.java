@@ -18,7 +18,7 @@ public class FilterFormVOTransformer extends VOWriteOutTransformerTemplate<Filte
 	}
 
 	@Override
-	public FilterFormVO dtoToVo(FilterFormVODTO dto) {
+	protected FilterFormVO dtoToVoTransform(FilterFormVODTO dto) {
 		
 		FilterFormVO vo = new FilterFormVO();
 		

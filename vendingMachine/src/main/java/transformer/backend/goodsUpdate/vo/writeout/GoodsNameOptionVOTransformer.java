@@ -17,7 +17,7 @@ public class GoodsNameOptionVOTransformer extends VOWriteOutTransformerTemplate<
 	}
 
 	@Override
-	public GoodsNameOptionVO dtoToVo(GoodsNameOptionVODTO dto) {
+	protected GoodsNameOptionVO dtoToVoTransform(GoodsNameOptionVODTO dto) {
 
 		GoodsNameOptionVO vo = new GoodsNameOptionVO();
 		

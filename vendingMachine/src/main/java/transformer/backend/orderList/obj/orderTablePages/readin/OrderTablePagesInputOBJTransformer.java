@@ -17,7 +17,7 @@ public class OrderTablePagesInputOBJTransformer extends RepositoryInputTransform
 	}
 
 	@Override
-	public OrderTablePagesInputOBJ dtoToInput(OrderTablePagesInputOBJDTO dto) {
+	protected OrderTablePagesInputOBJ dtoToInputTransform(OrderTablePagesInputOBJDTO dto) {
 		
 		OrderTablePagesInputOBJ obj = new OrderTablePagesInputOBJ();
 		

@@ -19,7 +19,7 @@ public class FPageParameterRIVOTransformer extends VOReanInTransformerTemplate<F
 	}
 
 	@Override
-	public FPageParameterRIVODTO voToDto(FPageParameterRIVO vo) throws CheckerException {
+	protected FPageParameterRIVODTO voToDtoTransform(FPageParameterRIVO vo) throws CheckerException {
 
 		FPageParameterRIVODTO dto = new FPageParameterRIVODTO();
 		

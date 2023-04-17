@@ -24,7 +24,7 @@ public class OrderTablePageVOTransformer extends VOWriteOutTransformerTemplate<O
 	}
 
 	@Override
-	public OrderTablePageVO dtoToVo(OrderTablePageVODTO dto) {
+	protected OrderTablePageVO dtoToVoTransform(OrderTablePageVODTO dto) {
 		
 		OrderTablePageVO vo = new OrderTablePageVO();
 		
@@ -33,6 +33,4 @@ public class OrderTablePageVOTransformer extends VOWriteOutTransformerTemplate<O
 		
 		return vo;
 	}
-	
-	
 }

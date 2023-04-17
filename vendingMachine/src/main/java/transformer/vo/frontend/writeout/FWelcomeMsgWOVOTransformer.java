@@ -17,7 +17,7 @@ public class FWelcomeMsgWOVOTransformer extends VOWriteOutTransformerTemplate<FW
 	}
 
 	@Override
-	public FWelcomeMsgWOVO dtoToVo(FWelcomeMsgWOVODTO dto) {
+	protected FWelcomeMsgWOVO dtoToVoTransform(FWelcomeMsgWOVODTO dto) {
 
 		FWelcomeMsgWOVO vo = new FWelcomeMsgWOVO();
 		

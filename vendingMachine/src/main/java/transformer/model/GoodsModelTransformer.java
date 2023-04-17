@@ -18,7 +18,7 @@ public class GoodsModelTransformer extends ModelTransformerTemplate<GoodsModel, 
 	}
 
 	@Override
-	public GoodsModelDTO modelToDto(GoodsModel model) {
+	protected GoodsModelDTO modelToDtoTransform(GoodsModel model) {
 		
 		GoodsModelDTO dto = new GoodsModelDTO();
 		
@@ -34,7 +34,7 @@ public class GoodsModelTransformer extends ModelTransformerTemplate<GoodsModel, 
 	}
 
 	@Override
-	public GoodsModel dtoToModel(GoodsModelDTO dto) {
+	protected GoodsModel dtoToModelTransform(GoodsModelDTO dto) {
 		
 		GoodsModel model = new GoodsModel();
 		

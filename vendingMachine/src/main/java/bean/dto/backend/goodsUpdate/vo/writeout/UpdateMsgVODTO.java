@@ -1,7 +1,5 @@
 package bean.dto.backend.goodsUpdate.vo.writeout;
 
-import enumeration.Has;
-
 public class UpdateMsgVODTO {
 
 	private String msg;

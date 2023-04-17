@@ -19,7 +19,7 @@ public class FSCGoodsRIVOTransformer extends VOReanInTransformerTemplate<FSCGood
 	}
 
 	@Override
-	public FSCGoodsRIVODTO voToDto(FSCGoodsRIVO vo) throws CheckerException {
+	protected FSCGoodsRIVODTO voToDtoTransform(FSCGoodsRIVO vo) throws CheckerException {
 
 		FSCGoodsRIVODTO dto = new FSCGoodsRIVODTO();
 		

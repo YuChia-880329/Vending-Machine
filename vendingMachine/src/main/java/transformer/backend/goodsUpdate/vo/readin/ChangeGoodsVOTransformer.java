@@ -19,7 +19,7 @@ public class ChangeGoodsVOTransformer extends VOReanInTransformerTemplate<Change
 	}
 
 	@Override
-	public ChangeGoodsVODTO voToDto(ChangeGoodsVO vo) throws CheckerException {
+	protected ChangeGoodsVODTO voToDtoTransform(ChangeGoodsVO vo) throws CheckerException {
 
 		ChangeGoodsVODTO dto = new ChangeGoodsVODTO();
 		

@@ -17,7 +17,7 @@ public class UpdateMsgVOTransformer extends VOWriteOutTransformerTemplate<Update
 	}
 
 	@Override
-	public UpdateMsgVO dtoToVo(UpdateMsgVODTO dto) {
+	protected UpdateMsgVO dtoToVoTransform(UpdateMsgVODTO dto) {
 
 		UpdateMsgVO vo = new UpdateMsgVO();
 		

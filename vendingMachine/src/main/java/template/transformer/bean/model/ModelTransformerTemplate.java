@@ -15,18 +15,28 @@ public abstract class ModelTransformerTemplate<M, D> extends BiTransformerTempla
 		return bListToAList(dtoList);
 	}
 
+	public D modelToDto(M model) {
+		
+		return aToB(model);
+	}
+	public M dtoToModel(D dto) {
+		
+		return bToA(dto);
+	}
 	
-	@Override
-	public D aToB(M model) {
-		
-		return modelToDto(model);
-	}
-	@Override
-	public M bToA(D dto) {
-		
-		return dtoToModel(dto);
-	}
 
-	public abstract D modelToDto(M model);
-	public abstract M dtoToModel(D dto);
+	@Override
+	protected D aToBTransform(M model) {
+		
+		return modelToDtoTransform(model);
+	}
+	@Override
+	protected M bToATransform(D dto) {
+		
+		return dtoToModelTransform(dto);
+	}
+	
+	
+	protected abstract D modelToDtoTransform(M model);
+	protected abstract M dtoToModelTransform(D dto);
 }

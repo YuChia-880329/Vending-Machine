@@ -22,6 +22,24 @@ public class OrderTableRowOBJTransformer extends BiTransformerTemplate<OrderTabl
 	
 	public OrderTableRowOBJDTO objToDto(OrderTableRowOBJ obj) {
 		
+		return bToA(obj);
+	}
+	public OrderTableRowOBJ dtoToObj(OrderTableRowOBJDTO dto) {
+		
+		return aToB(dto);
+	}
+	public List<OrderTableRowOBJDTO> objListToDtoList(List<OrderTableRowOBJ> objList) {
+		
+		return bListToAList(objList);
+	}
+	public List<OrderTableRowOBJ> dtoListToObjList(List<OrderTableRowOBJDTO> dtoList) {
+		
+		return aListToBList(dtoList);
+	}
+	
+	
+	private OrderTableRowOBJDTO objToDtoTransform(OrderTableRowOBJ obj) {
+		
 		OrderTableRowOBJDTO dto = new OrderTableRowOBJDTO();
 		
 		dto.setCustomerName(obj.getCustomerName());
@@ -33,7 +51,7 @@ public class OrderTableRowOBJTransformer extends BiTransformerTemplate<OrderTabl
 		
 		return dto;
 	}
-	public OrderTableRowOBJ dtoToObj(OrderTableRowOBJDTO dto) {
+	private OrderTableRowOBJ dtoToObjTransform(OrderTableRowOBJDTO dto) {
 		
 		OrderTableRowOBJ obj = new OrderTableRowOBJ();
 		
@@ -46,28 +64,16 @@ public class OrderTableRowOBJTransformer extends BiTransformerTemplate<OrderTabl
 		
 		return obj;
 	}
-	public List<OrderTableRowOBJDTO> objListToDtoList(List<OrderTableRowOBJ> objList) {
-		
-		return bListToAList(objList);
-	}
-	public List<OrderTableRowOBJ> dtoListToObjList(List<OrderTableRowOBJDTO> dtoList) {
-		
-		return aListToBList(dtoList);
-	}
 	
 	
-	
-	
-	
-
 	@Override
-	public OrderTableRowOBJDTO bToA(OrderTableRowOBJ obj) {
+	protected OrderTableRowOBJDTO bToATransform(OrderTableRowOBJ obj) {
 		
-		return objToDto(obj);
+		return objToDtoTransform(obj);
 	}
 	@Override
-	public OrderTableRowOBJ aToB(OrderTableRowOBJDTO dto) {
+	protected OrderTableRowOBJ aToBTransform(OrderTableRowOBJDTO dto) {
 		
-		return dtoToObj(dto);
+		return dtoToObjTransform(dto);
 	}
 }

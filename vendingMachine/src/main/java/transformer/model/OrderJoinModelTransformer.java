@@ -19,7 +19,7 @@ public class OrderJoinModelTransformer extends ModelTransformerTemplate<OrderJoi
 
 	
 	@Override
-	public OrderJoinModelDTO modelToDto(OrderJoinModel model) {
+	protected OrderJoinModelDTO modelToDtoTransform(OrderJoinModel model) {
 		
 		OrderJoinModelDTO dto = new OrderJoinModelDTO();
 		
@@ -33,7 +33,7 @@ public class OrderJoinModelTransformer extends ModelTransformerTemplate<OrderJoi
 		return dto;
 	}
 	@Override
-	public OrderJoinModel dtoToModel(OrderJoinModelDTO dto) {
+	protected OrderJoinModel dtoToModelTransform(OrderJoinModelDTO dto) {
 		
 		OrderJoinModel model = new OrderJoinModel();
 		

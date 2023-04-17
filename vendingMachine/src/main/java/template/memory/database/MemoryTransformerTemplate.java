@@ -11,10 +11,12 @@ public abstract class MemoryTransformerTemplate<P, O, D> extends BiTransformerTe
 	
 	public PKAndObject<P, O> dtoToPao(D dto){
 		
-		return new PKAndObject<>(getPkByDto(dto), getObjByDto(dto));
+		return bToA(dto);
 	}
-	
-	
+	public D paoToDto(PKAndObject<P, O> pao) {
+		
+		return aToB(pao);
+	}
 	public List<D> paoListToDtoList(List<PKAndObject<P, O>> paoList){
 		
 		return aListToBList(paoList);
@@ -37,17 +39,18 @@ public abstract class MemoryTransformerTemplate<P, O, D> extends BiTransformerTe
 	
 	
 	@Override
-	public D aToB(PKAndObject<P, O> a) {
+	protected D aToBTransform(PKAndObject<P, O> pao) {
 		
-		return paoToDto(a);
+		return paoToDto(pao);
 	}
 	@Override
-	public PKAndObject<P, O> bToA(D b) {
+	protected PKAndObject<P, O> bToATransform(D dto) {
 		
-		return new PKAndObject<>(getPkByDto(b), getObjByDto(b));
+		return new PKAndObject<>(getPkByDto(dto), getObjByDto(dto));
 	}
+
 	
 	protected abstract P getPkByDto(D dto);
 	protected abstract O getObjByDto(D dto);
-	protected abstract D paoToDto(PKAndObject<P, O> pao);
+	protected abstract D paoToDtoTransform(PKAndObject<P, O> pao);
 }

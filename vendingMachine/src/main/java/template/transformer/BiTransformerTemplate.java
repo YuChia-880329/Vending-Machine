@@ -10,5 +10,10 @@ public abstract class BiTransformerTemplate<A, B> extends TransformerTemplate<A,
 		
 		return bList.stream().map(b -> bToA(b)).collect(Collectors.toList());
 	}
-	public abstract A bToA(B b);
+	public A bToA(B b) {
+		
+		return bToATransform(b);
+	}
+	
+	protected abstract A bToATransform(B b);
 }

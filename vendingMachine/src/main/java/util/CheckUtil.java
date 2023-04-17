@@ -11,7 +11,7 @@ public class CheckUtil {
 	private static final String IS_POSITIVE_NUMBER_ERROR_MSG = "%s is not positive, %s : %s";
 	private static final String IS_NON_NEGATIVE_NUMBER_ERROR_MSG = "%s is negative, %s : %s";
 
-	private static final String STRING_IS_ONE_OF_ERROR_MSG = "%s is not one of the options %s, %s : %s";
+	private static final String STRING_IS_ONE_OF_ERROR_MSG = "%s is not one of the options, %s : %s";
 	private static final String IS_NUMBER_STRING_ERROR_MSG_STRING = "%s is not a number string, %s : %s";
 		
 	
@@ -82,7 +82,7 @@ public class CheckUtil {
 
 	private static void stringIsOneOf(String input, String inputName, String... options) throws CheckerException {
 		
-		if(!stringIsOneOf(input))
+		if(!stringIsOneOf(input, options))
 			throw new CheckerException(String.format(STRING_IS_ONE_OF_ERROR_MSG, inputName, inputName, input));
 	}
 	private static void isNumberString(String input, String inputName) throws CheckerException {

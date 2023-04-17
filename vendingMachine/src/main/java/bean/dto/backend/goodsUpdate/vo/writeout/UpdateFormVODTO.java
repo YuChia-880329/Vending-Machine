@@ -2,8 +2,6 @@ package bean.dto.backend.goodsUpdate.vo.writeout;
 
 import java.util.List;
 
-import enumeration.Has;
-
 public class UpdateFormVODTO {
 
 	private List<GoodsNameOptionVODTO> goodsNameOptions;

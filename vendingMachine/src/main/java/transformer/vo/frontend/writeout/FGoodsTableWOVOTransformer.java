@@ -22,7 +22,7 @@ public class FGoodsTableWOVOTransformer extends VOWriteOutTransformerTemplate<FG
 	}
 
 	@Override
-	public FGoodsTableWOVO dtoToVo(FGoodsTableWOVODTO dto) {
+	protected FGoodsTableWOVO dtoToVoTransform(FGoodsTableWOVODTO dto) {
 
 		FGoodsTableWOVO vo = new FGoodsTableWOVO();
 		

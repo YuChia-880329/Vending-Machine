@@ -22,7 +22,7 @@ public class OrderTablePageOBJTransformer extends RepositoryObjTransformerTempla
 	}
 
 	@Override
-	public OrderTablePageOBJDTO objToDto(OrderTablePageOBJ obj) {
+	protected OrderTablePageOBJDTO objToDtoTransform(OrderTablePageOBJ obj) {
 		
 		OrderTablePageOBJDTO dto = new OrderTablePageOBJDTO();
 		

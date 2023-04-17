@@ -23,7 +23,7 @@ public class BackendGoodsListVOTransformer extends VOWriteOutTransformerTemplate
 	}
 
 	@Override
-	public BackendGoodsListVO dtoToVo(BackendGoodsListVODTO dto) {
+	protected BackendGoodsListVO dtoToVoTransform(BackendGoodsListVODTO dto) {
 		
 		BackendGoodsListVO vo = new BackendGoodsListVO();
 		

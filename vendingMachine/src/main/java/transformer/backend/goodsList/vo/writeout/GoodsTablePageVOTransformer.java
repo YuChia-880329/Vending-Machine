@@ -25,7 +25,7 @@ public class GoodsTablePageVOTransformer extends VOWriteOutTransformerTemplate<G
 	}
 
 	@Override
-	public GoodsTablePageVO dtoToVo(GoodsTablePageVODTO dto) {
+	protected GoodsTablePageVO dtoToVoTransform(GoodsTablePageVODTO dto) {
 
 		GoodsTablePageVO vo = new GoodsTablePageVO();
 		

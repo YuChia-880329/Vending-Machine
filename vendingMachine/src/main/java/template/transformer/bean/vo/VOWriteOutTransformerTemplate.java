@@ -10,11 +10,19 @@ public abstract class VOWriteOutTransformerTemplate<D, V> extends BeanWriteOutTr
 		
 		return dtoListToBeanList(dtoList);
 	}
-	@Override
-	public V dtoToBean(D dto) {
+	
+	public V dtoToVo(D dto) {
 		
-		return dtoToVo(dto);
+		return dtoToBean(dto);
 	}
 	
-	public abstract V dtoToVo(D dto);
+	
+	@Override
+	protected V dtoToBeanTransform(D dto) {
+		
+		return dtoToVoTransform(dto);
+	}
+	
+
+	protected abstract V dtoToVoTransform(D dto);
 }

@@ -17,5 +17,10 @@ public abstract class TransformerExceptionTemplate<A, B, E extends Exception> {
 		return bList;
 	}
 	
-	public abstract B aToB(A a) throws E;
+	public B aToB(A a) throws E{
+		
+		return aToBTransform(a);
+	}
+	
+	protected abstract B aToBTransform(A a) throws E;
 }

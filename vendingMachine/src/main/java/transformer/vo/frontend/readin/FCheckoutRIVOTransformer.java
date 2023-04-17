@@ -20,7 +20,7 @@ public class FCheckoutRIVOTransformer extends VOReanInTransformerTemplate<FCheck
 	
 	
 	@Override
-	public FCheckoutRIVODTO voToDto(FCheckoutRIVO vo) throws CheckerException {
+	protected FCheckoutRIVODTO voToDtoTransform(FCheckoutRIVO vo) throws CheckerException {
 
 		FCheckoutRIVODTO dto = new FCheckoutRIVODTO();
 		

@@ -18,7 +18,7 @@ public class FilterParameterOBJTransformer extends RepositoryObjTransformerTempl
 
 	
 	@Override
-	public FilterParameterOBJDTO objToDto(FilterParameterOBJ obj) {
+	protected FilterParameterOBJDTO objToDtoTransform(FilterParameterOBJ obj) {
 		
 		FilterParameterOBJDTO dto = new FilterParameterOBJDTO();
 		

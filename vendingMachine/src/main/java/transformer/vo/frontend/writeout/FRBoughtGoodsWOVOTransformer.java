@@ -17,7 +17,7 @@ public class FRBoughtGoodsWOVOTransformer extends VOWriteOutTransformerTemplate<
 	}
 
 	@Override
-	public FRBoughtGoodsWOVO dtoToVo(FRBoughtGoodsWOVODTO dto) {
+	protected FRBoughtGoodsWOVO dtoToVoTransform(FRBoughtGoodsWOVODTO dto) {
 
 		FRBoughtGoodsWOVO vo = new FRBoughtGoodsWOVO();
 		

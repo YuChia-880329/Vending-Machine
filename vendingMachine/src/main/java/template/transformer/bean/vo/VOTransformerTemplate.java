@@ -16,20 +16,28 @@ public abstract class VOTransformerTemplate<V, D, E extends CheckerException, C 
 		
 		return dtoListToBeanList(dtoList);
 	}
-	
-	
-	@Override
-	public D beanToDto(V bean) throws E {
+	public D voToDto(V vo) throws E{
 		
-		return voToDto(bean);
+		return beanToDto(vo);
 	}
-	@Override
-	public V dtoToBean(D dto) {
+	public V dtoToVo(D dto) {
 		
-		return dtoToVo(dto);
+		return dtoToBean(dto);
 	}
+	
 
+	@Override
+	protected D beanToDtoTransform(V vo) throws E {
+		
+		return voToDtoTransform(vo);
+	}
+	@Override
+	protected V dtoToBeanTransform(D dto) {
+		
+		return dtoToVoTransform(dto);
+	}
 	
-	public abstract D voToDto(V vo) throws E;
-	public abstract V dtoToVo(D dto);
+	
+	protected abstract D voToDtoTransform(V vo) throws E;
+	protected abstract V dtoToVoTransform(D dto);
 }

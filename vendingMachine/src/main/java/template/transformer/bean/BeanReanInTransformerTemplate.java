@@ -15,19 +15,28 @@ public abstract class BeanReanInTransformerTemplate<B, D, E extends CheckerExcep
 		checker = getChecker();
 	}
 	
+
 	public List<D> beanListToDtoList(List<B> bList) throws E{
 		
 		return aListToBList(bList);
 	}
 	
-	@Override
-	public D aToB(B a) throws E {
+	public D beanToDto(B bean) throws E{
 		
-		checker.check(a);
-		return beanToDto(a);
+		checker.check(bean);
+		return aToB(bean);
+	}
+	
+	
+	
+
+	@Override
+	public D aToBTransform(B bean) throws E {
+		
+		return beanToDtoTramsform(bean);
 	}
 
-	public abstract D beanToDto(B bean) throws E;
-	
+
+	protected abstract D beanToDtoTramsform(B bean) throws E;
 	protected abstract C getChecker();
 }

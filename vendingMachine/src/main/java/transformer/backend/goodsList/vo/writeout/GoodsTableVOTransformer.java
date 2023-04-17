@@ -22,7 +22,7 @@ public class GoodsTableVOTransformer extends VOWriteOutTransformerTemplate<Goods
 	}
 
 	@Override
-	public GoodsTableVO dtoToVo(GoodsTableVODTO dto) {
+	protected GoodsTableVO dtoToVoTransform(GoodsTableVODTO dto) {
 
 		GoodsTableVO vo = new GoodsTableVO();
 		

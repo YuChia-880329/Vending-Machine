@@ -12,12 +12,18 @@ public abstract class VOReanInTransformerTemplate<V, D, E extends CheckerExcepti
 		
 		return beanListToDtoList(voList);
 	}
-	
-	@Override
-	public D beanToDto(V bean) throws E {
+	public D voToDto(V vo) throws E{
 		
-		return voToDto(bean);
+		return beanToDto(vo);
 	}
 	
-	public abstract D voToDto(V vo) throws E;
+	
+	@Override
+	protected D beanToDtoTramsform(V bean) throws E {
+		
+		return voToDtoTransform(bean);
+	}
+
+	
+	protected abstract D voToDtoTransform(V vo) throws E;
 }

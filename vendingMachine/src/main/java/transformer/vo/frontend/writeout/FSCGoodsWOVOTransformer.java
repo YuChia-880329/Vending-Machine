@@ -17,7 +17,7 @@ public class FSCGoodsWOVOTransformer extends VOWriteOutTransformerTemplate<FSCGo
 	}
 
 	@Override
-	public FSCGoodsWOVO dtoToVo(FSCGoodsWOVODTO dto) {
+	protected FSCGoodsWOVO dtoToVoTransform(FSCGoodsWOVODTO dto) {
 
 		FSCGoodsWOVO vo = new FSCGoodsWOVO();
 		

@@ -7,7 +7,6 @@ import java.util.function.Function;
 import bean.dto.vo.writeout.PageTurningVODTO;
 import bean.dto.vo.writeout.PageVODTO;
 import bean.dto.vo.writeout.PaginationVODTO;
-import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import enumeration.Has;
 import util.PaginationUtil;
 

@@ -22,27 +22,11 @@ public class GoodsTableRowOBJTransformer extends BiTransformerTemplate<GoodsTabl
 	
 	public GoodsTableRowOBJ dtoToObj(GoodsTableRowOBJDTO dto) {
 		
-		GoodsTableRowOBJ obj = new GoodsTableRowOBJ();
-		
-		obj.setId(dto.getId());
-		obj.setName(dto.getName());
-		obj.setPrice(dto.getPrice());
-		obj.setQuantity(dto.getQuantity());
-		obj.setStatus(dto.getStatus());
-		
-		return obj;
+		return aToB(dto);
 	}
 	public GoodsTableRowOBJDTO objToDto(GoodsTableRowOBJ obj) {
 		
-		GoodsTableRowOBJDTO dto = new GoodsTableRowOBJDTO();
-		
-		dto.setId(obj.getId());
-		dto.setName(obj.getName());
-		dto.setPrice(obj.getPrice());
-		dto.setQuantity(obj.getQuantity());
-		dto.setStatus(obj.getStatus());
-		
-		return dto;
+		return bToA(obj);
 	}
 	
 	
@@ -54,19 +38,43 @@ public class GoodsTableRowOBJTransformer extends BiTransformerTemplate<GoodsTabl
 		
 		return bListToAList(objList);
 	}
-
-
-
 	
+	
+	private GoodsTableRowOBJ dtoToObjTransform(GoodsTableRowOBJDTO dto) {
+		
+		GoodsTableRowOBJ obj = new GoodsTableRowOBJ();
+		
+		obj.setId(dto.getId());
+		obj.setName(dto.getName());
+		obj.setPrice(dto.getPrice());
+		obj.setQuantity(dto.getQuantity());
+		obj.setStatus(dto.getStatus());
+		
+		return obj;
+	}
+	private GoodsTableRowOBJDTO objToDtoTransform(GoodsTableRowOBJ obj) {
+		
+		GoodsTableRowOBJDTO dto = new GoodsTableRowOBJDTO();
+		
+		dto.setId(obj.getId());
+		dto.setName(obj.getName());
+		dto.setPrice(obj.getPrice());
+		dto.setQuantity(obj.getQuantity());
+		dto.setStatus(obj.getStatus());
+		
+		return dto;
+	}
+
+
 
 	@Override
-	public GoodsTableRowOBJ aToB(GoodsTableRowOBJDTO dto) {
-
-		return dtoToObj(dto);
+	protected GoodsTableRowOBJ aToBTransform(GoodsTableRowOBJDTO dto) {
+		
+		return dtoToObjTransform(dto);
 	}
 	@Override
-	public GoodsTableRowOBJDTO bToA(GoodsTableRowOBJ obj) {
+	protected GoodsTableRowOBJDTO bToATransform(GoodsTableRowOBJ obj) {
 		
-		return objToDto(obj);
+		return objToDtoTransform(obj);
 	}
 }

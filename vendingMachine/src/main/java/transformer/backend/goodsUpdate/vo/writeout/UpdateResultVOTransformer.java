@@ -21,7 +21,7 @@ public class UpdateResultVOTransformer extends VOWriteOutTransformerTemplate<Upd
 	}
 
 	@Override
-	public UpdateResultVO dtoToVo(UpdateResultVODTO dto) {
+	protected UpdateResultVO dtoToVoTransform(UpdateResultVODTO dto) {
 		
 		UpdateResultVO vo = new UpdateResultVO();
 		

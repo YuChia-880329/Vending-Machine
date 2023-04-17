@@ -29,7 +29,7 @@ public class FrontendWOVOTransformer extends VOWriteOutTransformerTemplate<Front
 	}
 
 	@Override
-	public FrontendWOVO dtoToVo(FrontendWOVODTO dto) {
+	protected FrontendWOVO dtoToVoTransform(FrontendWOVODTO dto) {
 
 		FrontendWOVO vo = new FrontendWOVO();
 		

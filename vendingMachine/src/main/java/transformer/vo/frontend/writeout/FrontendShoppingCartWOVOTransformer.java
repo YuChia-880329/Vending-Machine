@@ -22,7 +22,7 @@ public class FrontendShoppingCartWOVOTransformer extends VOWriteOutTransformerTe
 	}
 
 	@Override
-	public FrontendShoppingCartWOVO dtoToVo(FrontendShoppingCartWOVODTO dto) {
+	protected FrontendShoppingCartWOVO dtoToVoTransform(FrontendShoppingCartWOVODTO dto) {
 
 		FrontendShoppingCartWOVO vo = new FrontendShoppingCartWOVO();
 		

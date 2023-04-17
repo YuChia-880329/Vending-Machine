@@ -21,7 +21,7 @@ public class BackendGoodsUpdateVOTransformer extends VOWriteOutTransformerTempla
 	}
 
 	@Override
-	public BackendGoodsUpdateVO dtoToVo(BackendGoodsUpdateVODTO dto) {
+	protected BackendGoodsUpdateVO dtoToVoTransform(BackendGoodsUpdateVODTO dto) {
 
 		BackendGoodsUpdateVO vo = new BackendGoodsUpdateVO();
 		

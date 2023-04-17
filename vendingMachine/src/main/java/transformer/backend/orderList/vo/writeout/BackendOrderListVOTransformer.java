@@ -24,7 +24,7 @@ public class BackendOrderListVOTransformer extends VOWriteOutTransformerTemplate
 	}
 
 	@Override
-	public BackendOrderListVO dtoToVo(BackendOrderListVODTO dto) {
+	protected BackendOrderListVO dtoToVoTransform(BackendOrderListVODTO dto) {
 		
 		BackendOrderListVO vo = new BackendOrderListVO();
 		

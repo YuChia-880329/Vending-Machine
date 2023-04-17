@@ -23,7 +23,7 @@ public class PageParameterVOTransformer extends VOReanInTransformerTemplate<Page
 	}
 
 	@Override
-	public PageParameterVODTO voToDto(PageParameterVO vo) throws CheckerException {
+	protected PageParameterVODTO voToDtoTransform(PageParameterVO vo) throws CheckerException {
 
 		PageParameterVODTO dto = new PageParameterVODTO();
 		

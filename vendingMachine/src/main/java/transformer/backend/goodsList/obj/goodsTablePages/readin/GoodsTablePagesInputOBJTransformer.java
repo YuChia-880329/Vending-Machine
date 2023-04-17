@@ -17,7 +17,7 @@ public class GoodsTablePagesInputOBJTransformer extends RepositoryInputTransform
 	}
 
 	@Override
-	public GoodsTablePagesInputOBJ dtoToInput(GoodsTablePagesInputOBJDTO dto) {
+	protected GoodsTablePagesInputOBJ dtoToInputTransform(GoodsTablePagesInputOBJDTO dto) {
 		
 		GoodsTablePagesInputOBJ obj = new GoodsTablePagesInputOBJ();
 		
@@ -33,6 +33,5 @@ public class GoodsTablePagesInputOBJTransformer extends RepositoryInputTransform
 		
 		return obj;
 	}
-	
-	
+
 }

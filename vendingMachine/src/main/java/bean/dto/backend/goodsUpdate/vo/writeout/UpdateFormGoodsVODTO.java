@@ -5,15 +5,17 @@ import enumeration.Status;
 public class UpdateFormGoodsVODTO {
 
 	private int id;
+	private int price;
 	private int quantity;
 	private Status status;
 	
 	
 	public UpdateFormGoodsVODTO() {
 	}
-	public UpdateFormGoodsVODTO(int id, int quantity, Status status) {
+	public UpdateFormGoodsVODTO(int id, int price, int quantity, Status status) {
 
 		this.id = id;
+		this.price = price;
 		this.quantity = quantity;
 		this.status = status;
 	}
@@ -21,6 +23,9 @@ public class UpdateFormGoodsVODTO {
 	
 	public int getId() {
 		return id;
+	}
+	public int getPrice() {
+		return price;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -32,6 +37,9 @@ public class UpdateFormGoodsVODTO {
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;

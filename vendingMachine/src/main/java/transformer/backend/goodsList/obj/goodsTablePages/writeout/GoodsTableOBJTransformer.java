@@ -22,7 +22,7 @@ public class GoodsTableOBJTransformer extends RepositoryObjTransformerTemplate<G
 	}
 
 	@Override
-	public GoodsTableOBJDTO objToDto(GoodsTableOBJ obj) {
+	protected GoodsTableOBJDTO objToDtoTransform(GoodsTableOBJ obj) {
 		
 		GoodsTableOBJDTO dto = new GoodsTableOBJDTO();
 		

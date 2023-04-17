@@ -1,7 +1,6 @@
 package service.backend.goodsUpdate;
 
-import bean.dto.backend.goodsUpdate.vo.writeout.UpdateFormGoodsVODTO;
-import bean.dto.backend.goodsUpdate.vo.writeout.UpdateInputVODTO;
+import bean.dto.backend.goodsUpdate.vo.readin.GoodsUpdateFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateMsgVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
@@ -9,7 +8,7 @@ import service.model.GoodsModelService;
 
 public class UpdateService {
 	
-	private static String SUCCESS_RESULT_MSG_FORMAT = "已成功更新 id %d 商品";
+	private static String SUCCESS_RESULT_MSG_FORMAT = "已成功更新 id %d 商品 : %s";
 	private static String FAILURE_RESULT_MSG = "更新失敗";
 	
 
@@ -28,38 +27,37 @@ public class UpdateService {
 		return INSTANCE;
 	}
 	
-	public UpdateResultVODTO update(UpdateInputVODTO updateInputVODTO) {
+	public UpdateResultVODTO update(GoodsUpdateFormVODTO goodsUpdateFormVODTO) {
 		
-		UpdateFormGoodsVODTO updateFormGoodsVODTO = updateInputVODTO.getUpdateFormGoods();
-		int id = updateFormGoodsVODTO.getId();
+		int id = goodsUpdateFormVODTO.getId();
 		GoodsModelDTO goodsModelDTO = goodsModelService.searchById(id);
-		goodsModelDTO = updateFormGoodsVOToGoodsModel(updateFormGoodsVODTO, goodsModelDTO);
+		goodsModelDTO = updateFormGoodsVOToGoodsModel(goodsUpdateFormVODTO, goodsModelDTO);
 		int result = goodsModelService.update(goodsModelDTO);
 		
 		UpdateResultVODTO updateResultVODTO = new UpdateResultVODTO();
-		updateResultVODTO.setUpdateMsg(generateUpdateMsgVO(result, id));
+		updateResultVODTO.setUpdateMsg(generateUpdateMsgVO(result, id, goodsModelDTO.getName()));
 		return updateResultVODTO;
 	}
-	private GoodsModelDTO updateFormGoodsVOToGoodsModel(UpdateFormGoodsVODTO updateFormGoodsVODTO, GoodsModelDTO oldGoodsModelDTO) {
+	private GoodsModelDTO updateFormGoodsVOToGoodsModel(GoodsUpdateFormVODTO goodsUpdateFormVODTO, GoodsModelDTO oldGoodsModelDTO) {
 		
 		GoodsModelDTO goodsModelDTO = new GoodsModelDTO();
 		
-		goodsModelDTO.setId(updateFormGoodsVODTO.getId());
+		goodsModelDTO.setId(goodsUpdateFormVODTO.getId());
 		goodsModelDTO.setName(oldGoodsModelDTO.getName());
 		goodsModelDTO.setDescription(oldGoodsModelDTO.getDescription());
-		goodsModelDTO.setPrice(oldGoodsModelDTO.getPrice());
-		goodsModelDTO.setQuantity(updateFormGoodsVODTO.getQuantity());
+		goodsModelDTO.setPrice(goodsUpdateFormVODTO.getPrice());
+		goodsModelDTO.setQuantity(goodsUpdateFormVODTO.getAddQuantity() + oldGoodsModelDTO.getQuantity());
 		goodsModelDTO.setImageName(oldGoodsModelDTO.getImageName());
-		goodsModelDTO.setStatus(updateFormGoodsVODTO.getStatus());
+		goodsModelDTO.setStatus(goodsUpdateFormVODTO.getStatus());
 		
 		return goodsModelDTO;
 	}
-	private UpdateMsgVODTO generateUpdateMsgVO(int result, int id) {
+	private UpdateMsgVODTO generateUpdateMsgVO(int result, int id, String name) {
 		
 		UpdateMsgVODTO updateMsgVODTO = new UpdateMsgVODTO();
 		
 		if(result > 0)
-			updateMsgVODTO.setMsg(String.format(SUCCESS_RESULT_MSG_FORMAT, id));
+			updateMsgVODTO.setMsg(String.format(SUCCESS_RESULT_MSG_FORMAT, id, name));
 		else
 			updateMsgVODTO.setMsg(FAILURE_RESULT_MSG);
 		

@@ -11,5 +11,10 @@ public abstract class TransformerTemplate<A, B> {
 		return aList.stream().map(a -> aToB(a)).collect(Collectors.toList());
 	}
 	
-	public abstract B aToB(A a);
+	public B aToB(A a) {
+	
+		return aToBTransform(a);
+	}
+	
+	protected abstract B aToBTransform(A a);
 }

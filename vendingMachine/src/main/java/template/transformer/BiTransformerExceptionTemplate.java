@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class BiTransformerExceptionTemplate<A, B, E extends Exception> extends TransformerExceptionTemplate<A, B, E> {
 
-	public List<A> bListToAList(List<B> bList) throws E{
+	public List<A> bListToAList(List<B> bList){
 		
 		List<A> aList = new ArrayList<>();
 		
@@ -17,5 +17,10 @@ public abstract class BiTransformerExceptionTemplate<A, B, E extends Exception> 
 		return aList;
 	}
 	
-	public abstract A bToA(B b) throws E;
+	public A bToA(B b){
+		
+		return bToATransform(b);
+	}
+	
+	protected abstract A bToATransform(B b);
 }

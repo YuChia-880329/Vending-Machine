@@ -17,7 +17,7 @@ public class MemberModelTransformer extends ModelTransformerTemplate<MemberModel
 	}
 
 	@Override
-	public MemberModelDTO modelToDto(MemberModel model) {
+	protected MemberModelDTO modelToDtoTransform(MemberModel model) {
 		
 		MemberModelDTO dto = new MemberModelDTO();
 		
@@ -29,7 +29,7 @@ public class MemberModelTransformer extends ModelTransformerTemplate<MemberModel
 	}
 
 	@Override
-	public MemberModel dtoToModel(MemberModelDTO dto) {
+	protected MemberModel dtoToModelTransform(MemberModelDTO dto) {
 
 		MemberModel model = new MemberModel();
 		

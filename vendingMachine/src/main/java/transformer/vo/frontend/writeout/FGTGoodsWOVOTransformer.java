@@ -17,7 +17,7 @@ public class FGTGoodsWOVOTransformer extends VOWriteOutTransformerTemplate<FGTGo
 	}
 
 	@Override
-	public FGTGoodsWOVO dtoToVo(FGTGoodsWOVODTO dto) {
+	protected FGTGoodsWOVO dtoToVoTransform(FGTGoodsWOVODTO dto) {
 
 		FGTGoodsWOVO vo = new FGTGoodsWOVO();
 		

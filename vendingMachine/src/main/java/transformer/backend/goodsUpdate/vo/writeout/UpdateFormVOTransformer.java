@@ -21,7 +21,7 @@ public class UpdateFormVOTransformer extends VOWriteOutTransformerTemplate<Updat
 	}
 
 	@Override
-	public UpdateFormVO dtoToVo(UpdateFormVODTO dto) {
+	protected UpdateFormVO dtoToVoTransform(UpdateFormVODTO dto) {
 
 		UpdateFormVO vo = new UpdateFormVO();
 		

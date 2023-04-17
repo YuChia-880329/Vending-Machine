@@ -22,7 +22,7 @@ public class OrderTableOBJTransformer extends RepositoryObjTransformerTemplate<O
 	}
 
 	@Override
-	public OrderTableOBJDTO objToDto(OrderTableOBJ obj) {
+	protected OrderTableOBJDTO objToDtoTransform(OrderTableOBJ obj) {
 		
 		OrderTableOBJDTO dto = new OrderTableOBJDTO();
 		

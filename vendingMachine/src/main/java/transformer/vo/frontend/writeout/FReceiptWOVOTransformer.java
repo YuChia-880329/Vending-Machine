@@ -22,7 +22,7 @@ public class FReceiptWOVOTransformer extends VOWriteOutTransformerTemplate<FRece
 	}
 
 	@Override
-	public FReceiptWOVO dtoToVo(FReceiptWOVODTO dto) {
+	protected FReceiptWOVO dtoToVoTransform(FReceiptWOVODTO dto) {
 
 		FReceiptWOVO vo = new FReceiptWOVO();
 		

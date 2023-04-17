@@ -24,7 +24,7 @@ public class FShoppingCartRIVOTransformer extends VOReanInTransformerTemplate<FS
 	}
 
 	@Override
-	public FShoppingCartRIVODTO voToDto(FShoppingCartRIVO vo) throws CheckerException {
+	protected FShoppingCartRIVODTO voToDtoTransform(FShoppingCartRIVO vo) throws CheckerException {
 
 		FShoppingCartRIVODTO dto = new FShoppingCartRIVODTO();
 		

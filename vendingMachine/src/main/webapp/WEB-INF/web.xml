@@ -40,6 +40,15 @@
 		<servlet-name>orderListSearchServlet</servlet-name>
 		<servlet-class>controller.servlet.backend.orderList.SearchServlet</servlet-class>
 	</servlet>
+	<!-- controller.servlet.backend.goodsUpdate -->
+	<servlet>
+		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
+		<servlet-class>controller.servlet.backend.goodsUpdate.ajax.UpdateServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>changeGoodsServlet</servlet-name>
+		<servlet-class>controller.servlet.backend.goodsUpdate.ajax.ChangeGoodsServlet</servlet-class>
+	</servlet>
   	
   	
   	
@@ -78,6 +87,15 @@
 		<servlet-name>orderListSearchServlet</servlet-name>
 		<url-pattern>/machine/backend/orderList/search</url-pattern>
 	</servlet-mapping>
+	<!-- controller.servlet.backend.goodsUpdate -->
+	<servlet-mapping>
+		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
+		<url-pattern>/machine/backend/goodsUpdate/update</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>changeGoodsServlet</servlet-name>
+		<url-pattern>/machine/backend/goodsUpdate/change</url-pattern>
+	</servlet-mapping>
   	
   	
   	
@@ -88,4 +106,18 @@
   	  	<listener>
   		<listener-class>dao.memory.repository.backend.orderList.OrderTablePagesDAOContextListener</listener-class>
   	</listener>
+  	
+  	
+  	
+  	<!-- filter -->
+  	<filter>
+  		<filter-name>contentTypeFilter</filter-name>
+  		<filter-class>filter.ContentTypeFilter</filter-class>
+  	</filter>
+  	
+  	<!-- filter mapping -->
+  	<filter-mapping>
+  		<filter-name>contentTypeFilter</filter-name>
+  		<url-pattern>/machine/*</url-pattern>
+  	</filter-mapping>
 </web-app>
