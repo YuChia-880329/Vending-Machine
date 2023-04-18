@@ -115,6 +115,11 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		return goodsTablePages;
 	}
 	
+	public void requireUpdate() {
+		
+		updateRequired = true;
+	}
+	
 	private List<GoodsTableRowOBJDTO> goodsModelsToGoodsOBJs(List<GoodsModelDTO> goodsModelDTOs){
 		
 		return goodsModelDTOs.stream()

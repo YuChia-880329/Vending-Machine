@@ -18,6 +18,11 @@ public class OrderTablePagesDAO extends RepositoryDAOTemplate<OrderTablePagesInp
 		super(repository);
 	}
 
+	public void requireUpdate() {
+		
+		repository.requireUpdate();
+	}
+	
 	
 	@Override
 	protected OrderTablePagesInputOBJTransformer getInputTransformer() {

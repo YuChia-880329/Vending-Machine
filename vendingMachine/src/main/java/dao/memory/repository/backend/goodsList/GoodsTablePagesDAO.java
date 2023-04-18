@@ -18,6 +18,10 @@ public class GoodsTablePagesDAO extends RepositoryDAOTemplate<GoodsTablePagesInp
 		super(repository);
 	}
 	
+	public void requireUpdate() {
+		
+		repository.requireUpdate();
+	}
 	
 	@Override
 	protected GoodsTablePagesInputOBJTransformer getInputTransformer() {

@@ -115,6 +115,11 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 		return orderTablePagesOBJ;
 	}
 	
+	public void requireUpdate() {
+		
+		updateRequired = true;
+	}
+	
 	private List<OrderTableRowOBJDTO> orderJoinModelsToOrderTableRowOBJs(List<OrderJoinModelDTO> orderJoinModelDTOs){
 		
 		return orderJoinModelDTOs.stream()

@@ -1,6 +1,7 @@
 package controller.servlet.backend.goodsCreate.ajax;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
@@ -16,6 +18,9 @@ import bean.dto.backend.goodsCreate.vo.readin.CreateFormVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.vo.backend.goodsCreate.readin.CreateFormVO;
 import bean.vo.backend.goodsCreate.writeout.CreateResultVO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener;
+import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsCreate.CreateService;
 import template.exception.CheckerException;
 import transformer.backend.goodsCreate.vo.readin.CreateFormVOTransformer;
@@ -61,6 +66,9 @@ public class CreateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		ServletContext context = req.getServletContext();
+		HttpSession session = req.getSession();
+		
+		GoodsTablePagesDAO goodsTablePagesDAO = getGoodsTablePagesDAO(context, session);
 		String deployPath = context.getInitParameter(CTX_PARAM_DEPLOY_PATH);
 		String projectName = context.getInitParameter(CTX_PARAM_PROJECT_NAME);
 		String imagesDirectorySymbolicLinkName = context.getInitParameter(CTX_PARAM_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
@@ -69,7 +77,7 @@ public class CreateServlet extends HttpServlet {
 		try {
 			
 			CreateFormVODTO createFormVODTO = createFormVOTransformer.voToDto(createFormVO);
-			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, deployPath, projectName, imagesDirectorySymbolicLinkName);
+			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, deployPath, projectName, imagesDirectorySymbolicLinkName, goodsTablePagesDAO);
 			CreateResultVO createResultVO = createResultVOTransformer.dtoToVo(createResultVODTO);
 			resp.getWriter().append(gson.toJson(createResultVO));
 		} catch (CheckerException ex) {
@@ -98,5 +106,22 @@ public class CreateServlet extends HttpServlet {
 		createFormVO.setStatus(statusStr);
 		
 		return createFormVO;
+	}
+	private GoodsTablePagesDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
+		
+		@SuppressWarnings("unchecked")
+		Map<HttpSession, GoodsTablePagesDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesDAO>)context.getAttribute(GoodsTablePagesDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		
+		GoodsTablePagesDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
+		
+		if(goodsTablePagesDAO == null) {
+			
+			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
+			goodsTablePagesDAO = new GoodsTablePagesDAO(goodsTablePagesRepository);
+			
+			goodsTablePagesDAOMap.put(session, goodsTablePagesDAO);
+		}
+		
+		return goodsTablePagesDAO;
 	}
 }

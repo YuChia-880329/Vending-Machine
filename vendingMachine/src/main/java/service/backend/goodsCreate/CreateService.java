@@ -1,18 +1,14 @@
 package service.backend.goodsCreate;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-
-import javax.servlet.http.Part;
 
 import bean.dto.backend.goodsCreate.vo.readin.CreateFormVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateMsgVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
 import service.model.GoodsModelService;
-import util.ImageUtil;
-import util.StringConcatUtil;
 
 public class CreateService {
 
@@ -21,6 +17,7 @@ public class CreateService {
 	
 	
 	private GoodsModelService goodsModelService;
+	private UploadImageService uploadImageService;
 	
 	
 	private static final CreateService INSTANCE = new CreateService();
@@ -28,6 +25,7 @@ public class CreateService {
 	private CreateService() {
 		
 		goodsModelService = GoodsModelService.getInstance();
+		uploadImageService = UploadImageService.getInstance();
 	}
 	
 	public static CreateService getInstance() {
@@ -35,7 +33,7 @@ public class CreateService {
 		return INSTANCE;
 	}
 	
-	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String deployPath, String projectName, String imagesDirectorySymbolicLinkName) {
+	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String deployPath, String projectName, String imagesDirectorySymbolicLinkName, GoodsTablePagesDAO goodsTablePagesDAO) {
 		
 		GoodsModelDTO goodsModelDTO = createFormVOToGoodsModel(createFormVODTO);
 		
@@ -46,8 +44,10 @@ public class CreateService {
 			
 			if(goodsModelDTO != null) {
 				
-				uploadImage(createFormVODTO.getImagePart(), deployPath, projectName, imagesDirectorySymbolicLinkName);
+				uploadImageService.upload(createFormVODTO.getImagePart(), deployPath, 
+						projectName, imagesDirectorySymbolicLinkName);
 				createMsgVODTO = getCreateMsgVODTO(goodsModelDTO.getId(), goodsModelDTO.getName());
+				goodsTablePagesDAO.requireUpdate();
 			}else {
 				
 				createMsgVODTO = new CreateMsgVODTO(FAILURE_MSG);
@@ -84,11 +84,5 @@ public class CreateService {
 		createMsgVODTO.setMsg(String.format(CREATE_MSG, id, name));
 		
 		return createMsgVODTO;
-	}
-	private void uploadImage(Part imagePart, String deployPath, String projectName, String imagesDirectorySymbolicLinkName) throws IOException {
-		
-		String imagePath = StringConcatUtil.concate(deployPath, File.separator, projectName, File.separator, imagesDirectorySymbolicLinkName, File.separator, imagePart.getSubmittedFileName());
-	
-		ImageUtil.uploadImage(imagePart.getInputStream(), imagePath);
 	}
 }

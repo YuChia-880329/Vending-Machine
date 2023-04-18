@@ -5,6 +5,22 @@
     	<welcome-file>login.jsp</welcome-file>
   	</welcome-file-list>
 
+
+  	<!-- parameter -->
+  	<context-param>
+  		<param-name>deployPath</param-name>
+  		<param-value>C:\tomcatee\apache-tomcat-9.0.65\DYZX_deploy</param-value>
+  	</context-param>
+  	<context-param>
+  		<param-name>projectName</param-name>
+  		<param-value>vendingMachine</param-value>
+  	</context-param>
+  	<context-param>
+  		<param-name>imagesDirectorySymbolicLinkName</param-name>
+  		<param-value>images_symbolicLink</param-value>
+  	</context-param>
+  	
+  	
 	<!-- servlet -->
 	<!-- controller.servlet.backend.go -->
 	<servlet>
@@ -129,17 +145,5 @@
   	
   	
   	
-  	<!-- parameter -->
-  	<context-param>
-  		<param-name>deployPath</param-name>
-  		<param-value>C:\Program Files\Apache Software Foundation\Tomcat 9.0\test_deploy</param-value>
-  	</context-param>
-  	<context-param>
-  		<param-name>projectName</param-name>
-  		<param-value>vendingMachine</param-value>
-  	</context-param>
-  	<context-param>
-  		<param-name>imagesDirectorySymbolicLinkName</param-name>
-  		<param-value>images_symbolicLink</param-value>
-  	</context-param>
+
 </web-app>
