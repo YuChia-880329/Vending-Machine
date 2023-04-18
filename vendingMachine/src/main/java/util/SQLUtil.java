@@ -16,7 +16,7 @@ public class SQLUtil {
 	public static final String ORACLE_SQL_FORMAT_STRING = "YYYY-MM-DD HH24:MI:SS";
 	
 
-	public static <M> List<M> searchListTemplate(Supplier<Connection> conSupplier, String sql, FunctionSQLException<ResultSet, M> modelFctn){
+	public static <M> List<M> searchListTemplate(Supplier<Connection> conSupplier, String sql, FunctionSQLException<ResultSet, M> modelFctn) throws SQLException{
 		
 		List<M> list = new ArrayList<>();
 		try(Connection con = conSupplier.get();
@@ -30,13 +30,13 @@ public class SQLUtil {
 			
 		} catch (SQLException ex) {
 			
-			ex.printStackTrace();
+			throw ex;
 		}
 		
 		return list;
 	}
 	
-	public static <M> M searchOneTemplate(Supplier<Connection> conSupplier, String sql, FunctionSQLException<ResultSet, M> modelFctn){
+	public static <M> M searchOneTemplate(Supplier<Connection> conSupplier, String sql, FunctionSQLException<ResultSet, M> modelFctn) throws SQLException{
 		
 		M model = null;
 		try(Connection con = conSupplier.get();
@@ -50,13 +50,13 @@ public class SQLUtil {
 			
 		} catch (SQLException ex) {
 			
-			ex.printStackTrace();
+			throw ex;
 		}
 		
 		return model;
 	}
 	
-	public static <M> M addTemplate(Supplier<Connection> conSupplier, String sql, M model, BiConsumerSQLException<M, PreparedStatement> psBiConsumer) {
+	public static <M> M addTemplate(Supplier<Connection> conSupplier, String sql, M model, BiConsumerSQLException<M, PreparedStatement> psBiConsumer) throws SQLException {
 		
 		int result = 0;
 		try(Connection con = conSupplier.get();){
@@ -72,12 +72,11 @@ public class SQLUtil {
 			}catch (SQLException ex) {
 				
 				con.rollback();
-				ex.printStackTrace();
-				return null;
+				throw ex;
 			}
 		} catch (SQLException ex) {
 			
-			ex.printStackTrace();
+			throw ex;
 		}
 		
 		if(result > 0)
@@ -87,7 +86,7 @@ public class SQLUtil {
 	}
 	public static <M> M addTemplateGeneratedKey(Supplier<Connection> conSupplier, String sql, 
 			M model, BiConsumerSQLException<M, PreparedStatement> psBiConsumer, String[] generatedKeys, 
-			BiConsumerSQLException<M, ResultSet> generatedKeyBiConsumer) {
+			BiConsumerSQLException<M, ResultSet> generatedKeyBiConsumer) throws SQLException {
 		
 		int result = 0;
 		try(Connection con = conSupplier.get();){
@@ -110,12 +109,11 @@ public class SQLUtil {
 			}catch (SQLException ex) {
 				
 				con.rollback();
-				ex.printStackTrace();
-				return null;
+				throw ex;
 			}
 		} catch (SQLException ex) {
 			
-			ex.printStackTrace();
+			throw ex;
 		}
 		
 		if(result > 0)
@@ -124,7 +122,7 @@ public class SQLUtil {
 			return null;
 	}
 	
-	public static <M> int updateTemplate(Supplier<Connection> conSupplier, String sql, ConsumerSQLException<PreparedStatement> psConsumer) {
+	public static <M> int updateTemplate(Supplier<Connection> conSupplier, String sql, ConsumerSQLException<PreparedStatement> psConsumer) throws SQLException {
 		
 		int updateRowNum = 0;
 		try(Connection con = conSupplier.get();){
@@ -140,19 +138,18 @@ public class SQLUtil {
 			}catch (SQLException ex) {
 				
 				con.rollback();
-				ex.printStackTrace();
-				return 0;
+				throw ex;
 			}
 		} catch (SQLException ex) {
 			
-			ex.printStackTrace();
+			throw ex;
 		}
 		
 		return updateRowNum;
 	}
 	
 	
-	public static <M> int deleteTemplate(Supplier<Connection> conSupplier, String sql) {
+	public static <M> int deleteTemplate(Supplier<Connection> conSupplier, String sql) throws SQLException {
 		
 		int updateRowNum = 0;
 		try(Connection con = conSupplier.get();){
@@ -166,12 +163,11 @@ public class SQLUtil {
 			}catch (SQLException ex) {
 				
 				con.rollback();
-				ex.printStackTrace();
-				return 0;
+				throw ex;
 			}
 		} catch (SQLException ex) {
 			
-			ex.printStackTrace();
+			throw ex;
 		}
 		
 		return updateRowNum;

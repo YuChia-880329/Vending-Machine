@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 
 public class GsonUtil {
 
-	public static final Gson GSON = new GsonBuilder().create();
+	private static final Gson GSON = new GsonBuilder().create();
 	
 	public static Gson getGson() {
 		

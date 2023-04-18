@@ -25,11 +25,12 @@ public class CreateFormVOTransformer extends VOReanInTransformerTemplate<CreateF
 		CreateFormVODTO dto = new CreateFormVODTO();
 		
 		dto.setName(vo.getName());
+		dto.setDescription(vo.getDescription());
 		dto.setPrice(Integer.parseInt(vo.getPrice()));
 		dto.setQuantity(Integer.parseInt(vo.getQuantity()));
 		dto.setImageName(vo.getImageName());
 		dto.setImagePart(vo.getImagePart());
-		dto.setStatus(Status.getByDescription(vo.getStatus()));
+		dto.setStatus(Status.getByValue(Integer.parseInt(vo.getStatus())));
 		
 		return dto;
 	}

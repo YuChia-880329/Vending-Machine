@@ -6,15 +6,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import javax.servlet.http.Part;
-
 public class ImageUtil {
 
-	public static void uploadImage(Part imagePart, String imagePath) throws IOException {
+	public static void uploadImage(InputStream is, String imagePath) throws IOException {
 		
 		try(OutputStream os = new FileOutputStream(imagePath);){
 			
-			List<byte[]> buffers = IOUtil.readByte(imagePart.getInputStream());
+			List<byte[]> buffers = IOUtil.readByte(is);
 			IOUtil.writeByte(os, buffers);
 		}  catch (IOException ex) {
 			

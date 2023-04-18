@@ -3,6 +3,7 @@ package dao.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.function.Supplier;
 
 import bean.model.OrderModel;
@@ -47,10 +48,10 @@ public class OrderModelDAO extends ModelDAOTemplate<OrderModel, Integer> {
 	@Override
 	protected String getSearchAllSql() {
 		
-		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s FROM %s";
+		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s FROM %s ORDER BY %s ASC";
 		return String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_DATE_TIME, 
 				COL_NAME_CUSTOMER_ID, COL_NAME_GOODS_ID, COL_NAME_PRICE, 
-				COL_NAME_QUANTITY, TABLE_NAME);
+				COL_NAME_QUANTITY, TABLE_NAME, COL_NAME_ID);
 	}
 	@Override
 	protected String getSearchByIdSql(Integer id) {
@@ -132,7 +133,7 @@ public class OrderModelDAO extends ModelDAOTemplate<OrderModel, Integer> {
 
 	
 	@Override
-	protected OrderModel add(OrderModel model) {
+	protected OrderModel add(OrderModel model) throws SQLException {
 		
 		return SQLUtil.addTemplateGeneratedKey(
 				getConnectionSupplier(), 

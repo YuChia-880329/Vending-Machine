@@ -1,5 +1,6 @@
 package service.model;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -28,23 +29,23 @@ public class OrderJoinModelService {
 	}
 	
 	
-	public List<OrderJoinModelDTO> searchAll(){
+	public List<OrderJoinModelDTO> searchAll() throws SQLException{
 		
 		return modelTransformer.modelListToDtoList(modelDAO.searchAll());
 	}
-	public OrderJoinModelDTO searchById(int id) {
+	public OrderJoinModelDTO searchById(int id) throws SQLException {
 		
 		return modelTransformer.modelToDto(modelDAO.searchById(id));
 	}
-	public List<OrderJoinModelDTO> searchByQueryObj(QueryObj... objs){
+	public List<OrderJoinModelDTO> searchByQueryObj(QueryObj... objs) throws SQLException{
 		
 		return modelTransformer.modelListToDtoList(modelDAO.searchByQueryObj(objs));
 	}
-	public List<OrderJoinModelDTO> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs){
+	public List<OrderJoinModelDTO> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs) throws SQLException{
 		
 		return modelTransformer.modelListToDtoList(modelDAO.searchByQueryObjPage(page, numPerPage, objs));
 	}
-	public int searchRowNumber(QueryObj... objs) {
+	public int searchRowNumber(QueryObj... objs) throws SQLException {
 		
 		return modelDAO.searchRowNumber(objs);
 	}

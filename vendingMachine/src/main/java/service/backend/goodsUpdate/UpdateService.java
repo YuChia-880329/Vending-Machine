@@ -1,7 +1,10 @@
 package service.backend.goodsUpdate;
 
+import java.sql.SQLException;
+
 import bean.dto.backend.goodsUpdate.vo.readin.GoodsUpdateFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateMsgVODTO;
+import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
 import service.model.GoodsModelService;
@@ -30,12 +33,28 @@ public class UpdateService {
 	public UpdateResultVODTO update(GoodsUpdateFormVODTO goodsUpdateFormVODTO) {
 		
 		int id = goodsUpdateFormVODTO.getId();
-		GoodsModelDTO goodsModelDTO = goodsModelService.searchById(id);
-		goodsModelDTO = updateFormGoodsVOToGoodsModel(goodsUpdateFormVODTO, goodsModelDTO);
-		int result = goodsModelService.update(goodsModelDTO);
+		int result = 0;
+		UpdateResultFormVODTO updateResultFormVODTO = new UpdateResultFormVODTO();
+		GoodsModelDTO goodsModelDTO;
+		String name = "";
+		try {
+			
+			goodsModelDTO = goodsModelService.searchById(id);
+			goodsModelDTO = updateFormGoodsVOToGoodsModel(goodsUpdateFormVODTO, goodsModelDTO);
+			updateResultFormVODTO.setQuantity(goodsModelDTO.getQuantity());
+			result = goodsModelService.update(goodsModelDTO);
+			name = goodsModelDTO.getName();
+		} catch (SQLException ex) {
+			
+			ex.printStackTrace();
+			updateResultFormVODTO.setQuantity(goodsUpdateFormVODTO.getAddQuantity());
+		}
 		
 		UpdateResultVODTO updateResultVODTO = new UpdateResultVODTO();
-		updateResultVODTO.setUpdateMsg(generateUpdateMsgVO(result, id, goodsModelDTO.getName()));
+		
+		updateResultVODTO.setUpdateMsg(generateUpdateMsgVO(result, id, name));
+		updateResultVODTO.setUpdateResultForm(updateResultFormVODTO);
+		
 		return updateResultVODTO;
 	}
 	private GoodsModelDTO updateFormGoodsVOToGoodsModel(GoodsUpdateFormVODTO goodsUpdateFormVODTO, GoodsModelDTO oldGoodsModelDTO) {

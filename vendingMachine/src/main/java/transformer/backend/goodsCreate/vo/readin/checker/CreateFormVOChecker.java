@@ -75,6 +75,6 @@ public class CreateFormVOChecker extends CheckerTemplate<CreateFormVO, CheckerEx
 		
 		String status = vo.getStatus();
 		
-		CheckUtil.checkStringWithOptions(status, StringConcatUtil.concate(NAME_PREFIX, "status"), new String[] {Status.ON.getDescription(), Status.OFF.getDescription()});
+		CheckUtil.checkStringWithOptions(status, StringConcatUtil.concate(NAME_PREFIX, "status"), new String[] {String.valueOf(Status.ON.getValue()), String.valueOf(Status.OFF.getValue())});
 	}
 }

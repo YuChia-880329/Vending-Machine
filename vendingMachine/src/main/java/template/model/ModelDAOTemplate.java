@@ -3,6 +3,7 @@ package template.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -13,29 +14,29 @@ import util.SQLUtil.FunctionSQLException;
 
 public abstract class ModelDAOTemplate<M, P> {
 
-	protected List<M> searchAll(){
+	protected List<M> searchAll() throws SQLException{
 		
 		return SQLUtil.searchListTemplate(
 				getConnectionSupplier(), 
 				getSearchAllSql(), 
 				getSearchFunctionSQLException());
 	}
-	protected M searchById(P pk) {
+	protected M searchById(P pk) throws SQLException {
 		
 		return SQLUtil.searchOneTemplate(
 				getConnectionSupplier(), 
 				getSearchByIdSql(pk), 
 				getSearchFunctionSQLException());
 	};
-	protected M add(M model) {
+	protected M add(M model) throws SQLException {
 		
 		return SQLUtil.addTemplate(getConnectionSupplier(), getAddSql(), model, getAddBiConsumerSQLException());
 	}
-	protected int update(M model) {
+	protected int update(M model) throws SQLException {
 		
 		return SQLUtil.updateTemplate(getConnectionSupplier(), getUpdateSql(), getUpdateConsumerSQLException(model));
 	}
-	protected int delete(P pk) {
+	protected int delete(P pk) throws SQLException {
 		
 		return SQLUtil.deleteTemplate(getConnectionSupplier(), getDeleteSql(pk));
 	}

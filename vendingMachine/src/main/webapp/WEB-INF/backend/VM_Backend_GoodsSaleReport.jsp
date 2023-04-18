@@ -50,16 +50,16 @@
 		}
 		function filterInputCheck(){
 			
-			return checkIntegerInput(filterGoodsPriceMinInputId, '飲料價格(小)')
-				&& checkIntegerInput(filterGoodsPriceMaxInputId, '飲料價格(大)')
+			return checkPositiveIntegerInput(filterGoodsPriceMinInputId, '飲料價格(小)')
+				&& checkPositiveIntegerInput(filterGoodsPriceMaxInputId, '飲料價格(大)')
 				&& checkIntegerInputMinMax(filterGoodsPriceMinInputId, '飲料價格(小)', filterGoodsPriceMaxInputId, '飲料價格(大)')
 			
-				&& checkIntegerInput(filterBuyQantityMinInputId, '購買數量(小)')
-				&& checkIntegerInput(filterBuyQantityMaxInputId, '購買數量(大)')
+				&& checkPositiveIntegerInput(filterBuyQantityMinInputId, '購買數量(小)')
+				&& checkPositiveIntegerInput(filterBuyQantityMaxInputId, '購買數量(大)')
 				&& checkIntegerInputMinMax(filterBuyQantityMinInputId, '購買數量(小)', filterBuyQantityMaxInputId, '購買數量(大)')
 			
-				&& checkIntegerInput(filterTotalPriceMinInputId, '購買金額(小)')
-				&& checkIntegerInput(filterTotalPriceMaxInputId, '購買金額(大)')
+				&& checkPositiveIntegerInput(filterTotalPriceMinInputId, '購買金額(小)')
+				&& checkPositiveIntegerInput(filterTotalPriceMaxInputId, '購買金額(大)')
 				&& checkIntegerInputMinMax(filterTotalPriceMinInputId, '購買金額(小)', filterTotalPriceMaxInputId, '購買金額(大)');
 		}
 		function allOrdersBtnClicked(){

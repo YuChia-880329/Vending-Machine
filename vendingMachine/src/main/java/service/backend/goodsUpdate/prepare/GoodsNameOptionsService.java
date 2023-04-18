@@ -1,5 +1,7 @@
 package service.backend.goodsUpdate.prepare;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +27,17 @@ public class GoodsNameOptionsService {
 	
 	public List<GoodsNameOptionVODTO> prepare(){
 		
-		List<GoodsModelDTO> goodsModelDTOs = goodsModelService.searchAll();
-		return goodsModelsToGoodsNameOptionVOs(goodsModelDTOs);
+		List<GoodsModelDTO> goodsModelDTOs;
+		try {
+			
+			goodsModelDTOs = goodsModelService.searchAll();
+			return goodsModelsToGoodsNameOptionVOs(goodsModelDTOs);
+		} catch (SQLException ex) {
+			
+			ex.printStackTrace();
+			return new ArrayList<>();
+		}
+		
 	}
 	
 	private List<GoodsNameOptionVODTO> goodsModelsToGoodsNameOptionVOs(List<GoodsModelDTO> goodsModelDTOs){

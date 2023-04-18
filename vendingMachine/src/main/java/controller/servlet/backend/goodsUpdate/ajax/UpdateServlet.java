@@ -68,7 +68,7 @@ public class UpdateServlet extends HttpServlet {
 	
 	private GoodsUpdateFormVO getInput(HttpServletRequest req) throws IOException {
 		
-		String requestBodyStr = IOUtil.read(req.getInputStream(), true);
+		String requestBodyStr = IOUtil.read(req.getInputStream());
 		Map<String, String> requestBody = RequestUtil.getRequestBodyMap(requestBodyStr);
 		
 		String idStr = requestBody.get(REQ_PARAM_ID);

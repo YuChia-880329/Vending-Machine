@@ -42,8 +42,8 @@ public class MemberModelDAO extends ModelDAOTemplate<MemberModel, String> {
 	@Override
 	protected String getSearchAllSql() {
 
-		String sqlFormatStr = "SELECT %s, %s, %s FROM %s";
-		return String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_PW, COL_NAME_NAME, TABLE_NAME);
+		String sqlFormatStr = "SELECT %s, %s, %s FROM %s ORDER BY %s ASC";
+		return String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_PW, COL_NAME_NAME, TABLE_NAME, COL_NAME_NAME);
 	}
 	@Override
 	protected String getSearchByIdSql(String id) {

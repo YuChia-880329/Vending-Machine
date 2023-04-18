@@ -1,5 +1,7 @@
 package service.backend.goodsUpdate;
 
+import java.sql.SQLException;
+
 import bean.dto.backend.goodsUpdate.vo.readin.ChangeGoodsVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateFormGoodsVODTO;
 import bean.dto.model.GoodsModelDTO;
@@ -24,8 +26,16 @@ public class ChangeGoodsService {
 	
 	public UpdateFormGoodsVODTO change(ChangeGoodsVODTO changeGoodsVODTO) {
 		
-		GoodsModelDTO goodsModelDTO = goodsModelService.searchById(changeGoodsVODTO.getId());
-		return goodsModelToUpdateFormGoodsVO(goodsModelDTO);
+		GoodsModelDTO goodsModelDTO;
+		try {
+			
+			goodsModelDTO = goodsModelService.searchById(changeGoodsVODTO.getId());
+			return goodsModelToUpdateFormGoodsVO(goodsModelDTO);
+		} catch (SQLException ex) {
+			
+			ex.printStackTrace();
+			return new UpdateFormGoodsVODTO();
+		}
 	}
 	
 	private UpdateFormGoodsVODTO goodsModelToUpdateFormGoodsVO(GoodsModelDTO goodsModelDTO) {

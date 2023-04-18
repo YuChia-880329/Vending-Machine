@@ -2,6 +2,7 @@ package service.backend.goodsCreate;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.http.Part;
 
@@ -16,6 +17,7 @@ import util.StringConcatUtil;
 public class CreateService {
 
 	private static final String CREATE_MSG = "已新增商品 id %d, %s";
+	private static final String FAILURE_MSG = "新增商品失敗";
 	
 	
 	private GoodsModelService goodsModelService;
@@ -33,22 +35,32 @@ public class CreateService {
 		return INSTANCE;
 	}
 	
-	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String deployPath, String contextPath) {
+	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String deployPath, String projectName, String imagesDirectorySymbolicLinkName) {
 		
 		GoodsModelDTO goodsModelDTO = createFormVOToGoodsModel(createFormVODTO);
 		
-		goodsModelDTO = goodsModelService.add(goodsModelDTO);
-		
-		CreateResultVODTO createResultVODTO = new CreateResultVODTO();
+		CreateMsgVODTO createMsgVODTO;
 		try {
-			if(goodsModelDTO != null)
-				uploadImage(createFormVODTO.getImagePart(), deployPath, contextPath);
-		} catch (IOException ex) {
+			
+			goodsModelDTO = goodsModelService.add(goodsModelDTO);
+			
+			if(goodsModelDTO != null) {
+				
+				uploadImage(createFormVODTO.getImagePart(), deployPath, projectName, imagesDirectorySymbolicLinkName);
+				createMsgVODTO = getCreateMsgVODTO(goodsModelDTO.getId(), goodsModelDTO.getName());
+			}else {
+				
+				createMsgVODTO = new CreateMsgVODTO(FAILURE_MSG);
+			}
+		} catch (SQLException | IOException ex) {
 			
 			ex.printStackTrace();
+			createMsgVODTO = new CreateMsgVODTO(FAILURE_MSG);
 		}
 		
-		createResultVODTO.setCreateMsg(getCreateMsgVODTO(goodsModelDTO.getId(), goodsModelDTO.getName()));
+		CreateResultVODTO createResultVODTO = new CreateResultVODTO();
+		
+		createResultVODTO.setCreateMsg(createMsgVODTO);
 		
 		return createResultVODTO;
 	}
@@ -57,7 +69,7 @@ public class CreateService {
 		GoodsModelDTO goodsModelDTO = new GoodsModelDTO();
 		
 		goodsModelDTO.setName(createFormVODTO.getName());
-		goodsModelDTO.setDescription("");
+		goodsModelDTO.setDescription(createFormVODTO.getDescription());
 		goodsModelDTO.setPrice(createFormVODTO.getPrice());
 		goodsModelDTO.setQuantity(createFormVODTO.getQuantity());
 		goodsModelDTO.setImageName(createFormVODTO.getImagePart().getSubmittedFileName());
@@ -73,10 +85,10 @@ public class CreateService {
 		
 		return createMsgVODTO;
 	}
-	private void uploadImage(Part imagePart, String deployPath, String contextPath) throws IOException {
+	private void uploadImage(Part imagePart, String deployPath, String projectName, String imagesDirectorySymbolicLinkName) throws IOException {
 		
-		String imagePath = StringConcatUtil.concate(deployPath, File.separator, contextPath, File.separator, imagePart.getSubmittedFileName());
+		String imagePath = StringConcatUtil.concate(deployPath, File.separator, projectName, File.separator, imagesDirectorySymbolicLinkName, File.separator, imagePart.getSubmittedFileName());
 	
-		ImageUtil.uploadImage(imagePart, imagePath);
+		ImageUtil.uploadImage(imagePart.getInputStream(), imagePath);
 	}
 }

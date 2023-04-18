@@ -7,6 +7,7 @@ import enumeration.Status;
 public class CreateFormVODTO {
 
 	private String name;
+	private String description;
 	private int price;
 	private int quantity;
 	private String imageName;
@@ -16,9 +17,10 @@ public class CreateFormVODTO {
 	
 	public CreateFormVODTO() {
 	}
-	public CreateFormVODTO(String name, int price, int quantity, String imageName, Part imagePart, Status status) {
+	public CreateFormVODTO(String name, String description, int price, int quantity, String imageName, Part imagePart, Status status) {
 
 		this.name = name;
+		this.description = description;
 		this.price = price;
 		this.quantity = quantity;
 		this.imageName = imageName;
@@ -29,6 +31,9 @@ public class CreateFormVODTO {
 	
 	public String getName() {
 		return name;
+	}
+	public String getDescription() {
+		return description;
 	}
 	public int getPrice() {
 		return price;
@@ -49,6 +54,9 @@ public class CreateFormVODTO {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public void setPrice(int price) {
 		this.price = price;

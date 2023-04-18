@@ -3,10 +3,10 @@
 	function confirmModal(modalMsg, okBtnFctn){
 		
 		var modalId = 'confirm_modal';
-		var modalMsgPId = 'confirm_modal_msg';
+		var modalMsgId = 'confirm_modal_msg';
 		var okBtnId = 'confirm_modal_ok_btn';
 		
-		$('#' + modalMsgPId).text(modalMsg);
+		$('#' + modalMsgId).text(modalMsg);
 		$('#' + okBtnId).off('click');
 		$('#' + okBtnId).click(okBtnFctn);
 		
@@ -25,9 +25,10 @@
 	
 	
 	// check
-	let noValueMsgSuffix = ' 沒有值';
+	let noValueMsgSuffix = '請輸入 ';
 	let notNumberMsgSuffix = ' 不是數字';
-	let notPositiveNumberMsgSuffix = ' 必須是正數';
+	let notNonNegativeNumberMsgSuffix = ' 必須大於等於0';
+	let notPositiveNumberMsgSuffix = ' 必須大於0';
 	let notIntegerMsgSuffix = ' 必須是整數';
 	
 	function checkHasValue(inputId){
@@ -54,6 +55,14 @@
 		return !isNaN(inputStr);
 	}
 	
+	function checkIsNonNegativeNumber(inputId){
+		
+		var inputStr = $('#' + inputId).val();
+		
+		var inputNumber = parseFloat(inputStr);
+			
+		return inputNumber>=0;
+	}
 	function checkIsPositiveNumber(inputId){
 		
 		var inputStr = $('#' + inputId).val();
@@ -71,6 +80,92 @@
 	}
 	
 	
+	function checkNotNull(inputId, name){
+		
+		if(!checkHasValue(inputId)){
+			
+			alertModal(noValueMsgSuffix + name).show();
+			return false;
+		}
+		return true;
+	}
+	function checkNotNullNonNegativeIntegerInput(inputId, name){
+		
+		if(checkHasValue(inputId)){
+			
+			if(!checkIsNumber(inputId)){
+				
+				alertModal(name + notNumberMsgSuffix).show();
+				return false;
+			}
+			else if(!checkIsNonNegativeNumber(inputId)){
+				
+				alertModal(name + notNonNegativeNumberMsgSuffix).show();
+				return false;
+			}
+			else if(!checkIsInteger(inputId)){
+				
+				alertModal(name + notIntegerMsgSuffix).show();
+				return false;
+			}
+		}else{
+			
+			alertModal(noValueMsgSuffix + name).show();
+			return false;
+		}
+		
+		return true;
+	}
+	function checkNonNegativeIntegerInput(inputId, name){
+		
+		if(checkHasValue(inputId)){
+			
+			if(!checkIsNumber(inputId)){
+				
+				alertModal(name + notNumberMsgSuffix).show();
+				return false;
+			}
+			else if(!checkIsNonNegativeNumber(inputId)){
+				
+				alertModal(name + notNonNegativeNumberMsgSuffix).show();
+				return false;
+			}
+			else if(!checkIsInteger(inputId)){
+				
+				alertModal(name + notIntegerMsgSuffix).show();
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	function checkNotNullPositiveIntegerInput(inputId, name){
+		
+		if(checkHasValue(inputId)){
+			
+			if(!checkIsNumber(inputId)){
+				
+				alertModal(name + notNumberMsgSuffix).show();
+				return false;
+			}
+			else if(!checkIsPositiveNumber(inputId)){
+				
+				alertModal(name + notPositiveNumberMsgSuffix).show();
+				return false;
+			}
+			else if(!checkIsInteger(inputId)){
+				
+				alertModal(name + notIntegerMsgSuffix).show();
+				return false;
+			}
+		}else{
+			
+			alertModal(noValueMsgSuffix + name).show();
+			return false;
+		}
+		
+		return true;
+	}
 	function checkPositiveIntegerInput(inputId, name){
 		
 		if(checkHasValue(inputId)){
@@ -94,6 +189,22 @@
 		
 		return true;
 	}
+	function checkRadio(radioIds, radioName){
+		
+		var hasValue = false;
+		radioIds.forEach(function(currentValue){
+			
+			hasValue = hasValue || $('#' + currentValue).prop('checked');
+		});
+		if(!hasValue){
+			
+			alertModal('請選擇 ' + radioName).show();
+			return false;
+		}else{
+			
+			return true;
+		}
+	}
 	
 	function checkIntegerInputMinMax(minInputId, minInputName, maxInputId, maxInputName){
 		
@@ -111,4 +222,5 @@
 		
 		return true;
 	}
+	
 	

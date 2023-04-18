@@ -3,6 +3,7 @@ package dao.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -52,10 +53,10 @@ public class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 	@Override
 	protected String getSearchAllSql() {
 		
-		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s FROM %s";
+		String sqlFormatStr = "SELECT %s, %s, %s, %s, %s, %s, %s FROM %s ORDER BY %s ASC";
 		return String.format(sqlFormatStr, COL_NAME_ID, COL_NAME_NAME, 
 				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
-				COL_NAME_IMAGE, COL_NAME_STATUS, TABLE_NAME);
+				COL_NAME_IMAGE, COL_NAME_STATUS, TABLE_NAME, COL_NAME_ID);
 	}
 	@Override
 	protected String getSearchByIdSql(Integer id) {
@@ -141,7 +142,7 @@ public class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 	
 	
 	@Override
-	protected GoodsModel add(GoodsModel model) {
+	protected GoodsModel add(GoodsModel model) throws SQLException {
 		
 		return SQLUtil.addTemplateGeneratedKey(
 				getConnectionSupplier(), 
@@ -151,7 +152,7 @@ public class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 				new String[] {COL_NAME_ID}, 
 				getAddGeneratedKeyBiConsumerSQLException());
 	}
-	public List<GoodsModel> searchByQueryObj(QueryObj... objs) {
+	public List<GoodsModel> searchByQueryObj(QueryObj... objs) throws SQLException {
 		
 		if(objs.length == 0)
 			return searchAll();
@@ -161,14 +162,14 @@ public class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 				getSearchByQueryObjSql(objs), 
 				getSearchFunctionSQLException());
 	}
-	public List<GoodsModel> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs){
+	public List<GoodsModel> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs) throws SQLException{
 		
 		return SQLUtil.searchListTemplate(
 				getConnectionSupplier(), 
 				getSearchByQueryObjPage(page, numPerPage, objs), 
 				getSearchFunctionSQLException());
 	}
-	public int searchRowNumber(QueryObj... objs) {
+	public int searchRowNumber(QueryObj... objs) throws SQLException {
 		
 		return SQLUtil.searchOneTemplate(
 				getConnectionSupplier(), 
@@ -194,6 +195,7 @@ public class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 				sql = StringConcatUtil.concate(sql, " AND ", objs[i].getQueryStatement());
 		}
 		
+		sql = StringConcatUtil.concate(sql, String.format(" ORDER BY %s ASC", COL_NAME_ID));
 		return sql;
 	}
 	private String getSearchByQueryObjPage(int page, int numPerPage, QueryObj... objs) {
@@ -217,6 +219,7 @@ public class GoodsModelDAO extends ModelDAOTemplate<GoodsModel, Integer> {
 				COL_NAME_DESCRIPTION, COL_NAME_PRICE, COL_NAME_QUANTITY, 
 				COL_NAME_IMAGE, COL_NAME_STATUS, subTableSql);
 		
+		sql = StringConcatUtil.concate(sql, String.format(" ORDER BY %s ASC", COL_NAME_ID));
 		return sql;
 	}
 	private String getSearchRowNumber(QueryObj... objs) {

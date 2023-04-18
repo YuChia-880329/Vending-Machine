@@ -2,6 +2,7 @@ package dao.model;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.function.Supplier;
@@ -52,21 +53,21 @@ public class OrderJoinModelDAO {
 	
 	
 	
-	public List<OrderJoinModel> searchAll(){
+	public List<OrderJoinModel> searchAll() throws SQLException{
 		
 		return SQLUtil.searchListTemplate(
 				getConnectionSupplier(), 
 				getSearchAllSql(), 
 				getSearchFunctionSQLException());
 	}
-	public OrderJoinModel searchById(int id){
+	public OrderJoinModel searchById(int id) throws SQLException{
 		
 		return SQLUtil.searchOneTemplate(
 				getConnectionSupplier(), 
 				getSearchByIdSql(id), 
 				getSearchFunctionSQLException());
 	}
-	public List<OrderJoinModel> searchByQueryObj(QueryObj... objs){
+	public List<OrderJoinModel> searchByQueryObj(QueryObj... objs) throws SQLException{
 		
 		if(objs.length == 0)
 			return searchAll();
@@ -76,14 +77,14 @@ public class OrderJoinModelDAO {
 				getSearchByQueryObjSql(objs), 
 				getSearchFunctionSQLException());
 	}
-	public List<OrderJoinModel> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs){
+	public List<OrderJoinModel> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs) throws SQLException{
 		
 		return SQLUtil.searchListTemplate(
 				getConnectionSupplier(), 
 				getSearchByQueryObjPageSql(page, numPerPage, objs), 
 				getSearchFunctionSQLException());
 	}
-	public int searchRowNumber(QueryObj... objs) {
+	public int searchRowNumber(QueryObj... objs) throws SQLException {
 		
 		return SQLUtil.searchOneTemplate(
 				getConnectionSupplier(), 
@@ -95,7 +96,8 @@ public class OrderJoinModelDAO {
 	
 	private String getSearchAllSql() {
 		
-		return getSelectSql(getSelectSubTableSql());
+		return StringConcatUtil.concate(getSelectSql(getSelectSubTableSql()), 
+				String.format(" ORDER BY T.%s ASC", BEVERAGE_ORDER_COL_NAME_ORDER_ID));
 	}
 	private String getSearchByIdSql(int id) {
 		
@@ -114,6 +116,7 @@ public class OrderJoinModelDAO {
 				sql = StringConcatUtil.concate(sql, " AND ", objs[i].getQueryStatement());
 		}
 		
+		sql = StringConcatUtil.concate(sql, String.format(" ORDER BY T.%s ASC", BEVERAGE_ORDER_COL_NAME_ORDER_ID));
 		return sql;
 	}
 	private String getSearchByQueryObjPageSql(int page, int numPerPage, QueryObj... objs) {
@@ -127,6 +130,7 @@ public class OrderJoinModelDAO {
 			else
 				sql = StringConcatUtil.concate(sql, " AND ", objs[i].getQueryStatement());
 		}
+		sql = StringConcatUtil.concate(sql, String.format(" ORDER BY T.%s ASC", BEVERAGE_ORDER_COL_NAME_ORDER_ID));
 		
 		String sqlFormatStr = StringConcatUtil.concate("SELECT %s, %s, %s, %s, %s, %s FROM (%s) WHERE RN ", SQLUtil.pageStatement(page, numPerPage));
 		return String.format(sqlFormatStr, 

@@ -1,5 +1,6 @@
 package service.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import bean.dto.model.GoodsModelDTO;
@@ -21,15 +22,15 @@ public class GoodsModelService extends ModelServiceTemplate<GoodsModel, Integer,
 		return INSTANCE;
 	}
 	
-	public List<GoodsModelDTO> searchByQueryObj(QueryObj... objs){
+	public List<GoodsModelDTO> searchByQueryObj(QueryObj... objs) throws SQLException{
 		
 		return modelTransformer.modelListToDtoList(modelDAO.searchByQueryObj(objs));
 	}
-	public List<GoodsModelDTO> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs){
+	public List<GoodsModelDTO> searchByQueryObjPage(int page, int numPerPage, QueryObj... objs) throws SQLException{
 		
 		return modelTransformer.modelListToDtoList(modelDAO.searchByQueryObjPage(page, numPerPage, objs));
 	}
-	public int searchRowNumber(QueryObj... objs) {
+	public int searchRowNumber(QueryObj... objs) throws SQLException {
 		
 		return modelDAO.searchRowNumber(objs);
 	}

@@ -1,5 +1,6 @@
 package memory.repository.backend.goodsList;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,25 +76,34 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		
 		FilterParameterOBJ filterParameterOBJ = objTransformService.goodsTablePagesInputToFilterParameter(inputObj);
 		QueryObj[] queryObjs = filterParameterService.getQueryObjs(filterParameterOBJ);
-		int maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePageService.GOODS_PER_PAGE);
-		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP);
-		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
+		int maxPage = 0;
 		Map<Integer, GoodsTablePageOBJ> goodsTablePageMap = new HashMap<>();
-		for(int i=startPage; i<=endpage; i++) {
+		try {
 			
-			GoodsTablePageOBJ goodsTablePage = new GoodsTablePageOBJ();
+			maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePageService.GOODS_PER_PAGE);
+			int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP);
+			int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
 			
-			GoodsTableOBJ goodsTable = new GoodsTableOBJ();
-			
-			List<GoodsModelDTO> goodsModelDTOList = goodsModelService.searchByQueryObjPage(i, GoodsTablePageService.GOODS_PER_PAGE, queryObjs);
+			for(int i=startPage; i<=endpage; i++) {
+				
+				GoodsTablePageOBJ goodsTablePage = new GoodsTablePageOBJ();
+				
+				GoodsTableOBJ goodsTable = new GoodsTableOBJ();
+				
+				List<GoodsModelDTO> goodsModelDTOList = goodsModelService.searchByQueryObjPage(i, GoodsTablePageService.GOODS_PER_PAGE, queryObjs);
 
-			goodsTable.setGoodsTableRows(
-					goodsTableRowOBJTransformer.dtoListToObjList(
-							goodsModelsToGoodsOBJs(goodsModelDTOList)));
+				goodsTable.setGoodsTableRows(
+						goodsTableRowOBJTransformer.dtoListToObjList(
+								goodsModelsToGoodsOBJs(goodsModelDTOList)));
+				
+				goodsTablePage.setGoodsTable(goodsTable);
+				goodsTablePageMap.put(i, goodsTablePage);
+			}
+		} catch (SQLException ex) {
 			
-			goodsTablePage.setGoodsTable(goodsTable);
-			goodsTablePageMap.put(i, goodsTablePage);
+			ex.printStackTrace();
 		}
+		
 
 		goodsTablePages.setGoodsTablePageMap(goodsTablePageMap);
 		goodsTablePages.setMaxPage(maxPage);

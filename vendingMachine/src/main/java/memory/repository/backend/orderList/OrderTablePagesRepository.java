@@ -1,5 +1,6 @@
 package memory.repository.backend.orderList;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,25 +79,34 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 		
 		FilterParameterOBJ filterParameterOBJ = objTransformService.orderTablePagesInputToFilterParameter(inputObj);
 		QueryObj[] queryObjs = filterParameterService.getQueryObjs(filterParameterOBJ);
-		int maxPage = PaginationUtil.getMaxPage(orderJoinModelService.searchRowNumber(queryObjs), OrderTablePageService.GOODS_PER_PAGE);
-		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP);
-		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
+		int maxPage = 0;
 		Map<Integer, OrderTablePageOBJ> orderTablePageMap = new HashMap<>();
-		for(int i=startPage; i<=endpage; i++) {
+		try {
 			
-			OrderTablePageOBJ orderTablePageOBJ = new OrderTablePageOBJ();
+			maxPage = PaginationUtil.getMaxPage(orderJoinModelService.searchRowNumber(queryObjs), OrderTablePageService.GOODS_PER_PAGE);
+			int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP);
+			int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
+			for(int i=startPage; i<=endpage; i++) {
+				
+				OrderTablePageOBJ orderTablePageOBJ = new OrderTablePageOBJ();
+				
+				OrderTableOBJ orderTableOBJ = new OrderTableOBJ();
+				
+				List<OrderJoinModelDTO> orderModelDTOList = orderJoinModelService.searchByQueryObjPage(i, OrderTablePageService.GOODS_PER_PAGE, queryObjs);
+				
+				orderTableOBJ.setOrderTableRows(orderTableRowOBJTransformer.dtoListToObjList(
+						orderJoinModelsToOrderTableRowOBJs(orderModelDTOList)));
+				
+				orderTablePageOBJ.setOrderTable(orderTableOBJ);
+				
+				orderTablePageMap.put(i, orderTablePageOBJ);
+			}
+		
+		} catch (SQLException ex) {
 			
-			OrderTableOBJ orderTableOBJ = new OrderTableOBJ();
-			
-			List<OrderJoinModelDTO> orderModelDTOList = orderJoinModelService.searchByQueryObjPage(i, OrderTablePageService.GOODS_PER_PAGE, queryObjs);
-			
-			orderTableOBJ.setOrderTableRows(orderTableRowOBJTransformer.dtoListToObjList(
-					orderJoinModelsToOrderTableRowOBJs(orderModelDTOList)));
-			
-			orderTablePageOBJ.setOrderTable(orderTableOBJ);
-			
-			orderTablePageMap.put(i, orderTablePageOBJ);
+			ex.printStackTrace();
 		}
+		
 		
 		orderTablePagesOBJ.setOrderTablePageMap(orderTablePageMap);
 		orderTablePagesOBJ.setMaxPage(maxPage);
