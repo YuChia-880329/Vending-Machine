@@ -1,7 +1,9 @@
 package memory.repository.frontend;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import bean.dto.frontend.obj.repository.goodsTablePages.writeout.GoodsCardOBJDTO;
@@ -20,6 +22,7 @@ import service.model.GoodsModelService;
 import template.memory.repository.RepositoryTemplate;
 import template.model.QueryObj;
 import transformer.frontend.obj.goodsTablePages.writeout.GoodsTableEntryOBJTransformer;
+import util.PaginationUtil;
 
 public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputOBJ, GoodsTablePagesOBJ> {
 
@@ -59,22 +62,63 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	}
 
 	@Override
-	protected GoodsTablePagesOBJ update(GoodsTablePagesInputOBJ i) {
+	protected GoodsTablePagesOBJ update(GoodsTablePagesInputOBJ inputObj) {
 
-		return null;
+		GoodsTablePagesOBJ goodsTablePagesOBJ = new GoodsTablePagesOBJ();
+		
+		FilterParameterOBJ filterParameterOBJ = goodsTablePagesInputToFilterParameter(inputObj);
+		QueryObj[] queryObjs = filterParameterService.getQueryObjs(filterParameterOBJ);
+		Map<Integer, GoodsTablePageOBJ> goodsTablePageMap;
+		int maxPage;
+		try {
+			
+			maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePageService.GOODS_PER_PAGE);
+			goodsTablePageMap = updateGoodsTablePageMap(inputObj, maxPage, queryObjs);
+		}catch(SQLException ex) {
+			
+			ex.printStackTrace();
+			goodsTablePageMap = new HashMap<>();
+			maxPage = 0;
+		}
+		
+		goodsTablePagesOBJ.setGoodsTablePageMap(goodsTablePageMap);
+		goodsTablePagesOBJ.setMaxPage(maxPage);
+		goodsTablePagesOBJ.setFilterParameter(filterParameterOBJ);
+		
+		if(updateRequired)
+			updateRequired = false;
+		
+		return goodsTablePagesOBJ;
 	}
 	
+	public void requireUpdate() {
+		
+		updateRequired = true; 
+	}
 	
-	
-	private GoodsTablePageOBJ updateGoodsTablePageOBJ(int page, QueryObj[] queryObjs) throws SQLException {
+	private Map<Integer, GoodsTablePageOBJ> updateGoodsTablePageMap(GoodsTablePagesInputOBJ inputObj, int maxPage, QueryObj[] queryObjs) throws SQLException{
+		
+		Map<Integer, GoodsTablePageOBJ> goodsTablePageMap = new HashMap<>();
+		
+		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP);
+		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
+		
+		for(int i=startPage; i<=endpage; i++) {
+
+			goodsTablePageMap.put(i, updateGoodsTablePage(i, queryObjs));
+		}
+		
+		return goodsTablePageMap;
+	}
+	private GoodsTablePageOBJ updateGoodsTablePage(int page, QueryObj[] queryObjs) throws SQLException {
 		
 		GoodsTablePageOBJ goodsTablePageOBJ = new GoodsTablePageOBJ();
 		
-		goodsTablePageOBJ.setGoodsTable(updateGoodsTableOBJ(page, queryObjs));
+		goodsTablePageOBJ.setGoodsTable(updateGoodsTable(page, queryObjs));
 		
 		return goodsTablePageOBJ;
 	}
-	private GoodsTableOBJ updateGoodsTableOBJ(int page, QueryObj[] queryObjs) throws SQLException {
+	private GoodsTableOBJ updateGoodsTable(int page, QueryObj[] queryObjs) throws SQLException {
 		
 		GoodsTableOBJ goodsTableOBJ = new GoodsTableOBJ();
 		
@@ -89,6 +133,8 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		
 		return goodsTableEntryOBJTransformer.dtoListToObjList(goodsTableEntryOBJs);
 	}
+	
+	
 	private GoodsTableEntryOBJDTO goodsModelToGoodsTableEntryOBJ(GoodsModelDTO goodsModelDTO) {
 		
 		GoodsTableEntryOBJDTO goodsTableEntryOBJDTO = new GoodsTableEntryOBJDTO();

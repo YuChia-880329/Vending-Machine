@@ -128,6 +128,9 @@
   	<listener>
   		<listener-class>dao.memory.repository.backend.orderList.OrderTablePagesDAOContextListener</listener-class>
   	</listener>
+  	 <listener>
+  		<listener-class>dao.memory.repository.frontend.GoodsTablePagesDAOContextListener</listener-class>
+  	</listener>
   	<listener>
   		<listener-class>listener.ParameterContextListener</listener-class>
   	</listener>
