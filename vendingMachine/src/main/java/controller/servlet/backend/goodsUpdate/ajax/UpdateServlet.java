@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 
 import bean.dto.backend.goodsUpdate.vo.readin.GoodsUpdateFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
-import bean.vo.backend.goodsList.readin.PageParameterVO;
 import bean.vo.backend.goodsUpdate.readin.GoodsUpdateFormVO;
 import bean.vo.backend.goodsUpdate.writeout.UpdateResultVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;

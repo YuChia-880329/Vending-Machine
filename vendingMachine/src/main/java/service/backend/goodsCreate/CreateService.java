@@ -33,7 +33,7 @@ public class CreateService {
 		return INSTANCE;
 	}
 	
-	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String deployPath, String projectName, String imagesDirectorySymbolicLinkName, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String imagesDirectorySymbolicLinkPath, GoodsTablePagesDAO goodsTablePagesDAO) {
 		
 		GoodsModelDTO goodsModelDTO = createFormVOToGoodsModel(createFormVODTO);
 		
@@ -44,8 +44,7 @@ public class CreateService {
 			
 			if(goodsModelDTO != null) {
 				
-				uploadImageService.upload(createFormVODTO.getImagePart(), deployPath, 
-						projectName, imagesDirectorySymbolicLinkName);
+				uploadImageService.upload(createFormVODTO.getImagePart(), imagesDirectorySymbolicLinkPath);
 				createMsgVODTO = getCreateMsgVODTO(goodsModelDTO.getId(), goodsModelDTO.getName());
 				goodsTablePagesDAO.requireUpdate();
 			}else {

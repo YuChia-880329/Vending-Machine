@@ -20,6 +20,7 @@ import bean.vo.backend.goodsCreate.readin.CreateFormVO;
 import bean.vo.backend.goodsCreate.writeout.CreateResultVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener;
+import listener.ParameterContextListener;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsCreate.CreateService;
 import template.exception.CheckerException;
@@ -41,11 +42,6 @@ public class CreateServlet extends HttpServlet {
 	public static final String REQ_PARAM_QUANTITY = "quantity";
 	public static final String REQ_PARAM_IMAGE = "image";
 	public static final String REQ_PARAM_STATUS = "status";
-	
-	// context init parameter
-	public static final String CTX_PARAM_DEPLOY_PATH = "deployPath";
-	public static final String CTX_PARAM_PROJECT_NAME = "projectName";
-	public static final String CTX_PARAM_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME = "imagesDirectorySymbolicLinkName";
 	
 	
 	private CreateFormVOTransformer createFormVOTransformer;
@@ -69,15 +65,14 @@ public class CreateServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		GoodsTablePagesDAO goodsTablePagesDAO = getGoodsTablePagesDAO(context, session);
-		String deployPath = context.getInitParameter(CTX_PARAM_DEPLOY_PATH);
-		String projectName = context.getInitParameter(CTX_PARAM_PROJECT_NAME);
-		String imagesDirectorySymbolicLinkName = context.getInitParameter(CTX_PARAM_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
+		String imagesDirectorySymbolicLinkPath = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_PATH);
+		
 		
 		CreateFormVO createFormVO = getCreateFormVODTO(req);
 		try {
 			
 			CreateFormVODTO createFormVODTO = createFormVOTransformer.voToDto(createFormVO);
-			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, deployPath, projectName, imagesDirectorySymbolicLinkName, goodsTablePagesDAO);
+			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, imagesDirectorySymbolicLinkPath, goodsTablePagesDAO);
 			CreateResultVO createResultVO = createResultVOTransformer.dtoToVo(createResultVODTO);
 			resp.getWriter().append(gson.toJson(createResultVO));
 		} catch (CheckerException ex) {

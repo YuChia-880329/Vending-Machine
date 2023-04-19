@@ -13,8 +13,8 @@ import bean.obj.backend.orderList.repository.orderTablePages.writein.FilterParam
 import bean.obj.backend.orderList.repository.orderTablePages.writein.OrderTableOBJ;
 import bean.obj.backend.orderList.repository.orderTablePages.writein.OrderTablePageOBJ;
 import bean.obj.backend.orderList.repository.orderTablePages.writein.OrderTablePagesOBJ;
+import bean.obj.backend.orderList.repository.orderTablePages.writein.OrderTableRowOBJ;
 import service.backend.orderList.memory.repository.orderTablePages.FilterParameterService;
-import service.backend.orderList.memory.repository.orderTablePages.OBJTransformService;
 import service.backend.orderList.prepare.OrderTablePageService;
 import service.model.OrderJoinModelService;
 import template.memory.repository.RepositoryTemplate;
@@ -28,7 +28,6 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 	private boolean updateRequired;
 	
 	private FilterParameterService filterParameterService;
-	private OBJTransformService objTransformService;
 	private OrderJoinModelService orderJoinModelService;
 	private OrderTableRowOBJTransformer orderTableRowOBJTransformer;
 	
@@ -39,7 +38,6 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 		updateRequired = false;
 		
 		filterParameterService = FilterParameterService.getInstance();
-		objTransformService = OBJTransformService.getInstance();
 		orderJoinModelService = OrderJoinModelService.getInstance();
 		orderTableRowOBJTransformer = OrderTableRowOBJTransformer.getInstance();
 	}
@@ -67,7 +65,7 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 	@Override
 	protected boolean isNeedUpdate(OrderTablePagesInputOBJ inputObj) {
 		
-		return !filterParameterService.equals(objTransformService.orderTablePagesInputToFilterParameter(inputObj), obj.getFilterParameter())
+		return !filterParameterService.equals(orderTablePagesInputToFilterParameter(inputObj), obj.getFilterParameter())
 				|| obj.getOrderTablePageMap().get(inputObj.getCurrentPage())==null
 				|| updateRequired;
 	}
@@ -77,31 +75,14 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 		
 		OrderTablePagesOBJ orderTablePagesOBJ = new OrderTablePagesOBJ();
 		
-		FilterParameterOBJ filterParameterOBJ = objTransformService.orderTablePagesInputToFilterParameter(inputObj);
+		FilterParameterOBJ filterParameterOBJ = orderTablePagesInputToFilterParameter(inputObj);
 		QueryObj[] queryObjs = filterParameterService.getQueryObjs(filterParameterOBJ);
-		int maxPage = 0;
 		Map<Integer, OrderTablePageOBJ> orderTablePageMap = new HashMap<>();
+		int maxPage = 0;
 		try {
 			
+			orderTablePageMap = updateOrderTablePageMap(inputObj, maxPage, queryObjs);
 			maxPage = PaginationUtil.getMaxPage(orderJoinModelService.searchRowNumber(queryObjs), OrderTablePageService.GOODS_PER_PAGE);
-			int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP);
-			int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
-			for(int i=startPage; i<=endpage; i++) {
-				
-				OrderTablePageOBJ orderTablePageOBJ = new OrderTablePageOBJ();
-				
-				OrderTableOBJ orderTableOBJ = new OrderTableOBJ();
-				
-				List<OrderJoinModelDTO> orderModelDTOList = orderJoinModelService.searchByQueryObjPage(i, OrderTablePageService.GOODS_PER_PAGE, queryObjs);
-				
-				orderTableOBJ.setOrderTableRows(orderTableRowOBJTransformer.dtoListToObjList(
-						orderJoinModelsToOrderTableRowOBJs(orderModelDTOList)));
-				
-				orderTablePageOBJ.setOrderTable(orderTableOBJ);
-				
-				orderTablePageMap.put(i, orderTablePageOBJ);
-			}
-		
 		} catch (SQLException ex) {
 			
 			ex.printStackTrace();
@@ -120,6 +101,60 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 		updateRequired = true;
 	}
 	
+	private Map<Integer, OrderTablePageOBJ> updateOrderTablePageMap(OrderTablePagesInputOBJ inputObj, int maxPage, QueryObj[] queryObjs) throws SQLException{
+		
+		Map<Integer, OrderTablePageOBJ> orderTablePageMap = new HashMap<>();
+		
+		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP);
+		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), OrderTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
+		for(int i=startPage; i<=endpage; i++) {
+			
+			orderTablePageMap.put(i, updateOrderTablePage(i, queryObjs));
+		}
+		
+		return orderTablePageMap;
+	}
+	private OrderTablePageOBJ updateOrderTablePage(int page, QueryObj[] queryObjs) throws SQLException {
+		
+		OrderTablePageOBJ orderTablePageOBJ = new OrderTablePageOBJ();
+		
+		orderTablePageOBJ.setOrderTable(updateOrderTable(page, queryObjs));
+		
+		return orderTablePageOBJ;
+	}
+	private OrderTableOBJ updateOrderTable(int page, QueryObj[] queryObjs) throws SQLException {
+		
+		OrderTableOBJ orderTableOBJ = new OrderTableOBJ();
+		
+		orderTableOBJ.setOrderTableRows(updateOrderTableRows(page, queryObjs));
+		
+		return orderTableOBJ;
+	}
+	private List<OrderTableRowOBJ> updateOrderTableRows(int page, QueryObj[] queryObjs) throws SQLException{
+		
+		List<OrderJoinModelDTO> orderModelDTOs = orderJoinModelService.searchByQueryObjPage(page, OrderTablePageService.GOODS_PER_PAGE, queryObjs);
+		List<OrderTableRowOBJDTO> orderTableRowOBJs = orderJoinModelsToOrderTableRowOBJs(orderModelDTOs);
+	
+		return orderTableRowOBJTransformer.dtoListToObjList(orderTableRowOBJs);
+	}
+	
+	private FilterParameterOBJ orderTablePagesInputToFilterParameter(OrderTablePagesInputOBJ orderTablePagesInputOBJ) {
+		
+		FilterParameterOBJ filterParameterOBJ = new FilterParameterOBJ();
+		
+		filterParameterOBJ.setCustomerName(orderTablePagesInputOBJ.getCustomerName());
+		filterParameterOBJ.setStartDate(orderTablePagesInputOBJ.getStartDate());
+		filterParameterOBJ.setEndDate(orderTablePagesInputOBJ.getEndDate());
+		filterParameterOBJ.setGoodsName(orderTablePagesInputOBJ.getGoodsName());
+		filterParameterOBJ.setGoodsPriceMin(orderTablePagesInputOBJ.getGoodsPriceMin());
+		filterParameterOBJ.setGoodsPriceMax(orderTablePagesInputOBJ.getGoodsPriceMax());
+		filterParameterOBJ.setBuyQuantityMin(orderTablePagesInputOBJ.getBuyQuantityMin());
+		filterParameterOBJ.setBuyQuantityMax(orderTablePagesInputOBJ.getBuyQuantityMax());
+		filterParameterOBJ.setTotalPriceMin(orderTablePagesInputOBJ.getTotalPriceMin());
+		filterParameterOBJ.setTotalPriceMax(orderTablePagesInputOBJ.getTotalPriceMax());
+		
+		return filterParameterOBJ;
+	}
 	private List<OrderTableRowOBJDTO> orderJoinModelsToOrderTableRowOBJs(List<OrderJoinModelDTO> orderJoinModelDTOs){
 		
 		return orderJoinModelDTOs.stream()

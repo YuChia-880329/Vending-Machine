@@ -13,7 +13,7 @@ import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.FilterPara
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTableOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePageOBJ;
 import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTablePagesOBJ;
-import service.backend.goodsList.memory.repository.goodsTablePages.OBJTransformService;
+import bean.obj.backend.goodsList.repository.goodsTablePages.writeout.GoodsTableRowOBJ;
 import service.backend.goodsList.prepare.GoodsTablePageService;
 import service.backend.goodsList.memory.repository.goodsTablePages.FilterParameterService;
 import service.model.GoodsModelService;
@@ -29,7 +29,6 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	private FilterParameterService filterParameterService;
 	private GoodsModelService goodsModelService;
 	private GoodsTableRowOBJTransformer goodsTableRowOBJTransformer;
-	private OBJTransformService objTransformService;
 	
 
 	@Override
@@ -40,7 +39,6 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		filterParameterService = FilterParameterService.getInstance();
 		goodsModelService = GoodsModelService.getInstance();
 		goodsTableRowOBJTransformer = GoodsTableRowOBJTransformer.getInstance();
-		objTransformService = OBJTransformService.getInstance();
 	}
 
 	@Override
@@ -64,7 +62,7 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	@Override
 	protected boolean isNeedUpdate(GoodsTablePagesInputOBJ inputObj) {
 
-		return !filterParameterService.equals(objTransformService.goodsTablePagesInputToFilterParameter(inputObj), obj.getFilterParameter())
+		return !filterParameterService.equals(goodsTablePagesInputToFilterParameter(inputObj), obj.getFilterParameter())
 				|| obj.getGoodsTablePageMap().get(inputObj.getCurrentPage())==null
 				|| updateRequired;
 	}
@@ -74,36 +72,20 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 
 		GoodsTablePagesOBJ goodsTablePages = new GoodsTablePagesOBJ();
 		
-		FilterParameterOBJ filterParameterOBJ = objTransformService.goodsTablePagesInputToFilterParameter(inputObj);
+		FilterParameterOBJ filterParameterOBJ = goodsTablePagesInputToFilterParameter(inputObj);
 		QueryObj[] queryObjs = filterParameterService.getQueryObjs(filterParameterOBJ);
-		int maxPage = 0;
-		Map<Integer, GoodsTablePageOBJ> goodsTablePageMap = new HashMap<>();
+		Map<Integer, GoodsTablePageOBJ> goodsTablePageMap;
+		int maxPage;
 		try {
 			
 			maxPage = PaginationUtil.getMaxPage(goodsModelService.searchRowNumber(queryObjs), GoodsTablePageService.GOODS_PER_PAGE);
-			int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP);
-			int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
-			
-			for(int i=startPage; i<=endpage; i++) {
-				
-				GoodsTablePageOBJ goodsTablePage = new GoodsTablePageOBJ();
-				
-				GoodsTableOBJ goodsTable = new GoodsTableOBJ();
-				
-				List<GoodsModelDTO> goodsModelDTOList = goodsModelService.searchByQueryObjPage(i, GoodsTablePageService.GOODS_PER_PAGE, queryObjs);
-
-				goodsTable.setGoodsTableRows(
-						goodsTableRowOBJTransformer.dtoListToObjList(
-								goodsModelsToGoodsOBJs(goodsModelDTOList)));
-				
-				goodsTablePage.setGoodsTable(goodsTable);
-				goodsTablePageMap.put(i, goodsTablePage);
-			}
+			goodsTablePageMap = updateGoodsTablePageMap(inputObj, maxPage, queryObjs);
 		} catch (SQLException ex) {
 			
 			ex.printStackTrace();
+			goodsTablePageMap = new HashMap<>();
+			maxPage = 0;
 		}
-		
 
 		goodsTablePages.setGoodsTablePageMap(goodsTablePageMap);
 		goodsTablePages.setMaxPage(maxPage);
@@ -120,6 +102,60 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		updateRequired = true;
 	}
 	
+	private Map<Integer, GoodsTablePageOBJ> updateGoodsTablePageMap(GoodsTablePagesInputOBJ inputObj, int maxPage, QueryObj[] queryObjs) throws SQLException{
+		
+		Map<Integer, GoodsTablePageOBJ> goodsTablePageMap = new HashMap<>();
+			
+		int startPage = PaginationUtil.getStartPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP);
+		int endpage = PaginationUtil.getEndPage(inputObj.getCurrentPage(), GoodsTablePageService.PAGES_PER_PAGE_GROUP, maxPage);
+		
+		for(int i=startPage; i<=endpage; i++) {
+
+			goodsTablePageMap.put(i, updateGoodsTablePage(i, queryObjs));
+		}
+		
+		return goodsTablePageMap;
+	}
+	private GoodsTablePageOBJ updateGoodsTablePage(int page, QueryObj[] queryObjs) throws SQLException {
+		
+		GoodsTablePageOBJ goodsTablePageOBJ = new GoodsTablePageOBJ();
+		
+		goodsTablePageOBJ.setGoodsTable(updateGoodsTable(page, queryObjs));
+		
+		return goodsTablePageOBJ;
+	}
+	private GoodsTableOBJ updateGoodsTable(int page, QueryObj[] queryObjs) throws SQLException {
+		
+		GoodsTableOBJ goodsTableOBJ = new GoodsTableOBJ();
+		
+		goodsTableOBJ.setGoodsTableRows(updateGoodsTableRows(page, queryObjs));
+		
+		return goodsTableOBJ;
+	}
+	private List<GoodsTableRowOBJ> updateGoodsTableRows(int page, QueryObj[] queryObjs) throws SQLException{
+		
+		List<GoodsModelDTO> goodsModelDTOs = goodsModelService.searchByQueryObjPage(page, GoodsTablePageService.GOODS_PER_PAGE, queryObjs);
+		List<GoodsTableRowOBJDTO> goodsTableRowOBJs = goodsModelsToGoodsOBJs(goodsModelDTOs);
+		
+		return goodsTableRowOBJTransformer.dtoListToObjList(goodsTableRowOBJs);
+	}
+	
+	
+	private FilterParameterOBJ goodsTablePagesInputToFilterParameter(GoodsTablePagesInputOBJ goodsTablePagesInputOBJ) {
+		
+		FilterParameterOBJ filterParameterOBJ = new FilterParameterOBJ();
+		
+		filterParameterOBJ.setIdMin(goodsTablePagesInputOBJ.getIdMin());
+		filterParameterOBJ.setIdMax(goodsTablePagesInputOBJ.getIdMax());
+		filterParameterOBJ.setName(goodsTablePagesInputOBJ.getName());
+		filterParameterOBJ.setPriceMin(goodsTablePagesInputOBJ.getPriceMin());
+		filterParameterOBJ.setPriceMax(goodsTablePagesInputOBJ.getPriceMax());
+		filterParameterOBJ.setQuantityMin(goodsTablePagesInputOBJ.getQuantityMin());
+		filterParameterOBJ.setQuantityMax(goodsTablePagesInputOBJ.getQuantityMax());
+		filterParameterOBJ.setStatus(goodsTablePagesInputOBJ.getStatus());
+		
+		return filterParameterOBJ;
+	}
 	private List<GoodsTableRowOBJDTO> goodsModelsToGoodsOBJs(List<GoodsModelDTO> goodsModelDTOs){
 		
 		return goodsModelDTOs.stream()

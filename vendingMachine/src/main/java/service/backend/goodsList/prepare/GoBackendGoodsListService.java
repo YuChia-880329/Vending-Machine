@@ -8,7 +8,6 @@ public class GoBackendGoodsListService {
 	
 	private GoodsTablePageService goodsTablePageService;
 	private FilterFormService filterFormService;
-	
 
 	private static final GoBackendGoodsListService INSTANCE = new GoBackendGoodsListService();
 	

@@ -9,7 +9,7 @@
   	<!-- parameter -->
   	<context-param>
   		<param-name>deployPath</param-name>
-  		<param-value>C:\tomcatee\apache-tomcat-9.0.65\DYZX_deploy</param-value>
+  		<param-value>C:\Program Files\Apache Software Foundation\Tomcat 9.0\test_deploy</param-value>
   	</context-param>
   	<context-param>
   		<param-name>projectName</param-name>
@@ -125,8 +125,11 @@
   	<listener>
   		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener</listener-class>
   	</listener>
-  	  	<listener>
+  	<listener>
   		<listener-class>dao.memory.repository.backend.orderList.OrderTablePagesDAOContextListener</listener-class>
+  	</listener>
+  	<listener>
+  		<listener-class>listener.ParameterContextListener</listener-class>
   	</listener>
   	
   	
