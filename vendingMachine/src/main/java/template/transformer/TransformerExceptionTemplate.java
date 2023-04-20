@@ -7,6 +7,9 @@ public abstract class TransformerExceptionTemplate<A, B, E extends Exception> {
 
 	public List<B> aListToBList(List<A> aList) throws E{
 		
+		if(aList == null)
+			return null;
+		
 		List<B> bList = new ArrayList<>();
 		
 		for(int i=0; i<aList.size(); i++) {
@@ -19,6 +22,8 @@ public abstract class TransformerExceptionTemplate<A, B, E extends Exception> {
 	
 	public B aToB(A a) throws E{
 		
+		if(a == null)
+			return null;
 		return aToBTransform(a);
 	}
 	

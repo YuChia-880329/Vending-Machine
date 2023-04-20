@@ -7,6 +7,9 @@ public abstract class BiTransformerExceptionTemplate<A, B, E extends Exception> 
 
 	public List<A> bListToAList(List<B> bList){
 		
+		if(bList == null)
+			return null;
+		
 		List<A> aList = new ArrayList<>();
 		
 		for(int i=0; i<bList.size(); i++) {
@@ -19,6 +22,8 @@ public abstract class BiTransformerExceptionTemplate<A, B, E extends Exception> 
 	
 	public A bToA(B b){
 		
+		if(b == null)
+			return null;
 		return bToATransform(b);
 	}
 	

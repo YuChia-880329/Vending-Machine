@@ -2,6 +2,7 @@ package transformer.vo.writeout;
 
 import bean.dto.vo.writeout.PageTurningVODTO;
 import bean.vo.writeout.PageTurningVO;
+import enumeration.Has;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
 public class PageTurningVOTransformer extends VOWriteOutTransformerTemplate<PageTurningVODTO, PageTurningVO> {
@@ -21,7 +22,8 @@ public class PageTurningVOTransformer extends VOWriteOutTransformerTemplate<Page
 
 		PageTurningVO vo = new PageTurningVO();
 		
-		vo.setExistence(dto.getExistence().getDescription());
+		Has existence = dto.getExistence();
+		vo.setExistence(existence==null ? Has.FALSE.getDescription() : existence.getDescription());
 		vo.setUrl(dto.getUrl());
 		
 		return vo;

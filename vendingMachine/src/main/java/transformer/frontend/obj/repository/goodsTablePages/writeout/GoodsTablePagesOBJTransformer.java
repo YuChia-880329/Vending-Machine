@@ -1,8 +1,11 @@
 package transformer.frontend.obj.repository.goodsTablePages.writeout;
 
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import bean.dto.frontend.obj.repository.goodsTablePages.writeout.GoodsTablePageOBJDTO;
 import bean.dto.frontend.obj.repository.goodsTablePages.writeout.GoodsTablePagesOBJDTO;
+import bean.obj.frontend.repository.goodsTablePages.writeout.GoodsTablePageOBJ;
 import bean.obj.frontend.repository.goodsTablePages.writeout.GoodsTablePagesOBJ;
 import template.memory.repository.RepositoryObjTransformerTemplate;
 
@@ -30,11 +33,13 @@ public class GoodsTablePagesOBJTransformer extends RepositoryObjTransformerTempl
 		
 		GoodsTablePagesOBJDTO dto = new GoodsTablePagesOBJDTO();
 		
-		dto.setGoodsTablePageMap(
-				obj.getGoodsTablePageMap().entrySet().stream()
+		Map<Integer, GoodsTablePageOBJ> goodsTablePageOBJMap = obj.getGoodsTablePageMap();
+		Map<Integer, GoodsTablePageOBJDTO> goodsTablePageOBJDTOMap = goodsTablePageOBJMap==null ? null : goodsTablePageOBJMap.entrySet().stream()
 				.collect(Collectors.toMap(
 						entry -> entry.getKey(), 
-						entry -> goodsTablePageOBJTransformer.objToDto(entry.getValue()))));
+						entry -> goodsTablePageOBJTransformer.objToDto(entry.getValue())));
+		
+		dto.setGoodsTablePageMap(goodsTablePageOBJDTOMap);
 		dto.setMaxPage(obj.getMaxPage());
 		dto.setFilterParameter(filterParameterOBJTransformer.objToDto(obj.getFilterParameter()));
 		

@@ -38,8 +38,10 @@ public class ShoppingCartOBJTransformer extends MemoryDbTransformerTemplate<Inte
 		
 		ShoppingCartOBJDTO dto = new ShoppingCartOBJDTO();
 		
+		ShoppingCartOBJ shoppingCartOBJ = pao.getObj();
+		
 		dto.setId(pao.getPk());
-		dto.setBuyQuantity(pao.getObj().getBuyQuantity());
+		dto.setBuyQuantity(shoppingCartOBJ==null ? 0 : shoppingCartOBJ.getBuyQuantity());
 		
 		return dto;
 	}
