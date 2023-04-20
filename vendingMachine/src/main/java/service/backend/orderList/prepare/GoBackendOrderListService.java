@@ -2,7 +2,7 @@ package service.backend.orderList.prepare;
 
 import bean.dto.backend.orderList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.orderList.vo.writeout.BackendOrderListVODTO;
-import dao.memory.repository.backend.orderList.OrderTablePagesDAO;
+import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 
 public class GoBackendOrderListService {
 
@@ -23,7 +23,7 @@ public class GoBackendOrderListService {
 		return INSTANCE;
 	}
 	
-	public BackendOrderListVODTO prepare(PageParameterVODTO pageParameterVODTO, OrderTablePagesDAO orderTablePagesDAO) {
+	public BackendOrderListVODTO prepare(PageParameterVODTO pageParameterVODTO, OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO) {
 		
 		Integer currentPage = pageParameterVODTO.getPage();
 		if(currentPage == null) {
@@ -34,7 +34,7 @@ public class GoBackendOrderListService {
 		
 		BackendOrderListVODTO backendOrderListWOVODTO = new BackendOrderListVODTO();
 		
-		backendOrderListWOVODTO.setOrderTablePage(orderTablePageService.prepare(pageParameterVODTO, orderTablePagesDAO));
+		backendOrderListWOVODTO.setOrderTablePage(orderTablePageService.prepare(pageParameterVODTO, orderTablePagesRepositoryDAO));
 		backendOrderListWOVODTO.setFilterForm(filterFormService.prepare(pageParameterVODTO));
 		
 		return backendOrderListWOVODTO;

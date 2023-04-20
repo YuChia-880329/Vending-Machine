@@ -2,7 +2,7 @@ package service.backend.goodsList.prepare;
 
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.goodsList.vo.writeout.BackendGoodsListVODTO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 
 public class GoBackendGoodsListService {
 	
@@ -22,7 +22,7 @@ public class GoBackendGoodsListService {
 		return INSTANCE;
 	}
 	
-	public BackendGoodsListVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public BackendGoodsListVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO) {
 		
 		Integer currentPage = pageParameterVODTO.getPage();
 		if(currentPage == null) {
@@ -33,7 +33,7 @@ public class GoBackendGoodsListService {
 		
 		BackendGoodsListVODTO backendGoodsListVODTO = new BackendGoodsListVODTO();
 
-		backendGoodsListVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesDAO));
+		backendGoodsListVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO));
 		backendGoodsListVODTO.setFilterForm(filterFormService.prepare(pageParameterVODTO));
 		
 		return backendGoodsListVODTO;

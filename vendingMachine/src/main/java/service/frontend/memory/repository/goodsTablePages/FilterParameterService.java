@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.obj.frontend.repository.goodsTablePages.writeout.FilterParameterOBJ;
+import enumeration.Status;
 import service.model.GoodsModelService;
 import template.model.QueryObj;
 
@@ -27,6 +28,9 @@ public class FilterParameterService {
 		if(nameQueryObj != null)
 			list.add(nameQueryObj);
 		
+		QueryObj statusQueryObj = getStatusQueryObj(Status.ON);
+		list.add(statusQueryObj);
+		
 		return list.toArray(new QueryObj[list.size()]);
 	}
 	public boolean equals(FilterParameterOBJ filterParameter1, FilterParameterOBJ filterParameter2) {
@@ -41,6 +45,13 @@ public class FilterParameterService {
 			return null;
 		else
 			return GoodsModelService.getNameLikeQueryObj(name);
+	}
+	private QueryObj getStatusQueryObj(Status status) {
+		
+		if(status == null)
+			return null;
+		else
+			return GoodsModelService.getStatusQueryObj(String.valueOf(status.getValue()));
 	}
 	
 	private boolean nameEquals(String name1, String name2) {

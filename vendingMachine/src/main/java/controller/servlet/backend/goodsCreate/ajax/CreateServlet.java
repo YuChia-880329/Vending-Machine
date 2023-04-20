@@ -18,8 +18,8 @@ import bean.dto.backend.goodsCreate.vo.readin.CreateFormVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.vo.backend.goodsCreate.readin.CreateFormVO;
 import bean.vo.backend.goodsCreate.writeout.CreateResultVO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAOContextListener;
 import listener.ParameterContextListener;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsCreate.CreateService;
@@ -64,15 +64,16 @@ public class CreateServlet extends HttpServlet {
 		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesDAO goodsTablePagesDAO = getGoodsTablePagesDAO(context, session);
-		String imagesDirectorySymbolicLinkPath = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_PATH);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(context, session);
+		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = getFrontendGoodsTablePagesRepositoryDAO(context, session);
+		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
 		
 		
 		CreateFormVO createFormVO = getCreateFormVODTO(req);
 		try {
 			
 			CreateFormVODTO createFormVODTO = createFormVOTransformer.voToDto(createFormVO);
-			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, imagesDirectorySymbolicLinkPath, goodsTablePagesDAO);
+			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, imagesDirectorySymbolicLinkName, goodsTablePagesRepositoryDAO, frontendGoodsTablePagesRepositoryDAO);
 			CreateResultVO createResultVO = createResultVOTransformer.dtoToVo(createResultVODTO);
 			resp.getWriter().append(gson.toJson(createResultVO));
 		} catch (CheckerException ex) {
@@ -102,21 +103,38 @@ public class CreateServlet extends HttpServlet {
 		
 		return createFormVO;
 	}
-	private GoodsTablePagesDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
+	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesDAO>)context.getAttribute(GoodsTablePagesDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
 		
-		GoodsTablePagesDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
 		
-		if(goodsTablePagesDAO == null) {
+		if(goodsTablePagesRepositoryDAO == null) {
 			
 			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
-			goodsTablePagesDAO = new GoodsTablePagesDAO(goodsTablePagesRepository);
+			goodsTablePagesRepositoryDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
 			
-			goodsTablePagesDAOMap.put(session, goodsTablePagesDAO);
+			goodsTablePagesRepositoryDAOMap.put(session, goodsTablePagesRepositoryDAO);
 		}
 		
-		return goodsTablePagesDAO;
+		return goodsTablePagesRepositoryDAO;
+	}
+	private dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO getFrontendGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
+		
+		@SuppressWarnings("unchecked")
+		Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO>)context.getAttribute(dao.memory.repository.frontend.GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		
+		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO GoodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
+		
+		if(GoodsTablePagesRepositoryDAO == null) {
+			
+			memory.repository.frontend.GoodsTablePagesRepository goodsTablePagesRepository = new memory.repository.frontend.GoodsTablePagesRepository();
+			GoodsTablePagesRepositoryDAO = new dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
+			
+			goodsTablePagesRepositoryDAOMap.put(session, GoodsTablePagesRepositoryDAO);
+		}
+		
+		return GoodsTablePagesRepositoryDAO;
 	}
 }

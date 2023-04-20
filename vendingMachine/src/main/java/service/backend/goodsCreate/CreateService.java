@@ -7,7 +7,7 @@ import bean.dto.backend.goodsCreate.vo.readin.CreateFormVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateMsgVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import service.model.GoodsModelService;
 
 public class CreateService {
@@ -33,7 +33,9 @@ public class CreateService {
 		return INSTANCE;
 	}
 	
-	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String imagesDirectorySymbolicLinkPath, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String imagesDirectorySymbolicLinkName, 
+			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
+			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO) {
 		
 		GoodsModelDTO goodsModelDTO = createFormVOToGoodsModel(createFormVODTO);
 		
@@ -44,9 +46,10 @@ public class CreateService {
 			
 			if(goodsModelDTO != null) {
 				
-				uploadImageService.upload(createFormVODTO.getImagePart(), imagesDirectorySymbolicLinkPath);
+				uploadImageService.upload(createFormVODTO.getImagePart(), imagesDirectorySymbolicLinkName);
 				createMsgVODTO = getCreateMsgVODTO(goodsModelDTO.getId(), goodsModelDTO.getName());
-				goodsTablePagesDAO.requireUpdate();
+				goodsTablePagesRepositoryDAO.requireUpdate();
+				frontendGoodsTablePagesRepositoryDAO.requireUpdate();
 			}else {
 				
 				createMsgVODTO = new CreateMsgVODTO(FAILURE_MSG);

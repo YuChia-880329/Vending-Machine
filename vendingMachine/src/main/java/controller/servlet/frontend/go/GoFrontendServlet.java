@@ -1,22 +1,129 @@
 package controller.servlet.frontend.go;
 
 import java.io.IOException;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bean.dto.frontend.vo.readin.PageParameterVODTO;
+import bean.dto.frontend.vo.writeout.FrontendVODTO;
+import bean.dto.model.MemberModelDTO;
+import bean.vo.frontend.readin.PageParameterVO;
+import bean.vo.frontend.writeout.FrontendVO;
+import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
+import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAOContextListener;
+import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
+import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAOContextListener;
+import listener.ParameterContextListener;
+import memory.database.frontend.ShoppingCartMemoryDB;
+import memory.repository.frontend.GoodsTablePagesRepository;
+import service.frontend.prepare.FrontendService;
+import template.exception.CheckerException;
+import transformer.frontend.vo.readin.PageParameterVOTransformer;
+import transformer.frontend.vo.writeout.FrontendVOTransformer;
 
 @SuppressWarnings("serial")
 public class GoFrontendServlet extends HttpServlet {
 	
+	// url
 	public static final String URL = "/vendingMachine/machine";
-	
 	private static final String FORWARD_URL = "WEB-INF/frontend/VM_Frontend.jsp";
 
+	// request parameter
+	public static final String REQ_PARAM_PAGE = "page";
+	public static final String REQ_PARAM_NAME = "name";
+	
+	// request attribute
+	private static final String REQ_ATTR_VO = "vo";
+	
+	
+	private FrontendService frontendService;
+	private PageParameterVOTransformer pageParameterVOTransformer;
+	private FrontendVOTransformer frontendVOTransformer;
+	
+	@Override
+	public void init() throws ServletException {
+		
+		frontendService = FrontendService.getInstance();
+		pageParameterVOTransformer = PageParameterVOTransformer.getInstance();
+		frontendVOTransformer = FrontendVOTransformer.getInstance();
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.getRequestDispatcher(FORWARD_URL).forward(req, resp);
+		ServletContext context = req.getServletContext();
+		HttpSession session = req.getSession();
+		
+		PageParameterVO pageParameterVO = getPageParameterVO(req);
+
+		try {
+			MemberModelDTO memberModelDTO = new MemberModelDTO("test", "test", "test");
+			PageParameterVODTO pageParameterVODTO = pageParameterVOTransformer.voToDto(pageParameterVO);
+			String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
+			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(context, session);
+			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = getShoppingCartMemoryDbDAO(context, session);
+			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, imagesDirectorySymbolicLinkName, 
+					goodsTablePagesRepositoryDAO, memberModelDTO, shoppingCartMemoryDbDAO);
+			FrontendVO frontendVO = frontendVOTransformer.dtoToVo(frontendVODTO);
+			
+			req.setAttribute(REQ_ATTR_VO, frontendVO);
+			req.getRequestDispatcher(FORWARD_URL).forward(req, resp);
+		} catch (CheckerException ex) {
+			
+			ex.printStackTrace();
+		}
+	}
+	
+	private PageParameterVO getPageParameterVO(HttpServletRequest req) {
+		
+		String pageStr = req.getParameter(REQ_PARAM_PAGE);
+		String name = req.getParameter(REQ_PARAM_NAME);
+		
+		PageParameterVO pageParameterVO = new PageParameterVO();
+		
+		pageParameterVO.setPage(pageStr);
+		pageParameterVO.setName(name);
+		
+		return pageParameterVO;
+	}
+	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
+		
+		@SuppressWarnings("unchecked")
+		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
+		
+		if(goodsTablePagesRepositoryDAO == null) {
+			
+			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
+			goodsTablePagesRepositoryDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
+			
+			goodsTablePagesRepositoryDAOMap.put(session, goodsTablePagesRepositoryDAO);
+		}
+		
+		return goodsTablePagesRepositoryDAO;
+	}
+	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(ServletContext context, HttpSession session) {
+		
+		@SuppressWarnings("unchecked")
+		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartMemoryDbDAOMap = (Map<HttpSession, ShoppingCartMemoryDbDAO>)context.getAttribute(ShoppingCartMemoryDbDAOContextListener.SHOPPING_CART_DAO_MAP);
+		
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = shoppingCartMemoryDbDAOMap.get(session);
+		
+		if(shoppingCartMemoryDbDAO == null) {
+			
+			ShoppingCartMemoryDB shoppingCartMemoryDB = new ShoppingCartMemoryDB();
+			shoppingCartMemoryDbDAO = new ShoppingCartMemoryDbDAO(shoppingCartMemoryDB);
+			
+			shoppingCartMemoryDbDAOMap.put(session, shoppingCartMemoryDbDAO);
+		}
+		
+		return shoppingCartMemoryDbDAO;
 	}
 }

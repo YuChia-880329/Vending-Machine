@@ -2,7 +2,7 @@ package service.backend.goodsList.prepare;
 
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.goodsList.vo.writeout.GoodsTableVODTO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 
 public class GoodsTableService {
 	
@@ -21,11 +21,11 @@ public class GoodsTableService {
 		return INSTANCE;
 	}
 	
-	public GoodsTableVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public GoodsTableVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO) {
 		
 		GoodsTableVODTO goodsTableVODTO = new GoodsTableVODTO();
 		
-		goodsTableVODTO.setGoodsTableRows(goodsTableRowsService.prepare(pageParameterVODTO, goodsTablePagesDAO));
+		goodsTableVODTO.setGoodsTableRows(goodsTableRowsService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO));
 		
 		return goodsTableVODTO;
 	}

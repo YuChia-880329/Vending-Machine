@@ -8,7 +8,7 @@ import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsT
 import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsTableRowOBJDTO;
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.goodsList.vo.writeout.GoodsTableRowVODTO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 
 public class GoodsTableRowsService {
 
@@ -22,10 +22,10 @@ public class GoodsTableRowsService {
 		return INSTANCE;
 	}
 	
-	public List<GoodsTableRowVODTO> prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesDAO goodsTablePagesDAO){
+	public List<GoodsTableRowVODTO> prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO){
 		
 		GoodsTablePagesInputOBJDTO goodsTablePagesInputOBJDTO = pageParameterVOToGoodsTablePagesInputOBJ(pageParameterVODTO);
-		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO =  goodsTablePagesDAO.getObjDto(goodsTablePagesInputOBJDTO);
+		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO =  goodsTablePagesRepositoryDAO.getObjDto(goodsTablePagesInputOBJDTO);
 		int currentPage = pageParameterVODTO.getPage();
 		List<GoodsTableRowOBJDTO> goodsTableRowOBJDTOs = goodsTablePagesOBJDTO.getGoodsTablePageMap().get(currentPage).getGoodsTable().getGoodsTableRows();
 		return goodsTableRowOBJsToGoodsTableRowVOs(goodsTableRowOBJDTOs);

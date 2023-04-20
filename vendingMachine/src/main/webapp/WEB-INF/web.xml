@@ -8,14 +8,6 @@
 
   	<!-- parameter -->
   	<context-param>
-  		<param-name>deployPath</param-name>
-  		<param-value>C:\Program Files\Apache Software Foundation\Tomcat 9.0\test_deploy</param-value>
-  	</context-param>
-  	<context-param>
-  		<param-name>projectName</param-name>
-  		<param-value>vendingMachine</param-value>
-  	</context-param>
-  	<context-param>
   		<param-name>imagesDirectorySymbolicLinkName</param-name>
   		<param-value>images_symbolicLink</param-value>
   	</context-param>
@@ -54,6 +46,11 @@
 		<servlet-name>orderListSearchServlet</servlet-name>
 		<servlet-class>controller.servlet.backend.orderList.SearchServlet</servlet-class>
 	</servlet>
+	<!-- controller.servlet.frontend -->
+	<servlet>
+		<servlet-name>searchServlet</servlet-name>
+		<servlet-class>controller.servlet.frontend.SearchServlet</servlet-class>
+	</servlet>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet>
 		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
@@ -68,6 +65,7 @@
 		<servlet-name>createServlet</servlet-name>
 		<servlet-class>controller.servlet.backend.goodsCreate.ajax.CreateServlet</servlet-class>
 	</servlet>
+
   	
   	
   	
@@ -104,6 +102,11 @@
 		<servlet-name>orderListSearchServlet</servlet-name>
 		<url-pattern>/machine/backend/orderList/search</url-pattern>
 	</servlet-mapping>
+	<!-- controller.servlet.frontend -->
+	<servlet-mapping>
+		<servlet-name>searchServlet</servlet-name>
+		<url-pattern>/machine/search</url-pattern>
+	</servlet-mapping>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet-mapping>
 		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
@@ -123,17 +126,21 @@
   	
   	<!-- listener -->
   	<listener>
-  		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener</listener-class>
+  		<listener-class>dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAOContextListener</listener-class>
   	</listener>
   	<listener>
-  		<listener-class>dao.memory.repository.backend.orderList.OrderTablePagesDAOContextListener</listener-class>
+  		<listener-class>dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAOContextListener</listener-class>
   	</listener>
   	 <listener>
-  		<listener-class>dao.memory.repository.frontend.GoodsTablePagesDAOContextListener</listener-class>
+  		<listener-class>dao.memory.repository.frontend.GoodsTablePagesRepositoryDAOContextListener</listener-class>
+  	</listener>
+  	<listener>
+  		<listener-class>dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAOContextListener</listener-class>
   	</listener>
   	<listener>
   		<listener-class>listener.ParameterContextListener</listener-class>
   	</listener>
+
   	
   	
   	

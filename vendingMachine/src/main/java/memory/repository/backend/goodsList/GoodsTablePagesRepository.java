@@ -19,7 +19,7 @@ import service.backend.goodsList.memory.repository.goodsTablePages.FilterParamet
 import service.model.GoodsModelService;
 import template.memory.repository.RepositoryTemplate;
 import template.model.QueryObj;
-import transformer.backend.goodsList.obj.goodsTablePages.writeout.GoodsTableRowOBJTransformer;
+import transformer.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsTableRowOBJTransformer;
 import util.PaginationUtil;
 
 public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputOBJ, GoodsTablePagesOBJ> {

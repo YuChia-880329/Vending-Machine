@@ -5,7 +5,7 @@ import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsT
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.goodsList.vo.writeout.GoodsTablePageVODTO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import service.backend.goodsList.UrlService;
 import service.vo.PaginationService;
 
@@ -33,16 +33,16 @@ public class GoodsTablePageService {
 		return INSTANCE;
 	}
 	
-	public GoodsTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public GoodsTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO) {
 		
 		GoodsTablePageVODTO goodsTablePageVODTO = new GoodsTablePageVODTO();
 		
 		GoodsTablePagesInputOBJDTO goodsTablePagesInputOBJDTO = pageParameterVOToGoodsTablePagesInputOBJ(pageParameterVODTO);
-		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO =  goodsTablePagesDAO.getObjDto(goodsTablePagesInputOBJDTO);
+		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO =  goodsTablePagesRepositoryDAO.getObjDto(goodsTablePagesInputOBJDTO);
 		int currentPage = pageParameterVODTO.getPage();
 		int maxPage = goodsTablePagesOBJDTO.getMaxPage();
 		
-		goodsTablePageVODTO.setGoodsTable(goodsTableService.prepare(pageParameterVODTO, goodsTablePagesDAO));
+		goodsTablePageVODTO.setGoodsTable(goodsTableService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO));
 		goodsTablePageVODTO.setPagination(paginationService.prepare(
 				currentPage, 
 				PAGES_PER_PAGE_GROUP, 

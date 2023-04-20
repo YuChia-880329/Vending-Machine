@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import bean.vo.backend.orderList.readin.PageParameterVO;
 import bean.vo.backend.orderList.writeout.BackendOrderListVO;
-import dao.memory.repository.backend.orderList.OrderTablePagesDAO;
-import dao.memory.repository.backend.orderList.OrderTablePagesDAOContextListener;
+import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
+import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAOContextListener;
 import memory.repository.backend.orderList.OrderTablePagesRepository;
 import service.backend.orderList.prepare.GoBackendOrderListService;
 import template.exception.CheckerException;
@@ -62,14 +62,14 @@ public class GoBackendOrderListServlet extends HttpServlet {
 		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		OrderTablePagesDAO orderTablePagesDAO = getOrderTablePagesDAO(context, session);
+		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = getOrderTablePagesRepositoryDAO(context, session);
 		PageParameterVO pageParameterVO = getPageParameter(req);
 		
 		try {
 			
 			BackendOrderListVO backendOrderListVO = 
 					backendOrderListVOTransformer.dtoToVo(goBackendOrderListService.prepare(
-					pageParameterVOTransformer.voToDto(pageParameterVO), orderTablePagesDAO));
+					pageParameterVOTransformer.voToDto(pageParameterVO), orderTablePagesRepositoryDAO));
 		
 			req.setAttribute(REQ_ATTR_VO, backendOrderListVO);
 			req.getRequestDispatcher(FORWARD_URL).forward(req, resp);
@@ -110,20 +110,20 @@ public class GoBackendOrderListServlet extends HttpServlet {
 		return pageParameterVO;
 	}
 	
-	private OrderTablePagesDAO getOrderTablePagesDAO(ServletContext context, HttpSession session) {
+	private OrderTablePagesRepositoryDAO getOrderTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, OrderTablePagesDAO> orderTablePagesDAOMap = (Map<HttpSession, OrderTablePagesDAO>)context.getAttribute(OrderTablePagesDAOContextListener.ORDER_TABLE_PAGES_DAO_MAP);
-		OrderTablePagesDAO orderTablePagesDAO = orderTablePagesDAOMap.get(session);
+		Map<HttpSession, OrderTablePagesRepositoryDAO> orderTablePagesRepositoryDAOMap = (Map<HttpSession, OrderTablePagesRepositoryDAO>)context.getAttribute(OrderTablePagesRepositoryDAOContextListener.ORDER_TABLE_PAGES_DAO_MAP);
+		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = orderTablePagesRepositoryDAOMap.get(session);
 		
-		if(orderTablePagesDAO == null) {
+		if(orderTablePagesRepositoryDAO == null) {
 			
 			OrderTablePagesRepository orderTablePagesRepository = new OrderTablePagesRepository();
-			orderTablePagesDAO = new OrderTablePagesDAO(orderTablePagesRepository);
+			orderTablePagesRepositoryDAO = new OrderTablePagesRepositoryDAO(orderTablePagesRepository);
 			
-			orderTablePagesDAOMap.put(session, orderTablePagesDAO);
+			orderTablePagesRepositoryDAOMap.put(session, orderTablePagesRepositoryDAO);
 		}
 		
-		return orderTablePagesDAO;
+		return orderTablePagesRepositoryDAO;
 	}
 }

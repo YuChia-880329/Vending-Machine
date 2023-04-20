@@ -21,7 +21,7 @@ import service.frontend.prepare.GoodsTablePageService;
 import service.model.GoodsModelService;
 import template.memory.repository.RepositoryTemplate;
 import template.model.QueryObj;
-import transformer.frontend.obj.goodsTablePages.writeout.GoodsTableEntryOBJTransformer;
+import transformer.frontend.obj.repository.goodsTablePages.writeout.GoodsTableEntryOBJTransformer;
 import util.PaginationUtil;
 
 public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePagesInputOBJ, GoodsTablePagesOBJ> {
@@ -135,6 +135,13 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 	}
 	
 	
+
+	private List<GoodsTableEntryOBJDTO> goodsModelsToGoodsTableEntryOBJs(List<GoodsModelDTO> goodsModelDTOs){
+		
+		return goodsModelDTOs.stream()
+				.map(goodsModelDTO -> goodsModelToGoodsTableEntryOBJ(goodsModelDTO))
+				.collect(Collectors.toList());
+	}
 	private GoodsTableEntryOBJDTO goodsModelToGoodsTableEntryOBJ(GoodsModelDTO goodsModelDTO) {
 		
 		GoodsTableEntryOBJDTO goodsTableEntryOBJDTO = new GoodsTableEntryOBJDTO();
@@ -144,12 +151,6 @@ public class GoodsTablePagesRepository extends RepositoryTemplate<GoodsTablePage
 		goodsTableEntryOBJDTO.setGoodsIntroduction(goodsModelToGoodsIntroductionOBJ(goodsModelDTO));
 		
 		return goodsTableEntryOBJDTO;
-	}
-	private List<GoodsTableEntryOBJDTO> goodsModelsToGoodsTableEntryOBJs(List<GoodsModelDTO> goodsModelDTOs){
-		
-		return goodsModelDTOs.stream()
-				.map(goodsModelDTO -> goodsModelToGoodsTableEntryOBJ(goodsModelDTO))
-				.collect(Collectors.toList());
 	}
 	private GoodsCardOBJDTO goodsModelToGoodsCardOBJ(GoodsModelDTO goodsModelDTO) {
 		

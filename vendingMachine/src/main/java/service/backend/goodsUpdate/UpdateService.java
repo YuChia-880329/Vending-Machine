@@ -7,7 +7,7 @@ import bean.dto.backend.goodsUpdate.vo.writeout.UpdateMsgVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import service.model.GoodsModelService;
 
 public class UpdateService {
@@ -31,7 +31,9 @@ public class UpdateService {
 		return INSTANCE;
 	}
 	
-	public UpdateResultVODTO update(GoodsUpdateFormVODTO goodsUpdateFormVODTO, GoodsTablePagesDAO goodsTablePagesDAO) {
+	public UpdateResultVODTO update(GoodsUpdateFormVODTO goodsUpdateFormVODTO, 
+			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
+			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO) {
 		
 		int id = goodsUpdateFormVODTO.getId();
 		int result = 0;
@@ -41,7 +43,8 @@ public class UpdateService {
 		try {
 			
 			goodsModelDTO = goodsModelService.searchById(id);
-			goodsTablePagesDAO.requireUpdate();
+			goodsTablePagesRepositoryDAO.requireUpdate();
+			frontendGoodsTablePagesRepositoryDAO.requireUpdate();
 			goodsModelDTO = updateFormGoodsVOToGoodsModel(goodsUpdateFormVODTO, goodsModelDTO);
 			updateResultFormVODTO.setQuantity(goodsModelDTO.getQuantity());
 			result = goodsModelService.update(goodsModelDTO);

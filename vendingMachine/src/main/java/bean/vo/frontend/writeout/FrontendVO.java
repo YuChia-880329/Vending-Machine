@@ -1,42 +1,41 @@
 package bean.vo.frontend.writeout;
 
-import bean.vo.writeout.PaginationVO;
-
 public class FrontendVO {
 
+	private ShoppingCartVO shoppingCart;
 	private WelcomePartVO welcomePart;
 	private GoodsTablePageVO goodsTablePage;
-	private PaginationVO pagination;
 	
 	
 	public FrontendVO() {
 	}
-	public FrontendVO(WelcomePartVO welcomePart, GoodsTablePageVO goodsTablePage, PaginationVO pagination) {
+	public FrontendVO(ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, GoodsTablePageVO goodsTablePage) {
 
+		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
-		this.pagination = pagination;
 	}
 	
 	
+	
+	public ShoppingCartVO getShoppingCart() {
+		return shoppingCart;
+	}
 	public WelcomePartVO getWelcomePart() {
 		return welcomePart;
 	}
 	public GoodsTablePageVO getGoodsTablePage() {
 		return goodsTablePage;
 	}
-	public PaginationVO getPagination() {
-		return pagination;
+	
+	
+	public void setShoppingCart(ShoppingCartVO shoppingCart) {
+		this.shoppingCart = shoppingCart;
 	}
-	
-	
 	public void setWelcomePart(WelcomePartVO welcomePart) {
 		this.welcomePart = welcomePart;
 	}
 	public void setGoodsTablePage(GoodsTablePageVO goodsTablePage) {
 		this.goodsTablePage = goodsTablePage;
-	}
-	public void setPagination(PaginationVO pagination) {
-		this.pagination = pagination;
 	}
 }

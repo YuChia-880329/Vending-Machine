@@ -38,6 +38,9 @@ public class PageParameterVOChecker extends CheckerTemplate<PageParameterVO, Che
 		
 		String page = vo.getPage();
 		
+		if(page==null || "".equals(page))
+			return;
+		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(page, StringConcatUtil.concate(NAME_PREFIX, "page"));
 	}
 	private void checkName(PageParameterVO vo) throws CheckerException {	

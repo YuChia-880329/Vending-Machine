@@ -5,7 +5,7 @@ import bean.dto.backend.orderList.obj.repository.orderTablePages.writeout.OrderT
 import bean.dto.backend.orderList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.orderList.vo.writeout.OrderTablePageVODTO;
 import controller.servlet.backend.go.GoBackendOrderListServlet;
-import dao.memory.repository.backend.orderList.OrderTablePagesDAO;
+import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import service.backend.orderList.UrlService;
 import service.vo.PaginationService;
 
@@ -33,16 +33,16 @@ public class OrderTablePageService {
 		return INSTANCE;
 	}
 	
-	public OrderTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, OrderTablePagesDAO orderTablePagesDAO) {
+	public OrderTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO) {
 		
 		OrderTablePageVODTO orderTablePageVODTO = new OrderTablePageVODTO();
 		
 		OrderTablePagesInputOBJDTO orderTablePagesInputOBJDTO = pageParameterVOToOrderTablePagesInputOBJ(pageParameterVODTO);
-		OrderTablePagesOBJDTO orderTablePagesOBJDTO = orderTablePagesDAO.getObjDto(orderTablePagesInputOBJDTO);
+		OrderTablePagesOBJDTO orderTablePagesOBJDTO = orderTablePagesRepositoryDAO.getObjDto(orderTablePagesInputOBJDTO);
 		int currentPage = pageParameterVODTO.getPage();
 		int maxPage = orderTablePagesOBJDTO.getMaxPage();
 		
-		orderTablePageVODTO.setOrderTable(orderTableService.prepare(pageParameterVODTO, orderTablePagesDAO));
+		orderTablePageVODTO.setOrderTable(orderTableService.prepare(pageParameterVODTO, orderTablePagesRepositoryDAO));
 		orderTablePageVODTO.setPagination(paginationService.prepare(
 				currentPage, 
 				PAGES_PER_PAGE_GROUP, 

@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import bean.vo.backend.goodsList.readin.PageParameterVO;
 import bean.vo.backend.goodsList.writeout.BackendGoodsListVO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAO;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsList.prepare.GoBackendGoodsListService;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesDAOContextListener;
+import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAOContextListener;
 import template.exception.CheckerException;
 import transformer.backend.goodsList.vo.readin.PageParameterVOTransformer;
 import transformer.backend.goodsList.vo.writeout.BackendGoodsListVOTransformer;
@@ -59,14 +59,14 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesDAO goodsTablePagesDAO = getGoodsTablePagesDAO(context, session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesDAO(context, session);
 		PageParameterVO pageParamterVO = getPageParameter(req);
 		try {
 			
 			BackendGoodsListVO backendGoodsListWOVO = 
 					backendGoodsListWOVOTransformer.dtoToVo(
 							goBackendGoodsListService.prepare(
-									pageParameterVOTransformer.voToDto(pageParamterVO), goodsTablePagesDAO));
+									pageParameterVOTransformer.voToDto(pageParamterVO), goodsTablePagesRepositoryDAO));
 			req.setAttribute(REQ_ATTR_VO, backendGoodsListWOVO);
 			req.getRequestDispatcher(FORWARD_URL).forward(req, resp);
 		} catch (CheckerException ex) {
@@ -103,17 +103,17 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		return pageParameter;
 	}
 	
-	private GoodsTablePagesDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
+	private GoodsTablePagesRepositoryDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesDAO>)context.getAttribute(GoodsTablePagesDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
 		
-		GoodsTablePagesDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
 		
 		if(goodsTablePagesDAO == null) {
 			
 			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
-			goodsTablePagesDAO = new GoodsTablePagesDAO(goodsTablePagesRepository);
+			goodsTablePagesDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
 			
 			goodsTablePagesDAOMap.put(session, goodsTablePagesDAO);
 		}

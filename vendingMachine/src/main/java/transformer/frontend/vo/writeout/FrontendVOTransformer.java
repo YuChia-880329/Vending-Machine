@@ -3,22 +3,21 @@ package transformer.frontend.vo.writeout;
 import bean.dto.frontend.vo.writeout.FrontendVODTO;
 import bean.vo.frontend.writeout.FrontendVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
-import transformer.vo.writeout.PaginationWOVOTransformer;
 
 public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<FrontendVODTO, FrontendVO> {
 
+	private ShoppingCartVOTransformer shoppingCartVOTransformer;
 	private WelcomePartVOTransformer welcomePartVOTransformer;
 	private GoodsTablePageVOTransformer goodsTablePageVOTransformer;
-	private PaginationWOVOTransformer paginationWOVOTransformer;
 	
 	
 	private static final FrontendVOTransformer INSTANCE = new FrontendVOTransformer();
 	
 	private FrontendVOTransformer() {
 		
+		shoppingCartVOTransformer = ShoppingCartVOTransformer.getInstance();
 		welcomePartVOTransformer = WelcomePartVOTransformer.getInstance();
 		goodsTablePageVOTransformer = GoodsTablePageVOTransformer.getInstance();
-		paginationWOVOTransformer = PaginationWOVOTransformer.getInstance();
 	}
 	
 	public static FrontendVOTransformer getInstance() {
@@ -31,9 +30,9 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 
 		FrontendVO vo = new FrontendVO();
 		
+		vo.setShoppingCart(shoppingCartVOTransformer.dtoToVo(dto.getShoppingCart()));
 		vo.setWelcomePart(welcomePartVOTransformer.dtoToVo(dto.getWelcomePart()));
 		vo.setGoodsTablePage(goodsTablePageVOTransformer.dtoToVo(dto.getGoodsTablePage()));
-		vo.setPagination(paginationWOVOTransformer.dtoToVo(dto.getPagination()));
 		
 		return vo;
 	}

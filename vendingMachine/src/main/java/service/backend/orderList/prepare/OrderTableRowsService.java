@@ -8,7 +8,7 @@ import bean.dto.backend.orderList.obj.repository.orderTablePages.writeout.OrderT
 import bean.dto.backend.orderList.obj.repository.orderTablePages.writeout.OrderTableRowOBJDTO;
 import bean.dto.backend.orderList.vo.readin.PageParameterVODTO;
 import bean.dto.backend.orderList.vo.writeout.OrderTableRowVODTO;
-import dao.memory.repository.backend.orderList.OrderTablePagesDAO;
+import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 
 public class OrderTableRowsService {
 
@@ -22,10 +22,10 @@ public class OrderTableRowsService {
 		return INSTANCE;
 	}
 	
-	public List<OrderTableRowVODTO> prepare(PageParameterVODTO pageParameterVODTO, OrderTablePagesDAO orderTablePagesDAO){
+	public List<OrderTableRowVODTO> prepare(PageParameterVODTO pageParameterVODTO, OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO){
 		
 		OrderTablePagesInputOBJDTO orderTablePagesInputOBJDTO = pageParameterVOToOrderTablePagesInputOBJ(pageParameterVODTO);
-		OrderTablePagesOBJDTO orderTablePagesOBJDTO = orderTablePagesDAO.getObjDto(orderTablePagesInputOBJDTO);
+		OrderTablePagesOBJDTO orderTablePagesOBJDTO = orderTablePagesRepositoryDAO.getObjDto(orderTablePagesInputOBJDTO);
 		int currentPage = pageParameterVODTO.getPage();
 		List<OrderTableRowOBJDTO> orderTableRowOBJDTOs = orderTablePagesOBJDTO.getOrderTablePageMap().get(currentPage).getOrderTable().getOrderTableRows();
 		return orderTableRowOBJsToOrderTableRowVOs(orderTableRowOBJDTOs);
