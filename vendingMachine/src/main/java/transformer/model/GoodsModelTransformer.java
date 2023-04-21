@@ -38,13 +38,15 @@ public class GoodsModelTransformer extends ModelTransformerTemplate<GoodsModel, 
 		
 		GoodsModel model = new GoodsModel();
 		
+		Status status = dto.getStatus();
+		
 		model.setId(dto.getId());
 		model.setName(dto.getName());
 		model.setDescription(dto.getDescription());
 		model.setPrice(dto.getPrice());
 		model.setQuantity(dto.getQuantity());
 		model.setImageName(dto.getImageName());
-		model.setStatus(String.valueOf(dto.getStatus().getValue()));
+		model.setStatus(String.valueOf(status==null ? Status.OFF.getValue() : status.getValue()));
 		
 		return model;
 	}

@@ -13,23 +13,33 @@
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/util.js"></script>
 
 	
 	<script type="text/javascript">
 
 		let filterForm = 'filter_form';
 		let filterBtnId = 'filter_btn';
+		let allGoodsBtnId = 'all_goods_btn';
 		
 		$(document).ready(readyFctn);
 		
 		function readyFctn(){
 			
 			$('#' + filterBtnId).click(filterBtnClicked);
+			$('#' + allGoodsBtnId).click(allGoodsBtnClicked);
 		}
 		
 		function filterBtnClicked(){
 			
 			$('#' + filterForm).submit();
+		}
+		function allGoodsBtnClicked(){
+			
+			confirmModal('即將更新頁面至全部商品', function(){
+				
+				window.location.replace("/vendingMachine/machine");
+			}).show();
 		}
 	</script>
 </head>
@@ -49,7 +59,7 @@
 							<form action="/vendingMachine/machine/search" method="GET" id="filter_form">
 								<div class="d-flex">
 									<div class="me-3">
-										<input type="text" class="form-control" name="name" size="50" />
+										<input type="text" class="form-control" name="name" size="50" value="${vo.filterForm.name}" />
 									</div>
 									<div>
 										<button type="button" class="btn btn-outline-primary" id="filter_btn">商品查詢</button>
@@ -158,7 +168,7 @@
 					<div class="mb-4">
 						<div class="d-flex">
 							<div class="me-auto">
-								<button class="btn btn-outline-primary">所有飲料</button>
+								<button type="button" class="btn btn-outline-primary" id="all_goods_btn">所有飲料</button>
 							</div>
 							<div>
 								<nav aria-label="Page navigation">
@@ -308,90 +318,22 @@
      			</div>
      			<div class="modal-body">
      				<div class="container">
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
+     					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsList}">
+     						<div>
+	     						<div class="d-flex justify-content-evenly">
+	     							<div>
+	     								<p>
+											<span>${shoppingCartGoods.name}</span> : <span>${shoppingCartGoods.buyQuantity}</span>罐
+										</p>
+	     							</div>
+									<div>
+										<p class="text-secondary">
+											<span>${shoppingCartGoods.price}</span> 元/罐
+										</p>
+									</div>
+	     						</div>
+	     					</div>
+     					</c:forEach>
 					</div>
      			</div>
      			<div class="modal-footer">
@@ -440,6 +382,6 @@
 	</c:forEach>
 	
 	
-	
+	<%@ include file="../../modal.jsp" %>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package transformer.backend.orderList.obj.repository.orderTablePages.writeout;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class OrderTablePagesOBJTransformer extends RepositoryObjTransformerTempl
 		
 		Map<Integer, OrderTablePageOBJ> orderTablePageOBJMap = obj.getOrderTablePageMap();
 		Map<Integer, OrderTablePageOBJDTO> orderTablePageOBJDTOMap = 
-				orderTablePageOBJMap==null ? null : obj.getOrderTablePageMap().entrySet().stream()
+				orderTablePageOBJMap==null ? new HashMap<>() : obj.getOrderTablePageMap().entrySet().stream()
 						.collect(Collectors.toMap(
 								entry -> entry.getKey(), 
 								entry -> orderTablePageOBJTransformer.objToDto(entry.getValue())));

@@ -1,9 +1,11 @@
 package service.backend.orderList.prepare;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import bean.dto.backend.orderList.obj.repository.orderTablePages.readin.OrderTablePagesInputOBJDTO;
+import bean.dto.backend.orderList.obj.repository.orderTablePages.writeout.OrderTablePageOBJDTO;
 import bean.dto.backend.orderList.obj.repository.orderTablePages.writeout.OrderTablePagesOBJDTO;
 import bean.dto.backend.orderList.obj.repository.orderTablePages.writeout.OrderTableRowOBJDTO;
 import bean.dto.backend.orderList.vo.readin.PageParameterVODTO;
@@ -27,7 +29,8 @@ public class OrderTableRowsService {
 		OrderTablePagesInputOBJDTO orderTablePagesInputOBJDTO = pageParameterVOToOrderTablePagesInputOBJ(pageParameterVODTO);
 		OrderTablePagesOBJDTO orderTablePagesOBJDTO = orderTablePagesRepositoryDAO.getObjDto(orderTablePagesInputOBJDTO);
 		int currentPage = pageParameterVODTO.getPage();
-		List<OrderTableRowOBJDTO> orderTableRowOBJDTOs = orderTablePagesOBJDTO.getOrderTablePageMap().get(currentPage).getOrderTable().getOrderTableRows();
+		OrderTablePageOBJDTO orderTablePageOBJDTO = orderTablePagesOBJDTO.getOrderTablePageMap().get(currentPage);
+		List<OrderTableRowOBJDTO> orderTableRowOBJDTOs = orderTablePageOBJDTO==null ? new ArrayList<>() : orderTablePageOBJDTO.getOrderTable().getOrderTableRows();
 		return orderTableRowOBJsToOrderTableRowVOs(orderTableRowOBJDTOs);
 	}
 	

@@ -5,15 +5,18 @@ public class FrontendVODTO {
 	private ShoppingCartVODTO shoppingCart;
 	private WelcomePartVODTO welcomePart;
 	private GoodsTablePageVODTO goodsTablePage;
+	private FilterFormVODTO filterForm;
 	
 	
 	public FrontendVODTO() {
 	}
-	public FrontendVODTO(ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, GoodsTablePageVODTO goodsTablePage) {
+	public FrontendVODTO(ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, 
+			GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm) {
 
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
+		this.filterForm = filterForm;
 	}
 	
 	
@@ -27,7 +30,10 @@ public class FrontendVODTO {
 	public GoodsTablePageVODTO getGoodsTablePage() {
 		return goodsTablePage;
 	}
-	
+	public FilterFormVODTO getFilterForm() {
+		return filterForm;
+	}
+
 	
 	public void setShoppingCart(ShoppingCartVODTO shoppingCart) {
 		this.shoppingCart = shoppingCart;
@@ -37,5 +43,8 @@ public class FrontendVODTO {
 	}
 	public void setGoodsTablePage(GoodsTablePageVODTO goodsTablePage) {
 		this.goodsTablePage = goodsTablePage;
+	}
+	public void setFilterForm(FilterFormVODTO filterForm) {
+		this.filterForm = filterForm;
 	}
 }

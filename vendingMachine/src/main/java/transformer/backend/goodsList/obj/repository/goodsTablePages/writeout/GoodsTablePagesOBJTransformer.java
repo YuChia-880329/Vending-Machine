@@ -1,5 +1,6 @@
 package transformer.backend.goodsList.obj.repository.goodsTablePages.writeout;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class GoodsTablePagesOBJTransformer extends RepositoryObjTransformerTempl
 		
 		Map<Integer, GoodsTablePageOBJ> goodsTablePageOBJMap = obj.getGoodsTablePageMap();
 		Map<Integer, GoodsTablePageOBJDTO>  goodsTablePageOBJDTOMap = 
-				goodsTablePageOBJMap==null ? null : obj.getGoodsTablePageMap().entrySet().stream()
+				goodsTablePageOBJMap==null ? new HashMap<>() : obj.getGoodsTablePageMap().entrySet().stream()
 						.collect(Collectors.toMap(
 								entry -> entry.getKey(), 
 								entry -> goodsTablePageOBJTransformer.objToDto(entry.getValue())));

@@ -11,6 +11,7 @@ public class FrontendService {
 	private ShoppingCartService shoppingCartService;
 	private WelcomePartService welcomePartService;
 	private GoodsTablePageService goodsTablePageService;
+	private FilterFormService filterFormService;
 	
 	
 	private static final FrontendService INSTANCE = new FrontendService();
@@ -20,6 +21,7 @@ public class FrontendService {
 		shoppingCartService = ShoppingCartService.getInstance();
 		welcomePartService = WelcomePartService.getInstance();
 		goodsTablePageService = GoodsTablePageService.getInstance();
+		filterFormService = FilterFormService.getInstance();
 	}
 	
 	public static FrontendService getInstance() {
@@ -45,6 +47,7 @@ public class FrontendService {
 		frontendVODTO.setWelcomePart(welcomePartService.prepare(imagesDirectorySymbolicLinkName, memberModelDTO));
 		frontendVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, 
 				shoppingCartMemoryDbDAO, imagesDirectorySymbolicLinkName));
+		frontendVODTO.setFilterForm(filterFormService.prepare(pageParameterVODTO));
 		
 		return frontendVODTO;
 	}

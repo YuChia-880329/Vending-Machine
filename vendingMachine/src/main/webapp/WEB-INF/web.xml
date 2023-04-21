@@ -51,6 +51,10 @@
 		<servlet-name>searchServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.SearchServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>addShoppingCartServlet</servlet-name>
+		<servlet-class>controller.servlet.frontend.AddShoppingCartServlet</servlet-class>
+	</servlet>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet>
 		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
@@ -65,6 +69,7 @@
 		<servlet-name>createServlet</servlet-name>
 		<servlet-class>controller.servlet.backend.goodsCreate.ajax.CreateServlet</servlet-class>
 	</servlet>
+
 
   	
   	
@@ -107,6 +112,10 @@
 		<servlet-name>searchServlet</servlet-name>
 		<url-pattern>/machine/search</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>addShoppingCartServlet</servlet-name>
+		<url-pattern>/machine/addShoppingCart</url-pattern>
+	</servlet-mapping>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet-mapping>
 		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
@@ -121,6 +130,7 @@
 		<servlet-name>createServlet</servlet-name>
 		<url-pattern>/machine/backend/goodsCreate/create</url-pattern>
 	</servlet-mapping>
+
   	
   	
   	

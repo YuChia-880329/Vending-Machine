@@ -8,7 +8,7 @@ public abstract class TransformerExceptionTemplate<A, B, E extends Exception> {
 	public List<B> aListToBList(List<A> aList) throws E{
 		
 		if(aList == null)
-			return null;
+			return  new ArrayList<>();
 		
 		List<B> bList = new ArrayList<>();
 		

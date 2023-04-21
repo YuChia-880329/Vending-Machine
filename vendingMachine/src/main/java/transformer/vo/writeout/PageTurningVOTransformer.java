@@ -23,6 +23,7 @@ public class PageTurningVOTransformer extends VOWriteOutTransformerTemplate<Page
 		PageTurningVO vo = new PageTurningVO();
 		
 		Has existence = dto.getExistence();
+		
 		vo.setExistence(existence==null ? Has.FALSE.getDescription() : existence.getDescription());
 		vo.setUrl(dto.getUrl());
 		

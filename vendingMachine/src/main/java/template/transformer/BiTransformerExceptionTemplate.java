@@ -8,7 +8,7 @@ public abstract class BiTransformerExceptionTemplate<A, B, E extends Exception> 
 	public List<A> bListToAList(List<B> bList){
 		
 		if(bList == null)
-			return null;
+			return  new ArrayList<>();
 		
 		List<A> aList = new ArrayList<>();
 		

@@ -1,9 +1,11 @@
 package service.backend.goodsList.prepare;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import bean.dto.backend.goodsList.obj.repository.goodsTablePages.readin.GoodsTablePagesInputOBJDTO;
+import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsTablePageOBJDTO;
 import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsTablePagesOBJDTO;
 import bean.dto.backend.goodsList.obj.repository.goodsTablePages.writeout.GoodsTableRowOBJDTO;
 import bean.dto.backend.goodsList.vo.readin.PageParameterVODTO;
@@ -27,7 +29,8 @@ public class GoodsTableRowsService {
 		GoodsTablePagesInputOBJDTO goodsTablePagesInputOBJDTO = pageParameterVOToGoodsTablePagesInputOBJ(pageParameterVODTO);
 		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO =  goodsTablePagesRepositoryDAO.getObjDto(goodsTablePagesInputOBJDTO);
 		int currentPage = pageParameterVODTO.getPage();
-		List<GoodsTableRowOBJDTO> goodsTableRowOBJDTOs = goodsTablePagesOBJDTO.getGoodsTablePageMap().get(currentPage).getGoodsTable().getGoodsTableRows();
+		GoodsTablePageOBJDTO goodsTablePageOBJDTO = goodsTablePagesOBJDTO.getGoodsTablePageMap().get(currentPage);
+		List<GoodsTableRowOBJDTO> goodsTableRowOBJDTOs = goodsTablePageOBJDTO==null ? new ArrayList<>() : goodsTablePageOBJDTO.getGoodsTable().getGoodsTableRows();
 		return goodsTableRowOBJsToGoodsTableRowVOs(goodsTableRowOBJDTOs);
 	}
 	

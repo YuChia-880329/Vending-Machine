@@ -28,7 +28,7 @@ public class GoodsTableRowVOTransformer extends VOWriteOutTransformerTemplate<Go
 		vo.setName(String.valueOf(dto.getName()));
 		vo.setPrice(String.valueOf(dto.getPrice()));
 		vo.setQuantity(String.valueOf(dto.getQuantity()));
-		vo.setStatus(status==null ? null : status.getDescription());
+		vo.setStatus(status==null ? "" : status.getDescription());
 		
 		return vo;
 	}

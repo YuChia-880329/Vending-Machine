@@ -9,6 +9,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 	private ShoppingCartVOTransformer shoppingCartVOTransformer;
 	private WelcomePartVOTransformer welcomePartVOTransformer;
 	private GoodsTablePageVOTransformer goodsTablePageVOTransformer;
+	private FilterFormVOTransformer filterFormVOTransformer;
 	
 	
 	private static final FrontendVOTransformer INSTANCE = new FrontendVOTransformer();
@@ -18,6 +19,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 		shoppingCartVOTransformer = ShoppingCartVOTransformer.getInstance();
 		welcomePartVOTransformer = WelcomePartVOTransformer.getInstance();
 		goodsTablePageVOTransformer = GoodsTablePageVOTransformer.getInstance();
+		filterFormVOTransformer = FilterFormVOTransformer.getInstance();
 	}
 	
 	public static FrontendVOTransformer getInstance() {
@@ -33,6 +35,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 		vo.setShoppingCart(shoppingCartVOTransformer.dtoToVo(dto.getShoppingCart()));
 		vo.setWelcomePart(welcomePartVOTransformer.dtoToVo(dto.getWelcomePart()));
 		vo.setGoodsTablePage(goodsTablePageVOTransformer.dtoToVo(dto.getGoodsTablePage()));
+		vo.setFilterForm(filterFormVOTransformer.dtoToVo(dto.getFilterForm()));
 		
 		return vo;
 	}
