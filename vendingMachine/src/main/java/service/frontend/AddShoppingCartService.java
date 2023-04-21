@@ -1,5 +1,7 @@
 package service.frontend;
 
+import bean.dto.frontend.vo.readin.ShoppingCartVODTO;
+
 public class AddShoppingCartService {
 
 	private static final AddShoppingCartService INSTANCE = new AddShoppingCartService();
@@ -12,5 +14,8 @@ public class AddShoppingCartService {
 		return INSTANCE;
 	}
 	
-//	public 
+	public void add(ShoppingCartVODTO shoppingCartVODTO) {
+		
+		
+	}
 }
