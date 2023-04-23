@@ -1,6 +1,7 @@
 package transformer.backend.orderList.vo.writeout;
 
 import bean.dto.backend.orderList.vo.writeout.OrderTableVODTO;
+import bean.vo.backend.orderList.writeout.OrderTableRowVO;
 import bean.vo.backend.orderList.writeout.OrderTableVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
@@ -26,7 +27,7 @@ public class OrderTableVOTransformer extends VOWriteOutTransformerTemplate<Order
 
 		OrderTableVO vo = new OrderTableVO();
 		
-		vo.setOrderTableRows(orderTableRowVOTransformer.dtoListToVoList(dto.getOrderTableRows()));
+		vo.setOrderTableRows(orderTableRowVOTransformer.dtoListToVoArray(dto.getOrderTableRows(), size -> new OrderTableRowVO[size]));
 		
 		return vo;
 	}

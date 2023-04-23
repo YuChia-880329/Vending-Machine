@@ -1,24 +1,22 @@
 package bean.vo.backend.orderList.writeout;
 
-import java.util.List;
-
 public class OrderTableVO {
 
-	private List<OrderTableRowVO> orderTableRows;
+	private OrderTableRowVO[] orderTableRows;
 
 	public OrderTableVO() {
 	}
-	public OrderTableVO(List<OrderTableRowVO> orderTableRows) {
+	public OrderTableVO(OrderTableRowVO[] orderTableRows) {
 
 		this.orderTableRows = orderTableRows;
 	}
 	
 	
-	public List<OrderTableRowVO> getOrderTableRows() {
+	public OrderTableRowVO[] getOrderTableRows() {
 		return orderTableRows;
 	}
 	
-	public void setOrderTableRows(List<OrderTableRowVO> orderTableRows) {
+	public void setOrderTableRows(OrderTableRowVO[] orderTableRows) {
 		this.orderTableRows = orderTableRows;
 	}
 }

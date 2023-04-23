@@ -2,13 +2,13 @@ package dao.memory.memoryDb.frontend;
 
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.obj.frontend.memoryDb.shoppingCart.ShoppingCartOBJ;
-import memory.database.frontend.ShoppingCartMemoryDB;
+import memory.database.frontend.ShoppingCartMemoryDb;
 import template.memory.database.MemoryDbDAOTemplate;
 import transformer.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJTransformer;
 
-public class ShoppingCartMemoryDbDAO extends MemoryDbDAOTemplate<Integer, ShoppingCartOBJ, ShoppingCartMemoryDB, ShoppingCartOBJDTO, ShoppingCartOBJTransformer> {
+public class ShoppingCartMemoryDbDAO extends MemoryDbDAOTemplate<Integer, ShoppingCartOBJ, ShoppingCartMemoryDb, ShoppingCartOBJDTO, ShoppingCartOBJTransformer> {
 
-	public ShoppingCartMemoryDbDAO(ShoppingCartMemoryDB memory) {
+	public ShoppingCartMemoryDbDAO(ShoppingCartMemoryDb memory) {
 		
 		super(memory);
 	}

@@ -1,24 +1,22 @@
 package bean.vo.backend.goodsList.writeout;
 
-import java.util.List;
-
 public class GoodsTableVO {
 
-	private List<GoodsTableRowVO> goodsTableRows;
+	private GoodsTableRowVO[] goodsTableRows;
 
 	public GoodsTableVO() {
 	}
-	public GoodsTableVO(List<GoodsTableRowVO> goodsTableRows) {
+	public GoodsTableVO(GoodsTableRowVO[] goodsTableRows) {
 
 		this.goodsTableRows = goodsTableRows;
 	}
 	
 	
-	public List<GoodsTableRowVO> getGoodsTableRows() {
+	public GoodsTableRowVO[] getGoodsTableRows() {
 		return goodsTableRows;
 	}
 	
-	public void setGoodsTableRows(List<GoodsTableRowVO> goodsTableRows) {
+	public void setGoodsTableRows(GoodsTableRowVO[] goodsTableRows) {
 		this.goodsTableRows = goodsTableRows;
 	}
 }

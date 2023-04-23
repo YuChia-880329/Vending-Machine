@@ -1,6 +1,7 @@
 package transformer.frontend.vo.writeout;
 
 import bean.dto.frontend.vo.writeout.ReceiptVODTO;
+import bean.vo.frontend.writeout.BoughtGoodsMsgVO;
 import bean.vo.frontend.writeout.ReceiptVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
@@ -29,7 +30,7 @@ public class ReceiptVOTransformer extends VOWriteOutTransformerTemplate<ReceiptV
 		vo.setPaidMoneyMsg(String.valueOf(dto.getPaidMoneyMsg()));
 		vo.setTotalPriceMsg(String.valueOf(dto.getPaidMoneyMsg()));
 		vo.setChangeMsg(String.valueOf(dto.getPaidMoneyMsg()));
-		vo.setBoughtGoodsMsgs(boughtGoodsMsgVOTransformer.dtoListToVoList(dto.getBoughtGoodsMsgs()));
+		vo.setBoughtGoodsMsgs(boughtGoodsMsgVOTransformer.dtoListToVoArray(dto.getBoughtGoodsMsgs(), size -> new BoughtGoodsMsgVO[size]));
 		
 		return vo;
 	}

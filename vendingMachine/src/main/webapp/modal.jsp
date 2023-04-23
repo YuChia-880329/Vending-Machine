@@ -9,7 +9,7 @@
         		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       		</div>
       		<div class="modal-body">
-      			<p id="confirm_modal_msg"></p>
+      			<div id="confirm_modal_msg"></div>
       		</div>
       		<div class="modal-footer" style="border-top:0">
         		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
@@ -28,7 +28,7 @@
         		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       		</div>
       		<div class="modal-body">
-      			<p id="alert_modal_msg"></p>
+      			<div id="alert_modal_msg"></div>
       		</div>
       		<div class="modal-footer" style="border-top:0">
 	  			<button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>

@@ -24,7 +24,6 @@ public class GoodsCardVOTransformer extends VOWriteOutTransformerTemplate<GoodsC
 		vo.setName(dto.getName());
 		vo.setPrice(String.valueOf(dto.getPrice()));
 		vo.setImagePath(dto.getImagePath());
-		vo.setBuyQuantity(String.valueOf(dto.getBuyQuantity()));
 		vo.setQuantity(String.valueOf(dto.getQuantity()));
 		
 		return vo;

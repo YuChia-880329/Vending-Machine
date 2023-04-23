@@ -1,16 +1,14 @@
 package bean.vo.writeout;
 
-import java.util.List;
-
 public class PaginationVO {
 
 	private PageTurningVO previousPage;
-	private List<PageVO> pages;
+	private PageVO[] pages;
 	private PageTurningVO nextPage;
 
 	public PaginationVO() {
 	}
-	public PaginationVO(PageTurningVO previousPage, List<PageVO> pages, PageTurningVO nextPage) {
+	public PaginationVO(PageTurningVO previousPage, PageVO[] pages, PageTurningVO nextPage) {
 
 		this.previousPage = previousPage;
 		this.pages = pages;
@@ -21,7 +19,7 @@ public class PaginationVO {
 	public PageTurningVO getPreviousPage() {
 		return previousPage;
 	}
-	public List<PageVO> getPages() {
+	public PageVO[] getPages() {
 		return pages;
 	}
 	public PageTurningVO getNextPage() {
@@ -32,7 +30,7 @@ public class PaginationVO {
 	public void setPreviousPage(PageTurningVO previousPage) {
 		this.previousPage = previousPage;
 	}
-	public void setPages(List<PageVO> pages) {
+	public void setPages(PageVO[] pages) {
 		this.pages = pages;
 	}
 	public void setNextPage(PageTurningVO nextPage) {

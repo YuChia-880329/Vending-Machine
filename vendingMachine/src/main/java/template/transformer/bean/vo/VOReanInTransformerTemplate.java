@@ -1,5 +1,7 @@
 package template.transformer.bean.vo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import template.CheckerTemplate;
@@ -11,6 +13,10 @@ public abstract class VOReanInTransformerTemplate<V, D, E extends CheckerExcepti
 	public List<D> voListToDtoList(List<V> voList) throws E{
 		
 		return beanListToDtoList(voList);
+	}
+	public List<D> voArrayToDtoList(V[] voArray) throws E{
+		
+		return beanListToDtoList(new ArrayList<>(Arrays.asList(voArray)));
 	}
 	public D voToDto(V vo) throws E{
 		

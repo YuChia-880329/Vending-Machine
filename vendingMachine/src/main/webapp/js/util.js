@@ -6,7 +6,7 @@
 		var modalMsgId = 'confirm_modal_msg';
 		var okBtnId = 'confirm_modal_ok_btn';
 		
-		$('#' + modalMsgId).text(modalMsg);
+		$('#' + modalMsgId).html(modalMsg);
 		$('#' + okBtnId).off('click');
 		$('#' + okBtnId).click(okBtnFctn);
 		
@@ -18,7 +18,7 @@
 		var modalId = 'alert_modal';
 		var modalMsgPId = 'alert_modal_msg';
 		
-		$('#' + modalMsgPId).text(modalMsg);
+		$('#' + modalMsgPId).html(modalMsg);
 		
 		return new bootstrap.Modal('#' + modalId, {});
 	}

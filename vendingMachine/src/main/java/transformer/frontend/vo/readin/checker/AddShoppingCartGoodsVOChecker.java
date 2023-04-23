@@ -1,27 +1,27 @@
 package transformer.frontend.vo.readin.checker;
 
-import bean.vo.frontend.readin.ShoppingCartGoodsVO;
+import bean.vo.frontend.readin.AddShoppingCartGoodsVO;
 import template.CheckerTemplate;
 import template.exception.CheckerException;
 import util.CheckUtil;
 import util.StringConcatUtil;
 
-public class ShoppingCartGoodsVOChecker extends CheckerTemplate<ShoppingCartGoodsVO, CheckerException> {
+public class AddShoppingCartGoodsVOChecker extends CheckerTemplate<AddShoppingCartGoodsVO, CheckerException> {
 
 	private static final String NAME_PREFIX = "frontend, shopping cart form, goods ";
 	
-	private static final ShoppingCartGoodsVOChecker INSTANCE = new ShoppingCartGoodsVOChecker();
+	private static final AddShoppingCartGoodsVOChecker INSTANCE = new AddShoppingCartGoodsVOChecker();
 	
-	private ShoppingCartGoodsVOChecker() {
+	private AddShoppingCartGoodsVOChecker() {
 	}
 	
-	public static ShoppingCartGoodsVOChecker getInstance() {
+	public static AddShoppingCartGoodsVOChecker getInstance() {
 		
 		return INSTANCE;
 	}
 
 	@Override
-	public void check(ShoppingCartGoodsVO vo) throws CheckerException {
+	public void check(AddShoppingCartGoodsVO vo) throws CheckerException {
 
 		checkVo(vo);
 		
@@ -29,20 +29,20 @@ public class ShoppingCartGoodsVOChecker extends CheckerTemplate<ShoppingCartGood
 		checkQuantity(vo);
 	}
 	
-	private void checkVo(ShoppingCartGoodsVO vo) throws CheckerException {
+	private void checkVo(AddShoppingCartGoodsVO vo) throws CheckerException {
 		
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
 	
-	private void checkId(ShoppingCartGoodsVO vo) throws CheckerException {
+	private void checkId(AddShoppingCartGoodsVO vo) throws CheckerException {
 		
 		String id = vo.getId();
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(id, StringConcatUtil.concate(NAME_PREFIX, "id"));
 	}
-	private void checkQuantity(ShoppingCartGoodsVO vo) throws CheckerException {
+	private void checkQuantity(AddShoppingCartGoodsVO vo) throws CheckerException {
 		
-		String quantity = vo.getQuantity();
+		String quantity = vo.getBuyQuantity();
 		
 		CheckUtil.checkStringIsNonNegativeIntegerNumberString(quantity, StringConcatUtil.concate(NAME_PREFIX, "quantity"));
 	}

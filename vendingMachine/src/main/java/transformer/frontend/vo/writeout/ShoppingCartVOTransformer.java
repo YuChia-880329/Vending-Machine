@@ -1,6 +1,7 @@
 package transformer.frontend.vo.writeout;
 
 import bean.dto.frontend.vo.writeout.ShoppingCartVODTO;
+import bean.vo.frontend.writeout.ShoppingCartGoodsVO;
 import bean.vo.frontend.writeout.ShoppingCartVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
@@ -26,7 +27,7 @@ public class ShoppingCartVOTransformer extends VOWriteOutTransformerTemplate<Sho
 
 		ShoppingCartVO vo = new ShoppingCartVO();
 		
-		vo.setShoppingCartGoodsList(shoppingCartGoodsVOTransformer.dtoListToVoList(dto.getShoppingCartGoodsList()));
+		vo.setShoppingCartGoodsArray(shoppingCartGoodsVOTransformer.dtoListToVoArray(dto.getShoppingCartGoodsList(), size -> new ShoppingCartGoodsVO[size]));
 		
 		return vo;
 	}

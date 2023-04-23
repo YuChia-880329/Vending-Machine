@@ -28,6 +28,7 @@ public class GoodsTableEntryVOTransformer extends VOWriteOutTransformerTemplate<
 		GoodsTableEntryVO vo = new GoodsTableEntryVO();
 		
 		vo.setId(String.valueOf(dto.getId()));
+		vo.setPageId(String.valueOf(dto.getPageId()));
 		vo.setGoodsCard(goodsCardVOTransformer.dtoToVo(dto.getGoodsCard()));
 		vo.setGoodsIntroduction(goodsIntroductionVOTransformer.dtoToVo(dto.getGoodsIntroduction()));
 		

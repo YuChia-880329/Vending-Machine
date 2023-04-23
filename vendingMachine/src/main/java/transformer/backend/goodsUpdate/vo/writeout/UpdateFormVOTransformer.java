@@ -1,6 +1,7 @@
 package transformer.backend.goodsUpdate.vo.writeout;
 
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateFormVODTO;
+import bean.vo.backend.goodsUpdate.writeout.GoodsNameOptionVO;
 import bean.vo.backend.goodsUpdate.writeout.UpdateFormVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
@@ -25,7 +26,7 @@ public class UpdateFormVOTransformer extends VOWriteOutTransformerTemplate<Updat
 
 		UpdateFormVO vo = new UpdateFormVO();
 		
-		vo.setGoodsNameOptions(goodsNameOptionVOTransformer.dtoListToVoList(dto.getGoodsNameOptions()));
+		vo.setGoodsNameOptions(goodsNameOptionVOTransformer.dtoListToVoArray(dto.getGoodsNameOptions(), size -> new GoodsNameOptionVO[size]));
 		
 		return vo;
 	}

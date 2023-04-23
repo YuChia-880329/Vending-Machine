@@ -1,6 +1,7 @@
 package transformer.backend.goodsList.vo.writeout;
 
 import bean.dto.backend.goodsList.vo.writeout.GoodsTableVODTO;
+import bean.vo.backend.goodsList.writeout.GoodsTableRowVO;
 import bean.vo.backend.goodsList.writeout.GoodsTableVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
@@ -26,7 +27,7 @@ public class GoodsTableVOTransformer extends VOWriteOutTransformerTemplate<Goods
 
 		GoodsTableVO vo = new GoodsTableVO();
 		
-		vo.setGoodsTableRows(goodsTableRowVOTransformer.dtoListToVoList(dto.getGoodsTableRows()));
+		vo.setGoodsTableRows(goodsTableRowVOTransformer.dtoListToVoArray(dto.getGoodsTableRows(), size -> new GoodsTableRowVO[size]));
 		
 		return vo;
 	}

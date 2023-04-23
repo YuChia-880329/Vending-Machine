@@ -20,7 +20,7 @@ import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAOContextListener;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAOContextListener;
 import listener.ParameterContextListener;
-import memory.database.frontend.ShoppingCartMemoryDB;
+import memory.database.frontend.ShoppingCartMemoryDb;
 import memory.repository.frontend.GoodsTablePagesRepository;
 import service.frontend.prepare.FrontendService;
 import template.exception.CheckerException;
@@ -118,8 +118,8 @@ public class GoFrontendServlet extends HttpServlet {
 		
 		if(shoppingCartMemoryDbDAO == null) {
 			
-			ShoppingCartMemoryDB shoppingCartMemoryDB = new ShoppingCartMemoryDB();
-			shoppingCartMemoryDbDAO = new ShoppingCartMemoryDbDAO(shoppingCartMemoryDB);
+			ShoppingCartMemoryDb shoppingCartMemoryDb = new ShoppingCartMemoryDb();
+			shoppingCartMemoryDbDAO = new ShoppingCartMemoryDbDAO(shoppingCartMemoryDb);
 			
 			shoppingCartMemoryDbDAOMap.put(session, shoppingCartMemoryDbDAO);
 		}

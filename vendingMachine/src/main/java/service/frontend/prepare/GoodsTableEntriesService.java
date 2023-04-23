@@ -1,8 +1,8 @@
 package service.frontend.prepare;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.obj.repository.goodsTablePages.readin.GoodsTablePagesInputOBJDTO;
@@ -51,17 +51,22 @@ public class GoodsTableEntriesService {
 	
 	private List<GoodsTableEntryVODTO> goodsTableEntryOBJsToGoodsTableEntryVOs(List<GoodsTableEntryOBJDTO> goodsTableEntryOBJDTOs, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectorySymbolicLinkName){
 		
-		return goodsTableEntryOBJDTOs.stream()
-				.map(goodsTableEntryOBJDTO -> goodsTableEntryOBJToGoodsTableEntryVO(goodsTableEntryOBJDTO, shoppingCartMemoryDbDAO, imagesDirectorySymbolicLinkName))
-				.collect(Collectors.toList());
+		List<GoodsTableEntryVODTO> goodsTableEntryVODTOs = new ArrayList<>();
+		
+		for(int i=0; i<goodsTableEntryOBJDTOs.size(); i++) {
+			
+			goodsTableEntryVODTOs.add(goodsTableEntryOBJToGoodsTableEntryVO(goodsTableEntryOBJDTOs.get(i), shoppingCartMemoryDbDAO, imagesDirectorySymbolicLinkName, i+1));
+		}
+		return goodsTableEntryVODTOs;
 	}
-	private GoodsTableEntryVODTO goodsTableEntryOBJToGoodsTableEntryVO(GoodsTableEntryOBJDTO goodsTableEntryOBJDTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectorySymbolicLinkName) {
+	private GoodsTableEntryVODTO goodsTableEntryOBJToGoodsTableEntryVO(GoodsTableEntryOBJDTO goodsTableEntryOBJDTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectorySymbolicLinkName, int pageId) {
 		
 		GoodsTableEntryVODTO goodsTableEntryVODTO = new GoodsTableEntryVODTO();
 		
 		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(goodsTableEntryOBJDTO.getId());
 		
 		goodsTableEntryVODTO.setId(goodsTableEntryOBJDTO.getId());
+		goodsTableEntryVODTO.setPageId(pageId);
 		goodsTableEntryVODTO.setGoodsCard(goodsCardOBJToGoodsCardVO(goodsTableEntryOBJDTO.getGoodsCard(), imagesDirectorySymbolicLinkName, shoppingCartOBJDTO));
 		goodsTableEntryVODTO.setGoodsIntroduction(goodsIntroductionOBJToGoodsIntroductionVO(goodsTableEntryOBJDTO.getGoodsIntroduction(), imagesDirectorySymbolicLinkName, shoppingCartOBJDTO));
 		
@@ -74,7 +79,6 @@ public class GoodsTableEntriesService {
 		goodsCardVODTO.setName(goodsCardOBJDTO.getName());
 		goodsCardVODTO.setPrice(goodsCardOBJDTO.getPrice());
 		goodsCardVODTO.setImagePath(StringConcatUtil.concate(imagesDirectorySymbolicLinkName, File.separator, goodsCardOBJDTO.getImageName()));
-		goodsCardVODTO.setBuyQuantity(shoppingCartOBJDTO.getBuyQuantity());
 		goodsCardVODTO.setQuantity(goodsCardOBJDTO.getQuantity());
 		
 		return goodsCardVODTO;

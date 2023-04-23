@@ -1,19 +1,17 @@
 package bean.vo.frontend.writeout;
 
-import java.util.List;
-
 public class ReceiptVO {
 
 	private String paidMoneyMsg;
 	private String totalPriceMsg;
 	private String changeMsg;
-	private List<BoughtGoodsMsgVO> boughtGoodsMsgs;
+	private BoughtGoodsMsgVO[] boughtGoodsMsgs;
 	
 	
 	public ReceiptVO() {
 	}
 	public ReceiptVO(String paidMoney, String totalPrice, String change,
-			List<BoughtGoodsMsgVO> boughtGoodsMsgs) {
+			BoughtGoodsMsgVO[] boughtGoodsMsgs) {
 
 		this.paidMoneyMsg = paidMoney;
 		this.totalPriceMsg = totalPrice;
@@ -31,7 +29,7 @@ public class ReceiptVO {
 	public String getChangeMsg() {
 		return changeMsg;
 	}
-	public List<BoughtGoodsMsgVO> getBoughtGoodsMsgs() {
+	public BoughtGoodsMsgVO[] getBoughtGoodsMsgs() {
 		return boughtGoodsMsgs;
 	}
 	
@@ -45,7 +43,7 @@ public class ReceiptVO {
 	public void setChangeMsg(String changeMsg) {
 		this.changeMsg = changeMsg;
 	}
-	public void setBoughtGoodsMsgs(List<BoughtGoodsMsgVO> boughtGoodsMsgs) {
+	public void setBoughtGoodsMsgs(BoughtGoodsMsgVO[] boughtGoodsMsgs) {
 		this.boughtGoodsMsgs = boughtGoodsMsgs;
 	}
 	

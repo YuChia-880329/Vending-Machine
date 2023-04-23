@@ -1,6 +1,7 @@
 package transformer.vo.writeout;
 
 import bean.dto.vo.writeout.PaginationVODTO;
+import bean.vo.writeout.PageVO;
 import bean.vo.writeout.PaginationVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
@@ -29,7 +30,7 @@ public class PaginationWOVOTransformer extends VOWriteOutTransformerTemplate<Pag
 		PaginationVO vo = new PaginationVO();
 		
 		vo.setPreviousPage(pageTurningVOTransformer.dtoToVo(dto.getPreviousPage()));
-		vo.setPages(pageVOTransformer.dtoListToVoList(dto.getPages()));
+		vo.setPages(pageVOTransformer.dtoListToVoArray(dto.getPages(), size -> new PageVO[size]));
 		vo.setNextPage(pageTurningVOTransformer.dtoToVo(dto.getNextPage()));
 		
 		return vo;

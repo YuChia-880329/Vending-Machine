@@ -1,25 +1,23 @@
 package bean.vo.frontend.writeout;
 
-import java.util.List;
-
 public class ShoppingCartVO {
 
-	private List<ShoppingCartGoodsVO> shoppingCartGoodsList;
+	private ShoppingCartGoodsVO[] shoppingCartGoodsArray;
 
 	public ShoppingCartVO() {
 	}
-	public ShoppingCartVO(List<ShoppingCartGoodsVO> shoppingCartGoodsList) {
+	public ShoppingCartVO(ShoppingCartGoodsVO[] shoppingCartGoodsArray) {
 
-		this.shoppingCartGoodsList = shoppingCartGoodsList;
+		this.shoppingCartGoodsArray = shoppingCartGoodsArray;
 	}
 	
 	
-	public List<ShoppingCartGoodsVO> getShoppingCartGoodsList() {
-		return shoppingCartGoodsList;
+	public ShoppingCartGoodsVO[] getShoppingCartGoodsArray() {
+		return shoppingCartGoodsArray;
 	}
 	
 	
-	public void setShoppingCartGoodsList(List<ShoppingCartGoodsVO> shoppingCartGoodsList) {
-		this.shoppingCartGoodsList = shoppingCartGoodsList;
+	public void setShoppingCartGoodsArray(ShoppingCartGoodsVO[] shoppingCartGoodsArray) {
+		this.shoppingCartGoodsArray = shoppingCartGoodsArray;
 	}
 }

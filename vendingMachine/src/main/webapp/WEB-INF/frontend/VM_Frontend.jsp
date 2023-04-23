@@ -21,6 +21,26 @@
 		let filterForm = 'filter_form';
 		let filterBtnId = 'filter_btn';
 		let allGoodsBtnId = 'all_goods_btn';
+
+		let goodsEntryIdInputIdPrefix = 'goods_entry_id_';
+		let goodsEntryNameInputIdPrefix = 'goods_entry_name_';
+		let goodsEntryPriceInputIdPrefix = 'goods_entry_price_';
+		let goodsEntryBuyQuantityInputIdPrefix = 'goods_entry_buy_quantity_';
+		let goodsEntryQuantityInputIdPrefix = 'goods_entry_quantity_';
+		
+		let addShoppingCartBtnId = 'add_shopping_cart_btn';
+		let addShoppingCartModalId = 'add_shopping_cart_modal';
+		let addShoppingCartOkBtnId = 'add_shopping_cart_ok_btn';
+		
+		let addShoppingCartBodyContentDivId = 'add_shopping_cart_body_content_div';
+		let addShoppingCartBodyContentTmplId = 'add_shopping_cart_body_content_tmpl';
+		let addShoppingCartBodyContentNameSpanId = 'add_shopping_cart_body_content_name_span_';
+		let addShoppingCartBodyContentBuyQuantitySpanId = 'add_shopping_cart_body_content_buy_quantity_span_';
+		let addShoppingCartBodyContentPriceSpanId = 'add_shopping_cart_body_content_price_span_';
+
+		let addShoppingCartFormId = 'add_shopping_cart_form';
+		let addShoppingCartDataInputId = 'add_shopping_cart_data_input';
+		
 		
 		$(document).ready(readyFctn);
 		
@@ -28,6 +48,8 @@
 			
 			$('#' + filterBtnId).click(filterBtnClicked);
 			$('#' + allGoodsBtnId).click(allGoodsBtnClicked);
+			$('#' + addShoppingCartBtnId).click(addShoppingCartBtnClicked);
+			$('#' + addShoppingCartOkBtnId).click(addShoppingCartOkBtnClicked);
 		}
 		
 		function filterBtnClicked(){
@@ -41,6 +63,58 @@
 				window.location.replace("/vendingMachine/machine");
 			}).show();
 		}
+		function addShoppingCartBtnClicked(){
+
+			$('#' + addShoppingCartBodyContentDivId).empty();
+			
+			var addShoppingCartGoodsArray = [];
+			var index = 0;
+			
+			for(i=1; i<=6; i++){
+
+				var buyQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
+				if(buyQuantity > 0){
+
+					var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
+					var price = $('#' + goodsEntryPriceInputIdPrefix + i).val();
+
+					var bodyContent = $('#' + addShoppingCartBodyContentTmplId).clone()[0].content;
+					$('#' + addShoppingCartBodyContentDivId).append(bodyContent);
+
+					
+					$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentNameSpanId).attr('id', addShoppingCartBodyContentNameSpanId + i);
+					$('#' + addShoppingCartBodyContentNameSpanId + i).text(name);
+
+					$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentBuyQuantitySpanId).attr('id', addShoppingCartBodyContentBuyQuantitySpanId + i);
+					$('#' + addShoppingCartBodyContentBuyQuantitySpanId + i).text(buyQuantity);
+
+					$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentPriceSpanId).attr('id', addShoppingCartBodyContentPriceSpanId + i);
+					$('#' + addShoppingCartBodyContentPriceSpanId + i).text(price);
+
+					var id = $('#' + goodsEntryIdInputIdPrefix + i).val();
+					addShoppingCartGoodsArray[index] = {
+						id : id,
+						buyQuantity : buyQuantity
+					}
+					index++;
+				}
+			}
+			var addShoppingCartVO = {
+				addShoppingCartGoodsArray : addShoppingCartGoodsArray,
+				queryString : '${pageContext.request.queryString}'
+			}
+
+			$('#' + addShoppingCartDataInputId).val(JSON.stringify(addShoppingCartVO));
+
+			
+			new bootstrap.Modal('#' + addShoppingCartModalId, {}).show();
+		}
+
+		function addShoppingCartOkBtnClicked(){
+
+			$('#' + addShoppingCartFormId).submit();
+		}
+
 	</script>
 </head>
 <body>
@@ -50,10 +124,10 @@
 				<div class="col-8 ms-auto">
 					<div class="d-flex">
 						<div class="me-2">
-							<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add_shopping_cart_modal">加入購物車</button>
+							<button type="button" class="btn btn-outline-primary" id="add_shopping_cart_btn">加入購物車</button>
 						</div>
 						<div class="me-auto">
-							<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#shopping_cart_modal">購物車</button>
+							<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#shopping_cart_modal">購物車</button>
 						</div>
 						<div>
 							<form action="/vendingMachine/machine/search" method="GET" id="filter_form">
@@ -126,7 +200,10 @@
 						<div class="row row-cols-3 g-4">
 							<c:forEach var="goodsTableEntry" items="${vo.goodsTablePage.goodsTable.goodsTableEntries}">
 								<div class="col">
-									<input type="hidden" value="1" />
+									<input type="hidden" id="goods_entry_id_${goodsTableEntry.pageId}" value="${goodsTableEntry.id}" />
+									<input type="hidden" id="goods_entry_name_${goodsTableEntry.pageId}" value="${goodsTableEntry.goodsCard.name}" />
+									<input type="hidden" id="goods_entry_price_${goodsTableEntry.pageId}" value="${goodsTableEntry.goodsCard.price}" />
+									<input type="hidden" id="goods_entry_quantity_${goodsTableEntry.pageId}" value="${goodsTableEntry.goodsCard.quantity}" />
 									<div class="card text-center">
 										<div class="card-header">
 											<h4 class="mb-2">${goodsTableEntry.goodsCard.name}</h4>
@@ -138,7 +215,7 @@
 									    <div class="card-body">
 									    	<div class="mb-4">
 									    		<a href="#" data-bs-toggle="modal" data-bs-target="#goods_table_image_modal_${goodsTableEntry.id}">
-									    			<img src="${goodsTableEntry.goodsCard.imagePath}" alt="Drink" width="150" height="150" />
+									    			<img src="${goodsTableEntry.goodsCard.imagePath}" alt="${goodsTableEntry.goodsCard.name}" width="150" height="150" />
 									    		</a>
 									    	</div>
 									    	<div class="mb-3">
@@ -147,7 +224,7 @@
 									    				<p class="m-0">購買</p>
 									    			</div>
 									    			<div class="me-3">
-									    				<input type="number" class="form-control" min="0" max="999999" value="${goodsTableEntry.goodsCard.buyQuantity}" />
+									    				<input type="number" class="form-control" id="goods_entry_buy_quantity_${goodsTableEntry.pageId}" min="0" max="999999" value="0" />
 									    			</div>
 									    			<div class="d-flex align-self-center">
 									    				<p class="m-0">罐</p>
@@ -210,104 +287,22 @@
  		<div class="modal-dialog">
    			<div class="modal-content">
      			<div class="modal-header">
-       				<h4 class="modal-title">加入購物車</h4>
+       				<h4 class="modal-title">即將加入購物車</h4>
        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
      			</div>
      			<div class="modal-body">
-     				<div class="container text-center">
-     					<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-						<div>
-     						<div class="d-flex justify-content-evenly">
-     							<div>
-     								<p>
-										<span>Drink</span> : <span>1</span>罐
-									</p>
-     							</div>
-								<div>
-									<p class="text-secondary">
-										<span>10</span> 元/罐
-									</p>
-								</div>
-     						</div>
-     					</div>
-					</div>
+     				<div class="container text-center" id="add_shopping_cart_body_content_div"></div>
      			</div>
      			<div class="modal-footer">
-  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">加入</button>
+     			    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+  					<button type="button" class="btn btn-primary" id="add_shopping_cart_ok_btn" data-bs-dismiss="modal">確認</button>
      			</div>
    			</div>
  		</div>
 	</div>
+	<form action="/vendingMachine/machine/addShoppingCart" method="POST" id="add_shopping_cart_form">
+		<input type="hidden" name="dataJson" id="add_shopping_cart_data_input" />
+	</form>
 	
 	<div class="modal fade" id="shopping_cart_modal">
  		<div class="modal-dialog">
@@ -318,7 +313,7 @@
      			</div>
      			<div class="modal-body">
      				<div class="container">
-     					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsList}">
+     					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsArray}">
      						<div>
 	     						<div class="d-flex justify-content-evenly">
 	     							<div>
@@ -380,6 +375,24 @@
 	 		</div>
 		</div>
 	</c:forEach>
+	
+	<template id="add_shopping_cart_body_content_tmpl">
+		<div>
+			<div class="d-flex justify-content-evenly">
+				<div>
+					<p>
+						<span id="add_shopping_cart_body_content_name_span_"></span> : 
+						<span id="add_shopping_cart_body_content_buy_quantity_span_"></span>罐
+					</p>
+				</div>
+				<div>
+					<p class="text-secondary">
+						<span id="add_shopping_cart_body_content_price_span_"></span> 元/罐
+					</p>
+				</div>
+			</div>
+		</div>
+	</template>
 	
 	
 	<%@ include file="../../modal.jsp" %>
