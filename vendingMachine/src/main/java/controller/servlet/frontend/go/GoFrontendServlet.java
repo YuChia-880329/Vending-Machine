@@ -17,9 +17,11 @@ import bean.vo.frontend.readin.PageParameterVO;
 import bean.vo.frontend.writeout.FrontendVO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.memoryDb.frontend.FrontendMemoryDbDAOContextListener;
+import dao.memory.memoryDb.frontend.IllegalMsgMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.frontend.FrontendRepositoryDAOContextListener;
 import listener.ParameterContextListener;
+import memory.database.frontend.IllegalMsgMemoryDb;
 import memory.database.frontend.ShoppingCartMemoryDb;
 import memory.repository.frontend.GoodsTablePagesRepository;
 import service.frontend.prepare.FrontendService;
@@ -68,8 +70,9 @@ public class GoFrontendServlet extends HttpServlet {
 			String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
 			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(context, session);
 			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = getShoppingCartMemoryDbDAO(context, session);
+			IllegalMsgMemoryDbDAO illegalMsgMemoryDbDAO = getIllegalMsgMemoryDbDAO(context, session);
 			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, imagesDirectorySymbolicLinkName, 
-					goodsTablePagesRepositoryDAO, memberModelDTO, shoppingCartMemoryDbDAO);
+					goodsTablePagesRepositoryDAO, memberModelDTO, shoppingCartMemoryDbDAO, illegalMsgMemoryDbDAO);
 			FrontendVO frontendVO = frontendVOTransformer.dtoToVo(frontendVODTO);
 			
 			req.setAttribute(REQ_ATTR_VO, frontendVO);
@@ -125,5 +128,22 @@ public class GoFrontendServlet extends HttpServlet {
 		}
 		
 		return shoppingCartMemoryDbDAO;
+	}
+	private IllegalMsgMemoryDbDAO getIllegalMsgMemoryDbDAO(ServletContext context, HttpSession session) {
+		
+		@SuppressWarnings("unchecked")
+		Map<HttpSession, IllegalMsgMemoryDbDAO> illegalMsgMemoryDbDAOMap = (Map<HttpSession, IllegalMsgMemoryDbDAO>)context.getAttribute(FrontendMemoryDbDAOContextListener.ILLEGAL_MSG_DAO_MAP);
+		
+		IllegalMsgMemoryDbDAO illegalMsgMemoryDbDAO = illegalMsgMemoryDbDAOMap.get(session);
+		
+		if(illegalMsgMemoryDbDAO == null) {
+			
+			IllegalMsgMemoryDb illegalMsgMemoryDb = new IllegalMsgMemoryDb();
+			illegalMsgMemoryDbDAO = new IllegalMsgMemoryDbDAO(illegalMsgMemoryDb);
+			
+			illegalMsgMemoryDbDAOMap.put(session, illegalMsgMemoryDbDAO);
+		}
+		
+		return illegalMsgMemoryDbDAO;
 	}
 }

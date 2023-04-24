@@ -77,6 +77,7 @@
 
 					var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
 					var price = $('#' + goodsEntryPriceInputIdPrefix + i).val();
+					var quantity = $('#' + goodsEntryQuantityInputIdPrefix + i).val();
 
 					var bodyContent = $('#' + addShoppingCartBodyContentTmplId).clone()[0].content;
 					$('#' + addShoppingCartBodyContentDivId).append(bodyContent);
@@ -94,7 +95,9 @@
 					var id = $('#' + goodsEntryIdInputIdPrefix + i).val();
 					addShoppingCartGoodsArray[index] = {
 						id : id,
-						buyQuantity : buyQuantity
+						name : name,
+						buyQuantity : buyQuantity,
+						quantity : quantity
 					}
 					index++;
 				}
@@ -113,6 +116,14 @@
 		function addShoppingCartOkBtnClicked(){
 
 			$('#' + addShoppingCartFormId).submit();
+		}
+		
+		function showIllegalMsgModal(){
+			
+			if(${vo.illegalMsg.hasMsg} == 'true'){
+				
+				
+			}
 		}
 
 	</script>

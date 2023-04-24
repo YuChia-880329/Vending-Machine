@@ -3,11 +3,13 @@ package service.frontend.prepare;
 import bean.dto.frontend.vo.readin.PageParameterVODTO;
 import bean.dto.frontend.vo.writeout.FrontendVODTO;
 import bean.dto.model.MemberModelDTO;
+import dao.memory.memoryDb.frontend.IllegalMsgMemoryDbDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
 
 public class FrontendService {
 
+	private IllegalMsgService illegalMsgService;
 	private ShoppingCartService shoppingCartService;
 	private WelcomePartService welcomePartService;
 	private GoodsTablePageService goodsTablePageService;
@@ -18,6 +20,7 @@ public class FrontendService {
 	
 	private FrontendService() {
 		
+		illegalMsgService = IllegalMsgService.getInstance();
 		shoppingCartService = ShoppingCartService.getInstance();
 		welcomePartService = WelcomePartService.getInstance();
 		goodsTablePageService = GoodsTablePageService.getInstance();
@@ -32,7 +35,7 @@ public class FrontendService {
 	
 	public FrontendVODTO prepare(PageParameterVODTO pageParameterVODTO, 
 			String imagesDirectorySymbolicLinkName, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
-			MemberModelDTO memberModelDTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
+			MemberModelDTO memberModelDTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, IllegalMsgMemoryDbDAO illegalMsgMemoryDbDAO) {
 		
 		Integer currentPage = pageParameterVODTO.getPage();
 		if(currentPage == null) {
@@ -43,6 +46,7 @@ public class FrontendService {
 		
 		FrontendVODTO frontendVODTO = new FrontendVODTO();
 		
+		frontendVODTO.setIllegalMsg(illegalMsgService.prepare(illegalMsgMemoryDbDAO));
 		frontendVODTO.setShoppingCart(shoppingCartService.prepare(shoppingCartMemoryDbDAO));
 		frontendVODTO.setWelcomePart(welcomePartService.prepare(imagesDirectorySymbolicLinkName, memberModelDTO));
 		frontendVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, 
