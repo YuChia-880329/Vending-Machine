@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import bean.vo.backend.orderList.readin.PageParameterVO;
 import bean.vo.backend.orderList.writeout.BackendOrderListVO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
-import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAOContextListener;
+import dao.memory.repository.backend.orderList.BackendOrderListRepositoryDAOContextListener;
 import memory.repository.backend.orderList.OrderTablePagesRepository;
 import service.backend.orderList.prepare.GoBackendOrderListService;
 import template.exception.CheckerException;
@@ -113,7 +113,7 @@ public class GoBackendOrderListServlet extends HttpServlet {
 	private OrderTablePagesRepositoryDAO getOrderTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, OrderTablePagesRepositoryDAO> orderTablePagesRepositoryDAOMap = (Map<HttpSession, OrderTablePagesRepositoryDAO>)context.getAttribute(OrderTablePagesRepositoryDAOContextListener.ORDER_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, OrderTablePagesRepositoryDAO> orderTablePagesRepositoryDAOMap = (Map<HttpSession, OrderTablePagesRepositoryDAO>)context.getAttribute(BackendOrderListRepositoryDAOContextListener.ORDER_TABLE_PAGES_DAO_MAP);
 		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = orderTablePagesRepositoryDAOMap.get(session);
 		
 		if(orderTablePagesRepositoryDAO == null) {

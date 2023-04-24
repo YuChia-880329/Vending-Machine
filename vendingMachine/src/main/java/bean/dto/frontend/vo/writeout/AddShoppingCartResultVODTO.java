@@ -16,6 +16,7 @@ public class AddShoppingCartResultVODTO {
 		return queryString;
 	}
 	
+	
 	public void setQueryString(String queryString) {
 		this.queryString = queryString;
 	}

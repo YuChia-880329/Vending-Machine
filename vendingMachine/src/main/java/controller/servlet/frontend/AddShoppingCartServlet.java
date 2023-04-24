@@ -18,7 +18,7 @@ import bean.vo.frontend.readin.AddShoppingCartVO;
 import bean.vo.frontend.writeout.AddShoppingCartResultVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAOContextListener;
+import dao.memory.memoryDb.frontend.FrontendMemoryDbDAOContextListener;
 import memory.database.frontend.ShoppingCartMemoryDb;
 import service.frontend.AddShoppingCartService;
 import template.exception.CheckerException;
@@ -84,7 +84,7 @@ public class AddShoppingCartServlet extends HttpServlet {
 	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartMemoryDbDAOMap = (Map<HttpSession, ShoppingCartMemoryDbDAO>)context.getAttribute(ShoppingCartMemoryDbDAOContextListener.SHOPPING_CART_DAO_MAP);
+		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartMemoryDbDAOMap = (Map<HttpSession, ShoppingCartMemoryDbDAO>)context.getAttribute(FrontendMemoryDbDAOContextListener.SHOPPING_CART_DAO_MAP);
 	
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = shoppingCartMemoryDbDAOMap.get(session);
 		

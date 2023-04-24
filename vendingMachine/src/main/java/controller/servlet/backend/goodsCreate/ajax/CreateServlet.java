@@ -19,7 +19,7 @@ import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.vo.backend.goodsCreate.readin.CreateFormVO;
 import bean.vo.backend.goodsCreate.writeout.CreateResultVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAOContextListener;
+import dao.memory.repository.backend.goodsList.BackendGoodsListRepositoryDAOContextListener;
 import listener.ParameterContextListener;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsCreate.CreateService;
@@ -106,7 +106,7 @@ public class CreateServlet extends HttpServlet {
 	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(BackendGoodsListRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
 		
 		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
 		
@@ -123,7 +123,7 @@ public class CreateServlet extends HttpServlet {
 	private dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO getFrontendGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO>)context.getAttribute(dao.memory.repository.frontend.GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO>)context.getAttribute(dao.memory.repository.frontend.FrontendRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
 		
 		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO GoodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
 		

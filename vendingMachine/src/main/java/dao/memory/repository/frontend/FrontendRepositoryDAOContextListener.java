@@ -7,7 +7,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSession;
 
-public class GoodsTablePagesRepositoryDAOContextListener implements ServletContextListener {
+public class FrontendRepositoryDAOContextListener implements ServletContextListener {
 
 	public static final String GOODS_TABLE_PAGES_DAO_MAP = "frontendGoodsTablePagesDAOMap";
 

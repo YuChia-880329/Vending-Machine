@@ -6,9 +6,14 @@ import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
 public class AddShoppingCartResultVOTransformer extends VOWriteOutTransformerTemplate<AddShoppingCartResultVODTO, AddShoppingCartResultVO> {
 
+	private IllegalMsgVOTransformer illegalMsgVOTransformer;
+	
+	
 	private static final AddShoppingCartResultVOTransformer INSTANCE = new AddShoppingCartResultVOTransformer();
 	
 	private AddShoppingCartResultVOTransformer() {
+		
+		illegalMsgVOTransformer = IllegalMsgVOTransformer.getInstance();
 	}
 	
 	public static AddShoppingCartResultVOTransformer getInstance() {

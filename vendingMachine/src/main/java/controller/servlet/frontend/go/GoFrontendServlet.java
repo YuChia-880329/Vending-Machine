@@ -16,9 +16,9 @@ import bean.dto.model.MemberModelDTO;
 import bean.vo.frontend.readin.PageParameterVO;
 import bean.vo.frontend.writeout.FrontendVO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAOContextListener;
+import dao.memory.memoryDb.frontend.FrontendMemoryDbDAOContextListener;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
-import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAOContextListener;
+import dao.memory.repository.frontend.FrontendRepositoryDAOContextListener;
 import listener.ParameterContextListener;
 import memory.database.frontend.ShoppingCartMemoryDb;
 import memory.repository.frontend.GoodsTablePagesRepository;
@@ -95,7 +95,7 @@ public class GoFrontendServlet extends HttpServlet {
 	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(FrontendRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
 		
 		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
 		
@@ -112,7 +112,7 @@ public class GoFrontendServlet extends HttpServlet {
 	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartMemoryDbDAOMap = (Map<HttpSession, ShoppingCartMemoryDbDAO>)context.getAttribute(ShoppingCartMemoryDbDAOContextListener.SHOPPING_CART_DAO_MAP);
+		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartMemoryDbDAOMap = (Map<HttpSession, ShoppingCartMemoryDbDAO>)context.getAttribute(FrontendMemoryDbDAOContextListener.SHOPPING_CART_DAO_MAP);
 		
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = shoppingCartMemoryDbDAOMap.get(session);
 		

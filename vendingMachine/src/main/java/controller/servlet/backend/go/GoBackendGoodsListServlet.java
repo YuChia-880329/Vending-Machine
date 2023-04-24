@@ -15,7 +15,7 @@ import bean.vo.backend.goodsList.writeout.BackendGoodsListVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsList.prepare.GoBackendGoodsListService;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAOContextListener;
+import dao.memory.repository.backend.goodsList.BackendGoodsListRepositoryDAOContextListener;
 import template.exception.CheckerException;
 import transformer.backend.goodsList.vo.readin.PageParameterVOTransformer;
 import transformer.backend.goodsList.vo.writeout.BackendGoodsListVOTransformer;
@@ -106,7 +106,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 	private GoodsTablePagesRepositoryDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
 		
 		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(GoodsTablePagesRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(BackendGoodsListRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
 		
 		GoodsTablePagesRepositoryDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
 		
