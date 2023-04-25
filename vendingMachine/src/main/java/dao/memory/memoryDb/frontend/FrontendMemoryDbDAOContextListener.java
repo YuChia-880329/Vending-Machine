@@ -16,7 +16,7 @@ public class FrontendMemoryDbDAOContextListener implements ServletContextListene
 	public void contextInitialized(ServletContextEvent sce) {
 		
 		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartDAOMap = new HashMap<>();
-		Map<HttpSession, IllegalMsgMemoryDbDAO> IllegalMsgMemoryDbDAOMap = new HashMap<>();
+		Map<HttpSession, MsgMemoryDbDAO> IllegalMsgMemoryDbDAOMap = new HashMap<>();
 		
 		
 		sce.getServletContext().setAttribute(SHOPPING_CART_DAO_MAP, shoppingCartDAOMap);

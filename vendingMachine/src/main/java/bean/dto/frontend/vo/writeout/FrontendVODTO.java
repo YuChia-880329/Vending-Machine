@@ -2,7 +2,7 @@ package bean.dto.frontend.vo.writeout;
 
 public class FrontendVODTO {
 
-	private IllegalMsgVODTO illegalMsg;
+	private MsgVODTO msg;
 	private ShoppingCartVODTO shoppingCart;
 	private WelcomePartVODTO welcomePart;
 	private GoodsTablePageVODTO goodsTablePage;
@@ -11,10 +11,10 @@ public class FrontendVODTO {
 	
 	public FrontendVODTO() {
 	}
-	public FrontendVODTO(IllegalMsgVODTO illegalMsg, ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, 
+	public FrontendVODTO(MsgVODTO msg, ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, 
 			GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm) {
 
-		this.illegalMsg = illegalMsg;
+		this.msg = msg;
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
@@ -23,8 +23,8 @@ public class FrontendVODTO {
 	
 	
 	
-	public IllegalMsgVODTO getIllegalMsg() {
-		return illegalMsg;
+	public MsgVODTO getMsg() {
+		return msg;
 	}
 	public ShoppingCartVODTO getShoppingCart() {
 		return shoppingCart;
@@ -40,8 +40,8 @@ public class FrontendVODTO {
 	}
 
 	
-	public void setIllegalMsg(IllegalMsgVODTO illegalMsg) {
-		this.illegalMsg = illegalMsg;
+	public void setMsg(MsgVODTO msg) {
+		this.msg = msg;
 	}
 	public void setShoppingCart(ShoppingCartVODTO shoppingCart) {
 		this.shoppingCart = shoppingCart;

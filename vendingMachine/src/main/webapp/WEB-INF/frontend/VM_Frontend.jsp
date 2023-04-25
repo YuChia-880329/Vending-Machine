@@ -343,8 +343,28 @@
 					</div>
      			</div>
      			<div class="modal-footer">
-     				<button class="btn btn-danger me-auto">清空購物車</button>
-  					<button class="btn btn-primary" data-bs-dismiss="modal">確認</button>
+     				<button type="button" class="btn btn-danger me-auto">清空購物車</button>
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	<div class="modal fade">
+ 		<div class="modal-dialog">
+   			<div class="modal-content">
+     			<div class="modal-header">
+       				<h4 class="modal-title">訊息</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body">
+     				<div class="container">
+     					<c:forEach var="" items="">
+     						
+     					</c:forEach>
+					</div>
+     			</div>
+     			<div class="modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>
      			</div>
    			</div>
  		</div>

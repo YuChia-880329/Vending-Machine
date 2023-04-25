@@ -3,9 +3,9 @@ package service.frontend.prepare;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.dto.frontend.obj.memoryDb.illegalMsg.IllegalMsgOBJDTO;
-import bean.dto.frontend.vo.writeout.IllegalMsgVODTO;
-import dao.memory.memoryDb.frontend.IllegalMsgMemoryDbDAO;
+import bean.dto.frontend.obj.memoryDb.msg.MsgOBJDTO;
+import bean.dto.frontend.vo.writeout.MsgVODTO;
+import dao.memory.memoryDb.frontend.MsgMemoryDbDAO;
 import enumeration.Has;
 
 public class IllegalMsgService {
@@ -20,20 +20,20 @@ public class IllegalMsgService {
 		return INSTANCE;
 	}
 	
-	public IllegalMsgVODTO prepare(IllegalMsgMemoryDbDAO illegalMsgMemoryDbDAO) {
+	public MsgVODTO prepare(MsgMemoryDbDAO illegalMsgMemoryDbDAO) {
 		
-		IllegalMsgVODTO illegalMsgVODTO = new IllegalMsgVODTO();
+		MsgVODTO illegalMsgVODTO = new MsgVODTO();
 		illegalMsgVODTO.setHasMsg(Has.FALSE);
-		illegalMsgVODTO.setMsgs(new ArrayList<>());
+		illegalMsgVODTO.setLines(new ArrayList<>());
 		
-		List<IllegalMsgOBJDTO> illegalMsgOBJDTOs = illegalMsgMemoryDbDAO.searchAll();
+		List<MsgOBJDTO> illegalMsgOBJDTOs = illegalMsgMemoryDbDAO.searchAll();
 		
-		for(IllegalMsgOBJDTO illegalMsgOBJDTO : illegalMsgOBJDTOs) {
+		for(MsgOBJDTO illegalMsgOBJDTO : illegalMsgOBJDTOs) {
 			
 			if(illegalMsgOBJDTO.getHasMsg() == Has.TRUE) {
 				
 				illegalMsgVODTO.setHasMsg(Has.FALSE);
-				illegalMsgVODTO.getMsgs().addAll(illegalMsgOBJDTO.getMsgs());
+				illegalMsgVODTO.getLines().addAll(illegalMsgOBJDTO.getLines());
 			}
 		}
 		

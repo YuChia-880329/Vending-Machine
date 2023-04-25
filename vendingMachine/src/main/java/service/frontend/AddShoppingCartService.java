@@ -2,12 +2,12 @@ package service.frontend;
 
 import java.util.ArrayList;
 
-import bean.dto.frontend.obj.memoryDb.illegalMsg.IllegalMsgOBJDTO;
+import bean.dto.frontend.obj.memoryDb.msg.MsgOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
-import dao.memory.memoryDb.frontend.IllegalMsgMemoryDbDAO;
+import dao.memory.memoryDb.frontend.MsgMemoryDbDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import enumeration.Has;
 
@@ -26,13 +26,13 @@ public class AddShoppingCartService {
 	}
 	
 	public AddShoppingCartResultVODTO add(AddShoppingCartVODTO addShoppingCartVODTO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, IllegalMsgMemoryDbDAO illegalMsgMemoryDbDAO) {
+			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, MsgMemoryDbDAO illegalMsgMemoryDbDAO) {
 		
 		AddShoppingCartResultVODTO addShoppingCartResultVODTO = new AddShoppingCartResultVODTO();
 		
-		IllegalMsgOBJDTO illegalMsgOBJDTO = new IllegalMsgOBJDTO();
+		MsgOBJDTO illegalMsgOBJDTO = new MsgOBJDTO();
 		illegalMsgOBJDTO.setHasMsg(Has.FALSE);
-		illegalMsgOBJDTO.setMsgs(new ArrayList<>());
+		illegalMsgOBJDTO.setLines(new ArrayList<>());
 		
 		
 		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartVODTO.getAddShoppingCartGoodsList()) {
@@ -43,7 +43,7 @@ public class AddShoppingCartService {
 			}else {
 				
 				illegalMsgOBJDTO.setHasMsg(Has.TRUE);
-				illegalMsgOBJDTO.getMsgs().add(getIllegalMsg(addShoppingCartGoodsVODTO));
+				illegalMsgOBJDTO.getLines().add(getIllegalMsg(addShoppingCartGoodsVODTO));
 			}
 				
 		}
