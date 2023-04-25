@@ -3,13 +3,13 @@ package service.frontend.prepare;
 import bean.dto.frontend.vo.readin.PageParameterVODTO;
 import bean.dto.frontend.vo.writeout.FrontendVODTO;
 import bean.dto.model.MemberModelDTO;
-import dao.memory.memoryDb.frontend.MsgMemoryDbDAO;
+import dao.memory.memoryDb.frontend.AddShoppingCartMsgMemoryDbDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
 
 public class FrontendService {
 
-	private IllegalMsgService illegalMsgService;
+	private AddShoppingCartMsgService addShoppingCartMsgService;
 	private ShoppingCartService shoppingCartService;
 	private WelcomePartService welcomePartService;
 	private GoodsTablePageService goodsTablePageService;
@@ -20,7 +20,7 @@ public class FrontendService {
 	
 	private FrontendService() {
 		
-		illegalMsgService = IllegalMsgService.getInstance();
+		addShoppingCartMsgService = AddShoppingCartMsgService.getInstance();
 		shoppingCartService = ShoppingCartService.getInstance();
 		welcomePartService = WelcomePartService.getInstance();
 		goodsTablePageService = GoodsTablePageService.getInstance();
@@ -35,7 +35,7 @@ public class FrontendService {
 	
 	public FrontendVODTO prepare(PageParameterVODTO pageParameterVODTO, 
 			String imagesDirectorySymbolicLinkName, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
-			MemberModelDTO memberModelDTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, MsgMemoryDbDAO illegalMsgMemoryDbDAO) {
+			MemberModelDTO memberModelDTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, AddShoppingCartMsgMemoryDbDAO addShoppingCartMsgMemoryDbDAO) {
 		
 		Integer currentPage = pageParameterVODTO.getPage();
 		if(currentPage == null) {
@@ -46,7 +46,7 @@ public class FrontendService {
 		
 		FrontendVODTO frontendVODTO = new FrontendVODTO();
 		
-		frontendVODTO.setMsg(illegalMsgService.prepare(illegalMsgMemoryDbDAO));
+		frontendVODTO.setAddShoppingCartMsg(addShoppingCartMsgService.prepare(addShoppingCartMsgMemoryDbDAO));
 		frontendVODTO.setShoppingCart(shoppingCartService.prepare(shoppingCartMemoryDbDAO));
 		frontendVODTO.setWelcomePart(welcomePartService.prepare(imagesDirectorySymbolicLinkName, memberModelDTO));
 		frontendVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, 

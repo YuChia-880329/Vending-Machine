@@ -1,9 +1,7 @@
 package controller.servlet.frontend;
 
 import java.io.IOException;
-import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +16,8 @@ import bean.vo.frontend.readin.AddShoppingCartVO;
 import bean.vo.frontend.writeout.AddShoppingCartResultVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.memoryDb.frontend.FrontendMemoryDbDAOContextListener;
-import dao.memory.memoryDb.frontend.MsgMemoryDbDAO;
-import memory.database.frontend.MsgMemoryDb;
+import dao.memory.memoryDb.frontend.AddShoppingCartMsgMemoryDbDAO;
+import memory.database.frontend.AddShoppingCartMsgMemoryDb;
 import memory.database.frontend.ShoppingCartMemoryDb;
 import service.frontend.AddShoppingCartService;
 import template.exception.CheckerException;
@@ -58,12 +55,11 @@ public class AddShoppingCartServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
 		AddShoppingCartVO shoppingCartVO = getShoppingCartVO(req);
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = getShoppingCartMemoryDbDAO(context, session);
-		MsgMemoryDbDAO illegalMsgMemoryDbDAO = getIllegalMsgMemoryDbDAO(context, session);
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = getShoppingCartMemoryDbDAO(session);
+		AddShoppingCartMsgMemoryDbDAO illegalMsgMemoryDbDAO = getIllegalMsgMemoryDbDAO(session);
 		try {
 			
 			AddShoppingCartVODTO shoppingCartVODTO = shoppingCartVOTransformer.voToDto(shoppingCartVO);
@@ -84,38 +80,33 @@ public class AddShoppingCartServlet extends HttpServlet {
 		String dataJson = req.getParameter(REQ_PARAM_DATA_JSON);
 		return gson.fromJson(dataJson, AddShoppingCartVO.class);
 	}
-	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(ServletContext context, HttpSession session) {
+	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(HttpSession session) {
 		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartMemoryDbDAOMap = (Map<HttpSession, ShoppingCartMemoryDbDAO>)context.getAttribute(FrontendMemoryDbDAOContextListener.SHOPPING_CART_DAO_MAP);
-	
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = shoppingCartMemoryDbDAOMap.get(session);
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = (ShoppingCartMemoryDbDAO)session.getAttribute(ShoppingCartMemoryDbDAO.DAO);
 		
 		if(shoppingCartMemoryDbDAO == null) {
 			
 			ShoppingCartMemoryDb shoppingCartMemoryDb = new ShoppingCartMemoryDb();
 			shoppingCartMemoryDbDAO = new ShoppingCartMemoryDbDAO(shoppingCartMemoryDb);
-			shoppingCartMemoryDbDAOMap.put(session, shoppingCartMemoryDbDAO);
+			
+			session.setAttribute(ShoppingCartMemoryDbDAO.DAO, shoppingCartMemoryDbDAO);
 		}
 		
 		return shoppingCartMemoryDbDAO;
 	}
-	private MsgMemoryDbDAO getIllegalMsgMemoryDbDAO(ServletContext context, HttpSession session) {
+	private AddShoppingCartMsgMemoryDbDAO getIllegalMsgMemoryDbDAO(HttpSession session) {
 		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, MsgMemoryDbDAO> illegalMsgMemoryDbDAOMap = (Map<HttpSession, MsgMemoryDbDAO>)context.getAttribute(FrontendMemoryDbDAOContextListener.ILLEGAL_MSG_DAO_MAP);
+		AddShoppingCartMsgMemoryDbDAO msgMemoryDbDAO = (AddShoppingCartMsgMemoryDbDAO)session.getAttribute(AddShoppingCartMsgMemoryDbDAO.DAO);
 		
-		MsgMemoryDbDAO illegalMsgMemoryDbDAO = illegalMsgMemoryDbDAOMap.get(session);
-		
-		if(illegalMsgMemoryDbDAO == null) {
+		if(msgMemoryDbDAO == null) {
 			
-			MsgMemoryDb illegalMsgMemoryDb = new MsgMemoryDb();
-			illegalMsgMemoryDbDAO = new MsgMemoryDbDAO(illegalMsgMemoryDb);
+			AddShoppingCartMsgMemoryDb illegalMsgMemoryDb = new AddShoppingCartMsgMemoryDb();
+			msgMemoryDbDAO = new AddShoppingCartMsgMemoryDbDAO(illegalMsgMemoryDb);
 			
-			illegalMsgMemoryDbDAOMap.put(session, illegalMsgMemoryDbDAO);
+			session.setAttribute(AddShoppingCartMsgMemoryDbDAO.DAO, msgMemoryDbDAO);
 		}
 		
-		return illegalMsgMemoryDbDAO;
+		return msgMemoryDbDAO;
 	}
 	
 	private String getRedirectUrl(AddShoppingCartResultVO addShoppingCartResultVO) {

@@ -136,18 +136,6 @@
   	
   	<!-- listener -->
   	<listener>
-  		<listener-class>dao.memory.repository.backend.goodsList.BackendGoodsListRepositoryDAOContextListener</listener-class>
-  	</listener>
-  	<listener>
-  		<listener-class>dao.memory.repository.backend.orderList.BackendOrderListRepositoryDAOContextListener</listener-class>
-  	</listener>
-  	 <listener>
-  		<listener-class>dao.memory.repository.frontend.FrontendRepositoryDAOContextListener</listener-class>
-  	</listener>
-  	<listener>
-  		<listener-class>dao.memory.memoryDb.frontend.FrontendMemoryDbDAOContextListener</listener-class>
-  	</listener>
-  	<listener>
   		<listener-class>listener.ParameterContextListener</listener-class>
   	</listener>
 

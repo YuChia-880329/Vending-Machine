@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.msg-modal-dialog{
+
+	width:30rem;
+}
+.msg-confirm-modal-content{
+
+	background-color:#54B4D3;
+}
+.msg-confirm-modal-header{
+
+	border-bottom:0;
+}
+.msg-confirm-modal-body {
+	
+	min-height : 5rem;
+}
+.msg-confirm-modal-footer{
+
+	border-top:0;
+}
+
+.common-modal-body{
+	min-height : 15rem;
+	max-height : 25rem;
+}

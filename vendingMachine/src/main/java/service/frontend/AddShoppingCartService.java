@@ -1,20 +1,17 @@
 package service.frontend;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import bean.dto.frontend.obj.memoryDb.msg.MsgOBJDTO;
+import bean.dto.frontend.obj.memoryDb.msg.NameOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
-import dao.memory.memoryDb.frontend.MsgMemoryDbDAO;
+import dao.memory.memoryDb.frontend.AddShoppingCartMsgMemoryDbDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import enumeration.Has;
 
 public class AddShoppingCartService {
 
-	private static final String ILLEGAL_MSG_FORMAT = "商品 %s 購買數量超過庫存數量";
-	
 	private static final AddShoppingCartService INSTANCE = new AddShoppingCartService();
 	
 	private AddShoppingCartService() {
@@ -26,35 +23,51 @@ public class AddShoppingCartService {
 	}
 	
 	public AddShoppingCartResultVODTO add(AddShoppingCartVODTO addShoppingCartVODTO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, MsgMemoryDbDAO illegalMsgMemoryDbDAO) {
+			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, AddShoppingCartMsgMemoryDbDAO addShoppingCartMsgMemoryDbDAO) {
 		
 		AddShoppingCartResultVODTO addShoppingCartResultVODTO = new AddShoppingCartResultVODTO();
 		
-		MsgOBJDTO illegalMsgOBJDTO = new MsgOBJDTO();
-		illegalMsgOBJDTO.setHasMsg(Has.FALSE);
-		illegalMsgOBJDTO.setLines(new ArrayList<>());
-		
-		
-		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartVODTO.getAddShoppingCartGoodsList()) {
+		List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsVODTOs = addShoppingCartVODTO.getAddShoppingCartGoodsList();
+		for(int i=1; i<=addShoppingCartGoodsVODTOs.size(); i++) {
 			
-			if(addShoppingCartGoodsVODTO.getBuyQuantity() <= addShoppingCartGoodsVODTO.getQuantity()) {
+			AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO = addShoppingCartGoodsVODTOs.get(i-1);
+			
+			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
 				
 				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
 			}else {
 				
-				illegalMsgOBJDTO.setHasMsg(Has.TRUE);
-				illegalMsgOBJDTO.getLines().add(getIllegalMsg(addShoppingCartGoodsVODTO));
+				addShoppingCartMsgMemoryDbDAO.insert(new NameOBJDTO(i, addShoppingCartGoodsVODTO.getName()));
 			}
 				
 		}
-		illegalMsgMemoryDbDAO.insert(illegalMsgOBJDTO);
+		
 		addShoppingCartResultVODTO.setQueryString(addShoppingCartVODTO.getQueryString());
 		
 		return addShoppingCartResultVODTO;
 	}
+	private boolean isLegal(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
+		
+		int id = addShoppingCartGoodsVODTO.getId();
+		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(id);
+		
+		int buyQuantity = shoppingCartOBJDTO.getBuyQuantity() + addShoppingCartGoodsVODTO.getBuyQuantity();
+		return (buyQuantity <= addShoppingCartGoodsVODTO.getQuantity());
+	}
 	private void addShoppingCartGoods(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
-		shoppingCartMemoryDbDAO.insert(shoppingCartGoodsVOToShoppingCartOBJ(addShoppingCartGoodsVODTO));
+		int id = addShoppingCartGoodsVODTO.getId();
+		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(id);
+		
+		int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
+		int buyQuantity = originBuyQuantity + addShoppingCartGoodsVODTO.getBuyQuantity();
+		addShoppingCartGoodsVODTO.setBuyQuantity(buyQuantity);
+		shoppingCartOBJDTO = shoppingCartGoodsVOToShoppingCartOBJ(addShoppingCartGoodsVODTO);
+		
+		if(originBuyQuantity > 0)
+			shoppingCartMemoryDbDAO.update(shoppingCartOBJDTO);
+		else
+			shoppingCartMemoryDbDAO.insert(shoppingCartOBJDTO);
 	}
 	
 	private ShoppingCartOBJDTO shoppingCartGoodsVOToShoppingCartOBJ(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO) {
@@ -65,9 +78,5 @@ public class AddShoppingCartService {
 		shoppingCartOBJDTO.setBuyQuantity(addShoppingCartGoodsVODTO.getBuyQuantity());
 		
 		return shoppingCartOBJDTO;
-	}
-	private String getIllegalMsg(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO) {
-		
-		return String.format(ILLEGAL_MSG_FORMAT, addShoppingCartGoodsVODTO.getName());
 	}
 }

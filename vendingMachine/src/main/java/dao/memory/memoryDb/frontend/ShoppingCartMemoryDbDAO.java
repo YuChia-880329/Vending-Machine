@@ -8,6 +8,9 @@ import transformer.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJTransformer
 
 public class ShoppingCartMemoryDbDAO extends MemoryDbDAOTemplate<Integer, ShoppingCartOBJ, ShoppingCartMemoryDb, ShoppingCartOBJDTO, ShoppingCartOBJTransformer> {
 
+	public static final String DAO = "shoppingCartMemoryDbDAO";
+	
+	
 	public ShoppingCartMemoryDbDAO(ShoppingCartMemoryDb memory) {
 		
 		super(memory);

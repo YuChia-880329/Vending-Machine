@@ -1,7 +1,6 @@
 package controller.servlet.backend.goodsCreate.ajax;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,7 +18,6 @@ import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.vo.backend.goodsCreate.readin.CreateFormVO;
 import bean.vo.backend.goodsCreate.writeout.CreateResultVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import dao.memory.repository.backend.goodsList.BackendGoodsListRepositoryDAOContextListener;
 import listener.ParameterContextListener;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsCreate.CreateService;
@@ -64,8 +62,8 @@ public class CreateServlet extends HttpServlet {
 		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(context, session);
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = getFrontendGoodsTablePagesRepositoryDAO(context, session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(session);
+		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = getFrontendGoodsTablePagesRepositoryDAO(session);
 		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
 		
 		
@@ -103,38 +101,32 @@ public class CreateServlet extends HttpServlet {
 		
 		return createFormVO;
 	}
-	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
+	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(HttpSession session) {
 		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(BackendGoodsListRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
-		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = (GoodsTablePagesRepositoryDAO)session.getAttribute(GoodsTablePagesRepositoryDAO.DAO);
 		
 		if(goodsTablePagesRepositoryDAO == null) {
 			
 			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
 			goodsTablePagesRepositoryDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
 			
-			goodsTablePagesRepositoryDAOMap.put(session, goodsTablePagesRepositoryDAO);
+			session.setAttribute(GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesRepositoryDAO);
 		}
 		
 		return goodsTablePagesRepositoryDAO;
 	}
-	private dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO getFrontendGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
+	private dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO getFrontendGoodsTablePagesRepositoryDAO(HttpSession session) {
 		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO>)context.getAttribute(dao.memory.repository.frontend.FrontendRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
+		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = (dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO)session.getAttribute(dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO.DAO);
 		
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO GoodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
-		
-		if(GoodsTablePagesRepositoryDAO == null) {
+		if(goodsTablePagesRepositoryDAO == null) {
 			
 			memory.repository.frontend.GoodsTablePagesRepository goodsTablePagesRepository = new memory.repository.frontend.GoodsTablePagesRepository();
-			GoodsTablePagesRepositoryDAO = new dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
+			goodsTablePagesRepositoryDAO = new dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
 			
-			goodsTablePagesRepositoryDAOMap.put(session, GoodsTablePagesRepositoryDAO);
+			session.setAttribute(dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesRepositoryDAO);
 		}
 		
-		return GoodsTablePagesRepositoryDAO;
+		return goodsTablePagesRepositoryDAO;
 	}
 }

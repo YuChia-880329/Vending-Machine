@@ -36,9 +36,7 @@ public abstract class MemoryDbDAOTemplate<P, O, M extends MemoryDbTemplate<P, O>
 		return transformer.paoToDto(
 				new PKAndObject<>(pk, memory.update(pk, transformer.getObjByDto(dto))));
 	}
-	public D delete(D dto) {
-		
-		P pk = transformer.getPkByDto(dto);
+	public D delete(P pk) {
 		
 		return transformer.paoToDto(
 				new PKAndObject<>(pk, memory.delete(pk)));

@@ -10,14 +10,18 @@
 	<title>販賣機</title>
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/common.css">
 	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/util.js"></script>
 
-	
+
 	<script type="text/javascript">
 
+		let addShoppingCartMsgModalId = 'add_shopping_cart_msg_modal';
+		let addShoppingCartMsgOkBtnId = 'add_shopping_cart_msg_ok_btn';
+		
 		let filterForm = 'filter_form';
 		let filterBtnId = 'filter_btn';
 		let allGoodsBtnId = 'all_goods_btn';
@@ -46,10 +50,16 @@
 		
 		function readyFctn(){
 			
+			showMsgModal();
 			$('#' + filterBtnId).click(filterBtnClicked);
 			$('#' + allGoodsBtnId).click(allGoodsBtnClicked);
 			$('#' + addShoppingCartBtnId).click(addShoppingCartBtnClicked);
 			$('#' + addShoppingCartOkBtnId).click(addShoppingCartOkBtnClicked);
+		}
+		function showMsgModal(){
+			
+			if('${vo.addShoppingCartMsg.hasMsg}' == 'true')
+				new bootstrap.Modal('#' + addShoppingCartMsgModalId, {}).show();
 		}
 		
 		function filterBtnClicked(){
@@ -118,13 +128,6 @@
 			$('#' + addShoppingCartFormId).submit();
 		}
 		
-		function showIllegalMsgModal(){
-			
-			if(${vo.illegalMsg.hasMsg} == 'true'){
-				
-				
-			}
-		}
 
 	</script>
 </head>
@@ -295,13 +298,13 @@
 	
 	
 	<div class="modal fade" id="add_shopping_cart_modal">
- 		<div class="modal-dialog">
+ 		<div class="modal-dialog modal-dialog-scrollable">
    			<div class="modal-content">
      			<div class="modal-header">
        				<h4 class="modal-title">即將加入購物車</h4>
        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
      			</div>
-     			<div class="modal-body">
+     			<div class="modal-body common-modal-body">
      				<div class="container text-center" id="add_shopping_cart_body_content_div"></div>
      			</div>
      			<div class="modal-footer">
@@ -316,13 +319,13 @@
 	</form>
 	
 	<div class="modal fade" id="shopping_cart_modal">
- 		<div class="modal-dialog">
+ 		<div class="modal-dialog modal-dialog-scrollable">
    			<div class="modal-content">
      			<div class="modal-header">
        				<h4 class="modal-title">購物車</h4>
        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
      			</div>
-     			<div class="modal-body">
+     			<div class="modal-body common-modal-body">
      				<div class="container">
      					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsArray}">
      						<div>
@@ -349,26 +352,32 @@
    			</div>
  		</div>
 	</div>
-	<div class="modal fade">
- 		<div class="modal-dialog">
-   			<div class="modal-content">
-     			<div class="modal-header">
-       				<h4 class="modal-title">訊息</h4>
-       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-     			</div>
-     			<div class="modal-body">
-     				<div class="container">
-     					<c:forEach var="" items="">
-     						
-     					</c:forEach>
-					</div>
-     			</div>
-     			<div class="modal-footer">
-  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>
-     			</div>
-   			</div>
- 		</div>
-	</div>
+	
+	<c:if test="${vo.addShoppingCartMsg.hasMsg == 'true'}">
+		<div class="modal fade" id="add_shopping_cart_msg_modal">
+	 		<div class="modal-dialog msg-modal-dialog">
+	   			<div class="modal-content msg-modal-content">
+	     			<div class="modal-header msg-modal-header">
+	       				<h4 class="modal-title">警告</h4>
+	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	     			</div>
+	     			<div class="modal-body msg-modal-body">
+	     				<div class="container">
+	     					<c:forEach var="name" items="${vo.addShoppingCartMsg.names}">
+	     						<p>
+	     							商品 <span class="text-secondary">${name}</span> 購買數量大於庫存數量
+	     						</p>
+	     					</c:forEach>
+						</div>
+	     			</div>
+	     			<div class="modal-footer msg-modal-footer">
+	  					<button type="button" class="btn btn-primary" id="add_shopping_cart_msg_ok_btn" data-bs-dismiss="modal">確認</button>
+	     			</div>
+	   			</div>
+	 		</div>
+		</div>
+	</c:if>
+	
 	
 	
 	<c:forEach var="goodsTableEntry" items="${vo.goodsTablePage.goodsTable.goodsTableEntries}">

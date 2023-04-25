@@ -2,7 +2,7 @@ package bean.vo.frontend.writeout;
 
 public class FrontendVO {
 
-	private MsgVO msg;
+	private AddShoppingCartMsgVO addShoppingCartMsg;
 	private ShoppingCartVO shoppingCart;
 	private WelcomePartVO welcomePart;
 	private GoodsTablePageVO goodsTablePage;
@@ -11,20 +11,18 @@ public class FrontendVO {
 	
 	public FrontendVO() {
 	}
-	public FrontendVO(MsgVO msg, ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, 
+	public FrontendVO(AddShoppingCartMsgVO addShoppingCartMsg, ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, 
 			GoodsTablePageVO goodsTablePage, FilterFormVO filterForm) {
 
-		this.msg = msg;
+		this.addShoppingCartMsg = addShoppingCartMsg;
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
 	}
 	
 	
-	
-	
-	public MsgVO getMsg() {
-		return msg;
+	public AddShoppingCartMsgVO getAddShoppingCartMsg() {
+		return addShoppingCartMsg;
 	}
 	public ShoppingCartVO getShoppingCart() {
 		return shoppingCart;
@@ -40,8 +38,8 @@ public class FrontendVO {
 	}
 
 	
-	public void setMsg(MsgVO msg) {
-		this.msg = msg;
+	public void setAddShoppingCartMsg(AddShoppingCartMsgVO addShoppingCartMsg) {
+		this.addShoppingCartMsg = addShoppingCartMsg;
 	}
 	public void setShoppingCart(ShoppingCartVO shoppingCart) {
 		this.shoppingCart = shoppingCart;

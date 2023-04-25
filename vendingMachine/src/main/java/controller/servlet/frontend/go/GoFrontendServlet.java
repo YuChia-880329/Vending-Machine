@@ -1,7 +1,6 @@
 package controller.servlet.frontend.go;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -16,12 +15,10 @@ import bean.dto.model.MemberModelDTO;
 import bean.vo.frontend.readin.PageParameterVO;
 import bean.vo.frontend.writeout.FrontendVO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.memoryDb.frontend.FrontendMemoryDbDAOContextListener;
-import dao.memory.memoryDb.frontend.MsgMemoryDbDAO;
+import dao.memory.memoryDb.frontend.AddShoppingCartMsgMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
-import dao.memory.repository.frontend.FrontendRepositoryDAOContextListener;
 import listener.ParameterContextListener;
-import memory.database.frontend.MsgMemoryDb;
+import memory.database.frontend.AddShoppingCartMsgMemoryDb;
 import memory.database.frontend.ShoppingCartMemoryDb;
 import memory.repository.frontend.GoodsTablePagesRepository;
 import service.frontend.prepare.FrontendService;
@@ -68,11 +65,11 @@ public class GoFrontendServlet extends HttpServlet {
 			MemberModelDTO memberModelDTO = new MemberModelDTO("test", "test", "test");
 			PageParameterVODTO pageParameterVODTO = pageParameterVOTransformer.voToDto(pageParameterVO);
 			String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
-			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(context, session);
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = getShoppingCartMemoryDbDAO(context, session);
-			MsgMemoryDbDAO illegalMsgMemoryDbDAO = getIllegalMsgMemoryDbDAO(context, session);
+			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(session);
+			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = getShoppingCartMemoryDbDAO(session);
+			AddShoppingCartMsgMemoryDbDAO addShoppingCartMsgMemoryDbDAO = getAddShoppingCartMsgMemoryDbDAO(session);
 			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, imagesDirectorySymbolicLinkName, 
-					goodsTablePagesRepositoryDAO, memberModelDTO, shoppingCartMemoryDbDAO, illegalMsgMemoryDbDAO);
+					goodsTablePagesRepositoryDAO, memberModelDTO, shoppingCartMemoryDbDAO, addShoppingCartMsgMemoryDbDAO);
 			FrontendVO frontendVO = frontendVOTransformer.dtoToVo(frontendVODTO);
 			
 			req.setAttribute(REQ_ATTR_VO, frontendVO);
@@ -95,55 +92,46 @@ public class GoFrontendServlet extends HttpServlet {
 		
 		return pageParameterVO;
 	}
-	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(ServletContext context, HttpSession session) {
-		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesRepositoryDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(FrontendRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
-		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = goodsTablePagesRepositoryDAOMap.get(session);
+	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(HttpSession session) {
+
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = (GoodsTablePagesRepositoryDAO)session.getAttribute(GoodsTablePagesRepositoryDAO.DAO);
 		
 		if(goodsTablePagesRepositoryDAO == null) {
 			
 			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
 			goodsTablePagesRepositoryDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
 			
-			goodsTablePagesRepositoryDAOMap.put(session, goodsTablePagesRepositoryDAO);
+			session.setAttribute(GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesRepositoryDAO);
 		}
 		
 		return goodsTablePagesRepositoryDAO;
 	}
-	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(ServletContext context, HttpSession session) {
+	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(HttpSession session) {
 		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, ShoppingCartMemoryDbDAO> shoppingCartMemoryDbDAOMap = (Map<HttpSession, ShoppingCartMemoryDbDAO>)context.getAttribute(FrontendMemoryDbDAOContextListener.SHOPPING_CART_DAO_MAP);
-		
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = shoppingCartMemoryDbDAOMap.get(session);
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = (ShoppingCartMemoryDbDAO)session.getAttribute(ShoppingCartMemoryDbDAO.DAO);
 		
 		if(shoppingCartMemoryDbDAO == null) {
 			
 			ShoppingCartMemoryDb shoppingCartMemoryDb = new ShoppingCartMemoryDb();
 			shoppingCartMemoryDbDAO = new ShoppingCartMemoryDbDAO(shoppingCartMemoryDb);
 			
-			shoppingCartMemoryDbDAOMap.put(session, shoppingCartMemoryDbDAO);
+			session.setAttribute(ShoppingCartMemoryDbDAO.DAO, shoppingCartMemoryDbDAO);
 		}
 		
 		return shoppingCartMemoryDbDAO;
 	}
-	private MsgMemoryDbDAO getIllegalMsgMemoryDbDAO(ServletContext context, HttpSession session) {
+	private AddShoppingCartMsgMemoryDbDAO getAddShoppingCartMsgMemoryDbDAO(HttpSession session) {
 		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, MsgMemoryDbDAO> illegalMsgMemoryDbDAOMap = (Map<HttpSession, MsgMemoryDbDAO>)context.getAttribute(FrontendMemoryDbDAOContextListener.ILLEGAL_MSG_DAO_MAP);
+		AddShoppingCartMsgMemoryDbDAO addShoppingCartMsgMemoryDbDAO = (AddShoppingCartMsgMemoryDbDAO)session.getAttribute(AddShoppingCartMsgMemoryDbDAO.DAO);
 		
-		MsgMemoryDbDAO illegalMsgMemoryDbDAO = illegalMsgMemoryDbDAOMap.get(session);
-		
-		if(illegalMsgMemoryDbDAO == null) {
+		if(addShoppingCartMsgMemoryDbDAO == null) {
 			
-			MsgMemoryDb illegalMsgMemoryDb = new MsgMemoryDb();
-			illegalMsgMemoryDbDAO = new MsgMemoryDbDAO(illegalMsgMemoryDb);
+			AddShoppingCartMsgMemoryDb addShoppingCartMsgMemoryDb = new AddShoppingCartMsgMemoryDb();
+			addShoppingCartMsgMemoryDbDAO = new AddShoppingCartMsgMemoryDbDAO(addShoppingCartMsgMemoryDb);
 			
-			illegalMsgMemoryDbDAOMap.put(session, illegalMsgMemoryDbDAO);
+			session.setAttribute(AddShoppingCartMsgMemoryDbDAO.DAO, addShoppingCartMsgMemoryDbDAO);
 		}
 		
-		return illegalMsgMemoryDbDAO;
+		return addShoppingCartMsgMemoryDbDAO;
 	}
 }

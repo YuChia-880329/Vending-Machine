@@ -13,6 +13,9 @@ public class OrderTablePagesRepositoryDAO extends RepositoryDAOTemplate<OrderTab
 			OrderTablePagesOBJ, OrderTablePagesInputOBJDTO, OrderTablePagesOBJDTO, 
 			OrderTablePagesRepository, OrderTablePagesInputOBJTransformer, OrderTablePagesOBJTransformer> {
 
+	public static final String DAO = "orderTablePagesRepositoryDAO";
+	
+	
 	public OrderTablePagesRepositoryDAO(OrderTablePagesRepository repository) {
 		
 		super(repository);

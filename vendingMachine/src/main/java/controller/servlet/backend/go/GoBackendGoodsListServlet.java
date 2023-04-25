@@ -1,9 +1,7 @@
 package controller.servlet.backend.go;
 
 import java.io.IOException;
-import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +13,6 @@ import bean.vo.backend.goodsList.writeout.BackendGoodsListVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsList.prepare.GoBackendGoodsListService;
-import dao.memory.repository.backend.goodsList.BackendGoodsListRepositoryDAOContextListener;
 import template.exception.CheckerException;
 import transformer.backend.goodsList.vo.readin.PageParameterVOTransformer;
 import transformer.backend.goodsList.vo.writeout.BackendGoodsListVOTransformer;
@@ -56,10 +53,9 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesDAO(context, session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesDAO(session);
 		PageParameterVO pageParamterVO = getPageParameter(req);
 		try {
 			
@@ -103,19 +99,16 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		return pageParameter;
 	}
 	
-	private GoodsTablePagesRepositoryDAO getGoodsTablePagesDAO(ServletContext context, HttpSession session) {
+	private GoodsTablePagesRepositoryDAO getGoodsTablePagesDAO(HttpSession session) {
 		
-		@SuppressWarnings("unchecked")
-		Map<HttpSession, GoodsTablePagesRepositoryDAO> goodsTablePagesDAOMap = (Map<HttpSession, GoodsTablePagesRepositoryDAO>)context.getAttribute(BackendGoodsListRepositoryDAOContextListener.GOODS_TABLE_PAGES_DAO_MAP);
-		
-		GoodsTablePagesRepositoryDAO goodsTablePagesDAO = goodsTablePagesDAOMap.get(session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesDAO = (GoodsTablePagesRepositoryDAO)session.getAttribute(GoodsTablePagesRepositoryDAO.DAO);
 		
 		if(goodsTablePagesDAO == null) {
 			
 			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
 			goodsTablePagesDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
 			
-			goodsTablePagesDAOMap.put(session, goodsTablePagesDAO);
+			session.setAttribute(GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesDAO);
 		}
 		
 		return goodsTablePagesDAO;
