@@ -365,7 +365,7 @@
 	     				<div class="container">
 	     					<c:forEach var="name" items="${vo.addShoppingCartMsg.names}">
 	     						<p>
-	     							商品 <span class="text-secondary">${name}</span> 購買數量大於庫存數量
+	     							商品 <span class="text-danger">${name}</span> 購買數量大於庫存數量
 	     						</p>
 	     					</c:forEach>
 						</div>

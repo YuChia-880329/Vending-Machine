@@ -2,7 +2,7 @@ package service.frontend;
 
 import java.util.List;
 
-import bean.dto.frontend.obj.memoryDb.msg.NameOBJDTO;
+import bean.dto.frontend.obj.memoryDb.addShoppingCartMsg.AddShoppingCartMsgOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
@@ -37,7 +37,7 @@ public class AddShoppingCartService {
 				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
 			}else {
 				
-				addShoppingCartMsgMemoryDbDAO.insert(new NameOBJDTO(i, addShoppingCartGoodsVODTO.getName()));
+				addShoppingCartMsgMemoryDbDAO.insert(new AddShoppingCartMsgOBJDTO(i, addShoppingCartGoodsVODTO.getName()));
 			}
 				
 		}

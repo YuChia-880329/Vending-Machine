@@ -2,14 +2,14 @@ package dao.memory.memoryDb.frontend;
 
 import java.util.List;
 
-import bean.dto.frontend.obj.memoryDb.msg.NameOBJDTO;
-import bean.obj.frontend.memoryDb.addShoppingCartMsg.NameOBJ;
+import bean.dto.frontend.obj.memoryDb.addShoppingCartMsg.AddShoppingCartMsgOBJDTO;
+import bean.obj.frontend.memoryDb.addShoppingCartMsg.AddShoppingCartMsgOBJ;
 import memory.database.frontend.AddShoppingCartMsgMemoryDb;
 import template.memory.database.MemoryDbDAOTemplate;
-import transformer.frontend.obj.memoryDb.shoppingCart.AddShoppingCartMsgOBJTransformer;
+import transformer.frontend.obj.memoryDb.addShoppingCartMsg.AddShoppingCartMsgOBJTransformer;
 
 public class AddShoppingCartMsgMemoryDbDAO extends MemoryDbDAOTemplate<Integer, 
-				NameOBJ, AddShoppingCartMsgMemoryDb, NameOBJDTO, 
+				AddShoppingCartMsgOBJ, AddShoppingCartMsgMemoryDb, AddShoppingCartMsgOBJDTO, 
 				AddShoppingCartMsgOBJTransformer> {
 
 	public static final String DAO = "addShoppingCartMsgMemoryDbDAO";
@@ -27,9 +27,9 @@ public class AddShoppingCartMsgMemoryDbDAO extends MemoryDbDAOTemplate<Integer,
 	
 	private void deleteAll() {
 		
-		List<NameOBJDTO> nameOBJDTOs = searchAll();
+		List<AddShoppingCartMsgOBJDTO> nameOBJDTOs = searchAll();
 		
-		for(NameOBJDTO nameOBJDTO : nameOBJDTOs) {
+		for(AddShoppingCartMsgOBJDTO nameOBJDTO : nameOBJDTOs) {
 			
 			delete(nameOBJDTO.getId());
 		}

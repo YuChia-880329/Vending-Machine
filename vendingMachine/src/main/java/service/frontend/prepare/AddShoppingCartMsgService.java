@@ -3,7 +3,7 @@ package service.frontend.prepare;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import bean.dto.frontend.obj.memoryDb.msg.NameOBJDTO;
+import bean.dto.frontend.obj.memoryDb.addShoppingCartMsg.AddShoppingCartMsgOBJDTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartMsgVODTO;
 import dao.memory.memoryDb.frontend.AddShoppingCartMsgMemoryDbDAO;
 import enumeration.Has;
@@ -24,7 +24,7 @@ public class AddShoppingCartMsgService {
 		
 		AddShoppingCartMsgVODTO addShoppingCartMsgVODTO = new AddShoppingCartMsgVODTO();
 		
-		List<NameOBJDTO> nameOBJDTOs = addShoppingCartMsgMemoryDbDAO.searchAll();
+		List<AddShoppingCartMsgOBJDTO> nameOBJDTOs = addShoppingCartMsgMemoryDbDAO.searchAll();
 		
 		addShoppingCartMsgVODTO.setHasMsg(nameOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
 		addShoppingCartMsgVODTO.setNames(msgOBJToMsgVO(nameOBJDTOs));
@@ -34,14 +34,14 @@ public class AddShoppingCartMsgService {
 		return addShoppingCartMsgVODTO;
 	}
 	
-	private List<String> msgOBJToMsgVO(List<NameOBJDTO> nameOBJDTOs) {
+	private List<String> msgOBJToMsgVO(List<AddShoppingCartMsgOBJDTO> nameOBJDTOs) {
 		
 		return nameOBJDTOs.stream()
 				.map(nameOBJDTO -> msgOBJToMsgVO(nameOBJDTO))
 				.collect(Collectors.toList());
 	}
 
-	private String msgOBJToMsgVO(NameOBJDTO nameOBJDTO) {
+	private String msgOBJToMsgVO(AddShoppingCartMsgOBJDTO nameOBJDTO) {
 		
 		return nameOBJDTO.getName();
 	}

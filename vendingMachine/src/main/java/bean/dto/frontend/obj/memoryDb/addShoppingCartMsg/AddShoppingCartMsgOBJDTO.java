@@ -1,13 +1,13 @@
-package bean.dto.frontend.obj.memoryDb.msg;
+package bean.dto.frontend.obj.memoryDb.addShoppingCartMsg;
 
-public class NameOBJDTO {
+public class AddShoppingCartMsgOBJDTO {
 
 	private int id;
 	private String name;
 
-	public NameOBJDTO() {
+	public AddShoppingCartMsgOBJDTO() {
 	}
-	public NameOBJDTO(int id, String name) {
+	public AddShoppingCartMsgOBJDTO(int id, String name) {
 
 		this.id = id;
 		this.name = name;

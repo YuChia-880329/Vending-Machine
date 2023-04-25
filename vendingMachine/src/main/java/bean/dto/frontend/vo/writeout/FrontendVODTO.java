@@ -3,6 +3,7 @@ package bean.dto.frontend.vo.writeout;
 public class FrontendVODTO {
 
 	private AddShoppingCartMsgVODTO addShoppingCartMsg;
+	private ClearShoppingCartMsgVODTO clearShoppingCartMsg;
 	private ShoppingCartVODTO shoppingCart;
 	private WelcomePartVODTO welcomePart;
 	private GoodsTablePageVODTO goodsTablePage;
@@ -11,10 +12,11 @@ public class FrontendVODTO {
 	
 	public FrontendVODTO() {
 	}
-	public FrontendVODTO(AddShoppingCartMsgVODTO addShoppingCartMsg, ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, 
-			GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm) {
+	public FrontendVODTO(AddShoppingCartMsgVODTO addShoppingCartMsg, ClearShoppingCartMsgVODTO clearShoppingCartMsg, 
+			ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm) {
 
 		this.addShoppingCartMsg = addShoppingCartMsg;
+		this.clearShoppingCartMsg = clearShoppingCartMsg;
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
@@ -25,6 +27,9 @@ public class FrontendVODTO {
 	
 	public AddShoppingCartMsgVODTO getAddShoppingCartMsg() {
 		return addShoppingCartMsg;
+	}
+	public ClearShoppingCartMsgVODTO getClearShoppingCartMsg() {
+		return clearShoppingCartMsg;
 	}
 	public ShoppingCartVODTO getShoppingCart() {
 		return shoppingCart;
@@ -42,6 +47,9 @@ public class FrontendVODTO {
 	
 	public void setAddShoppingCartMsg(AddShoppingCartMsgVODTO addShoppingCartMsg) {
 		this.addShoppingCartMsg = addShoppingCartMsg;
+	}
+	public void setClearShoppingCartMsg(ClearShoppingCartMsgVODTO clearShoppingCartMsg) {
+		this.clearShoppingCartMsg = clearShoppingCartMsg;
 	}
 	public void setShoppingCart(ShoppingCartVODTO shoppingCart) {
 		this.shoppingCart = shoppingCart;

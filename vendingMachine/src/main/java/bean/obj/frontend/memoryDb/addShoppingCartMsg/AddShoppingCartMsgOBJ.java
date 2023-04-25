@@ -1,12 +1,12 @@
 package bean.obj.frontend.memoryDb.addShoppingCartMsg;
 
-public class NameOBJ {
+public class AddShoppingCartMsgOBJ {
 
 	private String name;
 
-	public NameOBJ() {
+	public AddShoppingCartMsgOBJ() {
 	}
-	public NameOBJ(String name) {
+	public AddShoppingCartMsgOBJ(String name) {
 
 		this.name = name;
 	}

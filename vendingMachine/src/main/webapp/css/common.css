@@ -4,19 +4,19 @@
 
 	width:30rem;
 }
-.msg-confirm-modal-content{
+.msg-modal-content{
 
 	background-color:#54B4D3;
 }
-.msg-confirm-modal-header{
+.msg-modal-header{
 
 	border-bottom:0;
 }
-.msg-confirm-modal-body {
+.msg-modal-body {
 	
 	min-height : 5rem;
 }
-.msg-confirm-modal-footer{
+.msg-modal-footer{
 
 	border-top:0;
 }
