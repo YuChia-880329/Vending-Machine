@@ -1,13 +1,13 @@
-package bean.dto.frontend.obj.cache.addShoppingCartMsg;
+package bean.dto.frontend.obj.cache.addShoppingCartMsgLine;
 
-public class AddShoppingCartMsgOBJDTO {
+public class AddShoppingCartMsgLineOBJDTO {
 
 	private String name;
 	private int addQuantity;
 
-	public AddShoppingCartMsgOBJDTO() {
+	public AddShoppingCartMsgLineOBJDTO() {
 	}
-	public AddShoppingCartMsgOBJDTO(String name, int addQuantity) {
+	public AddShoppingCartMsgLineOBJDTO(String name, int addQuantity) {
 
 		this.name = name;
 		this.addQuantity = addQuantity;

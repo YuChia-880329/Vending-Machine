@@ -1,13 +1,13 @@
-package bean.obj.frontend.cache.addShoppingCartMsg;
+package bean.obj.frontend.cache.addShoppingCartMsgLine;
 
-public class AddShoppingCartMsgOBJ {
+public class AddShoppingCartMsgLineOBJ {
 
 	private String name;
 	private int addQuantity;
 
-	public AddShoppingCartMsgOBJ() {
+	public AddShoppingCartMsgLineOBJ() {
 	}
-	public AddShoppingCartMsgOBJ(String name, int addQuantity) {
+	public AddShoppingCartMsgLineOBJ(String name, int addQuantity) {
 
 		this.name = name;
 		this.addQuantity = addQuantity;

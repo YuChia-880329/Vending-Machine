@@ -15,7 +15,8 @@ import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
 import bean.vo.frontend.readin.AddShoppingCartVO;
 import bean.vo.frontend.writeout.AddShoppingCartResultVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import service.frontend.AddShoppingCartService;
 import template.exception.CheckerException;
@@ -56,13 +57,16 @@ public class AddShoppingCartServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		AddShoppingCartVO shoppingCartVO = getShoppingCartVO(req);
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = ServletUtil.getShoppingCartMemoryDbDAO(session);
-		AddShoppingCartIllegalMsgCacheDAO addShoppingCartMsgCacheDAO = ServletUtil.getAddShoppingCartIllegalMsgCacheDAO(session);
+		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getAddShoppingCartIllegalMsgLineCacheDAO(session);
+		AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO = ServletUtil.getAddShoppingCartMsgLineCacheDAO(session);
+
+		AddShoppingCartVO shoppingCartVO = getShoppingCartVO(req);
 		try {
 			
 			AddShoppingCartVODTO shoppingCartVODTO = shoppingCartVOTransformer.voToDto(shoppingCartVO);
-			AddShoppingCartResultVODTO addShoppingCartResultVODTO = addShoppingCartService.add(shoppingCartVODTO, shoppingCartMemoryDbDAO, addShoppingCartMsgCacheDAO);
+			AddShoppingCartResultVODTO addShoppingCartResultVODTO = addShoppingCartService.add(shoppingCartVODTO, shoppingCartMemoryDbDAO, 
+					addShoppingCartIllegalMsgLineCacheDAO, addShoppingCartMsgLineCacheDAO);
 			AddShoppingCartResultVO addShoppingCartResultVO = addShoppingCartResultVOTransformer.dtoToVo(addShoppingCartResultVODTO);
 			
 			String url = getRedirectUrl(addShoppingCartResultVO);

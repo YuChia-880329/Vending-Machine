@@ -5,15 +5,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgCacheDAO;
-import dao.memory.cache.frontend.AddShoppingCartMsgCacheDAO;
-import dao.memory.cache.frontend.ClearShoppingCartMsgCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
+import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
-import memory.cache.frontend.AddShoppingCartIllegalMsgCache;
-import memory.cache.frontend.AddShoppingCartMsgCache;
-import memory.cache.frontend.ClearShoppingCartMsgCache;
+import memory.cache.frontend.AddShoppingCartIllegalMsgLineCache;
+import memory.cache.frontend.AddShoppingCartMsgLineCache;
+import memory.cache.frontend.ClearShoppingCartMsgLineCache;
 import memory.database.frontend.ShoppingCartMemoryDb;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import memory.repository.backend.orderList.OrderTablePagesRepository;
@@ -96,45 +96,45 @@ public class ServletUtil {
 	
 	
 	
-	public static AddShoppingCartIllegalMsgCacheDAO getAddShoppingCartIllegalMsgCacheDAO(HttpSession session) {
+	public static AddShoppingCartIllegalMsgLineCacheDAO getAddShoppingCartIllegalMsgLineCacheDAO(HttpSession session) {
 		
-		AddShoppingCartIllegalMsgCacheDAO addShoppingCartIllegalMsgCacheDAO = (AddShoppingCartIllegalMsgCacheDAO)session.getAttribute(AddShoppingCartIllegalMsgCacheDAO.SESSION_ATTR_DAO);
+		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = (AddShoppingCartIllegalMsgLineCacheDAO)session.getAttribute(AddShoppingCartIllegalMsgLineCacheDAO.SESSION_ATTR_DAO);
 		
-		if(addShoppingCartIllegalMsgCacheDAO == null) {
+		if(addShoppingCartIllegalMsgLineCacheDAO == null) {
 			
-			AddShoppingCartIllegalMsgCache addShoppingCartIllegalMsgCache = new AddShoppingCartIllegalMsgCache();
-			addShoppingCartIllegalMsgCacheDAO = new AddShoppingCartIllegalMsgCacheDAO(addShoppingCartIllegalMsgCache);
+			AddShoppingCartIllegalMsgLineCache addShoppingCartIllegalMsgLineCache = new AddShoppingCartIllegalMsgLineCache();
+			addShoppingCartIllegalMsgLineCacheDAO = new AddShoppingCartIllegalMsgLineCacheDAO(addShoppingCartIllegalMsgLineCache);
 			
-			session.setAttribute(AddShoppingCartIllegalMsgCacheDAO.SESSION_ATTR_DAO, addShoppingCartIllegalMsgCacheDAO);
+			session.setAttribute(AddShoppingCartIllegalMsgLineCacheDAO.SESSION_ATTR_DAO, addShoppingCartIllegalMsgLineCacheDAO);
 		}
 		
-		return addShoppingCartIllegalMsgCacheDAO;
+		return addShoppingCartIllegalMsgLineCacheDAO;
 	}
-	public static AddShoppingCartMsgCacheDAO getAddShoppingCartMsgCacheDAO(HttpSession session) {
+	public static AddShoppingCartMsgLineCacheDAO getAddShoppingCartMsgLineCacheDAO(HttpSession session) {
 		
-		AddShoppingCartMsgCacheDAO addShoppingCartMsgCacheDAO = (AddShoppingCartMsgCacheDAO)session.getAttribute(AddShoppingCartMsgCacheDAO.SESSION_ATTR_DAO);
+		AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO = (AddShoppingCartMsgLineCacheDAO)session.getAttribute(AddShoppingCartMsgLineCacheDAO.SESSION_ATTR_DAO);
 		
-		if(addShoppingCartMsgCacheDAO == null) {
+		if(addShoppingCartMsgLineCacheDAO == null) {
 			
-			AddShoppingCartMsgCache addShoppingCartMsgCache = new AddShoppingCartMsgCache();
-			addShoppingCartMsgCacheDAO = new AddShoppingCartMsgCacheDAO(addShoppingCartMsgCache);
+			AddShoppingCartMsgLineCache addShoppingCartMsgLineCache = new AddShoppingCartMsgLineCache();
+			addShoppingCartMsgLineCacheDAO = new AddShoppingCartMsgLineCacheDAO(addShoppingCartMsgLineCache);
 			
-			session.setAttribute(AddShoppingCartMsgCacheDAO.SESSION_ATTR_DAO, addShoppingCartMsgCacheDAO);
+			session.setAttribute(AddShoppingCartMsgLineCacheDAO.SESSION_ATTR_DAO, addShoppingCartMsgLineCacheDAO);
 		}
 		
-		return addShoppingCartMsgCacheDAO;
+		return addShoppingCartMsgLineCacheDAO;
 	}
-	public static ClearShoppingCartMsgCacheDAO getClearShoppingCartMsgCacheDAO(HttpSession session) {
+	public static ClearShoppingCartMsgLineCacheDAO getClearShoppingCartMsgLineCacheDAO(HttpSession session) {
 		
-		ClearShoppingCartMsgCacheDAO clearShoppingCartMsgCacheDAO = (ClearShoppingCartMsgCacheDAO)session.getAttribute(ClearShoppingCartMsgCacheDAO.SESSION_ATTR_DAO);
+		ClearShoppingCartMsgLineCacheDAO clearShoppingCartMsgLineCacheDAO = (ClearShoppingCartMsgLineCacheDAO)session.getAttribute(ClearShoppingCartMsgLineCacheDAO.SESSION_ATTR_DAO);
 		
-		if(clearShoppingCartMsgCacheDAO == null) {
+		if(clearShoppingCartMsgLineCacheDAO == null) {
 			
-			ClearShoppingCartMsgCache clearShoppingCartMsgCache = new ClearShoppingCartMsgCache();
-			clearShoppingCartMsgCacheDAO = new ClearShoppingCartMsgCacheDAO(clearShoppingCartMsgCache);
+			ClearShoppingCartMsgLineCache clearShoppingCartMsgLineCache = new ClearShoppingCartMsgLineCache();
+			clearShoppingCartMsgLineCacheDAO = new ClearShoppingCartMsgLineCacheDAO(clearShoppingCartMsgLineCache);
 			
-			session.setAttribute(ClearShoppingCartMsgCacheDAO.SESSION_ATTR_DAO, clearShoppingCartMsgCacheDAO);		}
+			session.setAttribute(ClearShoppingCartMsgLineCacheDAO.SESSION_ATTR_DAO, clearShoppingCartMsgLineCacheDAO);		}
 		
-		return clearShoppingCartMsgCacheDAO;
+		return clearShoppingCartMsgLineCacheDAO;
 	}
 }

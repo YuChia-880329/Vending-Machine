@@ -2,12 +2,14 @@ package service.frontend;
 
 import java.util.List;
 
-import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsg.AddShoppingCartIllegalMsgOBJDTO;
+import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCartIllegalMsgLineOBJDTO;
+import bean.dto.frontend.obj.cache.addShoppingCartMsgLine.AddShoppingCartMsgLineOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 
 public class AddShoppingCartService {
@@ -23,7 +25,9 @@ public class AddShoppingCartService {
 	}
 	
 	public AddShoppingCartResultVODTO add(AddShoppingCartVODTO addShoppingCartVODTO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, AddShoppingCartIllegalMsgCacheDAO addShoppingCartMsgCacheDAO) {
+			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
+			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, 
+			AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO) {
 		
 		AddShoppingCartResultVODTO addShoppingCartResultVODTO = new AddShoppingCartResultVODTO();
 		
@@ -34,10 +38,11 @@ public class AddShoppingCartService {
 			
 			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
 				
+				addShoppingCartMsgLineCacheDAO.save(new AddShoppingCartMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName(), addShoppingCartGoodsVODTO.getBuyQuantity()));
 				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
 			}else {
 				
-				addShoppingCartMsgCacheDAO.save(new AddShoppingCartIllegalMsgOBJDTO(addShoppingCartGoodsVODTO.getName()));
+				addShoppingCartIllegalMsgLineCacheDAO.save(new AddShoppingCartIllegalMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName()));
 			}
 				
 		}

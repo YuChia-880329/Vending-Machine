@@ -3,9 +3,10 @@ package service.frontend.prepare;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsg.AddShoppingCartIllegalMsgOBJDTO;
+import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCartIllegalMsgLineOBJDTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgLineVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgVODTO;
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import enumeration.Has;
 
 public class AddShoppingCartIllegalMsgService {
@@ -20,27 +21,31 @@ public class AddShoppingCartIllegalMsgService {
 		return INSTANCE;
 	}
 	
-	public AddShoppingCartIllegalMsgVODTO prepare(AddShoppingCartIllegalMsgCacheDAO addShoppingCartIllegalMsgCacheDAO) {
+	public AddShoppingCartIllegalMsgVODTO prepare(AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO) {
 		
 		AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsgVODTO = new AddShoppingCartIllegalMsgVODTO();
 		
-		List<AddShoppingCartIllegalMsgOBJDTO> nameOBJDTOs = addShoppingCartIllegalMsgCacheDAO.use();
+		List<AddShoppingCartIllegalMsgLineOBJDTO> addShoppingCartIllegalMsgLineOBJDTOs = addShoppingCartIllegalMsgLineCacheDAO.use();
 		
-		addShoppingCartIllegalMsgVODTO.setHasMsg(nameOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
-		addShoppingCartIllegalMsgVODTO.setNames(msgOBJToMsgVO(nameOBJDTOs));
+		addShoppingCartIllegalMsgVODTO.setHasMsg(addShoppingCartIllegalMsgLineOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
+		addShoppingCartIllegalMsgVODTO.setLines(addShoppingCartIllegalMsgLineOBJsToAddShoppingCartIllegalMsgLineVOs(addShoppingCartIllegalMsgLineOBJDTOs));
 		
 		return addShoppingCartIllegalMsgVODTO;
 	}
 	
-	private List<String> msgOBJToMsgVO(List<AddShoppingCartIllegalMsgOBJDTO> nameOBJDTOs) {
+	private List<AddShoppingCartIllegalMsgLineVODTO> addShoppingCartIllegalMsgLineOBJsToAddShoppingCartIllegalMsgLineVOs(List<AddShoppingCartIllegalMsgLineOBJDTO> addShoppingCartIllegalMsgLineOBJDTOs) {
 		
-		return nameOBJDTOs.stream()
-				.map(nameOBJDTO -> msgOBJToMsgVO(nameOBJDTO))
+		return addShoppingCartIllegalMsgLineOBJDTOs.stream()
+				.map(addShoppingCartIllegalMsgLineOBJDTO -> addShoppingCartIllegalMsgLineOBJToAddShoppingCartIllegalMsgLineVO(addShoppingCartIllegalMsgLineOBJDTO))
 				.collect(Collectors.toList());
 	}
 
-	private String msgOBJToMsgVO(AddShoppingCartIllegalMsgOBJDTO nameOBJDTO) {
+	private AddShoppingCartIllegalMsgLineVODTO addShoppingCartIllegalMsgLineOBJToAddShoppingCartIllegalMsgLineVO(AddShoppingCartIllegalMsgLineOBJDTO addShoppingCartIllegalMsgLineOBJDTO) {
 		
-		return nameOBJDTO.getName();
+		AddShoppingCartIllegalMsgLineVODTO addShoppingCartIllegalMsgLineVODTO = new AddShoppingCartIllegalMsgLineVODTO();
+		
+		addShoppingCartIllegalMsgLineVODTO.setName(addShoppingCartIllegalMsgLineOBJDTO.getName());
+		
+		return addShoppingCartIllegalMsgLineVODTO;
 	}
 }

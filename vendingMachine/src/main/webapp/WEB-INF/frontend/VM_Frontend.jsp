@@ -19,9 +19,15 @@
 
 	<script type="text/javascript">
 
+		let addShoppingCartIllegalMsgModalExistInputId = 'add_shopping_cart_illegal_msg_modal_exist_input';
+		let addShoppingCartIllegalMsgModalId = 'add_shopping_cart_illegal_msg_modal';
+		let addShoppingCartIllegalMsgOkBtnId = 'add_shopping_cart_illegal_msg_ok_btn';
+
+		let addShoppingCartMsgModalExistInputId = 'add_shopping_cart_msg_modal_exist_input';
 		let addShoppingCartMsgModalId = 'add_shopping_cart_msg_modal';
 		let addShoppingCartMsgOkBtnId = 'add_shopping_cart_msg_ok_btn';
-
+		
+		let clearShoppingCartMsgModalExistInputId = 'clear_shopping_cart_msg_modal_exist_input';
 		let clearShoppingCartMsgModalId = 'clear_shopping_cart_msg_modal';
 		let clearShoppingCartMsgOkBtnId = 'clear_shopping_cart_msg_ok_btn';
 		
@@ -69,11 +75,20 @@
 			modalIdObjs = [];
 			
 			modalIdObjs[0] = {
-				modalId : 	addShoppingCartMsgModalId,
+				existId : addShoppingCartIllegalMsgModalExistInputId,
+				modalId : addShoppingCartIllegalMsgModalId,
+				okBtnId : addShoppingCartIllegalMsgOkBtnId
+			};
+			
+			modalIdObjs[1] = {
+				existId : addShoppingCartMsgModalExistInputId,
+				modalId : addShoppingCartMsgModalId,
 				okBtnId : addShoppingCartMsgOkBtnId
 			};
-			modalIdObjs[1] = {
-				modalId : 	clearShoppingCartMsgModalId,
+			
+			modalIdObjs[2] = {
+				existId	: clearShoppingCartMsgModalExistInputId,
+				modalId : clearShoppingCartMsgModalId,
 				okBtnId : clearShoppingCartMsgOkBtnId
 			};
 			showMsgModalArray(modalIdObjs);
@@ -84,7 +99,7 @@
 			var lastIndex = -1;
 			modalIdObjs.forEach(function(element, index, array){
 				
-				if($('#' + element.modalId).length > 0){
+				if($('#' + element.existId).val() == 'true'){
 					
 					if(firstIndex <= -1)
 						firstIndex = index;
@@ -427,8 +442,9 @@
 	</form>
 	
 	
-	<c:if test="${vo.addShoppingCartMsg.hasMsg == 'true'}">
-		<div class="modal fade" id="add_shopping_cart_msg_modal">
+	<input type="hidden" value="${vo.addShoppingCartIllegalMsg.hasMsg}" id="add_shopping_cart_illegal_msg_modal_exist_input" />
+	<c:if test="${vo.addShoppingCartIllegalMsg.hasMsg == 'true'}">
+		<div class="modal fade" id="add_shopping_cart_illegal_msg_modal">
 	 		<div class="modal-dialog msg-modal-dialog">
 	   			<div class="modal-content msg-modal-content">
 	     			<div class="modal-header msg-modal-header">
@@ -437,9 +453,35 @@
 	     			</div>
 	     			<div class="modal-body msg-modal-body">
 	     				<div class="container">
-	     					<c:forEach var="name" items="${vo.addShoppingCartMsg.names}">
+	     					<c:forEach var="line" items="${vo.addShoppingCartIllegalMsg.lines}">
 	     						<p>
-	     							商品 <span class="text-danger">${name}</span> 購買數量大於庫存數量
+	     							商品 <span class="text-danger">${line.name}</span> 購買數量大於庫存數量
+	     						</p>
+	     					</c:forEach>
+						</div>
+	     			</div>
+	     			<div class="modal-footer msg-modal-footer">
+	  					<button type="button" class="btn btn-primary" id="add_shopping_cart_illegal_msg_ok_btn">確認</button>
+	     			</div>
+	   			</div>
+	 		</div>
+		</div>
+	</c:if>
+	
+	<input type="hidden" value="${vo.addShoppingCartMsg.hasMsg}" id="add_shopping_cart_msg_modal_exist_input" />
+	<c:if test="${vo.addShoppingCartMsg.hasMsg == 'true'}">
+		<div class="modal fade" id="add_shopping_cart_msg_modal">
+	 		<div class="modal-dialog msg-modal-dialog">
+	   			<div class="modal-content msg-modal-content">
+	     			<div class="modal-header msg-modal-header">
+	       				<h4 class="modal-title">訊息</h4>
+	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	     			</div>
+	     			<div class="modal-body msg-modal-body">
+	     				<div class="container">
+	     					<c:forEach var="line" items="${vo.addShoppingCartMsg.lines}">
+	     						<p>
+	     							已新增商品 <span class="text-primary">${line.name}</span> <span class="text-primary">${line.addQuantity}</span> 罐至購物車
 	     						</p>
 	     					</c:forEach>
 						</div>
@@ -452,6 +494,7 @@
 		</div>
 	</c:if>
 	
+	<input type="hidden" value="${vo.clearShoppingCartMsg.hasMsg}" id="clear_shopping_cart_msg_modal_exist_input" />
 	<c:if test="${vo.clearShoppingCartMsg.hasMsg == 'true'}">
 		<div class="modal fade" id="clear_shopping_cart_msg_modal">
 	 		<div class="modal-dialog msg-modal-dialog">
