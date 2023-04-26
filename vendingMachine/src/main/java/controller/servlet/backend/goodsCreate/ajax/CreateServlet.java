@@ -19,12 +19,12 @@ import bean.vo.backend.goodsCreate.readin.CreateFormVO;
 import bean.vo.backend.goodsCreate.writeout.CreateResultVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import listener.ParameterContextListener;
-import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsCreate.CreateService;
 import template.exception.CheckerException;
 import transformer.backend.goodsCreate.vo.readin.CreateFormVOTransformer;
 import transformer.backend.goodsCreate.vo.writeout.CreateResultVOTransformer;
 import util.GsonUtil;
+import util.ServletUtil;
 
 @SuppressWarnings("serial")
 @MultipartConfig
@@ -62,8 +62,8 @@ public class CreateServlet extends HttpServlet {
 		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(session);
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = getFrontendGoodsTablePagesRepositoryDAO(session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getGoodsTablePagesRepositoryDAO(session);
+		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = ServletUtil.getFrontendGoodsTablePagesRepositoryDAO(session);
 		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
 		
 		
@@ -100,33 +100,5 @@ public class CreateServlet extends HttpServlet {
 		createFormVO.setStatus(statusStr);
 		
 		return createFormVO;
-	}
-	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(HttpSession session) {
-		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = (GoodsTablePagesRepositoryDAO)session.getAttribute(GoodsTablePagesRepositoryDAO.DAO);
-		
-		if(goodsTablePagesRepositoryDAO == null) {
-			
-			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
-			goodsTablePagesRepositoryDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
-			
-			session.setAttribute(GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesRepositoryDAO);
-		}
-		
-		return goodsTablePagesRepositoryDAO;
-	}
-	private dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO getFrontendGoodsTablePagesRepositoryDAO(HttpSession session) {
-		
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = (dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO)session.getAttribute(dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO.DAO);
-		
-		if(goodsTablePagesRepositoryDAO == null) {
-			
-			memory.repository.frontend.GoodsTablePagesRepository goodsTablePagesRepository = new memory.repository.frontend.GoodsTablePagesRepository();
-			goodsTablePagesRepositoryDAO = new dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
-			
-			session.setAttribute(dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesRepositoryDAO);
-		}
-		
-		return goodsTablePagesRepositoryDAO;
 	}
 }

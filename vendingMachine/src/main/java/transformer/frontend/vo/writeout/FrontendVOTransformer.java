@@ -6,7 +6,7 @@ import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
 public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<FrontendVODTO, FrontendVO> {
 
-	private AddShoppingCartMsgVOTransformer addShoppingCartMsgVOTransformer;
+	private AddShoppingCartIllegalMsgVOTransformer addShoppingCartMsgVOTransformer;
 	private ClearShoppingCartMsgVOTransformer clearShoppingCartMsgVOTransformer;
 	private ShoppingCartVOTransformer shoppingCartVOTransformer;
 	private WelcomePartVOTransformer welcomePartVOTransformer;
@@ -18,7 +18,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 	
 	private FrontendVOTransformer() {
 		
-		addShoppingCartMsgVOTransformer = AddShoppingCartMsgVOTransformer.getInstance();
+		addShoppingCartMsgVOTransformer = AddShoppingCartIllegalMsgVOTransformer.getInstance();
 		clearShoppingCartMsgVOTransformer = ClearShoppingCartMsgVOTransformer.getInstance();
 		shoppingCartVOTransformer = ShoppingCartVOTransformer.getInstance();
 		welcomePartVOTransformer = WelcomePartVOTransformer.getInstance();
@@ -36,7 +36,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 
 		FrontendVO vo = new FrontendVO();
 		
-		vo.setAddShoppingCartMsg(addShoppingCartMsgVOTransformer.dtoToVo(dto.getAddShoppingCartMsg()));
+		vo.setAddShoppingCartIllegalMsg(addShoppingCartMsgVOTransformer.dtoToVo(dto.getAddShoppingCartIllegalMsg()));
 		vo.setClearShoppingCartMsg(clearShoppingCartMsgVOTransformer.dtoToVo(dto.getClearShoppingCartMsg()));
 		vo.setShoppingCart(shoppingCartVOTransformer.dtoToVo(dto.getShoppingCart()));
 		vo.setWelcomePart(welcomePartVOTransformer.dtoToVo(dto.getWelcomePart()));

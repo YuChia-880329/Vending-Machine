@@ -2,6 +2,7 @@ package bean.vo.frontend.writeout;
 
 public class ShoppingCartGoodsVO {
 
+	private String id;
 	private String name;
 	private String buyQuantity;
 	private String price;
@@ -9,8 +10,9 @@ public class ShoppingCartGoodsVO {
 	
 	public ShoppingCartGoodsVO() {
 	}
-	public ShoppingCartGoodsVO(String name, String buyQuantity, String price) {
+	public ShoppingCartGoodsVO(String id, String name, String buyQuantity, String price) {
 
+		this.id = id;
 		this.name = name;
 		this.buyQuantity = buyQuantity;
 		this.price = price;
@@ -18,6 +20,10 @@ public class ShoppingCartGoodsVO {
 
 
 
+	
+	public String getId() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -29,6 +35,9 @@ public class ShoppingCartGoodsVO {
 	}
 
 	
+	public void setId(String id) {
+		this.id = id;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}

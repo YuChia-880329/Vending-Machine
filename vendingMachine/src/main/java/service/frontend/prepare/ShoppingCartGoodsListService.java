@@ -41,11 +41,12 @@ public class ShoppingCartGoodsListService {
 	}
 	public ShoppingCartGoodsVODTO shoppingCartOBJToShoppingCartGoodsVO(ShoppingCartOBJDTO shoppingCartOBJDTO) {
 		
+		int id = shoppingCartOBJDTO.getId();
 		String name = "";
 		int price = 0;
 		try {
 			
-			GoodsModelDTO goodsModelDTO = goodsModelService.searchById(shoppingCartOBJDTO.getId());
+			GoodsModelDTO goodsModelDTO = goodsModelService.searchById(id);
 			name = goodsModelDTO.getName();
 			price = goodsModelDTO.getPrice();
 		} catch (SQLException ex) {
@@ -55,6 +56,7 @@ public class ShoppingCartGoodsListService {
 		
 		ShoppingCartGoodsVODTO shoppingCartGoodsVODTO = new ShoppingCartGoodsVODTO();
 		
+		shoppingCartGoodsVODTO.setId(id);
 		shoppingCartGoodsVODTO.setName(name);
 		shoppingCartGoodsVODTO.setBuyQuantity(shoppingCartOBJDTO.getBuyQuantity());
 		shoppingCartGoodsVODTO.setPrice(price);

@@ -16,14 +16,13 @@ import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
 import bean.vo.backend.goodsUpdate.readin.GoodsUpdateFormVO;
 import bean.vo.backend.goodsUpdate.writeout.UpdateResultVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsUpdate.UpdateService;
 import template.exception.CheckerException;
 import transformer.backend.goodsUpdate.vo.readin.GoodsUpdateFormVOTransformer;
 import transformer.backend.goodsUpdate.vo.writeout.UpdateResultVOTransformer;
 import util.GsonUtil;
 import util.IOUtil;
-import util.RequestUtil;
+import util.ServletUtil;
 
 @SuppressWarnings("serial")
 public class UpdateServlet extends HttpServlet {
@@ -58,8 +57,8 @@ public class UpdateServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		GoodsUpdateFormVO goodsUpdateFormVO = getInput(req);
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesRepositoryDAO(session);
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = getFrontendGoodsTablePagesRepositoryDAO(session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getGoodsTablePagesRepositoryDAO(session);
+		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = ServletUtil.getFrontendGoodsTablePagesRepositoryDAO(session);
 		
 		try {
 			
@@ -76,7 +75,7 @@ public class UpdateServlet extends HttpServlet {
 	private GoodsUpdateFormVO getInput(HttpServletRequest req) throws IOException {
 		
 		String requestBodyStr = IOUtil.read(req.getInputStream());
-		Map<String, String> requestBody = RequestUtil.getRequestBodyMap(requestBodyStr);
+		Map<String, String> requestBody = ServletUtil.getRequestBodyMap(requestBodyStr);
 		
 		String idStr = requestBody.get(REQ_PARAM_ID);
 		String priceStr = requestBody.get(REQ_PARAM_PRICE);
@@ -92,33 +91,5 @@ public class UpdateServlet extends HttpServlet {
 		goodsUpdateFormVO.setStatus(statusStr);
 		
 		return goodsUpdateFormVO;
-	}
-	private GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(HttpSession session) {
-		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = (GoodsTablePagesRepositoryDAO)session.getAttribute(GoodsTablePagesRepositoryDAO.DAO);
-		
-		if(goodsTablePagesRepositoryDAO == null) {
-			
-			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
-			goodsTablePagesRepositoryDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
-			
-			session.setAttribute(GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesRepositoryDAO);
-		}
-		
-		return goodsTablePagesRepositoryDAO;
-	}
-	private dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO getFrontendGoodsTablePagesRepositoryDAO(HttpSession session) {
-		
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = (dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO)session.getAttribute(GoodsTablePagesRepositoryDAO.DAO);
-		
-		if(goodsTablePagesRepositoryDAO == null) {
-			
-			memory.repository.frontend.GoodsTablePagesRepository goodsTablePagesRepository = new memory.repository.frontend.GoodsTablePagesRepository();
-			goodsTablePagesRepositoryDAO = new dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
-			
-			session.setAttribute(dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesRepositoryDAO);
-		}
-		
-		return goodsTablePagesRepositoryDAO;
 	}
 }

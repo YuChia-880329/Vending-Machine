@@ -4,22 +4,22 @@ import enumeration.Has;
 
 public class ClearShoppingCartMsgVODTO {
 
-	private Has success;
+	private Has hasMsg;
 
 	public ClearShoppingCartMsgVODTO() {
 	}
-	public ClearShoppingCartMsgVODTO(Has success) {
+	public ClearShoppingCartMsgVODTO(Has hasMsg) {
 
-		this.success = success;
+		this.hasMsg = hasMsg;
 	}
 	
 	
-	public Has getSuccess() {
-		return success;
+	public Has getHasMsg() {
+		return hasMsg;
 	}
 	
 	
-	public void setSuccess(Has success) {
-		this.success = success;
+	public void setHasMsg(Has hasMsg) {
+		this.hasMsg = hasMsg;
 	}
 }

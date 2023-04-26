@@ -15,15 +15,14 @@ import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
 import bean.vo.frontend.readin.AddShoppingCartVO;
 import bean.vo.frontend.writeout.AddShoppingCartResultVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.memoryDb.frontend.AddShoppingCartMsgMemoryDbDAO;
-import memory.database.frontend.AddShoppingCartMsgMemoryDb;
-import memory.database.frontend.ShoppingCartMemoryDb;
 import service.frontend.AddShoppingCartService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.AddShoppingCartVOTransformer;
 import transformer.frontend.vo.writeout.AddShoppingCartResultVOTransformer;
 import util.GsonUtil;
+import util.ServletUtil;
 import util.StringConcatUtil;
 
 @SuppressWarnings("serial")
@@ -58,12 +57,12 @@ public class AddShoppingCartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		AddShoppingCartVO shoppingCartVO = getShoppingCartVO(req);
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = getShoppingCartMemoryDbDAO(session);
-		AddShoppingCartMsgMemoryDbDAO illegalMsgMemoryDbDAO = getIllegalMsgMemoryDbDAO(session);
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = ServletUtil.getShoppingCartMemoryDbDAO(session);
+		AddShoppingCartIllegalMsgCacheDAO addShoppingCartMsgCacheDAO = ServletUtil.getAddShoppingCartIllegalMsgCacheDAO(session);
 		try {
 			
 			AddShoppingCartVODTO shoppingCartVODTO = shoppingCartVOTransformer.voToDto(shoppingCartVO);
-			AddShoppingCartResultVODTO addShoppingCartResultVODTO = addShoppingCartService.add(shoppingCartVODTO, shoppingCartMemoryDbDAO, illegalMsgMemoryDbDAO);
+			AddShoppingCartResultVODTO addShoppingCartResultVODTO = addShoppingCartService.add(shoppingCartVODTO, shoppingCartMemoryDbDAO, addShoppingCartMsgCacheDAO);
 			AddShoppingCartResultVO addShoppingCartResultVO = addShoppingCartResultVOTransformer.dtoToVo(addShoppingCartResultVODTO);
 			
 			String url = getRedirectUrl(addShoppingCartResultVO);
@@ -79,34 +78,6 @@ public class AddShoppingCartServlet extends HttpServlet {
 		
 		String dataJson = req.getParameter(REQ_PARAM_DATA_JSON);
 		return gson.fromJson(dataJson, AddShoppingCartVO.class);
-	}
-	private ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(HttpSession session) {
-		
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = (ShoppingCartMemoryDbDAO)session.getAttribute(ShoppingCartMemoryDbDAO.DAO);
-		
-		if(shoppingCartMemoryDbDAO == null) {
-			
-			ShoppingCartMemoryDb shoppingCartMemoryDb = new ShoppingCartMemoryDb();
-			shoppingCartMemoryDbDAO = new ShoppingCartMemoryDbDAO(shoppingCartMemoryDb);
-			
-			session.setAttribute(ShoppingCartMemoryDbDAO.DAO, shoppingCartMemoryDbDAO);
-		}
-		
-		return shoppingCartMemoryDbDAO;
-	}
-	private AddShoppingCartMsgMemoryDbDAO getIllegalMsgMemoryDbDAO(HttpSession session) {
-		
-		AddShoppingCartMsgMemoryDbDAO msgMemoryDbDAO = (AddShoppingCartMsgMemoryDbDAO)session.getAttribute(AddShoppingCartMsgMemoryDbDAO.DAO);
-		
-		if(msgMemoryDbDAO == null) {
-			
-			AddShoppingCartMsgMemoryDb illegalMsgMemoryDb = new AddShoppingCartMsgMemoryDb();
-			msgMemoryDbDAO = new AddShoppingCartMsgMemoryDbDAO(illegalMsgMemoryDb);
-			
-			session.setAttribute(AddShoppingCartMsgMemoryDbDAO.DAO, msgMemoryDbDAO);
-		}
-		
-		return msgMemoryDbDAO;
 	}
 	
 	private String getRedirectUrl(AddShoppingCartResultVO addShoppingCartResultVO) {

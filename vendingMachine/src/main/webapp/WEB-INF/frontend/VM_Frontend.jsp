@@ -21,6 +21,9 @@
 
 		let addShoppingCartMsgModalId = 'add_shopping_cart_msg_modal';
 		let addShoppingCartMsgOkBtnId = 'add_shopping_cart_msg_ok_btn';
+
+		let clearShoppingCartMsgModalId = 'clear_shopping_cart_msg_modal';
+		let clearShoppingCartMsgOkBtnId = 'clear_shopping_cart_msg_ok_btn';
 		
 		let filterForm = 'filter_form';
 		let filterBtnId = 'filter_btn';
@@ -45,6 +48,10 @@
 		let addShoppingCartFormId = 'add_shopping_cart_form';
 		let addShoppingCartDataInputId = 'add_shopping_cart_data_input';
 		
+		let clearShoppingCartBtnId = 'clear_shopping_cart_btn';
+		let clearShoppingCartFormId = 'clear_shopping_cart_form';
+		let clearShoppingCartDataInputId = 'clear_shopping_cart_data_input';
+		
 		
 		$(document).ready(readyFctn);
 		
@@ -55,11 +62,53 @@
 			$('#' + allGoodsBtnId).click(allGoodsBtnClicked);
 			$('#' + addShoppingCartBtnId).click(addShoppingCartBtnClicked);
 			$('#' + addShoppingCartOkBtnId).click(addShoppingCartOkBtnClicked);
+			$('#' + clearShoppingCartBtnId).click(clearShoppingCartBtnClicked);
 		}
 		function showMsgModal(){
 			
-			if('${vo.addShoppingCartMsg.hasMsg}' == 'true')
-				new bootstrap.Modal('#' + addShoppingCartMsgModalId, {}).show();
+			modalIdObjs = [];
+			
+			modalIdObjs[0] = {
+				modalId : 	addShoppingCartMsgModalId,
+				okBtnId : addShoppingCartMsgOkBtnId
+			};
+			modalIdObjs[1] = {
+				modalId : 	clearShoppingCartMsgModalId,
+				okBtnId : clearShoppingCartMsgOkBtnId
+			};
+			showMsgModalArray(modalIdObjs);
+		}
+		function showMsgModalArray(modalIdObjs){
+			
+			var firstIndex = -1;
+			var lastIndex = -1;
+			modalIdObjs.forEach(function(element, index, array){
+				
+				if($('#' + element.modalId).length > 0){
+					
+					if(firstIndex <= -1)
+						firstIndex = index;
+					
+					if(lastIndex <= -1){
+						
+						lastIndex = index;
+					}else{
+						
+						var lastElement = array[lastIndex];
+						$('#' + lastElement.okBtnId).attr('data-bs-dismiss', 'modal');
+						$('#' + lastElement.okBtnId).click(function(){
+							
+							new bootstrap.Modal('#' + element.modalId, {}).show();
+						});
+					}
+				}
+			});
+			
+			if(lastIndex >= 0)
+				$('#' + modalIdObjs[lastIndex].okBtnId).attr('data-bs-dismiss', 'modal');
+			
+			if(firstIndex >= 0)
+				new bootstrap.Modal('#' + modalIdObjs[firstIndex].modalId, {}).show();
 		}
 		
 		function filterBtnClicked(){
@@ -126,6 +175,18 @@
 		function addShoppingCartOkBtnClicked(){
 
 			$('#' + addShoppingCartFormId).submit();
+		}
+		function clearShoppingCartBtnClicked(){
+			
+			confirmModal('即將清空購物車', function(){
+				
+				var clearShoppingCartVO = {
+						queryString : '${pageContext.request.queryString}'
+				}
+				
+				$('#' + clearShoppingCartDataInputId).val(JSON.stringify(clearShoppingCartVO));
+				$('#' + clearShoppingCartFormId).submit();
+			}).show();
 		}
 		
 
@@ -327,31 +388,44 @@
      			</div>
      			<div class="modal-body common-modal-body">
      				<div class="container">
-     					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsArray}">
-     						<div>
-	     						<div class="d-flex justify-content-evenly">
-	     							<div>
-	     								<p>
-											<span>${shoppingCartGoods.name}</span> : <span>${shoppingCartGoods.buyQuantity}</span>罐
-										</p>
-	     							</div>
-									<div>
-										<p class="text-secondary">
-											<span>${shoppingCartGoods.price}</span> 元/罐
-										</p>
+     					<form>
+	     					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsArray}">
+	     						<div class="mb-4">
+		     						<div class="d-flex justify-content-center">
+		     							<label for="shopping_cart_goods_buy_quantity_input_${shoppingCartGoods.id}" class="me-3 form-label">
+	   										<span>${shoppingCartGoods.name}</span> : 
+	   									</label>
+	   									<p class="text-secondary">
+	   										<span>${shoppingCartGoods.price}</span> 元/罐
+	   									</p>
+		     						</div>
+		     						<div class="d-flex justify-content-center">
+										<div class="d-flex">
+											<input type="hidden" value="${shoppingCartGoods.id}" />
+	     									<input type="number" class="form-control" id="shopping_cart_goods_buy_quantity_input_${shoppingCartGoods.id}" value="${shoppingCartGoods.buyQuantity}" max="999999" min="0" />
+	     									<div class="ms-3 d-flex align-self-center">
+	     										<p class="mb-0">罐</p>
+	     									</div>
+	     								</div>
 									</div>
-	     						</div>
-	     					</div>
-     					</c:forEach>
+		     					</div>
+	     					</c:forEach>
+     					</form>
+     					
 					</div>
      			</div>
      			<div class="modal-footer">
-     				<button type="button" class="btn btn-danger me-auto">清空購物車</button>
-  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">確認</button>
+     			    <button type="button" class="btn btn-primary">更新購物車</button>
+     				<button type="button" class="btn btn-danger me-auto" id="clear_shopping_cart_btn">清空購物車</button>
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">關閉</button>
      			</div>
    			</div>
  		</div>
 	</div>
+	<form action="/vendingMachine/machine/clearShoppingCart" method="POST" id="clear_shopping_cart_form">
+		<input type="hidden" name="dataJson" id="clear_shopping_cart_data_input" />
+	</form>
+	
 	
 	<c:if test="${vo.addShoppingCartMsg.hasMsg == 'true'}">
 		<div class="modal fade" id="add_shopping_cart_msg_modal">
@@ -371,7 +445,28 @@
 						</div>
 	     			</div>
 	     			<div class="modal-footer msg-modal-footer">
-	  					<button type="button" class="btn btn-primary" id="add_shopping_cart_msg_ok_btn" data-bs-dismiss="modal">確認</button>
+	  					<button type="button" class="btn btn-primary" id="add_shopping_cart_msg_ok_btn">確認</button>
+	     			</div>
+	   			</div>
+	 		</div>
+		</div>
+	</c:if>
+	
+	<c:if test="${vo.clearShoppingCartMsg.hasMsg == 'true'}">
+		<div class="modal fade" id="clear_shopping_cart_msg_modal">
+	 		<div class="modal-dialog msg-modal-dialog">
+	   			<div class="modal-content msg-modal-content">
+	     			<div class="modal-header msg-modal-header">
+	       				<h4 class="modal-title">訊息</h4>
+	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	     			</div>
+	     			<div class="modal-body msg-modal-body">
+	     				<div class="container">
+	     					<p>已清空購物車</p>
+						</div>
+	     			</div>
+	     			<div class="modal-footer msg-modal-footer">
+	  					<button type="button" class="btn btn-primary" id="clear_shopping_cart_msg_ok_btn">確認</button>
 	     			</div>
 	   			</div>
 	 		</div>

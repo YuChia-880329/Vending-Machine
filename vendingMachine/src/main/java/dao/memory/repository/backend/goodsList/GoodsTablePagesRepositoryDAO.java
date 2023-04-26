@@ -13,7 +13,7 @@ public class GoodsTablePagesRepositoryDAO extends RepositoryDAOTemplate<GoodsTab
 		GoodsTablePagesOBJ, GoodsTablePagesInputOBJDTO, GoodsTablePagesOBJDTO, 
 		GoodsTablePagesRepository, GoodsTablePagesInputOBJTransformer, GoodsTablePagesOBJTransformer> {
 	
-	public static final String DAO = "goodsTablePagesRepositoryDAO";
+	public static final String SESSION_ATTR_DAO = "goodsTablePagesRepositoryDAO";
 	
 	
 	public GoodsTablePagesRepositoryDAO(GoodsTablePagesRepository repository) {

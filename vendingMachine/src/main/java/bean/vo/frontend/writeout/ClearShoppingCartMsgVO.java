@@ -2,23 +2,23 @@ package bean.vo.frontend.writeout;
 
 public class ClearShoppingCartMsgVO {
 
-	private String success;
+	private String hasMsg;
 
 	
 	public ClearShoppingCartMsgVO() {
 	}
-	public ClearShoppingCartMsgVO(String success) {
+	public ClearShoppingCartMsgVO(String hasMsg) {
 
-		this.success = success;
+		this.hasMsg = hasMsg;
 	}
 	
 	
-	public String getSuccess() {
-		return success;
+	public String getHasMsg() {
+		return hasMsg;
 	}
 	
 	
-	public void setSuccess(String success) {
-		this.success = success;
+	public void setHasMsg(String hasMsg) {
+		this.hasMsg = hasMsg;
 	}
 }

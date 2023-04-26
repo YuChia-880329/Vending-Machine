@@ -21,7 +21,7 @@ public class ClearShoppingCartMsgVOTransformer extends VOWriteOutTransformerTemp
 		
 		ClearShoppingCartMsgVO vo = new ClearShoppingCartMsgVO();
 		
-		vo.setSuccess(dto.getSuccess().getDescription());
+		vo.setHasMsg(dto.getHasMsg().getDescription());
 		
 		return vo;
 	}

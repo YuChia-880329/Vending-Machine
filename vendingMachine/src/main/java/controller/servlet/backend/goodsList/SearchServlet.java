@@ -71,5 +71,4 @@ public class SearchServlet extends HttpServlet {
 		
 		return url;
 	}
-	
 }

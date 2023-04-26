@@ -2,6 +2,7 @@ package bean.dto.frontend.vo.writeout;
 
 public class ShoppingCartGoodsVODTO {
 
+	private int id;
 	private String name;
 	private int buyQuantity;
 	private int price;
@@ -9,8 +10,9 @@ public class ShoppingCartGoodsVODTO {
 	
 	public ShoppingCartGoodsVODTO() {
 	}
-	public ShoppingCartGoodsVODTO(String name, int buyQuantity, int price) {
+	public ShoppingCartGoodsVODTO(int id, String name, int buyQuantity, int price) {
 
+		this.id = id;
 		this.name = name;
 		this.buyQuantity = buyQuantity;
 		this.price = price;
@@ -18,6 +20,9 @@ public class ShoppingCartGoodsVODTO {
 
 
 
+	public int getId() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -29,6 +34,9 @@ public class ShoppingCartGoodsVODTO {
 	}
 
 	
+	public void setId(int id) {
+		this.id = id;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}

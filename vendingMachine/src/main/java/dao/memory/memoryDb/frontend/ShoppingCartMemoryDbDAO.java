@@ -1,5 +1,7 @@
 package dao.memory.memoryDb.frontend;
 
+import java.util.List;
+
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.obj.frontend.memoryDb.shoppingCart.ShoppingCartOBJ;
 import memory.database.frontend.ShoppingCartMemoryDb;
@@ -8,12 +10,22 @@ import transformer.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJTransformer
 
 public class ShoppingCartMemoryDbDAO extends MemoryDbDAOTemplate<Integer, ShoppingCartOBJ, ShoppingCartMemoryDb, ShoppingCartOBJDTO, ShoppingCartOBJTransformer> {
 
-	public static final String DAO = "shoppingCartMemoryDbDAO";
+	public static final String SESSION_ATTR_DAO = "shoppingCartMemoryDbDAO";
 	
 	
 	public ShoppingCartMemoryDbDAO(ShoppingCartMemoryDb memory) {
 		
 		super(memory);
+	}
+	
+	public void deleteAll() {
+		
+		List<ShoppingCartOBJDTO> shoppingCartOBJDTOs = searchAll();
+		
+		for(ShoppingCartOBJDTO shoppingCartOBJDTO : shoppingCartOBJDTOs) {
+			
+			delete(shoppingCartOBJDTO.getId());
+		}
 	}
 
 	@Override

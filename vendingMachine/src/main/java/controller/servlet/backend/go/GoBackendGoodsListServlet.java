@@ -11,11 +11,11 @@ import javax.servlet.http.HttpSession;
 import bean.vo.backend.goodsList.readin.PageParameterVO;
 import bean.vo.backend.goodsList.writeout.BackendGoodsListVO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import service.backend.goodsList.prepare.GoBackendGoodsListService;
 import template.exception.CheckerException;
 import transformer.backend.goodsList.vo.readin.PageParameterVOTransformer;
 import transformer.backend.goodsList.vo.writeout.BackendGoodsListVOTransformer;
+import util.ServletUtil;
 
 @SuppressWarnings("serial")
 public class GoBackendGoodsListServlet extends HttpServlet {
@@ -55,7 +55,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = getGoodsTablePagesDAO(session);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getGoodsTablePagesRepositoryDAO(session);
 		PageParameterVO pageParamterVO = getPageParameter(req);
 		try {
 			
@@ -99,18 +99,5 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		return pageParameter;
 	}
 	
-	private GoodsTablePagesRepositoryDAO getGoodsTablePagesDAO(HttpSession session) {
-		
-		GoodsTablePagesRepositoryDAO goodsTablePagesDAO = (GoodsTablePagesRepositoryDAO)session.getAttribute(GoodsTablePagesRepositoryDAO.DAO);
-		
-		if(goodsTablePagesDAO == null) {
-			
-			GoodsTablePagesRepository goodsTablePagesRepository = new GoodsTablePagesRepository();
-			goodsTablePagesDAO = new GoodsTablePagesRepositoryDAO(goodsTablePagesRepository);
-			
-			session.setAttribute(GoodsTablePagesRepositoryDAO.DAO, goodsTablePagesDAO);
-		}
-		
-		return goodsTablePagesDAO;
-	}
+
 }

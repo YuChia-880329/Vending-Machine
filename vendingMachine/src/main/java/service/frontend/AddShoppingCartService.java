@@ -2,12 +2,12 @@ package service.frontend;
 
 import java.util.List;
 
-import bean.dto.frontend.obj.memoryDb.addShoppingCartMsg.AddShoppingCartMsgOBJDTO;
+import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsg.AddShoppingCartIllegalMsgOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
-import dao.memory.memoryDb.frontend.AddShoppingCartMsgMemoryDbDAO;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 
 public class AddShoppingCartService {
@@ -23,7 +23,7 @@ public class AddShoppingCartService {
 	}
 	
 	public AddShoppingCartResultVODTO add(AddShoppingCartVODTO addShoppingCartVODTO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, AddShoppingCartMsgMemoryDbDAO addShoppingCartMsgMemoryDbDAO) {
+			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, AddShoppingCartIllegalMsgCacheDAO addShoppingCartMsgCacheDAO) {
 		
 		AddShoppingCartResultVODTO addShoppingCartResultVODTO = new AddShoppingCartResultVODTO();
 		
@@ -37,7 +37,7 @@ public class AddShoppingCartService {
 				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
 			}else {
 				
-				addShoppingCartMsgMemoryDbDAO.insert(new AddShoppingCartMsgOBJDTO(i, addShoppingCartGoodsVODTO.getName()));
+				addShoppingCartMsgCacheDAO.save(new AddShoppingCartIllegalMsgOBJDTO(addShoppingCartGoodsVODTO.getName()));
 			}
 				
 		}

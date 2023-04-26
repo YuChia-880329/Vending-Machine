@@ -1,7 +1,11 @@
 package template.memory.database;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import util.CollectionUtil;
 
 public abstract class MemoryDbTemplate<P, O> {
 
@@ -14,7 +18,10 @@ public abstract class MemoryDbTemplate<P, O> {
 	
 	public Map<P, O> getAll(){
 		
-		return memory;
+		return CollectionUtil.copy(memory.entrySet(), () -> new HashSet<>()).stream()
+				.collect(Collectors.toMap(
+						entry -> entry.getKey(), 
+						entry -> entry.getValue())) ;
 	}
 	
 	public O getByPK(P pk) {

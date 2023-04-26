@@ -3,31 +3,30 @@ package bean.vo.frontend.writeout;
 public class AddShoppingCartMsgVO {
 
 	private String hasMsg;
-	private String[] names;
+	private AddShoppingCartMsgLineVO[] lines;
 	
 	
 	public AddShoppingCartMsgVO() {
 	}
-	public AddShoppingCartMsgVO(String hasMsg, String[] names) {
+	public AddShoppingCartMsgVO(String hasMsg, AddShoppingCartMsgLineVO[] lines) {
 
 		this.hasMsg = hasMsg;
-		this.names = names;
+		this.lines = lines;
 	}
-	
 	
 	
 	public String getHasMsg() {
 		return hasMsg;
 	}
-	public String[] getNames() {
-		return names;
+	public AddShoppingCartMsgLineVO[] getLines() {
+		return lines;
 	}
 	
 	
 	public void setHasMsg(String hasMsg) {
 		this.hasMsg = hasMsg;
 	}
-	public void setNames(String[] names) {
-		this.names = names;
+	public void setLines(AddShoppingCartMsgLineVO[] lines) {
+		this.lines = lines;
 	}
 }

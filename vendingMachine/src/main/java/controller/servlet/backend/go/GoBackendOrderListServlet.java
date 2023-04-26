@@ -11,11 +11,11 @@ import javax.servlet.http.HttpSession;
 import bean.vo.backend.orderList.readin.PageParameterVO;
 import bean.vo.backend.orderList.writeout.BackendOrderListVO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
-import memory.repository.backend.orderList.OrderTablePagesRepository;
 import service.backend.orderList.prepare.GoBackendOrderListService;
 import template.exception.CheckerException;
 import transformer.backend.orderList.vo.readin.PageParameterVOTransformer;
 import transformer.backend.orderList.vo.writeout.BackendOrderListVOTransformer;
+import util.ServletUtil;
 
 @SuppressWarnings("serial")
 public class GoBackendOrderListServlet extends HttpServlet {
@@ -58,7 +58,7 @@ public class GoBackendOrderListServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = getOrderTablePagesRepositoryDAO(session);
+		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = ServletUtil.getOrderTablePagesRepositoryDAO(session);
 		PageParameterVO pageParameterVO = getPageParameter(req);
 		
 		try {
@@ -104,20 +104,5 @@ public class GoBackendOrderListServlet extends HttpServlet {
 		pageParameterVO.setTotalPriceMax(totalPriceMaxStr);
 		
 		return pageParameterVO;
-	}
-	
-	private OrderTablePagesRepositoryDAO getOrderTablePagesRepositoryDAO(HttpSession session) {
-		
-		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = (OrderTablePagesRepositoryDAO)session.getAttribute(OrderTablePagesRepositoryDAO.DAO);
-		
-		if(orderTablePagesRepositoryDAO == null) {
-			
-			OrderTablePagesRepository orderTablePagesRepository = new OrderTablePagesRepository();
-			orderTablePagesRepositoryDAO = new OrderTablePagesRepositoryDAO(orderTablePagesRepository);
-
-			session.setAttribute(OrderTablePagesRepositoryDAO.DAO, orderTablePagesRepositoryDAO);
-		}
-		
-		return orderTablePagesRepositoryDAO;
 	}
 }
