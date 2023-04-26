@@ -7,15 +7,15 @@ import enumeration.Has;
 public class AddShoppingCartIllegalMsgVODTO {
 
 	private Has hasMsg;
-	private List<String> names;
+	private List<AddShoppingCartIllegalMsgLineVODTO> lines;
 	
 	
 	public AddShoppingCartIllegalMsgVODTO() {
 	}
-	public AddShoppingCartIllegalMsgVODTO(Has hasMsg, List<String> names) {
+	public AddShoppingCartIllegalMsgVODTO(Has hasMsg, List<AddShoppingCartIllegalMsgLineVODTO> lines) {
 
 		this.hasMsg = hasMsg;
-		this.names = names;
+		this.lines = lines;
 	}
 	
 	
@@ -23,15 +23,15 @@ public class AddShoppingCartIllegalMsgVODTO {
 	public Has getHasMsg() {
 		return hasMsg;
 	}
-	public List<String> getNames() {
-		return names;
+	public List<AddShoppingCartIllegalMsgLineVODTO> getLines() {
+		return lines;
 	}
 	
 	
 	public void setHasMsg(Has hasMsg) {
 		this.hasMsg = hasMsg;
 	}
-	public void setNames(List<String> names) {
-		this.names = names;
+	public void setLines(List<AddShoppingCartIllegalMsgLineVODTO> lines) {
+		this.lines = lines;
 	}
 }

@@ -1,16 +1,20 @@
 package transformer.frontend.vo.writeout;
 
-import java.util.List;
-
 import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgVODTO;
+import bean.vo.frontend.writeout.AddShoppingCartIllegalMsgLineVO;
 import bean.vo.frontend.writeout.AddShoppingCartIllegalMsgVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
 public class AddShoppingCartIllegalMsgVOTransformer extends VOWriteOutTransformerTemplate<AddShoppingCartIllegalMsgVODTO, AddShoppingCartIllegalMsgVO> {
 	
+	private AddShoppingCartIllegalMsgLineVOTransformer addShoppingCartIllegalMsgLineVOTransformer;
+	
+	
 	private static final AddShoppingCartIllegalMsgVOTransformer INSTANCE = new AddShoppingCartIllegalMsgVOTransformer();
 	
 	private AddShoppingCartIllegalMsgVOTransformer() {
+		
+		addShoppingCartIllegalMsgLineVOTransformer = AddShoppingCartIllegalMsgLineVOTransformer.getInstance();
 	}
 	
 	public static AddShoppingCartIllegalMsgVOTransformer getInstance() {
@@ -23,10 +27,8 @@ public class AddShoppingCartIllegalMsgVOTransformer extends VOWriteOutTransforme
 		
 		AddShoppingCartIllegalMsgVO vo = new AddShoppingCartIllegalMsgVO();
 		
-		List<String> names = dto.getNames();
-		
 		vo.setHasMsg(dto.getHasMsg().getDescription());
-		vo.setLines(names.toArray(new String[names.size()]));
+		vo.setLines(addShoppingCartIllegalMsgLineVOTransformer.dtoListToVoArray(dto.getLines(), size -> new AddShoppingCartIllegalMsgLineVO[size]));
 		
 		return vo;
 	}

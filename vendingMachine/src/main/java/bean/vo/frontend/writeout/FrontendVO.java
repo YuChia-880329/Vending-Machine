@@ -3,6 +3,7 @@ package bean.vo.frontend.writeout;
 public class FrontendVO {
 
 	private AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg;
+	private AddShoppingCartMsgVO addShoppingCartMsg;
 	private ClearShoppingCartMsgVO clearShoppingCartMsg;
 	private ShoppingCartVO shoppingCart;
 	private WelcomePartVO welcomePart;
@@ -12,10 +13,11 @@ public class FrontendVO {
 	
 	public FrontendVO() {
 	}
-	public FrontendVO(AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg, ClearShoppingCartMsgVO clearShoppingCartMsg, 
+	public FrontendVO(AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg, AddShoppingCartMsgVO addShoppingCartMsg, ClearShoppingCartMsgVO clearShoppingCartMsg, 
 			ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, GoodsTablePageVO goodsTablePage, FilterFormVO filterForm) {
 
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
+		this.addShoppingCartMsg = addShoppingCartMsg;
 		this.clearShoppingCartMsg = clearShoppingCartMsg;
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
@@ -25,6 +27,9 @@ public class FrontendVO {
 	
 	public AddShoppingCartIllegalMsgVO getAddShoppingCartIllegalMsg() {
 		return addShoppingCartIllegalMsg;
+	}
+	public AddShoppingCartMsgVO getAddShoppingCartMsg() {
+		return addShoppingCartMsg;
 	}
 	public ClearShoppingCartMsgVO getClearShoppingCartMsg() {
 		return clearShoppingCartMsg;
@@ -45,6 +50,9 @@ public class FrontendVO {
 	
 	public void setAddShoppingCartIllegalMsg(AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg) {
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
+	}
+	public void setAddShoppingCartMsg(AddShoppingCartMsgVO addShoppingCartMsg) {
+		this.addShoppingCartMsg = addShoppingCartMsg;
 	}
 	public void setClearShoppingCartMsg(ClearShoppingCartMsgVO clearShoppingCartMsg) {
 		this.clearShoppingCartMsg = clearShoppingCartMsg;
