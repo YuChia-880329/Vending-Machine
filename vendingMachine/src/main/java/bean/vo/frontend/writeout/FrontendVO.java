@@ -5,6 +5,8 @@ public class FrontendVO {
 	private AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg;
 	private AddShoppingCartMsgVO addShoppingCartMsg;
 	private ClearShoppingCartMsgVO clearShoppingCartMsg;
+	private UpdateShoppingCartIllegalMsgVO updateShoppingCartIllegalMsg;
+	private UpdateShoppingCartMsgVO updateShoppingCartMsg;
 	private ShoppingCartVO shoppingCart;
 	private WelcomePartVO welcomePart;
 	private GoodsTablePageVO goodsTablePage;
@@ -14,11 +16,14 @@ public class FrontendVO {
 	public FrontendVO() {
 	}
 	public FrontendVO(AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg, AddShoppingCartMsgVO addShoppingCartMsg, ClearShoppingCartMsgVO clearShoppingCartMsg, 
-			ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, GoodsTablePageVO goodsTablePage, FilterFormVO filterForm) {
+			UpdateShoppingCartIllegalMsgVO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVO updateShoppingCartMsg, ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, 
+			GoodsTablePageVO goodsTablePage, FilterFormVO filterForm) {
 
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
 		this.addShoppingCartMsg = addShoppingCartMsg;
 		this.clearShoppingCartMsg = clearShoppingCartMsg;
+		this.updateShoppingCartIllegalMsg = updateShoppingCartIllegalMsg;
+		this.updateShoppingCartMsg = updateShoppingCartMsg;
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
@@ -34,6 +39,12 @@ public class FrontendVO {
 	public ClearShoppingCartMsgVO getClearShoppingCartMsg() {
 		return clearShoppingCartMsg;
 	}
+	public UpdateShoppingCartIllegalMsgVO getUpdateShoppingCartIllegalMsg() {
+		return updateShoppingCartIllegalMsg;
+	}
+	public UpdateShoppingCartMsgVO getUpdateShoppingCartMsg() {
+		return updateShoppingCartMsg;
+	}
 	public ShoppingCartVO getShoppingCart() {
 		return shoppingCart;
 	}
@@ -48,6 +59,7 @@ public class FrontendVO {
 	}
 
 	
+	
 	public void setAddShoppingCartIllegalMsg(AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg) {
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
 	}
@@ -56,6 +68,12 @@ public class FrontendVO {
 	}
 	public void setClearShoppingCartMsg(ClearShoppingCartMsgVO clearShoppingCartMsg) {
 		this.clearShoppingCartMsg = clearShoppingCartMsg;
+	}
+	public void setUpdateShoppingCartIllegalMsg(UpdateShoppingCartIllegalMsgVO updateShoppingCartIllegalMsg) {
+		this.updateShoppingCartIllegalMsg = updateShoppingCartIllegalMsg;
+	}
+	public void setUpdateShoppingCartMsg(UpdateShoppingCartMsgVO updateShoppingCartMsg) {
+		this.updateShoppingCartMsg = updateShoppingCartMsg;
 	}
 	public void setShoppingCart(ShoppingCartVO shoppingCart) {
 		this.shoppingCart = shoppingCart;

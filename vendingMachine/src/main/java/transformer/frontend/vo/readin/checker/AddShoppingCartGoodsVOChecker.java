@@ -35,6 +35,7 @@ public class AddShoppingCartGoodsVOChecker extends CheckerTemplate<AddShoppingCa
 		
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
+	
 	private void checkName(AddShoppingCartGoodsVO vo) {
 	}
 	private void checkId(AddShoppingCartGoodsVO vo) throws CheckerException {

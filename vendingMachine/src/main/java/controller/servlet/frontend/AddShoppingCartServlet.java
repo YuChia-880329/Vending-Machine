@@ -24,7 +24,6 @@ import transformer.frontend.vo.readin.AddShoppingCartVOTransformer;
 import transformer.frontend.vo.writeout.AddShoppingCartResultVOTransformer;
 import util.GsonUtil;
 import util.ServletUtil;
-import util.StringConcatUtil;
 
 @SuppressWarnings("serial")
 public class AddShoppingCartServlet extends HttpServlet {
@@ -69,8 +68,7 @@ public class AddShoppingCartServlet extends HttpServlet {
 					addShoppingCartIllegalMsgLineCacheDAO, addShoppingCartMsgLineCacheDAO);
 			AddShoppingCartResultVO addShoppingCartResultVO = addShoppingCartResultVOTransformer.dtoToVo(addShoppingCartResultVODTO);
 			
-			String url = getRedirectUrl(addShoppingCartResultVO);
-			resp.sendRedirect(url);
+			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, addShoppingCartResultVO.getQueryString()));
 		} catch (CheckerException ex) {
 			
 			ex.printStackTrace();
@@ -82,15 +80,5 @@ public class AddShoppingCartServlet extends HttpServlet {
 		
 		String dataJson = req.getParameter(REQ_PARAM_DATA_JSON);
 		return gson.fromJson(dataJson, AddShoppingCartVO.class);
-	}
-	
-	private String getRedirectUrl(AddShoppingCartResultVO addShoppingCartResultVO) {
-		
-		String queryString = addShoppingCartResultVO.getQueryString();
-		
-		if("".equals(queryString))
-			return REDIRECT_URL;
-		else
-			return StringConcatUtil.concate(REDIRECT_URL, "?", queryString);
 	}
 }

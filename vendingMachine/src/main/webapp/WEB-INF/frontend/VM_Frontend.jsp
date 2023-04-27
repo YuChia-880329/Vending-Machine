@@ -19,6 +19,9 @@
 
 	<script type="text/javascript">
 
+		let queryString = '${pageContext.request.queryString}';
+		
+		
 		let addShoppingCartIllegalMsgModalExistInputId = 'add_shopping_cart_illegal_msg_modal_exist_input';
 		let addShoppingCartIllegalMsgModalId = 'add_shopping_cart_illegal_msg_modal';
 		let addShoppingCartIllegalMsgOkBtnId = 'add_shopping_cart_illegal_msg_ok_btn';
@@ -58,6 +61,15 @@
 		let clearShoppingCartFormId = 'clear_shopping_cart_form';
 		let clearShoppingCartDataInputId = 'clear_shopping_cart_data_input';
 		
+		let shoppingCartGoodsGoodsCountInputId = 'shopping_cart_goods_goods_count_input';
+		let shoppingCartGoodsNameInputIdPrefix = 'shopping_cart_goods_name_input_';
+		let shoppingCartGoodsQuantityInputIdPrefix = 'shopping_cart_goods_quantity_input_';
+		let shoppingCartGoodsIdInputIdPrefix = 'shopping_cart_goods_id_input_';
+		let shoppingCartGoodsBuyQuantityInputIdPrefix = 'shopping_cart_goods_buy_quantity_input_';
+		let updateShoppingCartBtnId = 'update_shopping_cart_btn';
+		let updateShoppingCartFormId = 'update_shopping_cart_form';
+		let updateShoppingCartDataInputId = 'update_shopping_cart_data_input';
+		
 		
 		$(document).ready(readyFctn);
 		
@@ -69,28 +81,37 @@
 			$('#' + addShoppingCartBtnId).click(addShoppingCartBtnClicked);
 			$('#' + addShoppingCartOkBtnId).click(addShoppingCartOkBtnClicked);
 			$('#' + clearShoppingCartBtnId).click(clearShoppingCartBtnClicked);
+			$('#' + updateShoppingCartBtnId).click(updateShoppingCartBtnClicked);
 		}
 		function showMsgModal(){
 			
 			modalIdObjs = [];
 			
-			modalIdObjs[0] = {
-				existId : addShoppingCartIllegalMsgModalExistInputId,
-				modalId : addShoppingCartIllegalMsgModalId,
-				okBtnId : addShoppingCartIllegalMsgOkBtnId
+			var modalIdObjsFctn = function(existId, modalId, okBtnId){
+				
+				return {
+					existId : existId,
+					modalId : modalId,
+					okBtnId : okBtnId
+				};
 			};
+			modalIdObjs[0] = modalIdObjsFctn(
+				addShoppingCartIllegalMsgModalExistInputId,
+				addShoppingCartIllegalMsgModalId,
+				addShoppingCartIllegalMsgOkBtnId
+			);
 			
-			modalIdObjs[1] = {
-				existId : addShoppingCartMsgModalExistInputId,
-				modalId : addShoppingCartMsgModalId,
-				okBtnId : addShoppingCartMsgOkBtnId
-			};
+			modalIdObjs[1] = modalIdObjsFctn(
+				addShoppingCartMsgModalExistInputId,
+				addShoppingCartMsgModalId,
+				addShoppingCartMsgOkBtnId
+			);
 			
-			modalIdObjs[2] = {
-				existId	: clearShoppingCartMsgModalExistInputId,
-				modalId : clearShoppingCartMsgModalId,
-				okBtnId : clearShoppingCartMsgOkBtnId
-			};
+			modalIdObjs[2] = modalIdObjsFctn(
+				clearShoppingCartMsgModalExistInputId,
+				clearShoppingCartMsgModalId,
+				clearShoppingCartMsgOkBtnId
+			);
 			showMsgModalArray(modalIdObjs);
 		}
 		function showMsgModalArray(modalIdObjs){
@@ -110,17 +131,16 @@
 					}else{
 						
 						var lastElement = array[lastIndex];
-						$('#' + lastElement.okBtnId).attr('data-bs-dismiss', 'modal');
 						$('#' + lastElement.okBtnId).click(function(){
 							
 							new bootstrap.Modal('#' + element.modalId, {}).show();
 						});
 					}
+					
+					$('#' + element.okBtnId).attr('data-bs-dismiss', 'modal');
 				}
 			});
-			
-			if(lastIndex >= 0)
-				$('#' + modalIdObjs[lastIndex].okBtnId).attr('data-bs-dismiss', 'modal');
+
 			
 			if(firstIndex >= 0)
 				new bootstrap.Modal('#' + modalIdObjs[firstIndex].modalId, {}).show();
@@ -178,7 +198,7 @@
 			}
 			var addShoppingCartVO = {
 				addShoppingCartGoodsArray : addShoppingCartGoodsArray,
-				queryString : '${pageContext.request.queryString}'
+				queryString : queryString
 			}
 
 			$('#' + addShoppingCartDataInputId).val(JSON.stringify(addShoppingCartVO));
@@ -196,15 +216,49 @@
 			confirmModal('即將清空購物車', function(){
 				
 				var clearShoppingCartVO = {
-						queryString : '${pageContext.request.queryString}'
+					queryString : queryString
 				}
 				
 				$('#' + clearShoppingCartDataInputId).val(JSON.stringify(clearShoppingCartVO));
 				$('#' + clearShoppingCartFormId).submit();
 			}).show();
 		}
-		
+		function updateShoppingCartBtnClicked(){
+			
+			confirmModal('即將更新購物車', function(){
 
+				var goodsFctn = function(id, name, buyQuantity, quantity){
+					
+					return {
+						id : id,
+						name : name,
+						buyQuantity : buyQuantity,
+						quantity, quantity
+					};
+				};
+				
+				var goodsCount = $('#' + shoppingCartGoodsGoodsCountInputId).val();
+			
+				var goodsList = [];
+				for(i=1; i<=goodsCount; i++){
+					
+					var id = $('#' + shoppingCartGoodsIdInputIdPrefix + i).val();
+					var name = $('#' + shoppingCartGoodsNameInputIdPrefix + i).val();
+					var buyQuantity = $('#' + shoppingCartGoodsBuyQuantityInputIdPrefix + i).val();
+					var quantity = $('#' + shoppingCartGoodsQuantityInputIdPrefix + i).val();
+					
+					goodsList[i-1] = goodsFctn(id, name, buyQuantity, quantity);
+				}
+				
+				var updateShoppingCartGoodsVO = {
+					updateShoppingCartGoodsArray : goodsList,
+					queryString : queryString
+				}
+				
+				$('#' + updateShoppingCartDataInputId).val(JSON.stringify(updateShoppingCartGoodsVO));
+				$('#' + updateShoppingCartFormId).submit();
+			}).show();
+		}
 	</script>
 </head>
 <body>
@@ -403,40 +457,43 @@
      			</div>
      			<div class="modal-body common-modal-body">
      				<div class="container">
-     					<form>
-	     					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsArray}">
-	     						<div class="mb-4">
-		     						<div class="d-flex justify-content-center">
-		     							<label for="shopping_cart_goods_buy_quantity_input_${shoppingCartGoods.id}" class="me-3 form-label">
-	   										<span>${shoppingCartGoods.name}</span> : 
-	   									</label>
-	   									<p class="text-secondary">
-	   										<span>${shoppingCartGoods.price}</span> 元/罐
-	   									</p>
-		     						</div>
-		     						<div class="d-flex justify-content-center">
-										<div class="d-flex">
-											<input type="hidden" value="${shoppingCartGoods.id}" />
-	     									<input type="number" class="form-control" id="shopping_cart_goods_buy_quantity_input_${shoppingCartGoods.id}" value="${shoppingCartGoods.buyQuantity}" max="999999" min="0" />
-	     									<div class="ms-3 d-flex align-self-center">
-	     										<p class="mb-0">罐</p>
-	     									</div>
-	     								</div>
-									</div>
-		     					</div>
-	     					</c:forEach>
-     					</form>
-     					
+     					<input type="hidden" id="shopping_cart_goods_goods_count_input" value="${vo.shoppingCart.goodsCount}" />
+     					<c:forEach var="shoppingCartGoods" items="${vo.shoppingCart.shoppingCartGoodsArray}">
+     						<input type="hidden" id="shopping_cart_goods_name_input_${shoppingCartGoods.pageId}" value="${shoppingCartGoods.name}" />
+     						<input type="hidden" id="shopping_cart_goods_quantity_input_${shoppingCartGoods.pageId}" value="${shoppingCartGoods.quantity}" />
+     						<div class="mb-4">
+	     						<div class="d-flex justify-content-center">
+	     							<label for="shopping_cart_goods_buy_quantity_input_${shoppingCartGoods.pageId}" class="me-3 form-label">
+   										<span>${shoppingCartGoods.name}</span> : 
+   									</label>
+   									<p class="text-secondary">
+   										<span>${shoppingCartGoods.price}</span> 元/罐
+   									</p>
+	     						</div>
+	     						<div class="d-flex justify-content-center">
+									<div class="d-flex">
+										<input type="hidden" id="shopping_cart_goods_id_input_${shoppingCartGoods.pageId}" value="${shoppingCartGoods.buyQuantity}" value="${shoppingCartGoods.id}" />
+     									<input type="number" class="form-control" id="shopping_cart_goods_buy_quantity_input_${shoppingCartGoods.pageId}" value="${shoppingCartGoods.buyQuantity}" max="999999" min="0" />
+     									<div class="ms-3 d-flex align-self-center">
+     										<p class="mb-0">罐</p>
+     									</div>
+     								</div>
+								</div>
+	     					</div>
+     					</c:forEach>
 					</div>
      			</div>
      			<div class="modal-footer">
-     			    <button type="button" class="btn btn-primary">更新購物車</button>
+     			    <button type="button" class="btn btn-primary" id="update_shopping_cart_btn">更新購物車</button>
      				<button type="button" class="btn btn-danger me-auto" id="clear_shopping_cart_btn">清空購物車</button>
   					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">關閉</button>
      			</div>
    			</div>
  		</div>
 	</div>
+	<form action="" method="POST" id="update_shopping_cart_form">
+		<input type="hidden" name="dataJson" id="update_shopping_cart_data_input" />
+	</form>
 	<form action="/vendingMachine/machine/clearShoppingCart" method="POST" id="clear_shopping_cart_form">
 		<input type="hidden" name="dataJson" id="clear_shopping_cart_data_input" />
 	</form>
@@ -481,7 +538,7 @@
 	     				<div class="container">
 	     					<c:forEach var="line" items="${vo.addShoppingCartMsg.lines}">
 	     						<p>
-	     							已新增商品 <span class="text-primary">${line.name}</span> <span class="text-primary">${line.addQuantity}</span> 罐至購物車
+	     							已新增商品 <span class="mx-2 text-primary">${line.name}</span> <span class="mx-2 text-danger">${line.addQuantity}</span> 罐至購物車
 	     						</p>
 	     					</c:forEach>
 						</div>

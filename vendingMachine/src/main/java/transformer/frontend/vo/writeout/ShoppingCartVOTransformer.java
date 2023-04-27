@@ -27,6 +27,7 @@ public class ShoppingCartVOTransformer extends VOWriteOutTransformerTemplate<Sho
 
 		ShoppingCartVO vo = new ShoppingCartVO();
 		
+		vo.setGoodsCount(String.valueOf(dto.getGoodsCount()));
 		vo.setShoppingCartGoodsArray(shoppingCartGoodsVOTransformer.dtoListToVoArray(dto.getShoppingCartGoodsList(), size -> new ShoppingCartGoodsVO[size]));
 		
 		return vo;

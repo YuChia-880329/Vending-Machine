@@ -22,13 +22,13 @@ public class AddShoppingCartMsgVODTO {
 	public Has getHasMsg() {
 		return hasMsg;
 	}
-	public void setHasMsg(Has hasMsg) {
-		this.hasMsg = hasMsg;
+	public List<AddShoppingCartMsgLineVODTO> getLines() {
+		return lines;
 	}
 	
 	
-	public List<AddShoppingCartMsgLineVODTO> getLines() {
-		return lines;
+	public void setHasMsg(Has hasMsg) {
+		this.hasMsg = hasMsg;
 	}
 	public void setLines(List<AddShoppingCartMsgLineVODTO> lines) {
 		this.lines = lines;

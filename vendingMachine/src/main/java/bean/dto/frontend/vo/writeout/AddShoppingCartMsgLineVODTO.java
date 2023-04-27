@@ -18,13 +18,13 @@ public class AddShoppingCartMsgLineVODTO {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public int getAddQuantity() {
+		return addQuantity;
 	}
 	
 	
-	public int getAddQuantity() {
-		return addQuantity;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public void setAddQuantity(int addQuantity) {
 		this.addQuantity = addQuantity;

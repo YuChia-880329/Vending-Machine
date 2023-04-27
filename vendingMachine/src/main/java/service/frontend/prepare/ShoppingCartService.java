@@ -1,5 +1,8 @@
 package service.frontend.prepare;
 
+import java.util.List;
+
+import bean.dto.frontend.vo.writeout.ShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.writeout.ShoppingCartVODTO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 
@@ -24,7 +27,10 @@ public class ShoppingCartService {
 		
 		ShoppingCartVODTO shoppingCartVODTO = new ShoppingCartVODTO();
 		
-		shoppingCartVODTO.setShoppingCartGoodsList(shoppingCartGoodsListService.prepare(shoppingCartMemoryDbDAO));
+		List<ShoppingCartGoodsVODTO> shoppingCartGoodsVODTOs = shoppingCartGoodsListService.prepare(shoppingCartMemoryDbDAO);
+		
+		shoppingCartVODTO.setGoodsCount(shoppingCartGoodsVODTOs.size());
+		shoppingCartVODTO.setShoppingCartGoodsList(shoppingCartGoodsVODTOs);
 		
 		return shoppingCartVODTO;
 	}

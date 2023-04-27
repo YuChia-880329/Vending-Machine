@@ -1,8 +1,8 @@
 package service.frontend.prepare;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.writeout.ShoppingCartGoodsVODTO;
@@ -35,11 +35,15 @@ public class ShoppingCartGoodsListService {
 	
 	public List<ShoppingCartGoodsVODTO> shoppingCartOBJsToShoppingCartGoodsVOs(List<ShoppingCartOBJDTO> shoppingCartOBJDTOs){
 		
-		return shoppingCartOBJDTOs.stream()
-				.map(shoppingCartOBJDTO -> shoppingCartOBJToShoppingCartGoodsVO(shoppingCartOBJDTO))
-				.collect(Collectors.toList());
+		List<ShoppingCartGoodsVODTO> shoppingCartGoodsVODTOs = new ArrayList<>();
+		
+		for(int i=0; i<shoppingCartGoodsVODTOs.size(); i++) {
+			
+			shoppingCartGoodsVODTOs.add(shoppingCartOBJToShoppingCartGoodsVO(shoppingCartOBJDTOs.get(i), i+1));
+		}
+		return shoppingCartGoodsVODTOs;
 	}
-	public ShoppingCartGoodsVODTO shoppingCartOBJToShoppingCartGoodsVO(ShoppingCartOBJDTO shoppingCartOBJDTO) {
+	public ShoppingCartGoodsVODTO shoppingCartOBJToShoppingCartGoodsVO(ShoppingCartOBJDTO shoppingCartOBJDTO, int pageId) {
 		
 		int id = shoppingCartOBJDTO.getId();
 		String name = "";
@@ -57,6 +61,7 @@ public class ShoppingCartGoodsListService {
 		ShoppingCartGoodsVODTO shoppingCartGoodsVODTO = new ShoppingCartGoodsVODTO();
 		
 		shoppingCartGoodsVODTO.setId(id);
+		shoppingCartGoodsVODTO.setPageId(pageId);
 		shoppingCartGoodsVODTO.setName(name);
 		shoppingCartGoodsVODTO.setBuyQuantity(shoppingCartOBJDTO.getBuyQuantity());
 		shoppingCartGoodsVODTO.setPrice(price);

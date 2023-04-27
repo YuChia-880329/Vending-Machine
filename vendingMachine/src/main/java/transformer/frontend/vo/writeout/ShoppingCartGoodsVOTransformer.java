@@ -22,8 +22,10 @@ public class ShoppingCartGoodsVOTransformer extends VOWriteOutTransformerTemplat
 		ShoppingCartGoodsVO vo = new ShoppingCartGoodsVO();
 		
 		vo.setId(String.valueOf(dto.getId()));
+		vo.setPageId(String.valueOf(dto.getPageId()));
 		vo.setName(dto.getName());
 		vo.setBuyQuantity(String.valueOf(dto.getBuyQuantity()));
+		vo.setQuantity(String.valueOf(dto.getQuantity()));
 		vo.setPrice(String.valueOf(dto.getPrice()));
 		
 		return vo;

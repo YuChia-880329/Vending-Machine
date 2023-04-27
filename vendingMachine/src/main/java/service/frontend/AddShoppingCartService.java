@@ -1,6 +1,7 @@
 package service.frontend;
 
 import java.util.List;
+import java.util.function.Function;
 
 import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCartIllegalMsgLineOBJDTO;
 import bean.dto.frontend.obj.cache.addShoppingCartMsgLine.AddShoppingCartMsgLineOBJDTO;
@@ -14,9 +15,14 @@ import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 
 public class AddShoppingCartService {
 
+	private ShoppingCartService shoppingCartService;
+	
+	
 	private static final AddShoppingCartService INSTANCE = new AddShoppingCartService();
 	
 	private AddShoppingCartService() {
+		
+		shoppingCartService = ShoppingCartService.getInstance();
 	}
 	
 	public static AddShoppingCartService getInstance() {
@@ -24,7 +30,8 @@ public class AddShoppingCartService {
 		return INSTANCE;
 	}
 	
-	public AddShoppingCartResultVODTO add(AddShoppingCartVODTO addShoppingCartVODTO, 
+	public AddShoppingCartResultVODTO add(
+			AddShoppingCartVODTO addShoppingCartVODTO, 
 			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
 			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, 
 			AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO) {
@@ -32,9 +39,9 @@ public class AddShoppingCartService {
 		AddShoppingCartResultVODTO addShoppingCartResultVODTO = new AddShoppingCartResultVODTO();
 		
 		List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsVODTOs = addShoppingCartVODTO.getAddShoppingCartGoodsList();
-		for(int i=1; i<=addShoppingCartGoodsVODTOs.size(); i++) {
+		for(int i=0; i<addShoppingCartGoodsVODTOs.size(); i++) {
 			
-			AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO = addShoppingCartGoodsVODTOs.get(i-1);
+			AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO = addShoppingCartGoodsVODTOs.get(i);
 			
 			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
 				
@@ -54,34 +61,25 @@ public class AddShoppingCartService {
 	private boolean isLegal(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
 		int id = addShoppingCartGoodsVODTO.getId();
-		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(id);
+		int addQuantity = addShoppingCartGoodsVODTO.getBuyQuantity();
+		int quantity = addShoppingCartGoodsVODTO.getQuantity();
 		
-		int buyQuantity = shoppingCartOBJDTO.getBuyQuantity() + addShoppingCartGoodsVODTO.getBuyQuantity();
-		return (buyQuantity <= addShoppingCartGoodsVODTO.getQuantity());
+		return shoppingCartService.isLegal(id, quantity, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
 	}
 	private void addShoppingCartGoods(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
 		int id = addShoppingCartGoodsVODTO.getId();
-		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(id);
+		int addQuantity = addShoppingCartGoodsVODTO.getBuyQuantity();
 		
-		int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
-		int buyQuantity = originBuyQuantity + addShoppingCartGoodsVODTO.getBuyQuantity();
-		addShoppingCartGoodsVODTO.setBuyQuantity(buyQuantity);
-		shoppingCartOBJDTO = shoppingCartGoodsVOToShoppingCartOBJ(addShoppingCartGoodsVODTO);
-		
-		if(originBuyQuantity > 0)
-			shoppingCartMemoryDbDAO.update(shoppingCartOBJDTO);
-		else
-			shoppingCartMemoryDbDAO.insert(shoppingCartOBJDTO);
+		shoppingCartService.saveShoppingCartGoods(id, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
 	}
 	
-	private ShoppingCartOBJDTO shoppingCartGoodsVOToShoppingCartOBJ(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO) {
+	private Function<ShoppingCartOBJDTO, Integer> getBuyQuantityFctn(int addQuantity){
 		
-		ShoppingCartOBJDTO shoppingCartOBJDTO = new ShoppingCartOBJDTO();
-		
-		shoppingCartOBJDTO.setId(addShoppingCartGoodsVODTO.getId());
-		shoppingCartOBJDTO.setBuyQuantity(addShoppingCartGoodsVODTO.getBuyQuantity());
-		
-		return shoppingCartOBJDTO;
+		return shoppingCartOBJDTO -> {
+			
+			int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
+			return originBuyQuantity + addQuantity;
+		};
 	}
 }

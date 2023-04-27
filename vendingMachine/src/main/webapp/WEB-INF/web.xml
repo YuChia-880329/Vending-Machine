@@ -59,6 +59,10 @@
 		<servlet-name>clearShoppingCartServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.ClearShoppingCartServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>updateShoppingCartServlet</servlet-name>
+		<servlet-class>controller.servlet.frontend.UpdateShoppingCartServlet</servlet-class>
+	</servlet>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet>
 		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
@@ -123,6 +127,10 @@
 	<servlet-mapping>
 		<servlet-name>clearShoppingCartServlet</servlet-name>
 		<url-pattern>/machine/clearShoppingCart</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>updateShoppingCartServlet</servlet-name>
+		<url-pattern>/machine/updateShoppingCart</url-pattern>
 	</servlet-mapping>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet-mapping>
