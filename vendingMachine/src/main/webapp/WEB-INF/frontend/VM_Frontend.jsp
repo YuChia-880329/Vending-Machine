@@ -33,6 +33,14 @@
 		let clearShoppingCartMsgModalExistInputId = 'clear_shopping_cart_msg_modal_exist_input';
 		let clearShoppingCartMsgModalId = 'clear_shopping_cart_msg_modal';
 		let clearShoppingCartMsgOkBtnId = 'clear_shopping_cart_msg_ok_btn';
+
+		let updateShoppingCartIllegalMsgModalExistInputId = 'update_shopping_cart_illegal_msg_modal_exist_input';
+		let updateShoppingCartIllegalMsgModalId = 'update_shopping_cart_illegal_msg_modal';
+		let updateShoppingCartIllegalMsgOkBtnId = 'update_shopping_cart_illegal_msg_ok_btn';
+
+		let updateShoppingCartMsgModalExistInputId = 'update_shopping_cart_msg_modal_exist_input';
+		let updateShoppingCartMsgModalId = 'update_shopping_cart_msg_modal';
+		let updateShoppingCartMsgOkBtnId = 'update_shopping_cart_msg_ok_btn';
 		
 		let filterForm = 'filter_form';
 		let filterBtnId = 'filter_btn';
@@ -106,11 +114,21 @@
 				addShoppingCartMsgModalId,
 				addShoppingCartMsgOkBtnId
 			);
-			
 			modalIdObjs[2] = modalIdObjsFctn(
 				clearShoppingCartMsgModalExistInputId,
 				clearShoppingCartMsgModalId,
 				clearShoppingCartMsgOkBtnId
+			);
+			modalIdObjs[3] = modalIdObjsFctn(
+				updateShoppingCartIllegalMsgModalExistInputId,
+				updateShoppingCartIllegalMsgModalId,
+				updateShoppingCartIllegalMsgOkBtnId
+			);
+			
+			modalIdObjs[4] = modalIdObjsFctn(
+				updateShoppingCartMsgModalExistInputId,
+				updateShoppingCartMsgModalId,
+				updateShoppingCartMsgOkBtnId
 			);
 			showMsgModalArray(modalIdObjs);
 		}
@@ -472,7 +490,7 @@
 	     						</div>
 	     						<div class="d-flex justify-content-center">
 									<div class="d-flex">
-										<input type="hidden" id="shopping_cart_goods_id_input_${shoppingCartGoods.pageId}" value="${shoppingCartGoods.buyQuantity}" value="${shoppingCartGoods.id}" />
+										<input type="hidden" id="shopping_cart_goods_id_input_${shoppingCartGoods.pageId}" value="${shoppingCartGoods.id}" />
      									<input type="number" class="form-control" id="shopping_cart_goods_buy_quantity_input_${shoppingCartGoods.pageId}" value="${shoppingCartGoods.buyQuantity}" max="999999" min="0" />
      									<div class="ms-3 d-flex align-self-center">
      										<p class="mb-0">罐</p>
@@ -486,12 +504,15 @@
      			<div class="modal-footer">
      			    <button type="button" class="btn btn-primary" id="update_shopping_cart_btn">更新購物車</button>
      				<button type="button" class="btn btn-danger me-auto" id="clear_shopping_cart_btn">清空購物車</button>
+     				<p class="me-2">
+     					總計  :  <span class="text-secondary">${vo.shoppingCart.totalPrice}</span>  元
+     				</p>
   					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">關閉</button>
      			</div>
    			</div>
  		</div>
 	</div>
-	<form action="" method="POST" id="update_shopping_cart_form">
+	<form action="/vendingMachine/machine/updateShoppingCart" method="POST" id="update_shopping_cart_form">
 		<input type="hidden" name="dataJson" id="update_shopping_cart_data_input" />
 	</form>
 	<form action="/vendingMachine/machine/clearShoppingCart" method="POST" id="clear_shopping_cart_form">
@@ -567,6 +588,58 @@
 	     			</div>
 	     			<div class="modal-footer msg-modal-footer">
 	  					<button type="button" class="btn btn-primary" id="clear_shopping_cart_msg_ok_btn">確認</button>
+	     			</div>
+	   			</div>
+	 		</div>
+		</div>
+	</c:if>
+	
+	<input type="hidden" value="${vo.updateShoppingCartIllegalMsg.hasMsg}" id="update_shopping_cart_illegal_msg_modal_exist_input" />
+	<c:if test="${vo.updateShoppingCartIllegalMsg.hasMsg == 'true'}">
+		<div class="modal fade" id="update_shopping_cart_illegal_msg_modal">
+	 		<div class="modal-dialog msg-modal-dialog">
+	   			<div class="modal-content msg-modal-content">
+	     			<div class="modal-header msg-modal-header">
+	       				<h4 class="modal-title">警告</h4>
+	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	     			</div>
+	     			<div class="modal-body msg-modal-body">
+	     				<div class="container">
+	     					<c:forEach var="line" items="${vo.updateShoppingCartIllegalMsg.lines}">
+	     						<p>
+	     							商品 <span class="text-danger">${line.name}</span> 購買數量大於庫存數量
+	     						</p>
+	     					</c:forEach>
+						</div>
+	     			</div>
+	     			<div class="modal-footer msg-modal-footer">
+	  					<button type="button" class="btn btn-primary" id="update_shopping_cart_illegal_msg_ok_btn">確認</button>
+	     			</div>
+	   			</div>
+	 		</div>
+		</div>
+	</c:if>
+	
+	<input type="hidden" value="${vo.updateShoppingCartMsg.hasMsg}" id="update_shopping_cart_msg_modal_exist_input" />
+	<c:if test="${vo.updateShoppingCartMsg.hasMsg == 'true'}">
+		<div class="modal fade" id="update_shopping_cart_msg_modal">
+	 		<div class="modal-dialog msg-modal-dialog">
+	   			<div class="modal-content msg-modal-content">
+	     			<div class="modal-header msg-modal-header">
+	       				<h4 class="modal-title">訊息</h4>
+	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	     			</div>
+	     			<div class="modal-body msg-modal-body">
+	     				<div class="container">
+	     					<c:forEach var="line" items="${vo.updateShoppingCartMsg.lines}">
+	     						<p>
+	     							已更新購物車  商品<span class="mx-2 text-primary">${line.name}</span> <span class="mx-2 text-danger">${line.buyQuantity}</span> 罐
+	     						</p>
+	     					</c:forEach>
+						</div>
+	     			</div>
+	     			<div class="modal-footer msg-modal-footer">
+	  					<button type="button" class="btn btn-primary" id="update_shopping_cart_msg_ok_btn">確認</button>
 	     			</div>
 	   			</div>
 	 		</div>

@@ -37,7 +37,7 @@ public class ShoppingCartGoodsListService {
 		
 		List<ShoppingCartGoodsVODTO> shoppingCartGoodsVODTOs = new ArrayList<>();
 		
-		for(int i=0; i<shoppingCartGoodsVODTOs.size(); i++) {
+		for(int i=0; i<shoppingCartOBJDTOs.size(); i++) {
 			
 			shoppingCartGoodsVODTOs.add(shoppingCartOBJToShoppingCartGoodsVO(shoppingCartOBJDTOs.get(i), i+1));
 		}
@@ -48,11 +48,13 @@ public class ShoppingCartGoodsListService {
 		int id = shoppingCartOBJDTO.getId();
 		String name = "";
 		int price = 0;
+		int quantity = 0;
 		try {
 			
 			GoodsModelDTO goodsModelDTO = goodsModelService.searchById(id);
 			name = goodsModelDTO.getName();
 			price = goodsModelDTO.getPrice();
+			quantity = goodsModelDTO.getQuantity();
 		} catch (SQLException ex) {
 			
 			ex.printStackTrace();
@@ -64,6 +66,7 @@ public class ShoppingCartGoodsListService {
 		shoppingCartGoodsVODTO.setPageId(pageId);
 		shoppingCartGoodsVODTO.setName(name);
 		shoppingCartGoodsVODTO.setBuyQuantity(shoppingCartOBJDTO.getBuyQuantity());
+		shoppingCartGoodsVODTO.setQuantity(quantity);
 		shoppingCartGoodsVODTO.setPrice(price);
 		
 		return shoppingCartGoodsVODTO;

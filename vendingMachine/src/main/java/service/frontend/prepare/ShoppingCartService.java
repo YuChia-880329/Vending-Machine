@@ -1,6 +1,7 @@
 package service.frontend.prepare;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import bean.dto.frontend.vo.writeout.ShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.writeout.ShoppingCartVODTO;
@@ -31,7 +32,13 @@ public class ShoppingCartService {
 		
 		shoppingCartVODTO.setGoodsCount(shoppingCartGoodsVODTOs.size());
 		shoppingCartVODTO.setShoppingCartGoodsList(shoppingCartGoodsVODTOs);
+		shoppingCartVODTO.setTotalPrice(prepareTotalPrice(shoppingCartGoodsVODTOs));
 		
 		return shoppingCartVODTO;
+	}
+	private int prepareTotalPrice(List<ShoppingCartGoodsVODTO> shoppingCartGoodsVODTOs) {
+		
+		return shoppingCartGoodsVODTOs.stream()
+				.collect(Collectors.summingInt(shoppingCartGoodsVODTO -> shoppingCartGoodsVODTO.getBuyQuantity()*shoppingCartGoodsVODTO.getPrice()));
 	}
 }

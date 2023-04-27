@@ -59,7 +59,6 @@ public class UpdateShoppingCartServlet extends HttpServlet {
 		UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartIllegalMsgLineCacheDAO(session);
 		UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartMsgLineCacheDAO(session);
 		
-		
 		UpdateShoppingCartVO updateShoppingCartVO = gson.fromJson(req.getParameter(REQ_PARAM_DATA_JSON), UpdateShoppingCartVO.class);
 		
 		try {
@@ -69,7 +68,7 @@ public class UpdateShoppingCartServlet extends HttpServlet {
 					updateShoppingCartIllegalMsgLineCacheDAO, updateShoppingCartMsgLineCacheDAO);
 			UpdateShoppingCartResultVO updateShoppingCartResultVO =updateShoppingCartResultVOTransformer.dtoToVo(updateShoppingCartResultVODTO);
 		
-			resp.sendRedirect(ServletUtil.concatQueryString(URL, updateShoppingCartResultVO.getQueryString()));
+			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, updateShoppingCartResultVO.getQueryString()));
 		} catch (CheckerException ex) {
 			
 			ex.printStackTrace();

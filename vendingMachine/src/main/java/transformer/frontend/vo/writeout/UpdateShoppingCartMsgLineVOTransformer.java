@@ -22,7 +22,7 @@ public class UpdateShoppingCartMsgLineVOTransformer extends VOWriteOutTransforme
 		UpdateShoppingCartMsgLineVO vo = new UpdateShoppingCartMsgLineVO();
 		
 		vo.setName(dto.getName());
-		vo.setBuyQuantity(String.valueOf(vo.getBuyQuantity()));
+		vo.setBuyQuantity(String.valueOf(dto.getBuyQuantity()));
 		
 		return vo;
 	}
