@@ -23,7 +23,7 @@ public class BoughtGoodsMsgVOTransformer extends VOWriteOutTransformerTemplate<B
 		
 		vo.setName(dto.getName());
 		vo.setPrice(String.valueOf(dto.getPrice()));
-		vo.setQuantity(String.valueOf(dto.getQuantity()));
+		vo.setBuyQuantity(String.valueOf(dto.getBuyQuantity()));
 		
 		return vo;
 	}

@@ -25,7 +25,7 @@ public class AddShoppingCartIllegalMsgService {
 		
 		AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsgVODTO = new AddShoppingCartIllegalMsgVODTO();
 		
-		List<AddShoppingCartIllegalMsgLineOBJDTO> addShoppingCartIllegalMsgLineOBJDTOs = addShoppingCartIllegalMsgLineCacheDAO.use();
+		List<AddShoppingCartIllegalMsgLineOBJDTO> addShoppingCartIllegalMsgLineOBJDTOs = addShoppingCartIllegalMsgLineCacheDAO.use(true);
 		
 		addShoppingCartIllegalMsgVODTO.setHasMsg(addShoppingCartIllegalMsgLineOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
 		addShoppingCartIllegalMsgVODTO.setLines(addShoppingCartIllegalMsgLineOBJsToAddShoppingCartIllegalMsgLineVOs(addShoppingCartIllegalMsgLineOBJDTOs));

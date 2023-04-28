@@ -10,17 +10,15 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import bean.dto.frontend.ClearShoppingCartResultDTO;
 import bean.dto.frontend.vo.readin.ClearShoppingCartVODTO;
-import bean.dto.frontend.vo.writeout.ClearShoppingCartResultVODTO;
 import bean.vo.frontend.readin.ClearShoppingCartVO;
-import bean.vo.frontend.writeout.ClearShoppingCartResultVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
 import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import service.frontend.ClearShoppingCartService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.ClearShoppingCartVOTransformer;
-import transformer.frontend.vo.writeout.ClearShoppingCartResultVOTransformer;
 import util.GsonUtil;
 import util.ServletUtil;
 
@@ -38,7 +36,6 @@ public class ClearShoppingCartServlet extends HttpServlet {
 	private Gson gson;
 	private ClearShoppingCartVOTransformer clearShoppingCartVOTransformer;
 	private ClearShoppingCartService clearShoppingCartService;
-	private ClearShoppingCartResultVOTransformer clearShoppingCartResultVOTransformer;
 	
 	@Override
 	public void init() throws ServletException {
@@ -46,7 +43,6 @@ public class ClearShoppingCartServlet extends HttpServlet {
 		gson = GsonUtil.getGson();
 		clearShoppingCartVOTransformer = ClearShoppingCartVOTransformer.getInstance();
 		clearShoppingCartService = ClearShoppingCartService.getInstance();
-		clearShoppingCartResultVOTransformer = ClearShoppingCartResultVOTransformer.getInstance();
 	}
 	
 	@Override
@@ -62,9 +58,8 @@ public class ClearShoppingCartServlet extends HttpServlet {
 		try {
 			
 			ClearShoppingCartVODTO clearShoppingCartVODTO = clearShoppingCartVOTransformer.voToDto(clearShoppingCartVO);
-			ClearShoppingCartResultVODTO clearShoppingCartResultVODTO = clearShoppingCartService.clear(clearShoppingCartVODTO, shoppingCartMemoryDbDAO, clearShoppingCartMsgLineCacheDAO);
-			ClearShoppingCartResultVO clearShoppingCartResultVO = clearShoppingCartResultVOTransformer.dtoToVo(clearShoppingCartResultVODTO);
-			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, clearShoppingCartResultVO.getQueryString()));
+			ClearShoppingCartResultDTO clearShoppingCartResultDTO = clearShoppingCartService.clear(clearShoppingCartVODTO, shoppingCartMemoryDbDAO, clearShoppingCartMsgLineCacheDAO);
+			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, clearShoppingCartResultDTO.getQueryString()));
 		} catch (CheckerException ex) {
 
 			ex.printStackTrace();

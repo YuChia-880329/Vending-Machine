@@ -2,22 +2,40 @@ package bean.vo.frontend.readin;
 
 public class CheckoutVO {
 
-	private String paidMoney;
-
+	private String queryString;
+	private CheckoutFormVO checkoutForm;
+	private AddShoppingCartGoodsVO[] addShoppingCartGoodsArray;
+	
+	
 	public CheckoutVO() {
 	}
-	public CheckoutVO(String paidMoney) {
+	public CheckoutVO(String queryString, CheckoutFormVO checkoutForm, AddShoppingCartGoodsVO[] addShoppingCartGoodsArray) {
 
-		this.paidMoney = paidMoney;
+		this.queryString = queryString;
+		this.checkoutForm = checkoutForm;
+		this.addShoppingCartGoodsArray = addShoppingCartGoodsArray;
 	}
 	
 	
-	public String getPaidMoney() {
-		return paidMoney;
+	public String getQueryString() {
+		return queryString;
+	}
+	public CheckoutFormVO getCheckoutForm() {
+		return checkoutForm;
+	}
+	public AddShoppingCartGoodsVO[] getAddShoppingCartGoodsArray() {
+		return addShoppingCartGoodsArray;
 	}
 	
 	
-	public void setPaidMoney(String paidMoney) {
-		this.paidMoney = paidMoney;
+
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
+	}
+	public void setCheckoutForm(CheckoutFormVO checkoutForm) {
+		this.checkoutForm = checkoutForm;
+	}
+	public void setAddShoppingCartGoodsArray(AddShoppingCartGoodsVO[] addShoppingCartGoodsArray) {
+		this.addShoppingCartGoodsArray = addShoppingCartGoodsArray;
 	}
 }

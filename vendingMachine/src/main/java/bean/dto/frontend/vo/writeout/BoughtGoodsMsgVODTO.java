@@ -4,16 +4,16 @@ public class BoughtGoodsMsgVODTO {
 
 	private String name;
 	private int price;
-	private int quantity;
+	private int buyQuantity;
 	
 	
 	public BoughtGoodsMsgVODTO() {
 	}
-	public BoughtGoodsMsgVODTO(String name, int price, int quantity) {
+	public BoughtGoodsMsgVODTO(String name, int price, int buyQuantity) {
 
 		this.name = name;
 		this.price = price;
-		this.quantity = quantity;
+		this.buyQuantity = buyQuantity;
 	}
 	
 	
@@ -23,8 +23,8 @@ public class BoughtGoodsMsgVODTO {
 	public int getPrice() {
 		return price;
 	}
-	public int getQuantity() {
-		return quantity;
+	public int getBuyQuantity() {
+		return buyQuantity;
 	}
 	
 	public void setName(String name) {
@@ -33,7 +33,7 @@ public class BoughtGoodsMsgVODTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setBuyQuantity(int buyQuantity) {
+		this.buyQuantity = buyQuantity;
 	}
 }

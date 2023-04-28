@@ -3,12 +3,12 @@ package service.frontend;
 import java.util.List;
 import java.util.function.Function;
 
+import bean.dto.frontend.UpdateShoppingCartResultDTO;
 import bean.dto.frontend.obj.cache.updateShoppingCartIllegalMsgLine.UpdateShoppingCartIllegalMsgLineOBJDTO;
 import bean.dto.frontend.obj.cache.updateShoppingCartMsgLine.UpdateShoppingCartMsgLineOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.UpdateShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.UpdateShoppingCartVODTO;
-import bean.dto.frontend.vo.writeout.UpdateShoppingCartResultVODTO;
 import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
@@ -31,13 +31,13 @@ public class UpdateShoppingCartService {
 	}
 	
 	
-	public UpdateShoppingCartResultVODTO update(
+	public UpdateShoppingCartResultDTO update(
 			UpdateShoppingCartVODTO updateShoppingCartVODTO, 
 			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO,
 			UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO,
 			UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO) {
 		
-		UpdateShoppingCartResultVODTO updateShoppingCartResultVODTO = new UpdateShoppingCartResultVODTO();
+		UpdateShoppingCartResultDTO updateShoppingCartResultDTO = new UpdateShoppingCartResultDTO();
 		
 		List<UpdateShoppingCartGoodsVODTO> updateShoppingCartGoodsVODTOs = updateShoppingCartVODTO.getUpdateShoppingCartGoodsList();
 		for(int i=0; i<updateShoppingCartGoodsVODTOs.size(); i++) {
@@ -47,12 +47,17 @@ public class UpdateShoppingCartService {
 			
 			if(isLegal(updateShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
 				
-				if(updateShoppingCartGoodsVODTO.getBuyQuantity() != shoppingCartOBJDTO.getBuyQuantity()) {
+				int buyQuantity = updateShoppingCartGoodsVODTO.getBuyQuantity();
+				if(buyQuantity != shoppingCartOBJDTO.getBuyQuantity()) {
 					
-					updateShoppingCartGoods(updateShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
+					if(buyQuantity == 0)
+						shoppingCartMemoryDbDAO.delete(updateShoppingCartGoodsVODTO.getId());
+					else
+						updateShoppingCartGoods(updateShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
+					
 					updateShoppingCartMsgLineCacheDAO.save(new UpdateShoppingCartMsgLineOBJDTO(
 							updateShoppingCartGoodsVODTO.getName(), 
-							updateShoppingCartGoodsVODTO.getBuyQuantity()));
+							buyQuantity));
 				}
 			}else {
 				
@@ -61,9 +66,9 @@ public class UpdateShoppingCartService {
 			}
 		}
 		
-		updateShoppingCartResultVODTO.setQueryString(updateShoppingCartVODTO.getQueryString());
+		updateShoppingCartResultDTO.setQueryString(updateShoppingCartVODTO.getQueryString());
 		
-		return updateShoppingCartResultVODTO;
+		return updateShoppingCartResultDTO;
 	}
 	
 	private boolean isLegal(UpdateShoppingCartGoodsVODTO updateShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {

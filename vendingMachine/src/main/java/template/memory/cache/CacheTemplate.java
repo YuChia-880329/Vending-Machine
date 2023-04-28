@@ -18,13 +18,15 @@ public abstract class CacheTemplate<O> {
 		
 		cachePool.add(obj);
 	}
-	public List<O> use(){
+	public List<O> use(boolean needClear){
 		
 		List<O> copy = CollectionUtil.copy(cachePool, () -> new ArrayList<>());
-		clearCache();
+		
+		if(needClear)
+			clearCache();
 		return copy;
 	}
-	private void clearCache() {
+	public void clearCache() {
 		
 		cachePool.removeIf(obj -> true);
 	}

@@ -3,12 +3,12 @@ package service.frontend;
 import java.util.List;
 import java.util.function.Function;
 
+import bean.dto.frontend.AddShoppingCartResultDTO;
 import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCartIllegalMsgLineOBJDTO;
 import bean.dto.frontend.obj.cache.addShoppingCartMsgLine.AddShoppingCartMsgLineOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
-import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
@@ -30,13 +30,13 @@ public class AddShoppingCartService {
 		return INSTANCE;
 	}
 	
-	public AddShoppingCartResultVODTO add(
+	public AddShoppingCartResultDTO add(
 			AddShoppingCartVODTO addShoppingCartVODTO, 
 			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
 			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, 
 			AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO) {
 		
-		AddShoppingCartResultVODTO addShoppingCartResultVODTO = new AddShoppingCartResultVODTO();
+		AddShoppingCartResultDTO addShoppingCartResultDTO = new AddShoppingCartResultDTO();
 		
 		List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsVODTOs = addShoppingCartVODTO.getAddShoppingCartGoodsList();
 		for(int i=0; i<addShoppingCartGoodsVODTOs.size(); i++) {
@@ -54,9 +54,9 @@ public class AddShoppingCartService {
 				
 		}
 		
-		addShoppingCartResultVODTO.setQueryString(addShoppingCartVODTO.getQueryString());
+		addShoppingCartResultDTO.setQueryString(addShoppingCartVODTO.getQueryString());
 		
-		return addShoppingCartResultVODTO;
+		return addShoppingCartResultDTO;
 	}
 	private boolean isLegal(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		

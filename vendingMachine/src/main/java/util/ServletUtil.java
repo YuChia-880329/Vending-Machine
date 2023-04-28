@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
+import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
@@ -18,6 +19,7 @@ import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import memory.cache.frontend.AddShoppingCartIllegalMsgLineCache;
 import memory.cache.frontend.AddShoppingCartMsgLineCache;
 import memory.cache.frontend.ClearShoppingCartMsgLineCache;
+import memory.cache.frontend.ReceiptContentCache;
 import memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCache;
 import memory.cache.frontend.UpdateShoppingCartMsgLineCache;
 import memory.database.frontend.ShoppingCartMemoryDb;
@@ -125,6 +127,14 @@ public class ServletUtil {
 				() -> new UpdateShoppingCartMsgLineCache(), 
 				memory -> new UpdateShoppingCartMsgLineCacheDAO(memory));
 	}
+	public static ReceiptContentCacheDAO getReceiptContentCacheDAO(HttpSession session) {
+		
+		return getMemoryDAO(
+				session, 
+				ReceiptContentCacheDAO.SESSION_ATTR_DAO, 
+				() -> new ReceiptContentCache(), 
+				memory -> new ReceiptContentCacheDAO(memory));
+	}
 	
 	
 	private static <M, D> D getMemoryDAO(HttpSession session, String sessionAttrName, Supplier<M> memorySupl, Function<M, D> memoryDAOFctn){
@@ -142,4 +152,5 @@ public class ServletUtil {
 		
 		return memoryDAO;
 	}
+	
 }

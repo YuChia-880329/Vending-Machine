@@ -81,8 +81,8 @@ public class OrderTablePagesRepository extends RepositoryTemplate<OrderTablePage
 		int maxPage = 0;
 		try {
 			
-			orderTablePageMap = updateOrderTablePageMap(inputObj, maxPage, queryObjs);
 			maxPage = PaginationUtil.getMaxPage(orderJoinModelService.searchRowNumber(queryObjs), OrderTablePageService.GOODS_PER_PAGE);
+			orderTablePageMap = updateOrderTablePageMap(inputObj, maxPage, queryObjs);
 		} catch (SQLException ex) {
 			
 			ex.printStackTrace();

@@ -52,7 +52,10 @@
 						dataType : 'json',
 						success : function(data){
 							
-							$('#' + msgDivId).text(data.createMsg.msg);
+							if(data.createMsg.success == 'true')
+								$('#' + msgDivId).text('已新增商品 id ' + data.createMsg.id + ', ' + data.createMsg.name);
+							else
+								$('#' + msgDivId).text('新增商品失敗');
 						}
 					});
 				}

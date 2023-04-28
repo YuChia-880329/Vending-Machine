@@ -8,16 +8,12 @@ import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
+import enumeration.Has;
 import service.model.GoodsModelService;
 
 public class UpdateService {
-	
-	private static String SUCCESS_RESULT_MSG_FORMAT = "已成功更新 id %d 商品 : %s";
-	private static String FAILURE_RESULT_MSG = "更新失敗";
-	
 
 	private GoodsModelService goodsModelService;
-	
 	
 	private static final UpdateService INSTANCE = new UpdateService();
 	
@@ -81,9 +77,12 @@ public class UpdateService {
 		UpdateMsgVODTO updateMsgVODTO = new UpdateMsgVODTO();
 		
 		if(result > 0)
-			updateMsgVODTO.setMsg(String.format(SUCCESS_RESULT_MSG_FORMAT, id, name));
+			updateMsgVODTO.setSuccess(Has.TRUE);
 		else
-			updateMsgVODTO.setMsg(FAILURE_RESULT_MSG);
+			updateMsgVODTO.setSuccess(Has.FALSE);
+
+		updateMsgVODTO.setId(id);
+		updateMsgVODTO.setName(name);
 		
 		return updateMsgVODTO;
 	}

@@ -1,8 +1,8 @@
 package service.frontend;
 
+import bean.dto.frontend.ClearShoppingCartResultDTO;
 import bean.dto.frontend.obj.cache.clearShoppingCartMsgLine.ClearShoppingCartMsgLineOBJDTO;
 import bean.dto.frontend.vo.readin.ClearShoppingCartVODTO;
-import bean.dto.frontend.vo.writeout.ClearShoppingCartResultVODTO;
 import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import enumeration.Has;
@@ -19,16 +19,16 @@ public class ClearShoppingCartService {
 		return INSTANCE;
 	}
 	
-	public ClearShoppingCartResultVODTO clear(ClearShoppingCartVODTO clearShoppingCartVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
+	public ClearShoppingCartResultDTO clear(ClearShoppingCartVODTO clearShoppingCartVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
 			ClearShoppingCartMsgLineCacheDAO clearShoppingCartMsgLineCacheDAO) {
 		
-		ClearShoppingCartResultVODTO clearShoppingCartResultVODTO = new ClearShoppingCartResultVODTO();
+		ClearShoppingCartResultDTO clearShoppingCartResultDTO = new ClearShoppingCartResultDTO();
 		
 		shoppingCartMemoryDbDAO.deleteAll();
 		clearShoppingCartMsgLineCacheDAO.save(new ClearShoppingCartMsgLineOBJDTO(Has.TRUE));
 		
-		clearShoppingCartResultVODTO.setQueryString(clearShoppingCartVODTO.getQueryString());
+		clearShoppingCartResultDTO.setQueryString(clearShoppingCartVODTO.getQueryString());
 		
-		return clearShoppingCartResultVODTO;
+		return clearShoppingCartResultDTO;
 	}
 }

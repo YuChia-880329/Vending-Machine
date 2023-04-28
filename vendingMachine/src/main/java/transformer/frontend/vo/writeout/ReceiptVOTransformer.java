@@ -1,20 +1,19 @@
 package transformer.frontend.vo.writeout;
 
 import bean.dto.frontend.vo.writeout.ReceiptVODTO;
-import bean.vo.frontend.writeout.BoughtGoodsMsgVO;
 import bean.vo.frontend.writeout.ReceiptVO;
 import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 
 public class ReceiptVOTransformer extends VOWriteOutTransformerTemplate<ReceiptVODTO, ReceiptVO> {
 
-	private BoughtGoodsMsgVOTransformer boughtGoodsMsgVOTransformer;
+	private ReceiptContentVOTransformer receiptContentVOTransformer;
 	
 	
 	private static final ReceiptVOTransformer INSTANCE = new ReceiptVOTransformer();
 	
 	private ReceiptVOTransformer() {
 		
-		boughtGoodsMsgVOTransformer = BoughtGoodsMsgVOTransformer.getInstance();
+		receiptContentVOTransformer = ReceiptContentVOTransformer.getInstance();
 	}
 	
 	public static ReceiptVOTransformer getInstance() {
@@ -24,13 +23,11 @@ public class ReceiptVOTransformer extends VOWriteOutTransformerTemplate<ReceiptV
 
 	@Override
 	protected ReceiptVO dtoToVoTransform(ReceiptVODTO dto) {
-
+		
 		ReceiptVO vo = new ReceiptVO();
 		
-		vo.setPaidMoneyMsg(String.valueOf(dto.getPaidMoneyMsg()));
-		vo.setTotalPriceMsg(String.valueOf(dto.getPaidMoneyMsg()));
-		vo.setChangeMsg(String.valueOf(dto.getPaidMoneyMsg()));
-		vo.setBoughtGoodsMsgs(boughtGoodsMsgVOTransformer.dtoListToVoArray(dto.getBoughtGoodsMsgs(), size -> new BoughtGoodsMsgVO[size]));
+		vo.setHasReceipt(dto.getHasReceipt().getDescription());
+		vo.setReceiptContent(receiptContentVOTransformer.dtoToVo(dto.getReceiptContent()));
 		
 		return vo;
 	}

@@ -11,13 +11,14 @@ public class FrontendVO {
 	private WelcomePartVO welcomePart;
 	private GoodsTablePageVO goodsTablePage;
 	private FilterFormVO filterForm;
+	private ReceiptVO receipt;
 	
 	
 	public FrontendVO() {
 	}
 	public FrontendVO(AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg, AddShoppingCartMsgVO addShoppingCartMsg, ClearShoppingCartMsgVO clearShoppingCartMsg, 
 			UpdateShoppingCartIllegalMsgVO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVO updateShoppingCartMsg, ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, 
-			GoodsTablePageVO goodsTablePage, FilterFormVO filterForm) {
+			GoodsTablePageVO goodsTablePage, FilterFormVO filterForm, ReceiptVO receipt) {
 
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
 		this.addShoppingCartMsg = addShoppingCartMsg;
@@ -27,6 +28,7 @@ public class FrontendVO {
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
+		this.receipt = receipt;
 	}
 	
 	
@@ -57,6 +59,9 @@ public class FrontendVO {
 	public FilterFormVO getFilterForm() {
 		return filterForm;
 	}
+	public ReceiptVO getReceipt() {
+		return receipt;
+	}
 
 	
 	
@@ -86,5 +91,8 @@ public class FrontendVO {
 	}
 	public void setFilterForm(FilterFormVO filterForm) {
 		this.filterForm = filterForm;
+	}
+	public void setReceipt(ReceiptVO receipt) {
+		this.receipt = receipt;
 	}
 }

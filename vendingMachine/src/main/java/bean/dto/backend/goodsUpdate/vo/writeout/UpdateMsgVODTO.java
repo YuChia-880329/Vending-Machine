@@ -1,23 +1,41 @@
 package bean.dto.backend.goodsUpdate.vo.writeout;
 
+import enumeration.Has;
+
 public class UpdateMsgVODTO {
 
-	private String msg;
+	private Has success;
+	private int id;
+	private String name;
 
 	public UpdateMsgVODTO() {
 	}
-	public UpdateMsgVODTO(String msg) {
+	public UpdateMsgVODTO(Has success, int id, String name) {
 
-		this.msg = msg;
+		this.success = success;
+		this.id = id;
+		this.name = name;
 	}
 	
 	
-	public String getMsg() {
-		return msg;
+	public Has getSuccess() {
+		return success;
 	}
-
+	public int getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
 	
-	public void setMsg(String msg) {
-		this.msg = msg;
+	
+	public void setSuccess(Has success) {
+		this.success = success;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -25,7 +25,7 @@ public class UpdateShoppingCartMsgService {
 		
 		UpdateShoppingCartMsgVODTO updateShoppingCartMsgVODTO = new UpdateShoppingCartMsgVODTO();
 		
-		List<UpdateShoppingCartMsgLineOBJDTO> updateShoppingCartMsgLineOBJDTOs = updateShoppingCartMsgLineCacheDAO.use();
+		List<UpdateShoppingCartMsgLineOBJDTO> updateShoppingCartMsgLineOBJDTOs = updateShoppingCartMsgLineCacheDAO.use(true);
 		
 		updateShoppingCartMsgVODTO.setHasMsg(updateShoppingCartMsgLineOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
 		updateShoppingCartMsgVODTO.setLines(updateShoppingCartMsgLineOBJsToUpdateShoppingCartMsgLineVOs(updateShoppingCartMsgLineOBJDTOs));

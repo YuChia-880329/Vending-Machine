@@ -10,10 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import bean.dto.frontend.AddShoppingCartResultDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
-import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
 import bean.vo.frontend.readin.AddShoppingCartVO;
-import bean.vo.frontend.writeout.AddShoppingCartResultVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
@@ -21,7 +20,6 @@ import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import service.frontend.AddShoppingCartService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.AddShoppingCartVOTransformer;
-import transformer.frontend.vo.writeout.AddShoppingCartResultVOTransformer;
 import util.GsonUtil;
 import util.ServletUtil;
 
@@ -39,7 +37,6 @@ public class AddShoppingCartServlet extends HttpServlet {
 	private Gson gson;
 	private AddShoppingCartVOTransformer shoppingCartVOTransformer;
 	private AddShoppingCartService addShoppingCartService;
-	private AddShoppingCartResultVOTransformer addShoppingCartResultVOTransformer;
 	
 	
 	@Override
@@ -48,7 +45,6 @@ public class AddShoppingCartServlet extends HttpServlet {
 		gson = GsonUtil.getGson();
 		shoppingCartVOTransformer = AddShoppingCartVOTransformer.getInstance();
 		addShoppingCartService = AddShoppingCartService.getInstance();
-		addShoppingCartResultVOTransformer = AddShoppingCartResultVOTransformer.getInstance();
 	}
 	
 	@Override
@@ -64,11 +60,10 @@ public class AddShoppingCartServlet extends HttpServlet {
 		try {
 			
 			AddShoppingCartVODTO shoppingCartVODTO = shoppingCartVOTransformer.voToDto(shoppingCartVO);
-			AddShoppingCartResultVODTO addShoppingCartResultVODTO = addShoppingCartService.add(shoppingCartVODTO, shoppingCartMemoryDbDAO, 
+			AddShoppingCartResultDTO addShoppingCartResultDTO = addShoppingCartService.add(shoppingCartVODTO, shoppingCartMemoryDbDAO, 
 					addShoppingCartIllegalMsgLineCacheDAO, addShoppingCartMsgLineCacheDAO);
-			AddShoppingCartResultVO addShoppingCartResultVO = addShoppingCartResultVOTransformer.dtoToVo(addShoppingCartResultVODTO);
 			
-			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, addShoppingCartResultVO.getQueryString()));
+			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, addShoppingCartResultDTO.getQueryString()));
 		} catch (CheckerException ex) {
 			
 			ex.printStackTrace();

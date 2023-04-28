@@ -21,7 +21,9 @@ public class CreateMsgVOTransformer extends VOWriteOutTransformerTemplate<Create
 
 		CreateMsgVO vo = new CreateMsgVO();
 	
-		vo.setMsg(dto.getMsg());
+		vo.setSuccess(dto.getSuccess().getDescription());
+		vo.setId(String.valueOf(dto.getId()));
+		vo.setName(dto.getName());
 		
 		return vo;
 	}

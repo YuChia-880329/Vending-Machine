@@ -53,7 +53,11 @@
 						dataType : 'json',
 						success : function(data){
 							
-							$('#' + updateMsgDivId).text(data.updateMsg.msg);
+							if(data.updateMsg.success == 'true')
+								$('#' + updateMsgDivId).text('已成功更新 id ' + data.updateMsg.id + ' 商品 : ' + data.updateMsg.name);
+							else
+								$('#' + updateMsgDivId).text('更新失敗');
+							
 							$('#' + goodsQuantitySpan).text(data.updateResultForm.quantity);
 							$('#' + goodsAddQuantityInputId).val('0');
 						}

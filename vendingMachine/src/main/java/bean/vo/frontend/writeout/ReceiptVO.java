@@ -2,49 +2,31 @@ package bean.vo.frontend.writeout;
 
 public class ReceiptVO {
 
-	private String paidMoneyMsg;
-	private String totalPriceMsg;
-	private String changeMsg;
-	private BoughtGoodsMsgVO[] boughtGoodsMsgs;
+	private String hasReceipt;
+	private ReceiptContentVO receiptContent;
 	
 	
 	public ReceiptVO() {
 	}
-	public ReceiptVO(String paidMoney, String totalPrice, String change,
-			BoughtGoodsMsgVO[] boughtGoodsMsgs) {
+	public ReceiptVO(String hasReceipt, ReceiptContentVO receiptContent) {
 
-		this.paidMoneyMsg = paidMoney;
-		this.totalPriceMsg = totalPrice;
-		this.changeMsg = change;
-		this.boughtGoodsMsgs = boughtGoodsMsgs;
+		this.hasReceipt = hasReceipt;
+		this.receiptContent = receiptContent;
 	}
 	
 	
-	public String getPaidMoneyMsg() {
-		return paidMoneyMsg;
+	public String getHasReceipt() {
+		return hasReceipt;
 	}
-	public String getTotalPriceMsg() {
-		return totalPriceMsg;
-	}
-	public String getChangeMsg() {
-		return changeMsg;
-	}
-	public BoughtGoodsMsgVO[] getBoughtGoodsMsgs() {
-		return boughtGoodsMsgs;
+	public ReceiptContentVO getReceiptContent() {
+		return receiptContent;
 	}
 	
 	
-	public void setPaidMoneyMsg(String paidMoneyMsg) {
-		this.paidMoneyMsg = paidMoneyMsg;
+	public void setHasReceipt(String hasReceipt) {
+		this.hasReceipt = hasReceipt;
 	}
-	public void setTotalPriceMsg(String totalPriceMsg) {
-		this.totalPriceMsg = totalPriceMsg;
+	public void setReceiptContent(ReceiptContentVO receiptContent) {
+		this.receiptContent = receiptContent;
 	}
-	public void setChangeMsg(String changeMsg) {
-		this.changeMsg = changeMsg;
-	}
-	public void setBoughtGoodsMsgs(BoughtGoodsMsgVO[] boughtGoodsMsgs) {
-		this.boughtGoodsMsgs = boughtGoodsMsgs;
-	}
-	
 }

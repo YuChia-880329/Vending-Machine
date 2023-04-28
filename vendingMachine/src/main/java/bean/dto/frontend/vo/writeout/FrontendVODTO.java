@@ -11,13 +11,14 @@ public class FrontendVODTO {
 	private WelcomePartVODTO welcomePart;
 	private GoodsTablePageVODTO goodsTablePage;
 	private FilterFormVODTO filterForm;
+	private ReceiptVODTO receipt;
 	
 	
 	public FrontendVODTO() {
 	}
 	public FrontendVODTO(AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsg, AddShoppingCartMsgVODTO addShoppingCartMsg, ClearShoppingCartMsgVODTO clearShoppingCartMsg, 
 			UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVODTO updateShoppingCartMsg, ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, 
-			GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm) {
+			GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm, ReceiptVODTO receipt) {
 
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
 		this.addShoppingCartMsg = addShoppingCartMsg;
@@ -28,6 +29,7 @@ public class FrontendVODTO {
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
 		this.filterForm = filterForm;
+		this.receipt = receipt;
 	}
 	
 	
@@ -59,8 +61,10 @@ public class FrontendVODTO {
 	public FilterFormVODTO getFilterForm() {
 		return filterForm;
 	}
+	public ReceiptVODTO getReceipt() {
+		return receipt;
+	}
 
-	
 	
 	public void setAddShoppingCartIllegalMsg(AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsg) {
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
@@ -88,5 +92,8 @@ public class FrontendVODTO {
 	}
 	public void setFilterForm(FilterFormVODTO filterForm) {
 		this.filterForm = filterForm;
+	}
+	public void setReceipt(ReceiptVODTO receipt) {
+		this.receipt = receipt;
 	}
 }

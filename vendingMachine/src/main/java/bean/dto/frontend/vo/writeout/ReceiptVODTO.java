@@ -1,50 +1,34 @@
 package bean.dto.frontend.vo.writeout;
 
-import java.util.List;
+import enumeration.Has;
 
 public class ReceiptVODTO {
 
-	private String paidMoneyMsg;
-	private String totalPriceMsg;
-	private String changeMsg;
-	private List<BoughtGoodsMsgVODTO> boughtGoodsMsgs;
+	private Has hasReceipt;
+	private ReceiptContentVODTO receiptContent;
 	
 	
 	public ReceiptVODTO() {
 	}
-	public ReceiptVODTO(String paidMoneyMsg, String totalPriceMsg, String changeMsg,
-			List<BoughtGoodsMsgVODTO> boughtGoods) {
-
-		this.paidMoneyMsg = paidMoneyMsg;
-		this.totalPriceMsg = totalPriceMsg;
-		this.changeMsg = changeMsg;
-		this.boughtGoodsMsgs = boughtGoods;
-	}
-	
-	public String getPaidMoneyMsg() {
-		return paidMoneyMsg;
-	}
-	public String getTotalPriceMsg() {
-		return totalPriceMsg;
-	}
-	public String getChangeMsg() {
-		return changeMsg;
-	}
-	public List<BoughtGoodsMsgVODTO> getBoughtGoodsMsgs() {
-		return boughtGoodsMsgs;
+	public ReceiptVODTO(Has hasReceipt, ReceiptContentVODTO receiptContent) {
+		
+		this.hasReceipt = hasReceipt;
+		this.receiptContent = receiptContent;
 	}
 	
 	
-	public void setPaidMoneyMsg(String paidMoneyMsg) {
-		this.paidMoneyMsg = paidMoneyMsg;
+	public Has getHasReceipt() {
+		return hasReceipt;
 	}
-	public void setTotalPriceMsg(String totalPriceMsg) {
-		this.totalPriceMsg = totalPriceMsg;
+	public ReceiptContentVODTO getReceiptContent() {
+		return receiptContent;
 	}
-	public void setChangeMsg(String changeMsg) {
-		this.changeMsg = changeMsg;
+	
+	
+	public void setHasReceipt(Has hasReceipt) {
+		this.hasReceipt = hasReceipt;
 	}
-	public void setBoughtGoodsMsgs(List<BoughtGoodsMsgVODTO> boughtGoodsMsgs) {
-		this.boughtGoodsMsgs = boughtGoodsMsgs;
+	public void setReceiptContent(ReceiptContentVODTO receiptContent) {
+		this.receiptContent = receiptContent;
 	}
 }

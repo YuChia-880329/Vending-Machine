@@ -4,16 +4,16 @@ public class BoughtGoodsMsgVO {
 
 	private String name;
 	private String price;
-	private String quantity;
+	private String buyQuantity;
 	
 	
 	public BoughtGoodsMsgVO() {
 	}
-	public BoughtGoodsMsgVO(String name, String price, String quantity) {
+	public BoughtGoodsMsgVO(String name, String price, String buyQuantity) {
 
 		this.name = name;
 		this.price = price;
-		this.quantity = quantity;
+		this.buyQuantity = buyQuantity;
 	}
 	
 	
@@ -23,8 +23,8 @@ public class BoughtGoodsMsgVO {
 	public String getPrice() {
 		return price;
 	}
-	public String getQuantity() {
-		return quantity;
+	public String getBuyQuantity() {
+		return buyQuantity;
 	}
 	
 	
@@ -34,7 +34,7 @@ public class BoughtGoodsMsgVO {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
+	public void setBuyQuantity(String buyQuantity) {
+		this.buyQuantity = buyQuantity;
 	}
 }

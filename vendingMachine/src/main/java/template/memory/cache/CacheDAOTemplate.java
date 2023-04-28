@@ -17,9 +17,13 @@ public abstract class CacheDAOTemplate<O, C extends CacheTemplate<O>, D, T exten
 		
 		cache.save(transformer.dtoToObj(dto));
 	}
-	public List<D> use(){
+	public List<D> use(boolean needClear){
 		
-		return transformer.objListToDtoList(cache.use());
+		return transformer.objListToDtoList(cache.use(needClear));
+	}
+	public void clearCache() {
+		
+		cache.clearCache();
 	}
 	
 	

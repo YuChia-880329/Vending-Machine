@@ -10,10 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import bean.dto.frontend.UpdateShoppingCartResultDTO;
 import bean.dto.frontend.vo.readin.UpdateShoppingCartVODTO;
-import bean.dto.frontend.vo.writeout.UpdateShoppingCartResultVODTO;
 import bean.vo.frontend.readin.UpdateShoppingCartVO;
-import bean.vo.frontend.writeout.UpdateShoppingCartResultVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
 import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
@@ -21,7 +20,6 @@ import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import service.frontend.UpdateShoppingCartService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.UpdateShoppingCartVOTransformer;
-import transformer.frontend.vo.writeout.UpdateShoppingCartResultVOTransformer;
 import util.GsonUtil;
 import util.ServletUtil;
 
@@ -39,7 +37,6 @@ public class UpdateShoppingCartServlet extends HttpServlet {
 	private Gson gson;
 	private UpdateShoppingCartVOTransformer updateShoppingCartVOTransformer;
 	private UpdateShoppingCartService updateShoppingCartService;
-	private UpdateShoppingCartResultVOTransformer updateShoppingCartResultVOTransformer;
 	
 	
 	@Override
@@ -48,7 +45,6 @@ public class UpdateShoppingCartServlet extends HttpServlet {
 		gson = GsonUtil.getGson();
 		updateShoppingCartVOTransformer = UpdateShoppingCartVOTransformer.getInstance();
 		updateShoppingCartService = UpdateShoppingCartService.getInstance();
-		updateShoppingCartResultVOTransformer = UpdateShoppingCartResultVOTransformer.getInstance();
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -64,11 +60,11 @@ public class UpdateShoppingCartServlet extends HttpServlet {
 		try {
 			
 			UpdateShoppingCartVODTO updateShoppingCartVODTO = updateShoppingCartVOTransformer.voToDto(updateShoppingCartVO);
-			UpdateShoppingCartResultVODTO updateShoppingCartResultVODTO = updateShoppingCartService.update(updateShoppingCartVODTO, shoppingCartMemoryDbDAO, 
+			UpdateShoppingCartResultDTO updateShoppingCartResultDTO = updateShoppingCartService.update(updateShoppingCartVODTO, shoppingCartMemoryDbDAO, 
 					updateShoppingCartIllegalMsgLineCacheDAO, updateShoppingCartMsgLineCacheDAO);
-			UpdateShoppingCartResultVO updateShoppingCartResultVO =updateShoppingCartResultVOTransformer.dtoToVo(updateShoppingCartResultVODTO);
+
 		
-			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, updateShoppingCartResultVO.getQueryString()));
+			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, updateShoppingCartResultDTO.getQueryString()));
 		} catch (CheckerException ex) {
 			
 			ex.printStackTrace();

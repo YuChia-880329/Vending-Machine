@@ -8,13 +8,10 @@ import bean.dto.backend.goodsCreate.vo.writeout.CreateMsgVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
+import enumeration.Has;
 import service.model.GoodsModelService;
 
 public class CreateService {
-
-	private static final String CREATE_MSG = "已新增商品 id %d, %s";
-	private static final String FAILURE_MSG = "新增商品失敗";
-	
 	
 	private GoodsModelService goodsModelService;
 	private UploadImageService uploadImageService;
@@ -39,7 +36,7 @@ public class CreateService {
 		
 		GoodsModelDTO goodsModelDTO = createFormVOToGoodsModel(createFormVODTO);
 		
-		CreateMsgVODTO createMsgVODTO;
+		CreateMsgVODTO createMsgVODTO = new CreateMsgVODTO();
 		try {
 			
 			goodsModelDTO = goodsModelService.add(goodsModelDTO);
@@ -47,18 +44,20 @@ public class CreateService {
 			if(goodsModelDTO != null) {
 				
 				uploadImageService.upload(createFormVODTO.getImagePart(), imagesDirectorySymbolicLinkName);
-				createMsgVODTO = getCreateMsgVODTO(goodsModelDTO.getId(), goodsModelDTO.getName());
+				createMsgVODTO.setSuccess(Has.TRUE);
 				goodsTablePagesRepositoryDAO.requireUpdate();
 				frontendGoodsTablePagesRepositoryDAO.requireUpdate();
 			}else {
 				
-				createMsgVODTO = new CreateMsgVODTO(FAILURE_MSG);
+				createMsgVODTO.setSuccess(Has.FALSE);
 			}
 		} catch (SQLException | IOException ex) {
 			
 			ex.printStackTrace();
-			createMsgVODTO = new CreateMsgVODTO(FAILURE_MSG);
+			createMsgVODTO.setSuccess(Has.FALSE);
 		}
+		createMsgVODTO.setId(goodsModelDTO.getId());
+		createMsgVODTO.setName(goodsModelDTO.getName());
 		
 		CreateResultVODTO createResultVODTO = new CreateResultVODTO();
 		
@@ -78,13 +77,5 @@ public class CreateService {
 		goodsModelDTO.setStatus(createFormVODTO.getStatus());
 		
 		return goodsModelDTO;
-	}
-	private CreateMsgVODTO getCreateMsgVODTO(int id, String name) {
-		
-		CreateMsgVODTO createMsgVODTO = new CreateMsgVODTO();
-		
-		createMsgVODTO.setMsg(String.format(CREATE_MSG, id, name));
-		
-		return createMsgVODTO;
 	}
 }

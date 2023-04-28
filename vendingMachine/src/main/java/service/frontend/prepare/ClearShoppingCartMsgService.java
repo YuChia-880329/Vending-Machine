@@ -24,7 +24,7 @@ public class ClearShoppingCartMsgService {
 		ClearShoppingCartMsgVODTO clearShoppingCartMsgVODTO = new ClearShoppingCartMsgVODTO();
 		
 		
-		List<ClearShoppingCartMsgLineOBJDTO> clearShoppingCartMsgOBJDTOs = clearShoppingCartMsgLineCacheDAO.use();
+		List<ClearShoppingCartMsgLineOBJDTO> clearShoppingCartMsgOBJDTOs = clearShoppingCartMsgLineCacheDAO.use(true);
 		
 		if(clearShoppingCartMsgOBJDTOs.size() > 0) {
 			

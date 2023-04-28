@@ -21,7 +21,9 @@ public class UpdateMsgVOTransformer extends VOWriteOutTransformerTemplate<Update
 
 		UpdateMsgVO vo = new UpdateMsgVO();
 		
-		vo.setMsg(dto.getMsg());
+		vo.setSuccess(dto.getSuccess().getDescription());
+		vo.setId(String.valueOf(dto.getId()));
+		vo.setName(dto.getName());
 		
 		return vo;
 	}

@@ -17,7 +17,7 @@ public class GoBackendGoodsUpdateServlet extends HttpServlet {
 	
 	// url
 	public static final String URL = "/vendingMachine/machine/backend/goodsUpdate";
-	private static final String FORWARD_URL = "../../WEB-INF/backend/VM_Backend_GoodsReplenishment.jsp";
+	private static final String FORWARD_URL = "../../WEB-INF/backend/VM_Backend_GoodsUpdate.jsp";
 
 	// attribute
 	private static final String REQ_ATTR_VO = "vo";

@@ -18,7 +18,7 @@ public abstract class CacheTransformerTemplate<O, D> extends BiTransformerTempla
 		
 		return aListToBList(objList);
 	}
-	public List<O> dtoToObj(List<D> dtoList) {
+	public List<O> dtoListToObjList(List<D> dtoList) {
 		
 		return bListToAList(dtoList);
 	}

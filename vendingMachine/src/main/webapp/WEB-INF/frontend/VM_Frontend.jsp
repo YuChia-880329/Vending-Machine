@@ -78,6 +78,11 @@
 		let updateShoppingCartFormId = 'update_shopping_cart_form';
 		let updateShoppingCartDataInputId = 'update_shopping_cart_data_input';
 		
+		let checkoutPaidMoneyInputId = 'checkout_paid_money_input';
+		let checkoutBtnId = 'checkout_btn';
+		let checkoutFormId = 'checkout_form';
+		let checkoutDataInputId = 'checkout_data_input';
+		
 		
 		$(document).ready(readyFctn);
 		
@@ -90,6 +95,7 @@
 			$('#' + addShoppingCartOkBtnId).click(addShoppingCartOkBtnClicked);
 			$('#' + clearShoppingCartBtnId).click(clearShoppingCartBtnClicked);
 			$('#' + updateShoppingCartBtnId).click(updateShoppingCartBtnClicked);
+			$('#' + checkoutBtnId).click(checkoutBtnClicked);
 		}
 		function showMsgModal(){
 			
@@ -177,52 +183,67 @@
 		}
 		function addShoppingCartBtnClicked(){
 
-			$('#' + addShoppingCartBodyContentDivId).empty();
+			if(addShoppingCartInputChecked()){
+				
+				$('#' + addShoppingCartBodyContentDivId).empty();
+				
+				var addShoppingCartGoodsArray = [];
+				var index = 0;
+				
+				for(i=1; i<=6; i++){
+
+					var buyQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
+					if(buyQuantity!='' && buyQuantity>0){
+
+						var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
+						var price = $('#' + goodsEntryPriceInputIdPrefix + i).val();
+						var quantity = $('#' + goodsEntryQuantityInputIdPrefix + i).val();
+
+						var bodyContent = $('#' + addShoppingCartBodyContentTmplId).clone()[0].content;
+						$('#' + addShoppingCartBodyContentDivId).append(bodyContent);
+
+						
+						$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentNameSpanId).attr('id', addShoppingCartBodyContentNameSpanId + i);
+						$('#' + addShoppingCartBodyContentNameSpanId + i).text(name);
+
+						$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentBuyQuantitySpanId).attr('id', addShoppingCartBodyContentBuyQuantitySpanId + i);
+						$('#' + addShoppingCartBodyContentBuyQuantitySpanId + i).text(buyQuantity);
+
+						$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentPriceSpanId).attr('id', addShoppingCartBodyContentPriceSpanId + i);
+						$('#' + addShoppingCartBodyContentPriceSpanId + i).text(price);
+
+						var id = $('#' + goodsEntryIdInputIdPrefix + i).val();
+						addShoppingCartGoodsArray[index] = {
+							id : id,
+							name : name,
+							buyQuantity : buyQuantity,
+							quantity : quantity
+						}
+						index++;
+					}
+				}
+				var addShoppingCartVO = {
+					addShoppingCartGoodsArray : addShoppingCartGoodsArray,
+					queryString : queryString
+				}
+
+				$('#' + addShoppingCartDataInputId).val(JSON.stringify(addShoppingCartVO));
+
+				
+				new bootstrap.Modal('#' + addShoppingCartModalId, {}).show();
+			}
+		}
+		function addShoppingCartInputChecked(){
 			
-			var addShoppingCartGoodsArray = [];
-			var index = 0;
+			var pass = true;
 			
 			for(i=1; i<=6; i++){
-
-				var buyQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
-				if(buyQuantity > 0){
-
-					var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
-					var price = $('#' + goodsEntryPriceInputIdPrefix + i).val();
-					var quantity = $('#' + goodsEntryQuantityInputIdPrefix + i).val();
-
-					var bodyContent = $('#' + addShoppingCartBodyContentTmplId).clone()[0].content;
-					$('#' + addShoppingCartBodyContentDivId).append(bodyContent);
-
-					
-					$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentNameSpanId).attr('id', addShoppingCartBodyContentNameSpanId + i);
-					$('#' + addShoppingCartBodyContentNameSpanId + i).text(name);
-
-					$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentBuyQuantitySpanId).attr('id', addShoppingCartBodyContentBuyQuantitySpanId + i);
-					$('#' + addShoppingCartBodyContentBuyQuantitySpanId + i).text(buyQuantity);
-
-					$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentPriceSpanId).attr('id', addShoppingCartBodyContentPriceSpanId + i);
-					$('#' + addShoppingCartBodyContentPriceSpanId + i).text(price);
-
-					var id = $('#' + goodsEntryIdInputIdPrefix + i).val();
-					addShoppingCartGoodsArray[index] = {
-						id : id,
-						name : name,
-						buyQuantity : buyQuantity,
-						quantity : quantity
-					}
-					index++;
-				}
+				
+				var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
+				pass = checkNonNegativeIntegerInput(goodsEntryBuyQuantityInputIdPrefix + i, name + '的購買數量') && pass;
 			}
-			var addShoppingCartVO = {
-				addShoppingCartGoodsArray : addShoppingCartGoodsArray,
-				queryString : queryString
-			}
-
-			$('#' + addShoppingCartDataInputId).val(JSON.stringify(addShoppingCartVO));
-
 			
-			new bootstrap.Modal('#' + addShoppingCartModalId, {}).show();
+			return pass;
 		}
 
 		function addShoppingCartOkBtnClicked(){
@@ -257,25 +278,65 @@
 				
 				var goodsCount = $('#' + shoppingCartGoodsGoodsCountInputId).val();
 			
-				var goodsList = [];
-				for(i=1; i<=goodsCount; i++){
+				if(updateShoppingCartInputChecked(goodsCount)){
 					
-					var id = $('#' + shoppingCartGoodsIdInputIdPrefix + i).val();
-					var name = $('#' + shoppingCartGoodsNameInputIdPrefix + i).val();
-					var buyQuantity = $('#' + shoppingCartGoodsBuyQuantityInputIdPrefix + i).val();
-					var quantity = $('#' + shoppingCartGoodsQuantityInputIdPrefix + i).val();
+					var goodsList = [];
+					for(i=1; i<=goodsCount; i++){
+						
+						var id = $('#' + shoppingCartGoodsIdInputIdPrefix + i).val();
+						var name = $('#' + shoppingCartGoodsNameInputIdPrefix + i).val();
+						var buyQuantity = $('#' + shoppingCartGoodsBuyQuantityInputIdPrefix + i).val();
+						var quantity = $('#' + shoppingCartGoodsQuantityInputIdPrefix + i).val();
+						
+						goodsList[i-1] = goodsFctn(id, name, buyQuantity, quantity);
+					}
 					
-					goodsList[i-1] = goodsFctn(id, name, buyQuantity, quantity);
+					var updateShoppingCartGoodsVO = {
+						updateShoppingCartGoodsArray : goodsList,
+						queryString : queryString
+					}
+					
+					$('#' + updateShoppingCartDataInputId).val(JSON.stringify(updateShoppingCartGoodsVO));
+					$('#' + updateShoppingCartFormId).submit();
 				}
-				
-				var updateShoppingCartGoodsVO = {
-					updateShoppingCartGoodsArray : goodsList,
-					queryString : queryString
-				}
-				
-				$('#' + updateShoppingCartDataInputId).val(JSON.stringify(updateShoppingCartGoodsVO));
-				$('#' + updateShoppingCartFormId).submit();
 			}).show();
+		}
+		function updateShoppingCartInputChecked(goodsCount){
+			
+			var pass = true;
+			
+			for(i=1; i<=goodsCount; i++){
+				
+				var name = $('#' + shoppingCartGoodsNameInputIdPrefix + i).val();
+				pass = checkNonNegativeIntegerInput(shoppingCartGoodsBuyQuantityInputIdPrefix + i, name + '的購買數量') && pass;
+			}
+			
+			return pass;
+		}
+		
+		function checkoutBtnClicked(){
+			
+			confirmModal('即將進行結帳', function(){
+				
+				if(checkoutInputCheck()){
+					
+					var checkoutForm = {
+						paidMoney : $('#' + checkoutPaidMoneyInputId).val()
+					};
+					
+					var checkoutVO = {
+						queryString	: queryString,
+						checkoutForm : checkoutForm
+					};
+					
+					$('#' + checkoutDataInputId).val(JSON.stringify(checkoutVO));
+					$('#' + checkoutFormId).submit();
+				}
+			}).show();
+		}
+		function checkoutInputCheck(){
+			
+			return checkNonNegativeIntegerInput(checkoutPaidMoneyInputId, "結帳金額");
 		}
 	</script>
 </head>
@@ -328,32 +389,40 @@
 									<b>投入 : </b>
 								</div>
 								<div class="me-4">
-									<input type="number" class="form-control" max="999999" min="0" />
+									<input type="number" class="form-control" id="checkout_paid_money_input" max="999999" min="0" />
 								</div>
 								<div class="me-4 d-flex align-self-center">
 									<b>元</b>
 								</div>
 								<div>
-									<button class="btn btn-outline-primary">結帳</button>
+									<button type="button" class="btn btn-outline-primary" id="checkout_btn">結帳</button>
 								</div>
 							</div>
 						</form>
 					</div>
+					<form action="/vendingMachine/machine/checkout" method="POST" id="checkout_form">
+						<input type="hidden" name="dataJson" id="checkout_data_input" />
+					</form>
 					
-					<div>
-						<div class="d-flex justify-content-center">
-							<div>
-								<div style="border-width:3px;border-style:dashed;border-color:#FFAC55;padding:5px;width:300px;">
-									<p style="color: blue;">~~~~~~~ 消費明細 ~~~~~~~</p>
-									<p class="my-2">1</p>
-									<p class="my-2">2</p>
-									<p class="my-2">3</p>
+					<c:if test="${vo.receipt.hasReceipt}">
+						<div>
+							<div class="d-flex justify-content-center">
+								<div>
+									<div style="border-width:3px;border-style:dashed;border-color:#FFAC55;padding:5px;width:300px;">
+										<p style="color: blue;">~~~~~~~ 消費明細 ~~~~~~~</p>
+										<p class="my-2">投入金額  ：  ${vo.receipt.receiptContent.paidMoneyMsg.paidMoney}</p>
+										<p class="my-2">購買金額  ：  ${vo.receipt.receiptContent.totalPriceMsg.totalPrice}</p>
+										<c:if test="${vo.receipt.receiptContent.changeMsg.hasMsg}">
+											<p class="my-2">找零金額  ：  ${vo.receipt.receiptContent.changeMsg.change}</p>
+										</c:if>
+										<c:forEach var="boughtGoodsMsg" items="${vo.receipt.receiptContent.boughtGoodsMsgs}">
+											<p class="my-2">${boughtGoodsMsg.name}  ${boughtGoodsMsg.price} * ${boughtGoodsMsg.buyQuantity}</p>
+										</c:forEach>
+									</div>
 								</div>
 							</div>
 						</div>
-						
-					</div>
-					
+					</c:if>
 				</div>
 				
 				<div class="col-8">

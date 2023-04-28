@@ -25,7 +25,7 @@ public class AddShoppingCartMsgService {
 		
 		AddShoppingCartMsgVODTO addShoppingCartMsgVODTO = new AddShoppingCartMsgVODTO();
 		
-		List<AddShoppingCartMsgLineOBJDTO> addShoppingCartMsgLineOBJDTOs = addShoppingCartMsgLineCacheDAO.use();
+		List<AddShoppingCartMsgLineOBJDTO> addShoppingCartMsgLineOBJDTOs = addShoppingCartMsgLineCacheDAO.use(true);
 	
 		addShoppingCartMsgVODTO.setHasMsg(addShoppingCartMsgLineOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
 		addShoppingCartMsgVODTO.setLines(addShoppingCartMsgLineOBJsToAddShoppingCartMsgLineVOs(addShoppingCartMsgLineOBJDTOs));

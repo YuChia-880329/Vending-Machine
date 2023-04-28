@@ -17,6 +17,7 @@ import bean.vo.frontend.writeout.FrontendVO;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
+import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
@@ -68,6 +69,7 @@ public class GoFrontendServlet extends HttpServlet {
 		ClearShoppingCartMsgLineCacheDAO clearShoppingCartMsgLineCacheDAO = ServletUtil.getClearShoppingCartMsgLineCacheDAO(session);
 		UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartIllegalMsgLineCacheDAO(session);
 		UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartMsgLineCacheDAO(session);
+		ReceiptContentCacheDAO receiptContentCacheDAO = ServletUtil.getReceiptContentCacheDAO(session);
 		
 		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
 		MemberModelDTO memberModelDTO = new MemberModelDTO("test", "test", "test");
@@ -76,10 +78,10 @@ public class GoFrontendServlet extends HttpServlet {
 		try {
 
 			PageParameterVODTO pageParameterVODTO = pageParameterVOTransformer.voToDto(pageParameterVO);
-			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, imagesDirectorySymbolicLinkName, 
-					goodsTablePagesRepositoryDAO, memberModelDTO, shoppingCartMemoryDbDAO, addShoppingCartIllegalMsgLineCacheDAO, 
+			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, memberModelDTO, imagesDirectorySymbolicLinkName, 
+					goodsTablePagesRepositoryDAO, shoppingCartMemoryDbDAO, addShoppingCartIllegalMsgLineCacheDAO, 
 					addShoppingCartMsgLineCacheDAO, clearShoppingCartMsgLineCacheDAO, updateShoppingCartIllegalMsgLineCacheDAO,
-					updateShoppingCartMsgLineCacheDAO);
+					updateShoppingCartMsgLineCacheDAO, receiptContentCacheDAO);
 			FrontendVO frontendVO = frontendVOTransformer.dtoToVo(frontendVODTO);
 			
 			req.setAttribute(REQ_ATTR_VO, frontendVO);

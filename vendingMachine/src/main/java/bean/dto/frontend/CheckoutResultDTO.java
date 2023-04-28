@@ -1,13 +1,12 @@
-package bean.vo.frontend.writeout;
+package bean.dto.frontend;
 
-public class ClearShoppingCartResultVO {
+public class CheckoutResultDTO {
 
 	private String queryString;
 
-	
-	public ClearShoppingCartResultVO() {
+	public CheckoutResultDTO() {
 	}
-	public ClearShoppingCartResultVO(String queryString) {
+	public CheckoutResultDTO(String queryString) {
 
 		this.queryString = queryString;
 	}
