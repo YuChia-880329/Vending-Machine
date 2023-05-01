@@ -6,22 +6,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import bean.dto.frontend.CheckoutResultDTO;
+import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCartIllegalMsgLineOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.BoughtGoodsMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.ChangeMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.PaidMoneyMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.ReceiptContentOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.TotalPriceMsgOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
+import bean.dto.frontend.obj.statusCache.checkoutMoneyIllegalMsgLineOBJ.CheckoutMoneyIllegalMsgHasMsgOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.CheckoutVODTO;
 import bean.dto.model.GoodsModelDTO;
 import bean.dto.model.OrderModelDTO;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
+import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import enumeration.Has;
 import service.model.GoodsModelService;
 import service.model.OrderModelService;
@@ -30,6 +35,7 @@ public class CheckoutService {
 
 	private GoodsModelService goodsModelService;
 	private OrderModelService orderModelService;
+	private ShoppingCartService shoppingCartService;
 	
 	
 	private static final CheckoutService INSTANCE = new CheckoutService();
@@ -38,6 +44,7 @@ public class CheckoutService {
 		
 		goodsModelService = GoodsModelService.getInstance();
 		orderModelService = OrderModelService.getInstance();
+		shoppingCartService = ShoppingCartService.getInstance();
 	}
 	
 	public static CheckoutService getInstance() {
@@ -46,7 +53,13 @@ public class CheckoutService {
 	}
 	
 	public CheckoutResultDTO checkout(CheckoutVODTO checkoutVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, ReceiptContentCacheDAO receiptContentCacheDAO, 
-			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO, dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO) {
+			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO, 
+			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO, 
+			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, CheckoutMoneyIllegalMsgStatusCacheDAO paidMoneyMsgLineCacheDAO) {
+		
+		
+		addShoppingCart(checkoutVODTO.getAddShoppingCartGoodsList(), shoppingCartMemoryDbDAO, 
+				addShoppingCartIllegalMsgLineCacheDAO);
 		
 		List<ShoppingCartOBJDTO> shoppingCartOBJDTOs = shoppingCartMemoryDbDAO.searchAll();
 		Map<Integer, GoodsModelDTO> goodsModelDTOMap = new HashMap<>();
@@ -60,6 +73,11 @@ public class CheckoutService {
 			
 			int paidMoney = checkoutVODTO.getCheckoutForm().getPaidMoney();
 			int shouldPaid = checkoutShoppingCart(paidMoney, shoppingCartMemoryDbDAO, goodsModelDTOMap);
+			
+			if(paidMoney < shouldPaid) {
+				
+				paidMoneyMsgLineCacheDAO.save(new CheckoutMoneyIllegalMsgHasMsgOBJDTO(Has.TRUE));
+			}
 			
 			ReceiptContentOBJDTO receiptOBJDTO = checkoutReceipt(paidMoney, shouldPaid, shoppingCartMemoryDbDAO, goodsModelDTOMap);
 			receiptContentCacheDAO.clearCache();
@@ -98,18 +116,19 @@ public class CheckoutService {
 		
 		return checkoutResultDTO;
 	}
-	private void addShoppingCart(List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsList, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
+	private void addShoppingCart(List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsVODTOs, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
+			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO) {
 		
-		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartGoodsList) {
+		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartGoodsVODTOs) {
 			
-			ShoppingCartOBJDTO shoppingCartOBJDTO = new ShoppingCartOBJDTO();
-			
-			int id = addShoppingCartGoodsVODTO.getId();
-			int addQuantity = addShoppingCartGoodsVODTO.getBuyQuantity();
-			shoppingCartOBJDTO.setId(id);
-			shoppingCartOBJDTO.setBuyQuantity(0);
-			
-			shoppingCartMemoryDbDAO.insert(null);
+			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
+				
+				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
+			}else {
+				
+				addShoppingCartIllegalMsgLineCacheDAO.save(new AddShoppingCartIllegalMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName()));
+			}
+				
 		}
 	}
 	
@@ -195,5 +214,30 @@ public class CheckoutService {
 		}
 		
 		return orderModelDTOs;
+	}
+	
+	private boolean isLegal(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
+		
+		int id = addShoppingCartGoodsVODTO.getId();
+		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
+		int quantity = addShoppingCartGoodsVODTO.getQuantity();
+		
+		return shoppingCartService.isLegal(id, quantity, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
+	}
+	private void addShoppingCartGoods(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
+		
+		int id = addShoppingCartGoodsVODTO.getId();
+		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
+		
+		shoppingCartService.saveShoppingCartGoods(id, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
+	}
+	
+	private Function<ShoppingCartOBJDTO, Integer> getBuyQuantityFctn(int addQuantity){
+		
+		return shoppingCartOBJDTO -> {
+			
+			int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
+			return originBuyQuantity + addQuantity;
+		};
 	}
 }

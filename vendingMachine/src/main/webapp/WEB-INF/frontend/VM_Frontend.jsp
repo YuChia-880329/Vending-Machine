@@ -192,8 +192,8 @@
 				
 				for(i=1; i<=6; i++){
 
-					var buyQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
-					if(buyQuantity!='' && buyQuantity>0){
+					var addQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
+					if(addQuantity!='' && addQuantity>0){
 
 						var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
 						var price = $('#' + goodsEntryPriceInputIdPrefix + i).val();
@@ -207,7 +207,7 @@
 						$('#' + addShoppingCartBodyContentNameSpanId + i).text(name);
 
 						$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentBuyQuantitySpanId).attr('id', addShoppingCartBodyContentBuyQuantitySpanId + i);
-						$('#' + addShoppingCartBodyContentBuyQuantitySpanId + i).text(buyQuantity);
+						$('#' + addShoppingCartBodyContentBuyQuantitySpanId + i).text(addQuantity);
 
 						$('#' + addShoppingCartBodyContentDivId + ' #' + addShoppingCartBodyContentPriceSpanId).attr('id', addShoppingCartBodyContentPriceSpanId + i);
 						$('#' + addShoppingCartBodyContentPriceSpanId + i).text(price);
@@ -216,7 +216,7 @@
 						addShoppingCartGoodsArray[index] = {
 							id : id,
 							name : name,
-							buyQuantity : buyQuantity,
+							addQuantity : addQuantity,
 							quantity : quantity
 						}
 						index++;
@@ -315,24 +315,92 @@
 		}
 		
 		function checkoutBtnClicked(){
-			
-			confirmModal('即將進行結帳', function(){
-				
-				if(checkoutInputCheck()){
+
+			var checkoutConfirmModalFctn = function(addShoppingCartGoodsArray, hideEventListener){
+
+				var checkoutConfirmModalId = confirmModalId('即將進行結帳', function(){
 					
-					var checkoutForm = {
-						paidMoney : $('#' + checkoutPaidMoneyInputId).val()
-					};
+					if(checkoutInputCheck()){
+						
+						var checkoutForm = {
+							paidMoney : $('#' + checkoutPaidMoneyInputId).val()
+						};
+						
+						var checkoutVO = {
+							queryString	: queryString,
+							checkoutForm : checkoutForm,
+							addShoppingCartGoodsArray : addShoppingCartGoodsArray
+						};
+						
+						$('#' + checkoutDataInputId).val(JSON.stringify(checkoutVO));
+						$('#' + checkoutFormId).submit();
+					}
+				});
+
+				if(hideEventListener != undefined){
 					
-					var checkoutVO = {
-						queryString	: queryString,
-						checkoutForm : checkoutForm
-					};
-					
-					$('#' + checkoutDataInputId).val(JSON.stringify(checkoutVO));
-					$('#' + checkoutFormId).submit();
+					$('#' + checkoutConfirmModalId)[0].removeEventListener('hidden.bs.modal', hideEventListener);
 				}
-			}).show();
+				
+				return new bootstrap.Modal('#' + checkoutConfirmModalId, {});
+			}
+			
+
+			var needAddShoppingCart = false;
+			for(i=1; i<=6; i++){
+
+				var addQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
+				if(addQuantity!='' && addQuantity>0){
+
+					needAddShoppingCart = true;
+					break;
+				}
+			}
+
+			var addShoppingCartGoodsArray = [];
+
+			if(needAddShoppingCart){
+
+				var addShoppingCartConfirmModalId = confirmModalId('有商品尚未加入購物車，是否加入購物車?', function(){
+
+					if(addShoppingCartInputChecked()){
+						
+						var index = 0;
+						for(i=1; i<=6; i++){
+
+							var addQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
+							if(addQuantity!='' && addQuantity>0){
+
+								var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
+								var quantity = $('#' + goodsEntryQuantityInputIdPrefix + i).val();
+								var id = $('#' + goodsEntryIdInputIdPrefix + i).val();
+
+								addShoppingCartGoodsArray[index] = {
+									id : id,
+									name : name,
+									addQuantity : addQuantity,
+									quantity : quantity
+								}
+								index++;
+							}
+						}
+					}
+					
+				});
+
+				var hideEventListener = function(){
+
+					checkoutConfirmModalFctn(addShoppingCartGoodsArray, hideEventListener).show();
+				}
+				$('#' + addShoppingCartConfirmModalId)[0].addEventListener('hidden.bs.modal', hideEventListener);
+
+				new bootstrap.Modal('#' + addShoppingCartConfirmModalId, {}).show();
+			}else{
+
+				checkoutConfirmModalFctn(addShoppingCartGoodsArray).show();
+			}
+
+			
 		}
 		function checkoutInputCheck(){
 			

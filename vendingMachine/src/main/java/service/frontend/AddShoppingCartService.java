@@ -39,13 +39,11 @@ public class AddShoppingCartService {
 		AddShoppingCartResultDTO addShoppingCartResultDTO = new AddShoppingCartResultDTO();
 		
 		List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsVODTOs = addShoppingCartVODTO.getAddShoppingCartGoodsList();
-		for(int i=0; i<addShoppingCartGoodsVODTOs.size(); i++) {
-			
-			AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO = addShoppingCartGoodsVODTOs.get(i);
+		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartGoodsVODTOs) {
 			
 			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
 				
-				addShoppingCartMsgLineCacheDAO.save(new AddShoppingCartMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName(), addShoppingCartGoodsVODTO.getBuyQuantity()));
+				addShoppingCartMsgLineCacheDAO.save(new AddShoppingCartMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName(), addShoppingCartGoodsVODTO.getAddQuantity()));
 				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
 			}else {
 				
@@ -61,7 +59,7 @@ public class AddShoppingCartService {
 	private boolean isLegal(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
 		int id = addShoppingCartGoodsVODTO.getId();
-		int addQuantity = addShoppingCartGoodsVODTO.getBuyQuantity();
+		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
 		int quantity = addShoppingCartGoodsVODTO.getQuantity();
 		
 		return shoppingCartService.isLegal(id, quantity, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
@@ -69,7 +67,7 @@ public class AddShoppingCartService {
 	private void addShoppingCartGoods(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
 		int id = addShoppingCartGoodsVODTO.getId();
-		int addQuantity = addShoppingCartGoodsVODTO.getBuyQuantity();
+		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
 		
 		shoppingCartService.saveShoppingCartGoods(id, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
 	}

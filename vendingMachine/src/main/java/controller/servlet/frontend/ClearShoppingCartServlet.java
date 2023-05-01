@@ -14,8 +14,8 @@ import bean.dto.frontend.ClearShoppingCartResultDTO;
 import bean.dto.frontend.vo.readin.ClearShoppingCartVODTO;
 import bean.vo.frontend.readin.ClearShoppingCartVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
-import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
+import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 import service.frontend.ClearShoppingCartService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.ClearShoppingCartVOTransformer;
@@ -51,7 +51,7 @@ public class ClearShoppingCartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = ServletUtil.getShoppingCartMemoryDbDAO(session);
-		ClearShoppingCartMsgLineCacheDAO clearShoppingCartMsgLineCacheDAO = ServletUtil.getClearShoppingCartMsgLineCacheDAO(session);
+		ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgLineCacheDAO = ServletUtil.getClearShoppingCartMsgStatusCacheDAO(session);
 	
 		ClearShoppingCartVO clearShoppingCartVO = getClearShoppingCartVO(req);
 		

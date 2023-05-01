@@ -1,14 +1,14 @@
-package bean.obj.frontend.cache.clearShoppingCartMsgLine;
+package bean.obj.frontend.statusCache.clearShoppingCartMsg;
 
 import enumeration.Has;
 
-public class ClearShoppingCartMsgLineOBJ {
+public class ClearShoppingCartMsgHasMsgOBJ {
 
 	private Has hasMsg;
 
-	public ClearShoppingCartMsgLineOBJ() {
+	public ClearShoppingCartMsgHasMsgOBJ() {
 	}
-	public ClearShoppingCartMsgLineOBJ(Has hasMsg) {
+	public ClearShoppingCartMsgHasMsgOBJ(Has hasMsg) {
 
 		this.hasMsg = hasMsg;
 	}

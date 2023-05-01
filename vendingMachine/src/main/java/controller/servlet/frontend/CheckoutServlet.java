@@ -12,8 +12,11 @@ import com.google.gson.Gson;
 
 import bean.dto.frontend.CheckoutResultDTO;
 import bean.dto.frontend.vo.readin.CheckoutVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgLineVODTO;
 import bean.vo.frontend.readin.CheckoutVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
+import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
+import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
@@ -57,6 +60,7 @@ public class CheckoutServlet extends HttpServlet {
 		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getGoodsTablePagesRepositoryDAO(session);
 		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = ServletUtil.getOrderTablePagesRepositoryDAO(session);
 		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = ServletUtil.getFrontendGoodsTablePagesRepositoryDAO(session);
+		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getAddShoppingCartIllegalMsgLineCacheDAO(session);
 		
 		
 		CheckoutVO checkoutVO = gson.fromJson(req.getParameter(REQ_PARAM_DATA_JSON), CheckoutVO.class);
@@ -66,7 +70,8 @@ public class CheckoutServlet extends HttpServlet {
 			CheckoutVODTO checkoutVODTO = checkoutVOTransformer.voToDto(checkoutVO);
 			CheckoutResultDTO checkoutResultDTO = checkoutService.checkout(checkoutVODTO, 
 					shoppingCartMemoryDbDAO, receiptContentCacheDAO, goodsTablePagesRepositoryDAO, 
-					orderTablePagesRepositoryDAO, frontendGoodsTablePagesRepositoryDAO);
+					orderTablePagesRepositoryDAO, frontendGoodsTablePagesRepositoryDAO, 
+					addShoppingCartIllegalMsgLineCacheDAO);
 			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, checkoutResultDTO.getQueryString()));
 		} catch (CheckerException ex) {
 

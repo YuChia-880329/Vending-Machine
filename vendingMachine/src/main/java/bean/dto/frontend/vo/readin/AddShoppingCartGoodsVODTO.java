@@ -4,17 +4,17 @@ public class AddShoppingCartGoodsVODTO {
 
 	private int id;
 	private String name;
-	private int buyQuantity;
+	private int addQuantity;
 	private int quantity;
 	
 	
 	public AddShoppingCartGoodsVODTO() {
 	}
-	public AddShoppingCartGoodsVODTO(int id, String name, int buyQuantity, int quantity) {
+	public AddShoppingCartGoodsVODTO(int id, String name, int addQuantity, int quantity) {
 
 		this.id = id;
 		this.name = name;
-		this.buyQuantity = buyQuantity;
+		this.addQuantity = addQuantity;
 		this.quantity = quantity;
 	}
 	
@@ -25,8 +25,8 @@ public class AddShoppingCartGoodsVODTO {
 	public String getName() {
 		return name;
 	}
-	public int getBuyQuantity() {
-		return buyQuantity;
+	public int getAddQuantity() {
+		return addQuantity;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -40,8 +40,8 @@ public class AddShoppingCartGoodsVODTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setBuyQuantity(int buyQuantity) {
-		this.buyQuantity = buyQuantity;
+	public void setAddQuantity(int addQuantity) {
+		this.addQuantity = addQuantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;

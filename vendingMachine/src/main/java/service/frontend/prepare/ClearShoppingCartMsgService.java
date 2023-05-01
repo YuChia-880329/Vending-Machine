@@ -2,9 +2,9 @@ package service.frontend.prepare;
 
 import java.util.List;
 
-import bean.dto.frontend.obj.cache.clearShoppingCartMsgLine.ClearShoppingCartMsgLineOBJDTO;
+import bean.dto.frontend.obj.statusCache.clearShoppingCartMsgLine.ClearShoppingCartMsgHasMsgOBJDTO;
 import bean.dto.frontend.vo.writeout.ClearShoppingCartMsgVODTO;
-import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
+import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 import enumeration.Has;
 
 public class ClearShoppingCartMsgService {
@@ -19,16 +19,16 @@ public class ClearShoppingCartMsgService {
 		return INSTANCE;
 	}
 	
-	public ClearShoppingCartMsgVODTO prepare(ClearShoppingCartMsgLineCacheDAO clearShoppingCartMsgLineCacheDAO) {
+	public ClearShoppingCartMsgVODTO prepare(ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgLineCacheDAO) {
 		
 		ClearShoppingCartMsgVODTO clearShoppingCartMsgVODTO = new ClearShoppingCartMsgVODTO();
 		
 		
-		List<ClearShoppingCartMsgLineOBJDTO> clearShoppingCartMsgOBJDTOs = clearShoppingCartMsgLineCacheDAO.use(true);
+		List<ClearShoppingCartMsgHasMsgOBJDTO> clearShoppingCartMsgOBJDTOs = clearShoppingCartMsgLineCacheDAO.use(true);
 		
 		if(clearShoppingCartMsgOBJDTOs.size() > 0) {
 			
-			ClearShoppingCartMsgLineOBJDTO clearShoppingCartMsgOBJDTO = clearShoppingCartMsgOBJDTOs.get(0);
+			ClearShoppingCartMsgHasMsgOBJDTO clearShoppingCartMsgOBJDTO = clearShoppingCartMsgOBJDTOs.get(0);
 			if(clearShoppingCartMsgOBJDTO!=null && clearShoppingCartMsgOBJDTO.getHasMsg()==Has.TRUE) {
 				
 				clearShoppingCartMsgVODTO.setHasMsg(Has.TRUE);

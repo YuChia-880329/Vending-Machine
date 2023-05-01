@@ -5,12 +5,12 @@ import bean.dto.frontend.vo.writeout.FrontendVODTO;
 import bean.dto.model.MemberModelDTO;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
-import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
+import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 
 public class FrontendService {
 
@@ -55,7 +55,7 @@ public class FrontendService {
 			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
 			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, 
 			AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO,
-			ClearShoppingCartMsgLineCacheDAO clearShoppingCartMsgLineCacheDAO,
+			ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgLineCacheDAO,
 			UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO,
 			UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO,
 			ReceiptContentCacheDAO receiptContentCacheDAO) {

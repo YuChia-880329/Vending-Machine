@@ -27,7 +27,7 @@ public class AddShoppingCartGoodsVOChecker extends CheckerTemplate<AddShoppingCa
 		
 		checkId(vo);
 		checkName(vo);
-		checkBuyQuantity(vo);
+		checkAddQuantity(vo);
 		checkQuantity(vo);
 	}
 	
@@ -44,11 +44,11 @@ public class AddShoppingCartGoodsVOChecker extends CheckerTemplate<AddShoppingCa
 		
 		CheckUtil.checkStringIsPositiveIntegerNumberString(id, StringConcatUtil.concate(NAME_PREFIX, "id"));
 	}
-	private void checkBuyQuantity(AddShoppingCartGoodsVO vo) throws CheckerException {
+	private void checkAddQuantity(AddShoppingCartGoodsVO vo) throws CheckerException {
 		
-		String buyQuantity = vo.getBuyQuantity();
+		String addQuantity = vo.getAddQuantity();
 		
-		CheckUtil.checkStringIsNonNegativeIntegerNumberString(buyQuantity, StringConcatUtil.concate(NAME_PREFIX, "buyQuantity"));
+		CheckUtil.checkStringIsNonNegativeIntegerNumberString(addQuantity, StringConcatUtil.concate(NAME_PREFIX, "buyQuantity"));
 	}
 	private void checkQuantity(AddShoppingCartGoodsVO vo) throws CheckerException {
 		

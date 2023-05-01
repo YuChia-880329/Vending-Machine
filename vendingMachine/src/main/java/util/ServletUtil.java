@@ -9,22 +9,24 @@ import javax.servlet.http.HttpSession;
 
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
-import dao.memory.cache.frontend.ClearShoppingCartMsgLineCacheDAO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
+import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
+import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 import memory.cache.frontend.AddShoppingCartIllegalMsgLineCache;
 import memory.cache.frontend.AddShoppingCartMsgLineCache;
-import memory.cache.frontend.ClearShoppingCartMsgLineCache;
 import memory.cache.frontend.ReceiptContentCache;
 import memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCache;
 import memory.cache.frontend.UpdateShoppingCartMsgLineCache;
 import memory.database.frontend.ShoppingCartMemoryDb;
 import memory.repository.backend.goodsList.GoodsTablePagesRepository;
 import memory.repository.backend.orderList.OrderTablePagesRepository;
+import memory.statusCache.frontend.CheckoutMoneyIllegalMsgHasMsgStatusCache;
+import memory.statusCache.frontend.ClearShoppingCartMsgHasMsgStatusCache;
 
 public class ServletUtil {
 
@@ -103,14 +105,7 @@ public class ServletUtil {
 				() -> new AddShoppingCartMsgLineCache(), 
 				memory -> new AddShoppingCartMsgLineCacheDAO(memory));
 	}
-	public static ClearShoppingCartMsgLineCacheDAO getClearShoppingCartMsgLineCacheDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				ClearShoppingCartMsgLineCacheDAO.SESSION_ATTR_DAO, 
-				() -> new ClearShoppingCartMsgLineCache(), 
-				memory -> new ClearShoppingCartMsgLineCacheDAO(memory));
-	}
+
 	public static UpdateShoppingCartIllegalMsgLineCacheDAO getUpdateShoppingCartIllegalMsgLineCacheDAO(HttpSession session) {
 		
 		return getMemoryDAO(
@@ -134,6 +129,24 @@ public class ServletUtil {
 				ReceiptContentCacheDAO.SESSION_ATTR_DAO, 
 				() -> new ReceiptContentCache(), 
 				memory -> new ReceiptContentCacheDAO(memory));
+	}
+	
+	
+	public static <D> ClearShoppingCartMsgStatusCacheDAO getClearShoppingCartMsgStatusCacheDAO(HttpSession session) {
+		
+		return getMemoryDAO(
+				session, 
+				ClearShoppingCartMsgStatusCacheDAO.SESSION_ATTR_DAO, 
+				() -> new ClearShoppingCartMsgHasMsgStatusCache(), 
+				memory -> new ClearShoppingCartMsgStatusCacheDAO(memory));
+	}
+	public static CheckoutMoneyIllegalMsgStatusCacheDAO getCheckoutMoneyIllegalMsgStatusCacheDAO(HttpSession session) {
+		
+		return getMemoryDAO(
+				session, 
+				CheckoutMoneyIllegalMsgStatusCacheDAO.SESSION_ATTR_DAO, 
+				() -> new CheckoutMoneyIllegalMsgHasMsgStatusCache(), 
+				memory -> new CheckoutMoneyIllegalMsgStatusCacheDAO(memory));
 	}
 	
 	

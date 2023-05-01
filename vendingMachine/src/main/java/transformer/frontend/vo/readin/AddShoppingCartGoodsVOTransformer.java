@@ -25,7 +25,7 @@ public class AddShoppingCartGoodsVOTransformer extends VOReanInTransformerTempla
 		
 		dto.setId(Integer.parseInt(vo.getId()));
 		dto.setName(vo.getName());
-		dto.setBuyQuantity(Integer.parseInt(vo.getBuyQuantity()));
+		dto.setAddQuantity(Integer.parseInt(vo.getAddQuantity()));
 		dto.setQuantity(Integer.parseInt(vo.getQuantity()));
 		
 		return dto;

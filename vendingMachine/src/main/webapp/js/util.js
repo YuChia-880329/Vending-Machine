@@ -1,6 +1,6 @@
 
 	// modal
-	function confirmModal(modalMsg, okBtnFctn){
+	function confirmModalId(modalMsg, okBtnFctn){
 		
 		var modalId = 'confirm_modal';
 		var modalMsgId = 'confirm_modal_msg';
@@ -10,17 +10,25 @@
 		$('#' + okBtnId).off('click');
 		$('#' + okBtnId).click(okBtnFctn);
 		
-		return new bootstrap.Modal('#' + modalId, {});
+		return modalId;
+	}
+	function confirmModal(modalMsg, okBtnFctn){
+		
+		return new bootstrap.Modal('#' + confirmModalId(modalMsg, okBtnFctn), {});
 	}
 	
-	function alertModal(modalMsg){
+	function alertModalId(modalMsg){
 		
 		var modalId = 'alert_modal';
 		var modalMsgPId = 'alert_modal_msg';
 		
 		$('#' + modalMsgPId).html(modalMsg);
 		
-		return new bootstrap.Modal('#' + modalId, {});
+		return modalId;
+	}
+	function alertModal(modalMsg){
+		
+		return new bootstrap.Modal('#' + alertModalId(modalMsg), {});
 	}
 	
 	
