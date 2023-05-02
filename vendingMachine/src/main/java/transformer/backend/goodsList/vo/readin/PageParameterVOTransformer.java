@@ -5,7 +5,7 @@ import bean.vo.backend.goodsList.readin.PageParameterVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.backend.goodsList.vo.readin.checker.PageParameterVOChecker;
+import transformer.checker.backend.goodsList.vo.readin.PageParameterVOChecker;
 
 public class PageParameterVOTransformer extends VOReanInTransformerTemplate<PageParameterVO, PageParameterVODTO, CheckerException, PageParameterVOChecker> {
 	

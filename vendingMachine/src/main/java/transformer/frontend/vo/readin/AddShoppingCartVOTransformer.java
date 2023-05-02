@@ -4,7 +4,7 @@ import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
 import bean.vo.frontend.readin.AddShoppingCartVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.frontend.vo.readin.checker.AddShoppingCartVOChecker;
+import transformer.checker.frontend.vo.readin.AddShoppingCartVOChecker;
 
 public class AddShoppingCartVOTransformer extends VOReanInTransformerTemplate<AddShoppingCartVO, AddShoppingCartVODTO, CheckerException, AddShoppingCartVOChecker>  {
 

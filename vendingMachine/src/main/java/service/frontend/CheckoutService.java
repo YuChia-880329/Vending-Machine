@@ -55,7 +55,7 @@ public class CheckoutService {
 	public CheckoutResultDTO checkout(CheckoutVODTO checkoutVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, ReceiptContentCacheDAO receiptContentCacheDAO, 
 			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO, 
 			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO, 
-			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, CheckoutMoneyIllegalMsgStatusCacheDAO paidMoneyMsgLineCacheDAO) {
+			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO) {
 		
 		
 		addShoppingCart(checkoutVODTO.getAddShoppingCartGoodsList(), shoppingCartMemoryDbDAO, 
@@ -76,7 +76,7 @@ public class CheckoutService {
 			
 			if(paidMoney < shouldPaid) {
 				
-				paidMoneyMsgLineCacheDAO.save(new CheckoutMoneyIllegalMsgHasMsgOBJDTO(Has.TRUE));
+				checkoutMoneyIllegalMsgStatusCacheDAO.setStatus(new CheckoutMoneyIllegalMsgHasMsgOBJDTO(Has.TRUE));
 			}
 			
 			ReceiptContentOBJDTO receiptOBJDTO = checkoutReceipt(paidMoney, shouldPaid, shoppingCartMemoryDbDAO, goodsModelDTOMap);

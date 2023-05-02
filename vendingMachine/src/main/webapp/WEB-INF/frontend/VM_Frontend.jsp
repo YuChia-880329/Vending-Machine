@@ -42,6 +42,11 @@
 		let updateShoppingCartMsgModalId = 'update_shopping_cart_msg_modal';
 		let updateShoppingCartMsgOkBtnId = 'update_shopping_cart_msg_ok_btn';
 		
+		let checkoutMoneyIllegalMsgModalExistInputId = 'checkout_money_illegal_msg_modal_exist_input';
+		let checkoutMoneyIllegalMsgModalId = 'checkout_money_illegal_msg_modal';
+		let checkoutMoneyIllegalMsgOkBtnId = 'checkout_money_illegal_msg_ok_btn';
+		
+		
 		let filterForm = 'filter_form';
 		let filterBtnId = 'filter_btn';
 		let allGoodsBtnId = 'all_goods_btn';
@@ -135,6 +140,12 @@
 				updateShoppingCartMsgModalExistInputId,
 				updateShoppingCartMsgModalId,
 				updateShoppingCartMsgOkBtnId
+			);
+
+			modalIdObjs[5] = modalIdObjsFctn(
+				checkoutMoneyIllegalMsgModalExistInputId,
+				checkoutMoneyIllegalMsgModalId,
+				checkoutMoneyIllegalMsgOkBtnId
 			);
 			showMsgModalArray(modalIdObjs);
 		}
@@ -240,7 +251,7 @@
 			for(i=1; i<=6; i++){
 				
 				var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
-				pass = checkNonNegativeIntegerInput(goodsEntryBuyQuantityInputIdPrefix + i, name + '的購買數量') && pass;
+				pass = checkNotNullNonNegativeIntegerInput(goodsEntryBuyQuantityInputIdPrefix + i, name + '的購買數量') && pass;
 			}
 			
 			return pass;
@@ -308,7 +319,7 @@
 			for(i=1; i<=goodsCount; i++){
 				
 				var name = $('#' + shoppingCartGoodsNameInputIdPrefix + i).val();
-				pass = checkNonNegativeIntegerInput(shoppingCartGoodsBuyQuantityInputIdPrefix + i, name + '的購買數量') && pass;
+				pass = checkNotNullNonNegativeIntegerInput(shoppingCartGoodsBuyQuantityInputIdPrefix + i, name + '的購買數量') && pass;
 			}
 			
 			return pass;
@@ -404,7 +415,7 @@
 		}
 		function checkoutInputCheck(){
 			
-			return checkNonNegativeIntegerInput(checkoutPaidMoneyInputId, "結帳金額");
+			return checkNotNullNonNegativeIntegerInput(checkoutPaidMoneyInputId, "結帳金額");
 		}
 	</script>
 </head>
@@ -777,6 +788,28 @@
 	     			</div>
 	     			<div class="modal-footer msg-modal-footer">
 	  					<button type="button" class="btn btn-primary" id="update_shopping_cart_msg_ok_btn">確認</button>
+	     			</div>
+	   			</div>
+	 		</div>
+		</div>
+	</c:if>
+	
+	<input type="hidden" value="${vo.checkoutMoneyIllegalMsg.hasMsg}" id="checkout_money_illegal_msg_modal_exist_input" />
+	<c:if test="${vo.checkoutMoneyIllegalMsg.hasMsg == 'true'}">
+		<div class="modal fade" id="checkout_money_illegal_msg_modal">
+	 		<div class="modal-dialog msg-modal-dialog">
+	   			<div class="modal-content msg-modal-content">
+	     			<div class="modal-header msg-modal-header">
+	       				<h4 class="modal-title">訊息</h4>
+	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	     			</div>
+	     			<div class="modal-body msg-modal-body">
+	     				<div class="container">
+	     					<p>投入的金額不足</p>
+						</div>
+	     			</div>
+	     			<div class="modal-footer msg-modal-footer">
+	  					<button type="button" class="btn btn-primary" id="checkout_money_illegal_msg_ok_btn">確認</button>
 	     			</div>
 	   			</div>
 	 		</div>

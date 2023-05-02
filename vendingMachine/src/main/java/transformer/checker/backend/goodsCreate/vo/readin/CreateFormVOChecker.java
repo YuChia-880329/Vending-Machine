@@ -1,4 +1,4 @@
-package transformer.backend.goodsCreate.vo.readin.checker;
+package transformer.checker.backend.goodsCreate.vo.readin;
 
 import javax.servlet.http.Part;
 

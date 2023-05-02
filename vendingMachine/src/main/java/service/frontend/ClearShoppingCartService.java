@@ -25,7 +25,7 @@ public class ClearShoppingCartService {
 		ClearShoppingCartResultDTO clearShoppingCartResultDTO = new ClearShoppingCartResultDTO();
 		
 		shoppingCartMemoryDbDAO.deleteAll();
-		clearShoppingCartMsgLineCacheDAO.save(new ClearShoppingCartMsgHasMsgOBJDTO(Has.TRUE));
+		clearShoppingCartMsgLineCacheDAO.setStatus(new ClearShoppingCartMsgHasMsgOBJDTO(Has.TRUE));
 		
 		clearShoppingCartResultDTO.setQueryString(clearShoppingCartVODTO.getQueryString());
 		

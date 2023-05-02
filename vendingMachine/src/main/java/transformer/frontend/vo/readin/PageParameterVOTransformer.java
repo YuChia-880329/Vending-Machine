@@ -4,7 +4,7 @@ import bean.dto.frontend.vo.readin.PageParameterVODTO;
 import bean.vo.frontend.readin.PageParameterVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.frontend.vo.readin.checker.PageParameterVOChecker;
+import transformer.checker.frontend.vo.readin.PageParameterVOChecker;
 
 public class PageParameterVOTransformer extends VOReanInTransformerTemplate<PageParameterVO, PageParameterVODTO, CheckerException, PageParameterVOChecker> {
 

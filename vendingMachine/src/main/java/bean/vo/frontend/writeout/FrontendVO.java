@@ -7,6 +7,7 @@ public class FrontendVO {
 	private ClearShoppingCartMsgVO clearShoppingCartMsg;
 	private UpdateShoppingCartIllegalMsgVO updateShoppingCartIllegalMsg;
 	private UpdateShoppingCartMsgVO updateShoppingCartMsg;
+	private CheckoutMoneyIllegalMsgVO checkoutMoneyIllegalMsg;
 	private ShoppingCartVO shoppingCart;
 	private WelcomePartVO welcomePart;
 	private GoodsTablePageVO goodsTablePage;
@@ -17,14 +18,15 @@ public class FrontendVO {
 	public FrontendVO() {
 	}
 	public FrontendVO(AddShoppingCartIllegalMsgVO addShoppingCartIllegalMsg, AddShoppingCartMsgVO addShoppingCartMsg, ClearShoppingCartMsgVO clearShoppingCartMsg, 
-			UpdateShoppingCartIllegalMsgVO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVO updateShoppingCartMsg, ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, 
-			GoodsTablePageVO goodsTablePage, FilterFormVO filterForm, ReceiptVO receipt) {
+			UpdateShoppingCartIllegalMsgVO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVO updateShoppingCartMsg, CheckoutMoneyIllegalMsgVO checkoutMoneyIllegalMsg, 
+			ShoppingCartVO shoppingCart, WelcomePartVO welcomePart, GoodsTablePageVO goodsTablePage, FilterFormVO filterForm, ReceiptVO receipt) {
 
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
 		this.addShoppingCartMsg = addShoppingCartMsg;
 		this.clearShoppingCartMsg = clearShoppingCartMsg;
 		this.updateShoppingCartIllegalMsg = updateShoppingCartIllegalMsg;
 		this.updateShoppingCartMsg = updateShoppingCartMsg;
+		this.checkoutMoneyIllegalMsg = checkoutMoneyIllegalMsg;
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
@@ -46,6 +48,9 @@ public class FrontendVO {
 	}
 	public UpdateShoppingCartMsgVO getUpdateShoppingCartMsg() {
 		return updateShoppingCartMsg;
+	}
+	public CheckoutMoneyIllegalMsgVO getCheckoutMoneyIllegalMsg() {
+		return checkoutMoneyIllegalMsg;
 	}
 	public ShoppingCartVO getShoppingCart() {
 		return shoppingCart;
@@ -79,6 +84,9 @@ public class FrontendVO {
 	}
 	public void setUpdateShoppingCartMsg(UpdateShoppingCartMsgVO updateShoppingCartMsg) {
 		this.updateShoppingCartMsg = updateShoppingCartMsg;
+	}
+	public void setCheckoutMoneyIllegalMsg(CheckoutMoneyIllegalMsgVO checkoutMoneyIllegalMsg) {
+		this.checkoutMoneyIllegalMsg = checkoutMoneyIllegalMsg;
 	}
 	public void setShoppingCart(ShoppingCartVO shoppingCart) {
 		this.shoppingCart = shoppingCart;

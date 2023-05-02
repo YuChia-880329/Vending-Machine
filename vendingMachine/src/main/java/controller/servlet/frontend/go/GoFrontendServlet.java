@@ -21,6 +21,7 @@ import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
+import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 import listener.ParameterContextListener;
 import service.frontend.prepare.FrontendService;
@@ -70,6 +71,8 @@ public class GoFrontendServlet extends HttpServlet {
 		UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartIllegalMsgLineCacheDAO(session);
 		UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartMsgLineCacheDAO(session);
 		ReceiptContentCacheDAO receiptContentCacheDAO = ServletUtil.getReceiptContentCacheDAO(session);
+		CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO = ServletUtil.getCheckoutMoneyIllegalMsgStatusCacheDAO(session);
+		
 		
 		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
 		MemberModelDTO memberModelDTO = new MemberModelDTO("test", "test", "test");
@@ -81,7 +84,7 @@ public class GoFrontendServlet extends HttpServlet {
 			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, memberModelDTO, imagesDirectorySymbolicLinkName, 
 					goodsTablePagesRepositoryDAO, shoppingCartMemoryDbDAO, addShoppingCartIllegalMsgLineCacheDAO, 
 					addShoppingCartMsgLineCacheDAO, clearShoppingCartMsgLineCacheDAO, updateShoppingCartIllegalMsgLineCacheDAO,
-					updateShoppingCartMsgLineCacheDAO, receiptContentCacheDAO);
+					updateShoppingCartMsgLineCacheDAO, receiptContentCacheDAO, checkoutMoneyIllegalMsgStatusCacheDAO);
 			FrontendVO frontendVO = frontendVOTransformer.dtoToVo(frontendVODTO);
 			
 			req.setAttribute(REQ_ATTR_VO, frontendVO);

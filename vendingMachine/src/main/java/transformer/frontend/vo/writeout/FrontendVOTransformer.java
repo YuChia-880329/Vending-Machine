@@ -11,6 +11,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 	private ClearShoppingCartMsgVOTransformer clearShoppingCartMsgVOTransformer;
 	private UpdateShoppingCartIllegalMsgVOTransformer updateShoppingCartIllegalMsgVOTransformer;
 	private UpdateShoppingCartMsgVOTransformer updateShoppingCartMsgVOTransformer;
+	private CheckoutMoneyIllegalMsgVOTransformer checkoutMoneyIllegalMsgVOTransformer;
 	private ShoppingCartVOTransformer shoppingCartVOTransformer;
 	private WelcomePartVOTransformer welcomePartVOTransformer;
 	private GoodsTablePageVOTransformer goodsTablePageVOTransformer;
@@ -27,6 +28,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 		clearShoppingCartMsgVOTransformer = ClearShoppingCartMsgVOTransformer.getInstance();
 		updateShoppingCartIllegalMsgVOTransformer = UpdateShoppingCartIllegalMsgVOTransformer.getInstance();
 		updateShoppingCartMsgVOTransformer = UpdateShoppingCartMsgVOTransformer.getInstance();
+		checkoutMoneyIllegalMsgVOTransformer = CheckoutMoneyIllegalMsgVOTransformer.getInstance();
 		shoppingCartVOTransformer = ShoppingCartVOTransformer.getInstance();
 		welcomePartVOTransformer = WelcomePartVOTransformer.getInstance();
 		goodsTablePageVOTransformer = GoodsTablePageVOTransformer.getInstance();
@@ -49,6 +51,7 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 		vo.setClearShoppingCartMsg(clearShoppingCartMsgVOTransformer.dtoToVo(dto.getClearShoppingCartMsg()));
 		vo.setUpdateShoppingCartIllegalMsg(updateShoppingCartIllegalMsgVOTransformer.dtoToVo(dto.getUpdateShoppingCartIllegalMsg()));
 		vo.setUpdateShoppingCartMsg(updateShoppingCartMsgVOTransformer.dtoToVo(dto.getUpdateShoppingCartMsg()));
+		vo.setCheckoutMoneyIllegalMsg(checkoutMoneyIllegalMsgVOTransformer.dtoToVo(dto.getCheckoutMoneyIllegalMsg()));
 		vo.setShoppingCart(shoppingCartVOTransformer.dtoToVo(dto.getShoppingCart()));
 		vo.setWelcomePart(welcomePartVOTransformer.dtoToVo(dto.getWelcomePart()));
 		vo.setGoodsTablePage(goodsTablePageVOTransformer.dtoToVo(dto.getGoodsTablePage()));

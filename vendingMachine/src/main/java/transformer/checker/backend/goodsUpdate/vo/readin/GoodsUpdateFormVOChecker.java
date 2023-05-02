@@ -1,4 +1,4 @@
-package transformer.backend.goodsUpdate.vo.readin.checker;
+package transformer.checker.backend.goodsUpdate.vo.readin;
 
 import bean.vo.backend.goodsUpdate.readin.GoodsUpdateFormVO;
 import enumeration.Status;

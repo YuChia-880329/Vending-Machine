@@ -2,7 +2,6 @@ package transformer.frontend.obj.statusCache.clearShoppingCartMsgLine;
 
 import bean.dto.frontend.obj.statusCache.clearShoppingCartMsgLine.ClearShoppingCartMsgHasMsgOBJDTO;
 import bean.obj.frontend.statusCache.clearShoppingCartMsg.ClearShoppingCartMsgHasMsgOBJ;
-import template.memory.cache.CacheTransformerTemplate;
 import template.memory.statusCache.StatusCacheTransformerTemplate;
 
 public class ClearShoppingCartMsgHasMsgOBJTransformer extends StatusCacheTransformerTemplate<ClearShoppingCartMsgHasMsgOBJ, ClearShoppingCartMsgHasMsgOBJDTO> {

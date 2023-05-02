@@ -1,4 +1,4 @@
-package transformer.frontend.vo.readin.checker;
+package transformer.checker.frontend.vo.readin;
 
 import bean.vo.frontend.readin.UpdateShoppingCartGoodsVO;
 import bean.vo.frontend.readin.UpdateShoppingCartVO;

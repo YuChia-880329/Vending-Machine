@@ -4,7 +4,7 @@ import bean.dto.frontend.vo.readin.CheckoutVODTO;
 import bean.vo.frontend.readin.CheckoutVO;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.frontend.vo.readin.checker.CheckoutVOChecker;
+import transformer.checker.frontend.vo.readin.CheckoutVOChecker;
 
 public class CheckoutVOTransformer extends VOReanInTransformerTemplate<CheckoutVO, CheckoutVODTO, CheckerException, CheckoutVOChecker> {
 

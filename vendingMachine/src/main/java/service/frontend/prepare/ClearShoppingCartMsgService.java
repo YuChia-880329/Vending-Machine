@@ -1,7 +1,5 @@
 package service.frontend.prepare;
 
-import java.util.List;
-
 import bean.dto.frontend.obj.statusCache.clearShoppingCartMsgLine.ClearShoppingCartMsgHasMsgOBJDTO;
 import bean.dto.frontend.vo.writeout.ClearShoppingCartMsgVODTO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
@@ -19,27 +17,16 @@ public class ClearShoppingCartMsgService {
 		return INSTANCE;
 	}
 	
-	public ClearShoppingCartMsgVODTO prepare(ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgLineCacheDAO) {
+	public ClearShoppingCartMsgVODTO prepare(ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO) {
 		
 		ClearShoppingCartMsgVODTO clearShoppingCartMsgVODTO = new ClearShoppingCartMsgVODTO();
 		
 		
-		List<ClearShoppingCartMsgHasMsgOBJDTO> clearShoppingCartMsgOBJDTOs = clearShoppingCartMsgLineCacheDAO.use(true);
+		ClearShoppingCartMsgHasMsgOBJDTO clearShoppingCartMsgOBJDTO = clearShoppingCartMsgStatusCacheDAO.getStatus();
+
+		clearShoppingCartMsgVODTO.setHasMsg(clearShoppingCartMsgOBJDTO.getHasMsg());
 		
-		if(clearShoppingCartMsgOBJDTOs.size() > 0) {
-			
-			ClearShoppingCartMsgHasMsgOBJDTO clearShoppingCartMsgOBJDTO = clearShoppingCartMsgOBJDTOs.get(0);
-			if(clearShoppingCartMsgOBJDTO!=null && clearShoppingCartMsgOBJDTO.getHasMsg()==Has.TRUE) {
-				
-				clearShoppingCartMsgVODTO.setHasMsg(Has.TRUE);
-			}else {
-				
-				clearShoppingCartMsgVODTO.setHasMsg(Has.FALSE);
-			}
-		}else {
-			
-			clearShoppingCartMsgVODTO.setHasMsg(Has.FALSE);
-		}
+		clearShoppingCartMsgStatusCacheDAO.setStatus(new ClearShoppingCartMsgHasMsgOBJDTO(Has.FALSE));
 		
 		return clearShoppingCartMsgVODTO;
 	}

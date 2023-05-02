@@ -7,6 +7,7 @@ public class FrontendVODTO {
 	private ClearShoppingCartMsgVODTO clearShoppingCartMsg;
 	private UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg;
 	private UpdateShoppingCartMsgVODTO updateShoppingCartMsg;
+	private CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsg;
 	private ShoppingCartVODTO shoppingCart;
 	private WelcomePartVODTO welcomePart;
 	private GoodsTablePageVODTO goodsTablePage;
@@ -17,14 +18,15 @@ public class FrontendVODTO {
 	public FrontendVODTO() {
 	}
 	public FrontendVODTO(AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsg, AddShoppingCartMsgVODTO addShoppingCartMsg, ClearShoppingCartMsgVODTO clearShoppingCartMsg, 
-			UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVODTO updateShoppingCartMsg, ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, 
-			GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm, ReceiptVODTO receipt) {
+			UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVODTO updateShoppingCartMsg, CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsg, 
+			ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm, ReceiptVODTO receipt) {
 
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
 		this.addShoppingCartMsg = addShoppingCartMsg;
 		this.clearShoppingCartMsg = clearShoppingCartMsg;
 		this.updateShoppingCartIllegalMsg = updateShoppingCartIllegalMsg;
 		this.updateShoppingCartMsg = updateShoppingCartMsg;
+		this.checkoutMoneyIllegalMsg = checkoutMoneyIllegalMsg;
 		this.shoppingCart = shoppingCart;
 		this.welcomePart = welcomePart;
 		this.goodsTablePage = goodsTablePage;
@@ -48,6 +50,9 @@ public class FrontendVODTO {
 	}
 	public UpdateShoppingCartMsgVODTO getUpdateShoppingCartMsg() {
 		return updateShoppingCartMsg;
+	}
+	public CheckoutMoneyIllegalMsgVODTO getCheckoutMoneyIllegalMsg() {
+		return checkoutMoneyIllegalMsg;
 	}
 	public ShoppingCartVODTO getShoppingCart() {
 		return shoppingCart;
@@ -80,6 +85,9 @@ public class FrontendVODTO {
 	}
 	public void setUpdateShoppingCartMsg(UpdateShoppingCartMsgVODTO updateShoppingCartMsg) {
 		this.updateShoppingCartMsg = updateShoppingCartMsg;
+	}
+	public void setCheckoutMoneyIllegalMsg(CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsg) {
+		this.checkoutMoneyIllegalMsg = checkoutMoneyIllegalMsg;
 	}
 	public void setShoppingCart(ShoppingCartVODTO shoppingCart) {
 		this.shoppingCart = shoppingCart;

@@ -5,7 +5,7 @@ import bean.vo.backend.goodsUpdate.readin.GoodsUpdateFormVO;
 import enumeration.Status;
 import template.exception.CheckerException;
 import template.transformer.bean.vo.VOReanInTransformerTemplate;
-import transformer.backend.goodsUpdate.vo.readin.checker.GoodsUpdateFormVOChecker;
+import transformer.checker.backend.goodsUpdate.vo.readin.GoodsUpdateFormVOChecker;
 
 public class GoodsUpdateFormVOTransformer extends VOReanInTransformerTemplate<GoodsUpdateFormVO, GoodsUpdateFormVODTO, CheckerException, GoodsUpdateFormVOChecker> {
 
