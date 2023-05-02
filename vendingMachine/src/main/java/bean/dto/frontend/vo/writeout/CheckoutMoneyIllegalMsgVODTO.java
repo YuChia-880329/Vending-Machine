@@ -1,25 +1,23 @@
 package bean.dto.frontend.vo.writeout;
 
-import enumeration.Has;
-
 public class CheckoutMoneyIllegalMsgVODTO {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 
 	public CheckoutMoneyIllegalMsgVODTO() {
 	}
-	public CheckoutMoneyIllegalMsgVODTO(Has hasMsg) {
+	public CheckoutMoneyIllegalMsgVODTO(boolean hasMsg) {
 
 		this.hasMsg = hasMsg;
 	}
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 }

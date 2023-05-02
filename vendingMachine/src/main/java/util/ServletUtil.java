@@ -1,32 +1,14 @@
 package util;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
-import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
-import dao.memory.cache.frontend.ReceiptContentCacheDAO;
-import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
-import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
-import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
-import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
-import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
-import memory.cache.frontend.AddShoppingCartIllegalMsgLineCache;
-import memory.cache.frontend.AddShoppingCartMsgLineCache;
-import memory.cache.frontend.ReceiptContentCache;
-import memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCache;
-import memory.cache.frontend.UpdateShoppingCartMsgLineCache;
-import memory.database.frontend.ShoppingCartMemoryDb;
-import memory.repository.backend.goodsList.GoodsTablePagesRepository;
-import memory.repository.backend.orderList.OrderTablePagesRepository;
-import memory.statusCache.frontend.CheckoutMoneyIllegalMsgHasMsgStatusCache;
-import memory.statusCache.frontend.ClearShoppingCartMsgHasMsgStatusCache;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
+import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
 public class ServletUtil {
 
@@ -50,120 +32,29 @@ public class ServletUtil {
 		else
 			return StringConcatUtil.concate(url, "?", queryString);
 	}
-
-	public static GoodsTablePagesRepositoryDAO getGoodsTablePagesRepositoryDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				GoodsTablePagesRepositoryDAO.SESSION_ATTR_DAO, 
-				() -> new GoodsTablePagesRepository(), 
-				memory -> new GoodsTablePagesRepositoryDAO(memory));
-	}
-	public static OrderTablePagesRepositoryDAO getOrderTablePagesRepositoryDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				OrderTablePagesRepositoryDAO.SESSION_ATTR_DAO, 
-				() -> new OrderTablePagesRepository(), 
-				memory -> new OrderTablePagesRepositoryDAO(memory));
-	}
-	public static dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO getFrontendGoodsTablePagesRepositoryDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO.SESSION_ATTR_DAO, 
-				() -> new memory.repository.frontend.GoodsTablePagesRepository(), 
-				memory -> new dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO(memory));
-	}
 	
-	
-	
-	public static ShoppingCartMemoryDbDAO getShoppingCartMemoryDbDAO(HttpSession session) {
+	public static AccountOBJDTO getAccount(HttpSession session){
 		
-		return getMemoryDAO(
-				session, 
-				ShoppingCartMemoryDbDAO.SESSION_ATTR_DAO, 
-				() -> new ShoppingCartMemoryDb(), 
-				memory -> new ShoppingCartMemoryDbDAO(memory));
-	}
-	
-	
-	
-	public static AddShoppingCartIllegalMsgLineCacheDAO getAddShoppingCartIllegalMsgLineCacheDAO(HttpSession session) {
+		AccountOBJDTO accountOBJDTO = (AccountOBJDTO)session.getAttribute(MemoryDAOKitVMDAO.SESSION_ATTR_ACCOUNT);
 		
-		return getMemoryDAO(
-				session, 
-				AddShoppingCartIllegalMsgLineCacheDAO.SESSION_ATTR_DAO, 
-				() -> new AddShoppingCartIllegalMsgLineCache(), 
-				memory -> new AddShoppingCartIllegalMsgLineCacheDAO(memory));
-	}
-	public static AddShoppingCartMsgLineCacheDAO getAddShoppingCartMsgLineCacheDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				AddShoppingCartMsgLineCacheDAO.SESSION_ATTR_DAO, 
-				() -> new AddShoppingCartMsgLineCache(), 
-				memory -> new AddShoppingCartMsgLineCacheDAO(memory));
-	}
-
-	public static UpdateShoppingCartIllegalMsgLineCacheDAO getUpdateShoppingCartIllegalMsgLineCacheDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				UpdateShoppingCartIllegalMsgLineCacheDAO.SESSION_ATTR_DAO, 
-				() -> new UpdateShoppingCartIllegalMsgLineCache(), 
-				memory -> new UpdateShoppingCartIllegalMsgLineCacheDAO(memory));
-	}
-	public static UpdateShoppingCartMsgLineCacheDAO getUpdateShoppingCartMsgLineCacheDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				UpdateShoppingCartMsgLineCacheDAO.SESSION_ATTR_DAO, 
-				() -> new UpdateShoppingCartMsgLineCache(), 
-				memory -> new UpdateShoppingCartMsgLineCacheDAO(memory));
-	}
-	public static ReceiptContentCacheDAO getReceiptContentCacheDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				ReceiptContentCacheDAO.SESSION_ATTR_DAO, 
-				() -> new ReceiptContentCache(), 
-				memory -> new ReceiptContentCacheDAO(memory));
-	}
-	
-	
-	public static <D> ClearShoppingCartMsgStatusCacheDAO getClearShoppingCartMsgStatusCacheDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				ClearShoppingCartMsgStatusCacheDAO.SESSION_ATTR_DAO, 
-				() -> new ClearShoppingCartMsgHasMsgStatusCache(), 
-				memory -> new ClearShoppingCartMsgStatusCacheDAO(memory));
-	}
-	public static CheckoutMoneyIllegalMsgStatusCacheDAO getCheckoutMoneyIllegalMsgStatusCacheDAO(HttpSession session) {
-		
-		return getMemoryDAO(
-				session, 
-				CheckoutMoneyIllegalMsgStatusCacheDAO.SESSION_ATTR_DAO, 
-				() -> new CheckoutMoneyIllegalMsgHasMsgStatusCache(), 
-				memory -> new CheckoutMoneyIllegalMsgStatusCacheDAO(memory));
-	}
-	
-	
-	private static <M, D> D getMemoryDAO(HttpSession session, String sessionAttrName, Supplier<M> memorySupl, Function<M, D> memoryDAOFctn){
-		
-		@SuppressWarnings("unchecked")
-		D memoryDAO = (D)session.getAttribute(sessionAttrName);
-		
-		if(memoryDAO == null) {
+		if(accountOBJDTO == null) {
 			
-			M memory = memorySupl.get();
-			memoryDAO = memoryDAOFctn.apply(memory);
-			
-			session.setAttribute(sessionAttrName, memoryDAO);
+			accountOBJDTO = getNewAccount();
+			session.setAttribute(MemoryDAOKitVMDAO.SESSION_ATTR_ACCOUNT, accountOBJDTO);
 		}
 		
-		return memoryDAO;
+		return accountOBJDTO;
+	}
+	
+	private static AccountOBJDTO getNewAccount() {
+		
+		AccountOBJDTO accountOBJDTO = new AccountOBJDTO();
+		
+		String account = StringConcatUtil.concate(DateTimeUtil.localDateTimeToString(LocalDateTime.now()), UUID.randomUUID().toString());
+		
+		accountOBJDTO.setAccount(account);
+		
+		return accountOBJDTO;
 	}
 	
 }

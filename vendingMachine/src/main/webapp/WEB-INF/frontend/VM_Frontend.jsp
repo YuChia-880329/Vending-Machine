@@ -88,6 +88,8 @@
 		let checkoutFormId = 'checkout_form';
 		let checkoutDataInputId = 'checkout_data_input';
 		
+		let goBackendBtnId = 'go_backend_btn';
+		
 		
 		$(document).ready(readyFctn);
 		
@@ -101,6 +103,7 @@
 			$('#' + clearShoppingCartBtnId).click(clearShoppingCartBtnClicked);
 			$('#' + updateShoppingCartBtnId).click(updateShoppingCartBtnClicked);
 			$('#' + checkoutBtnId).click(checkoutBtnClicked);
+			$('#' + goBackendBtnId).click(goBackendBtnClicked);
 		}
 		function showMsgModal(){
 			
@@ -417,6 +420,24 @@
 			
 			return checkNotNullNonNegativeIntegerInput(checkoutPaidMoneyInputId, "結帳金額");
 		}
+		
+		function goBackendBtnClicked(){
+			
+			confirmModal('前往後臺將清空購物車', function(){
+				
+				var ajaxUrl = '/vendingMachine/machine/goBackendAjax';
+				var redirectUrl = '/vendingMachine/machine/backend/goodsList';
+				
+				$.ajax({
+					url : ajaxUrl,
+					method : 'POST',
+					success : function(){
+						
+						window.location.href = redirectUrl;
+					}
+				});
+			}).show();
+		}
 	</script>
 </head>
 <body>
@@ -457,7 +478,7 @@
 					<h1 class="mb-4">歡迎光臨，${vo.welcomePart.welcomeMsg.customerName}！</h1>
 					
 					<div class="mb-5">
-						<a href="machine/backend/goodsList" class="link-primary h4">後臺頁面</a>&nbsp; &nbsp;
+						<a href="#" class="link-primary h4" id="go_backend_btn">後臺頁面</a>&nbsp; &nbsp;
 						<a href="#" class="link-primary h4">登出</a>
 					</div>
 					

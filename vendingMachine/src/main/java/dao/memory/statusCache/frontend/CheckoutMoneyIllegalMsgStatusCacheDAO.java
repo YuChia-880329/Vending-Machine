@@ -10,9 +10,16 @@ public class CheckoutMoneyIllegalMsgStatusCacheDAO extends StatusCacheDAOTemplat
 
 	public static final String SESSION_ATTR_DAO = "checkoutMoneyIllegalMsgLineStatusCacheDAO";
 	
-	public CheckoutMoneyIllegalMsgStatusCacheDAO(CheckoutMoneyIllegalMsgHasMsgStatusCache cache) {
+	public CheckoutMoneyIllegalMsgStatusCacheDAO() {
 		
-		super(cache);
+		super(getInitialStatusCache());
+	}
+	
+	private static CheckoutMoneyIllegalMsgHasMsgStatusCache getInitialStatusCache() {
+		
+		CheckoutMoneyIllegalMsgHasMsgStatusCache statusCache = new CheckoutMoneyIllegalMsgHasMsgStatusCache();
+		
+		return statusCache;
 	}
 
 	@Override

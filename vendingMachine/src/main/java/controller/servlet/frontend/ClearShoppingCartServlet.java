@@ -12,10 +12,9 @@ import com.google.gson.Gson;
 
 import bean.dto.frontend.ClearShoppingCartResultDTO;
 import bean.dto.frontend.vo.readin.ClearShoppingCartVODTO;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.frontend.readin.ClearShoppingCartVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
-import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 import service.frontend.ClearShoppingCartService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.ClearShoppingCartVOTransformer;
@@ -50,15 +49,14 @@ public class ClearShoppingCartServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = ServletUtil.getShoppingCartMemoryDbDAO(session);
-		ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgLineCacheDAO = ServletUtil.getClearShoppingCartMsgStatusCacheDAO(session);
+		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
 	
 		ClearShoppingCartVO clearShoppingCartVO = getClearShoppingCartVO(req);
 		
 		try {
 			
 			ClearShoppingCartVODTO clearShoppingCartVODTO = clearShoppingCartVOTransformer.voToDto(clearShoppingCartVO);
-			ClearShoppingCartResultDTO clearShoppingCartResultDTO = clearShoppingCartService.clear(clearShoppingCartVODTO, shoppingCartMemoryDbDAO, clearShoppingCartMsgLineCacheDAO);
+			ClearShoppingCartResultDTO clearShoppingCartResultDTO = clearShoppingCartService.clear(clearShoppingCartVODTO, accountOBJDTO);
 			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, clearShoppingCartResultDTO.getQueryString()));
 		} catch (CheckerException ex) {
 

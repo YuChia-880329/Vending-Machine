@@ -14,11 +14,11 @@ public abstract class StatusCacheDAOTemplate<O, C extends StatusCacheTemplate<O>
 	
 	public D getStatus() {
 		
-		return transformer.objToDtoTransform(cache.getStatus());
+		return transformer.objToDto(cache.getStatus());
 	}
 	public void setStatus(D dto) {
 		
-		cache.setStatus(transformer.dtoToObjTransform(dto));
+		cache.setStatus(transformer.dtoToObj(dto));
 	}
 	
 	

@@ -1,25 +1,23 @@
 package bean.obj.frontend.statusCache.checkoutMoneyIllegalMsg;
 
-import enumeration.Has;
-
 public class CheckoutMoneyIllegalMsgHasMsgOBJ {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 
 	public CheckoutMoneyIllegalMsgHasMsgOBJ() {
 	}
-	public CheckoutMoneyIllegalMsgHasMsgOBJ(Has hasMsg) {
+	public CheckoutMoneyIllegalMsgHasMsgOBJ(boolean hasMsg) {
 
 		this.hasMsg = hasMsg;
 	}
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 }

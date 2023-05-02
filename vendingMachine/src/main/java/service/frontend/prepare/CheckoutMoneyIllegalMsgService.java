@@ -3,10 +3,9 @@ package service.frontend.prepare;
 import bean.dto.frontend.obj.statusCache.checkoutMoneyIllegalMsgLineOBJ.CheckoutMoneyIllegalMsgHasMsgOBJDTO;
 import bean.dto.frontend.vo.writeout.CheckoutMoneyIllegalMsgVODTO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
-import enumeration.Has;
 
 public class CheckoutMoneyIllegalMsgService {
-
+	
 	private static final CheckoutMoneyIllegalMsgService INSTANCE = new CheckoutMoneyIllegalMsgService();
 	
 	private CheckoutMoneyIllegalMsgService() {
@@ -25,7 +24,7 @@ public class CheckoutMoneyIllegalMsgService {
 		
 		checkoutMoneyIllegalMsgVODTO.setHasMsg(checkoutMoneyIllegalMsgHasMsgOBJDTO.getHasMsg());
 		
-		checkoutMoneyIllegalMsgStatusCacheDAO.setStatus(new CheckoutMoneyIllegalMsgHasMsgOBJDTO(Has.FALSE));
+		checkoutMoneyIllegalMsgStatusCacheDAO.setStatus(new CheckoutMoneyIllegalMsgHasMsgOBJDTO(false));
 		
 		return checkoutMoneyIllegalMsgVODTO;
 	}

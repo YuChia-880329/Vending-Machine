@@ -27,7 +27,7 @@ public class AddShoppingCartIllegalMsgVOTransformer extends VOWriteOutTransforme
 		
 		AddShoppingCartIllegalMsgVO vo = new AddShoppingCartIllegalMsgVO();
 		
-		vo.setHasMsg(dto.getHasMsg().getDescription());
+		vo.setHasMsg(String.valueOf(dto.getHasMsg()));
 		vo.setLines(addShoppingCartIllegalMsgLineVOTransformer.dtoListToVoArray(dto.getLines(), size -> new AddShoppingCartIllegalMsgLineVO[size]));
 		
 		return vo;

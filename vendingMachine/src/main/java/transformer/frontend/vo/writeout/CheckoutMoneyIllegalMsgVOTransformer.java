@@ -21,7 +21,7 @@ public class CheckoutMoneyIllegalMsgVOTransformer extends VOWriteOutTransformerT
 		
 		CheckoutMoneyIllegalMsgVO vo = new CheckoutMoneyIllegalMsgVO();
 		
-		vo.setHasMsg(dto.getHasMsg().getDescription());
+		vo.setHasMsg(String.valueOf(dto.getHasMsg()));
 		
 		return vo;
 	}

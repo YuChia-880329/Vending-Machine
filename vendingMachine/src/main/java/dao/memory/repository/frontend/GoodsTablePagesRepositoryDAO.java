@@ -16,12 +16,19 @@ public class GoodsTablePagesRepositoryDAO extends RepositoryDAOTemplate<GoodsTab
 	public static final String SESSION_ATTR_DAO = "frontendGoodsTablePagesRepositoryDAO";
 	
 	
-	public GoodsTablePagesRepositoryDAO(GoodsTablePagesRepository repository) {
+	public GoodsTablePagesRepositoryDAO() {
 		
-		super(repository);
+		super(getInitialRepository());
+	}
+	
+	private static GoodsTablePagesRepository getInitialRepository() {
+		
+		GoodsTablePagesRepository repository = new GoodsTablePagesRepository();
+		
+		return repository;
 	}
 
-	public void requireUpdate() {
+	public synchronized void requireUpdate() {
 		
 		repository.requireUpdate();
 	}

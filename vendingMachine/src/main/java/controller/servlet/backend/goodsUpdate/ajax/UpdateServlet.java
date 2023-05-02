@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -15,7 +14,6 @@ import bean.dto.backend.goodsUpdate.vo.readin.GoodsUpdateFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
 import bean.vo.backend.goodsUpdate.readin.GoodsUpdateFormVO;
 import bean.vo.backend.goodsUpdate.writeout.UpdateResultVO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import service.backend.goodsUpdate.UpdateService;
 import template.exception.CheckerException;
 import transformer.backend.goodsUpdate.vo.readin.GoodsUpdateFormVOTransformer;
@@ -53,17 +51,13 @@ public class UpdateServlet extends HttpServlet {
 	
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		HttpSession session = req.getSession();
-		
+
 		GoodsUpdateFormVO goodsUpdateFormVO = getInput(req);
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getGoodsTablePagesRepositoryDAO(session);
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = ServletUtil.getFrontendGoodsTablePagesRepositoryDAO(session);
 		
 		try {
 			
 			GoodsUpdateFormVODTO goodsUpdateFormVODTO = goodsUpdateFormVOTransformer.voToDto(goodsUpdateFormVO);
-			UpdateResultVODTO updateResultVODTO = updateService.update(goodsUpdateFormVODTO, goodsTablePagesRepositoryDAO, frontendGoodsTablePagesRepositoryDAO);
+			UpdateResultVODTO updateResultVODTO = updateService.update(goodsUpdateFormVODTO);
 			UpdateResultVO updateResultVO = updateResultVOTransformer.dtoToVo(updateResultVODTO);
 			resp.getWriter().append(gson.toJson(updateResultVO));
 		} catch (CheckerException ex) {

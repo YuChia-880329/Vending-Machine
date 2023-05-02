@@ -10,9 +10,16 @@ public class ReceiptContentCacheDAO extends CacheDAOTemplate<ReceiptContentOBJ, 
 
 	public static final String SESSION_ATTR_DAO = "receiptContentCacheDAO";
 	
-	public ReceiptContentCacheDAO(ReceiptContentCache cache) {
+	public ReceiptContentCacheDAO() {
 		
-		super(cache);
+		super(getInitialCache());
+	}
+	
+	private static ReceiptContentCache getInitialCache() {
+		
+		ReceiptContentCache cache = new ReceiptContentCache();
+		
+		return cache;
 	}
 
 	@Override

@@ -12,11 +12,9 @@ import com.google.gson.Gson;
 
 import bean.dto.frontend.UpdateShoppingCartResultDTO;
 import bean.dto.frontend.vo.readin.UpdateShoppingCartVODTO;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.frontend.readin.UpdateShoppingCartVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
-import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
-import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
-import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import service.frontend.UpdateShoppingCartService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.UpdateShoppingCartVOTransformer;
@@ -51,17 +49,14 @@ public class UpdateShoppingCartServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = ServletUtil.getShoppingCartMemoryDbDAO(session);
-		UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartIllegalMsgLineCacheDAO(session);
-		UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartMsgLineCacheDAO(session);
+		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
 		
 		UpdateShoppingCartVO updateShoppingCartVO = gson.fromJson(req.getParameter(REQ_PARAM_DATA_JSON), UpdateShoppingCartVO.class);
 		
 		try {
 			
 			UpdateShoppingCartVODTO updateShoppingCartVODTO = updateShoppingCartVOTransformer.voToDto(updateShoppingCartVO);
-			UpdateShoppingCartResultDTO updateShoppingCartResultDTO = updateShoppingCartService.update(updateShoppingCartVODTO, shoppingCartMemoryDbDAO, 
-					updateShoppingCartIllegalMsgLineCacheDAO, updateShoppingCartMsgLineCacheDAO);
+			UpdateShoppingCartResultDTO updateShoppingCartResultDTO = updateShoppingCartService.update(updateShoppingCartVODTO, accountOBJDTO);
 
 		
 			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, updateShoppingCartResultDTO.getQueryString()));

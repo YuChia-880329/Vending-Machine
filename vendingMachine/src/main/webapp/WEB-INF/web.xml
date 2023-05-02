@@ -81,6 +81,11 @@
 		<servlet-name>createServlet</servlet-name>
 		<servlet-class>controller.servlet.backend.goodsCreate.ajax.CreateServlet</servlet-class>
 	</servlet>
+	<!-- controller.servlet.frontend -->
+	<servlet>
+		<servlet-name>goBackendAjaxServlet</servlet-name>
+		<servlet-class>controller.servlet.frontend.ajax.GoBackendAjaxServlet</servlet-class>
+	</servlet>
 
 
   	
@@ -154,13 +159,21 @@
 		<servlet-name>createServlet</servlet-name>
 		<url-pattern>/machine/backend/goodsCreate/create</url-pattern>
 	</servlet-mapping>
+	<!-- controller.servlet.frontend -->
+	<servlet-mapping>
+		<servlet-name>goBackendAjaxServlet</servlet-name>
+		<url-pattern>/machine/goBackendAjax</url-pattern>
+	</servlet-mapping>
 
   	
   	
   	
   	<!-- listener -->
   	<listener>
-  		<listener-class>listener.ParameterContextListener</listener-class>
+  		<listener-class>listener.context.ParameterContextListener</listener-class>
+  	</listener>
+  	<listener>
+  		<listener-class>listener.context.MemoryDAOKitVMContextListener</listener-class>
   	</listener>
 
   	

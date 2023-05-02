@@ -9,13 +9,16 @@ import bean.dto.frontend.obj.cache.updateShoppingCartMsgLine.UpdateShoppingCartM
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.UpdateShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.UpdateShoppingCartVODTO;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
+import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
 public class UpdateShoppingCartService {
 
 	private ShoppingCartService shoppingCartService;
+	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	
 	private static final UpdateShoppingCartService INSTANCE = new UpdateShoppingCartService();
@@ -23,6 +26,7 @@ public class UpdateShoppingCartService {
 	private UpdateShoppingCartService() {
 		
 		shoppingCartService = ShoppingCartService.getInstance();
+		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
 	public static UpdateShoppingCartService getInstance() {
@@ -31,11 +35,11 @@ public class UpdateShoppingCartService {
 	}
 	
 	
-	public UpdateShoppingCartResultDTO update(
-			UpdateShoppingCartVODTO updateShoppingCartVODTO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO,
-			UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO,
-			UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO) {
+	public UpdateShoppingCartResultDTO update(UpdateShoppingCartVODTO updateShoppingCartVODTO, AccountOBJDTO accountOBJDTO) {
+		
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
+		UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO = memoryDAOKitVMDAO.getUpdateShoppingCartMsgLineCacheDAO(accountOBJDTO);
+		UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO = memoryDAOKitVMDAO.getUpdateShoppingCartIllegalMsgLineCacheDAO(accountOBJDTO);
 		
 		UpdateShoppingCartResultDTO updateShoppingCartResultDTO = new UpdateShoppingCartResultDTO();
 		

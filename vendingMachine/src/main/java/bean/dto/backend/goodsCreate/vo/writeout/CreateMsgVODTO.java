@@ -1,16 +1,14 @@
 package bean.dto.backend.goodsCreate.vo.writeout;
 
-import enumeration.Has;
-
 public class CreateMsgVODTO {
 
-	private Has success;
+	private boolean success;
 	private int id;
 	private String name;
 
 	public CreateMsgVODTO() {
 	}
-	public CreateMsgVODTO(Has success, int id, String name) {
+	public CreateMsgVODTO(boolean success, int id, String name) {
 
 		this.success = success;
 		this.id = id;
@@ -18,7 +16,7 @@ public class CreateMsgVODTO {
 	}
 	
 	
-	public Has getSuccess() {
+	public boolean getSuccess() {
 		return success;
 	}
 	public int getId() {
@@ -29,7 +27,7 @@ public class CreateMsgVODTO {
 	}
 	
 	
-	public void setSuccess(Has success) {
+	public void setSuccess(boolean success) {
 		this.success = success;
 	}
 	public void setId(int id) {

@@ -13,9 +13,16 @@ public class ShoppingCartMemoryDbDAO extends MemoryDbDAOTemplate<Integer, Shoppi
 	public static final String SESSION_ATTR_DAO = "shoppingCartMemoryDbDAO";
 	
 	
-	public ShoppingCartMemoryDbDAO(ShoppingCartMemoryDb memory) {
+	public ShoppingCartMemoryDbDAO() {
 		
-		super(memory);
+		super(getInitialMemoryDb());
+	}
+	
+	private static ShoppingCartMemoryDb getInitialMemoryDb() {
+		
+		ShoppingCartMemoryDb memoryDb = new ShoppingCartMemoryDb();
+		
+		return memoryDb;
 	}
 	
 	public void deleteAll() {

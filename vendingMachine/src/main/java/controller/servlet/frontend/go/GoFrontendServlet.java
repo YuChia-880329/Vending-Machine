@@ -12,18 +12,10 @@ import javax.servlet.http.HttpSession;
 import bean.dto.frontend.vo.readin.PageParameterVODTO;
 import bean.dto.frontend.vo.writeout.FrontendVODTO;
 import bean.dto.model.MemberModelDTO;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.frontend.readin.PageParameterVO;
 import bean.vo.frontend.writeout.FrontendVO;
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
-import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
-import dao.memory.cache.frontend.ReceiptContentCacheDAO;
-import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
-import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
-import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
-import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
-import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
-import listener.ParameterContextListener;
+import listener.context.ParameterContextListener;
 import service.frontend.prepare.FrontendService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.PageParameterVOTransformer;
@@ -63,16 +55,7 @@ public class GoFrontendServlet extends HttpServlet {
 		ServletContext context = req.getServletContext();
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getFrontendGoodsTablePagesRepositoryDAO(session);
-		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = ServletUtil.getShoppingCartMemoryDbDAO(session);
-		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getAddShoppingCartIllegalMsgLineCacheDAO(session);
-		AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO = ServletUtil.getAddShoppingCartMsgLineCacheDAO(session);
-		ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgLineCacheDAO = ServletUtil.getClearShoppingCartMsgStatusCacheDAO(session);
-		UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartIllegalMsgLineCacheDAO(session);
-		UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO = ServletUtil.getUpdateShoppingCartMsgLineCacheDAO(session);
-		ReceiptContentCacheDAO receiptContentCacheDAO = ServletUtil.getReceiptContentCacheDAO(session);
-		CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO = ServletUtil.getCheckoutMoneyIllegalMsgStatusCacheDAO(session);
-		
+		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
 		
 		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
 		MemberModelDTO memberModelDTO = new MemberModelDTO("test", "test", "test");
@@ -81,10 +64,7 @@ public class GoFrontendServlet extends HttpServlet {
 		try {
 
 			PageParameterVODTO pageParameterVODTO = pageParameterVOTransformer.voToDto(pageParameterVO);
-			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, memberModelDTO, imagesDirectorySymbolicLinkName, 
-					goodsTablePagesRepositoryDAO, shoppingCartMemoryDbDAO, addShoppingCartIllegalMsgLineCacheDAO, 
-					addShoppingCartMsgLineCacheDAO, clearShoppingCartMsgLineCacheDAO, updateShoppingCartIllegalMsgLineCacheDAO,
-					updateShoppingCartMsgLineCacheDAO, receiptContentCacheDAO, checkoutMoneyIllegalMsgStatusCacheDAO);
+			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, memberModelDTO, imagesDirectorySymbolicLinkName, accountOBJDTO);
 			FrontendVO frontendVO = frontendVOTransformer.dtoToVo(frontendVODTO);
 			
 			req.setAttribute(REQ_ATTR_VO, frontendVO);

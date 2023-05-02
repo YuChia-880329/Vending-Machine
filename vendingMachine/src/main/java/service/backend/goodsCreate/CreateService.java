@@ -7,14 +7,14 @@ import bean.dto.backend.goodsCreate.vo.readin.CreateFormVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateMsgVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import enumeration.Has;
+import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 import service.model.GoodsModelService;
 
 public class CreateService {
 	
 	private GoodsModelService goodsModelService;
 	private UploadImageService uploadImageService;
+	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	
 	private static final CreateService INSTANCE = new CreateService();
@@ -23,6 +23,7 @@ public class CreateService {
 		
 		goodsModelService = GoodsModelService.getInstance();
 		uploadImageService = UploadImageService.getInstance();
+		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
 	public static CreateService getInstance() {
@@ -30,9 +31,7 @@ public class CreateService {
 		return INSTANCE;
 	}
 	
-	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String imagesDirectorySymbolicLinkName, 
-			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
-			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO) {
+	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String imagesDirectorySymbolicLinkName) {
 		
 		GoodsModelDTO goodsModelDTO = createFormVOToGoodsModel(createFormVODTO);
 		
@@ -44,17 +43,17 @@ public class CreateService {
 			if(goodsModelDTO != null) {
 				
 				uploadImageService.upload(createFormVODTO.getImagePart(), imagesDirectorySymbolicLinkName);
-				createMsgVODTO.setSuccess(Has.TRUE);
-				goodsTablePagesRepositoryDAO.requireUpdate();
-				frontendGoodsTablePagesRepositoryDAO.requireUpdate();
+				createMsgVODTO.setSuccess(true);
+				memoryDAOKitVMDAO.requireUpdateGoodsTablePagesRepositoryDAO();
+				memoryDAOKitVMDAO.requireUpdateFrontendGoodsTablePagesRepositoryDAO();
 			}else {
 				
-				createMsgVODTO.setSuccess(Has.FALSE);
+				createMsgVODTO.setSuccess(false);
 			}
 		} catch (SQLException | IOException ex) {
 			
 			ex.printStackTrace();
-			createMsgVODTO.setSuccess(Has.FALSE);
+			createMsgVODTO.setSuccess(false);
 		}
 		createMsgVODTO.setId(goodsModelDTO.getId());
 		createMsgVODTO.setName(goodsModelDTO.getName());

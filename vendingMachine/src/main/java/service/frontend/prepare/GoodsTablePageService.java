@@ -9,7 +9,7 @@ import controller.servlet.frontend.go.GoFrontendServlet;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
 import service.frontend.UrlService;
-import service.vo.PaginationService;
+import service.prepare.PaginationService;
 
 public class GoodsTablePageService {
 
@@ -35,8 +35,7 @@ public class GoodsTablePageService {
 		return INSTANCE;
 	}
 	
-	public GoodsTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectorySymbolicLinkName) {
+	public GoodsTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectorySymbolicLinkName) {
 		
 		GoodsTablePageVODTO goodsTablePageVODTO = new GoodsTablePageVODTO();
 		

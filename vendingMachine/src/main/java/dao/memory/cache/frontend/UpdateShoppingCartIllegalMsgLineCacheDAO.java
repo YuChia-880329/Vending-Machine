@@ -12,9 +12,16 @@ public class UpdateShoppingCartIllegalMsgLineCacheDAO extends CacheDAOTemplate<U
 	public static final String SESSION_ATTR_DAO = "updateShoppingCartIllegalMsgLineCacheDAO";
 	
 	
-	public UpdateShoppingCartIllegalMsgLineCacheDAO(UpdateShoppingCartIllegalMsgLineCache cache) {
+	public UpdateShoppingCartIllegalMsgLineCacheDAO() {
 		
-		super(cache);
+		super(getInitialCache());
+	}
+	
+	private static UpdateShoppingCartIllegalMsgLineCache getInitialCache() {
+		
+		UpdateShoppingCartIllegalMsgLineCache cache = new UpdateShoppingCartIllegalMsgLineCache();
+		
+		return cache;
 	}
 
 	@Override

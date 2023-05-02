@@ -1,23 +1,21 @@
 package bean.dto.frontend.vo.writeout;
 
-import enumeration.Has;
-
 public class ChangeMsgVODTO {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 	private int change;
 	
 	
 	public ChangeMsgVODTO() {
 	}
-	public ChangeMsgVODTO(Has hasMsg, int change) {
+	public ChangeMsgVODTO(boolean hasMsg, int change) {
 
 		this.hasMsg = hasMsg;
 		this.change = change;
 	}
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	public int getChange() {
@@ -25,7 +23,7 @@ public class ChangeMsgVODTO {
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 	public void setChange(int change) {

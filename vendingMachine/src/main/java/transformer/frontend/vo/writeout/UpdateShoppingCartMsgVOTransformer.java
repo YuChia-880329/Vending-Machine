@@ -27,7 +27,7 @@ public class UpdateShoppingCartMsgVOTransformer extends VOWriteOutTransformerTem
 
 		UpdateShoppingCartMsgVO vo = new UpdateShoppingCartMsgVO();
 		
-		vo.setHasMsg(dto.getHasMsg().getDescription());
+		vo.setHasMsg(String.valueOf(dto.getHasMsg()));
 		vo.setLines(updateShoppingCartMsgLineVOTransformer.dtoListToVoArray(dto.getLines(), size -> new UpdateShoppingCartMsgLineVO[size]));
 		
 		return vo;

@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.backend.goodsList.readin.PageParameterVO;
 import bean.vo.backend.goodsList.writeout.BackendGoodsListVO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import service.backend.goodsList.prepare.GoBackendGoodsListService;
 import template.exception.CheckerException;
 import transformer.backend.goodsList.vo.readin.PageParameterVOTransformer;
@@ -55,14 +55,15 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getGoodsTablePagesRepositoryDAO(session);
+		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
+		
 		PageParameterVO pageParamterVO = getPageParameter(req);
 		try {
 			
 			BackendGoodsListVO backendGoodsListWOVO = 
 					backendGoodsListWOVOTransformer.dtoToVo(
 							goBackendGoodsListService.prepare(
-									pageParameterVOTransformer.voToDto(pageParamterVO), goodsTablePagesRepositoryDAO));
+									pageParameterVOTransformer.voToDto(pageParamterVO), accountOBJDTO));
 			req.setAttribute(REQ_ATTR_VO, backendGoodsListWOVO);
 			req.getRequestDispatcher(FORWARD_URL).forward(req, resp);
 		} catch (CheckerException ex) {

@@ -3,7 +3,6 @@ package service.frontend.prepare;
 import bean.dto.frontend.obj.statusCache.clearShoppingCartMsgLine.ClearShoppingCartMsgHasMsgOBJDTO;
 import bean.dto.frontend.vo.writeout.ClearShoppingCartMsgVODTO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
-import enumeration.Has;
 
 public class ClearShoppingCartMsgService {
 
@@ -18,15 +17,14 @@ public class ClearShoppingCartMsgService {
 	}
 	
 	public ClearShoppingCartMsgVODTO prepare(ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO) {
-		
+
 		ClearShoppingCartMsgVODTO clearShoppingCartMsgVODTO = new ClearShoppingCartMsgVODTO();
-		
 		
 		ClearShoppingCartMsgHasMsgOBJDTO clearShoppingCartMsgOBJDTO = clearShoppingCartMsgStatusCacheDAO.getStatus();
 
 		clearShoppingCartMsgVODTO.setHasMsg(clearShoppingCartMsgOBJDTO.getHasMsg());
 		
-		clearShoppingCartMsgStatusCacheDAO.setStatus(new ClearShoppingCartMsgHasMsgOBJDTO(Has.FALSE));
+		clearShoppingCartMsgStatusCacheDAO.setStatus(new ClearShoppingCartMsgHasMsgOBJDTO(false));
 		
 		return clearShoppingCartMsgVODTO;
 	}

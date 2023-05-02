@@ -1,25 +1,23 @@
 package bean.obj.frontend.statusCache.clearShoppingCartMsg;
 
-import enumeration.Has;
-
 public class ClearShoppingCartMsgHasMsgOBJ {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 
 	public ClearShoppingCartMsgHasMsgOBJ() {
 	}
-	public ClearShoppingCartMsgHasMsgOBJ(Has hasMsg) {
+	public ClearShoppingCartMsgHasMsgOBJ(boolean hasMsg) {
 
 		this.hasMsg = hasMsg;
 	}
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 }

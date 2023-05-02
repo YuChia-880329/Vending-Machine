@@ -3,6 +3,7 @@ package service.frontend.prepare;
 import bean.dto.frontend.vo.readin.PageParameterVODTO;
 import bean.dto.frontend.vo.writeout.FrontendVODTO;
 import bean.dto.model.MemberModelDTO;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
@@ -12,6 +13,7 @@ import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
+import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
 public class FrontendService {
 
@@ -26,6 +28,7 @@ public class FrontendService {
 	private GoodsTablePageService goodsTablePageService;
 	private FilterFormService filterFormService;
 	private ReceiptService receiptService;
+	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	
 	private static final FrontendService INSTANCE = new FrontendService();
@@ -43,6 +46,7 @@ public class FrontendService {
 		goodsTablePageService = GoodsTablePageService.getInstance();
 		filterFormService = FilterFormService.getInstance();
 		receiptService = ReceiptService.getInstance();
+		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
 	public static FrontendService getInstance() {
@@ -51,18 +55,18 @@ public class FrontendService {
 	}
 	
 	
-	public FrontendVODTO prepare(PageParameterVODTO pageParameterVODTO, 
-			MemberModelDTO memberModelDTO, 
-			String imagesDirectorySymbolicLinkName, 
-			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
-			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, 
-			AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO,
-			ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO,
-			UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO,
-			UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO,
-			ReceiptContentCacheDAO receiptContentCacheDAO, 
-			CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO) {
+	public FrontendVODTO prepare(PageParameterVODTO pageParameterVODTO, MemberModelDTO memberModelDTO, 
+			String imagesDirectorySymbolicLinkName, AccountOBJDTO accountOBJDTO) {
+		
+		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartIllegalMsgLineCacheDAO(accountOBJDTO);
+		AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartMsgLineCacheDAO(accountOBJDTO);
+		ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO = memoryDAOKitVMDAO.getClearShoppingCartMsgStatusCacheDAO(accountOBJDTO);
+		UpdateShoppingCartIllegalMsgLineCacheDAO updateShoppingCartIllegalMsgLineCacheDAO = memoryDAOKitVMDAO.getUpdateShoppingCartIllegalMsgLineCacheDAO(accountOBJDTO);
+		UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO = memoryDAOKitVMDAO.getUpdateShoppingCartMsgLineCacheDAO(accountOBJDTO);
+		CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO = memoryDAOKitVMDAO.getCheckoutMoneyIllegalMsgStatusCacheDAO(accountOBJDTO);
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
+		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = memoryDAOKitVMDAO.getFrontendGoodsTablePagesRepositoryDAO(accountOBJDTO);
+		ReceiptContentCacheDAO receiptContentCacheDAO = memoryDAOKitVMDAO.getReceiptContentCacheDAO(accountOBJDTO);
 		
 		Integer currentPage = pageParameterVODTO.getPage();
 		if(currentPage == null) {
@@ -81,8 +85,7 @@ public class FrontendService {
 		frontendVODTO.setCheckoutMoneyIllegalMsg(checkoutMoneyIllegalMsgService.prepare(checkoutMoneyIllegalMsgStatusCacheDAO));
 		frontendVODTO.setShoppingCart(shoppingCartService.prepare(shoppingCartMemoryDbDAO));
 		frontendVODTO.setWelcomePart(welcomePartService.prepare(imagesDirectorySymbolicLinkName, memberModelDTO));
-		frontendVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, 
-				shoppingCartMemoryDbDAO, imagesDirectorySymbolicLinkName));
+		frontendVODTO.setGoodsTablePage(goodsTablePageService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, shoppingCartMemoryDbDAO, imagesDirectorySymbolicLinkName));
 		frontendVODTO.setFilterForm(filterFormService.prepare(pageParameterVODTO));
 		frontendVODTO.setReceipt(receiptService.prepare(receiptContentCacheDAO));
 		

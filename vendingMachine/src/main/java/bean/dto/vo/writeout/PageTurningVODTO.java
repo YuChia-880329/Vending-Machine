@@ -1,22 +1,20 @@
 package bean.dto.vo.writeout;
 
-import enumeration.Has;
-
 public class PageTurningVODTO {
 
-	private Has existence;
+	private boolean existence;
 	private String url;
 	
 	public PageTurningVODTO() {
 	}
-	public PageTurningVODTO(Has existence, String url) {
+	public PageTurningVODTO(boolean existence, String url) {
 
 		this.existence = existence;
 		this.url = url;
 	}
 	
 	
-	public Has getExistence() {
+	public boolean getExistence() {
 		return existence;
 	}
 	public String getUrl() {
@@ -24,7 +22,7 @@ public class PageTurningVODTO {
 	}
 	
 	
-	public void setExistence(Has existence) {
+	public void setExistence(boolean existence) {
 		this.existence = existence;
 	}
 	public void setUrl(String url) {

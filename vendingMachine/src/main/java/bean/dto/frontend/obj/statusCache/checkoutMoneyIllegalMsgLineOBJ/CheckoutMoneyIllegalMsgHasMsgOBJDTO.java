@@ -1,25 +1,23 @@
 package bean.dto.frontend.obj.statusCache.checkoutMoneyIllegalMsgLineOBJ;
 
-import enumeration.Has;
-
 public class CheckoutMoneyIllegalMsgHasMsgOBJDTO {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 
 	public CheckoutMoneyIllegalMsgHasMsgOBJDTO() {
 	}
-	public CheckoutMoneyIllegalMsgHasMsgOBJDTO(Has hasMsg) {
+	public CheckoutMoneyIllegalMsgHasMsgOBJDTO(boolean hasMsg) {
 
 		this.hasMsg = hasMsg;
 	}
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 }

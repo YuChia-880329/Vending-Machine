@@ -7,7 +7,7 @@ import bean.dto.backend.orderList.vo.writeout.OrderTablePageVODTO;
 import controller.servlet.backend.go.GoBackendOrderListServlet;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import service.backend.orderList.UrlService;
-import service.vo.PaginationService;
+import service.prepare.PaginationService;
 
 public class OrderTablePageService {
 
@@ -17,6 +17,7 @@ public class OrderTablePageService {
 	private OrderTableService orderTableService;
 	private PaginationService paginationService;
 	private UrlService urlService;
+	
 	
 	
 	private static final OrderTablePageService INSTANCE = new OrderTablePageService();
@@ -39,6 +40,7 @@ public class OrderTablePageService {
 		
 		OrderTablePagesInputOBJDTO orderTablePagesInputOBJDTO = pageParameterVOToOrderTablePagesInputOBJ(pageParameterVODTO);
 		OrderTablePagesOBJDTO orderTablePagesOBJDTO = orderTablePagesRepositoryDAO.getObjDto(orderTablePagesInputOBJDTO);
+		
 		int currentPage = pageParameterVODTO.getPage();
 		int maxPage = orderTablePagesOBJDTO.getMaxPage();
 		

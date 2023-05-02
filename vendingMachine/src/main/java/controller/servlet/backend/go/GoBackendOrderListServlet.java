@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.backend.orderList.readin.PageParameterVO;
 import bean.vo.backend.orderList.writeout.BackendOrderListVO;
-import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import service.backend.orderList.prepare.GoBackendOrderListService;
 import template.exception.CheckerException;
 import transformer.backend.orderList.vo.readin.PageParameterVOTransformer;
@@ -58,14 +58,15 @@ public class GoBackendOrderListServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO = ServletUtil.getOrderTablePagesRepositoryDAO(session);
+		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
+		
 		PageParameterVO pageParameterVO = getPageParameter(req);
 		
 		try {
 			
 			BackendOrderListVO backendOrderListVO = 
 					backendOrderListVOTransformer.dtoToVo(goBackendOrderListService.prepare(
-					pageParameterVOTransformer.voToDto(pageParameterVO), orderTablePagesRepositoryDAO));
+					pageParameterVOTransformer.voToDto(pageParameterVO), accountOBJDTO));
 		
 			req.setAttribute(REQ_ATTR_VO, backendOrderListVO);
 			req.getRequestDispatcher(FORWARD_URL).forward(req, resp);

@@ -9,13 +9,16 @@ import bean.dto.frontend.obj.cache.addShoppingCartMsgLine.AddShoppingCartMsgLine
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
+import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
 public class AddShoppingCartService {
 
 	private ShoppingCartService shoppingCartService;
+	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	
 	private static final AddShoppingCartService INSTANCE = new AddShoppingCartService();
@@ -23,6 +26,7 @@ public class AddShoppingCartService {
 	private AddShoppingCartService() {
 		
 		shoppingCartService = ShoppingCartService.getInstance();
+		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
 	public static AddShoppingCartService getInstance() {
@@ -30,11 +34,11 @@ public class AddShoppingCartService {
 		return INSTANCE;
 	}
 	
-	public AddShoppingCartResultDTO add(
-			AddShoppingCartVODTO addShoppingCartVODTO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
-			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, 
-			AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO) {
+	public AddShoppingCartResultDTO add(AddShoppingCartVODTO addShoppingCartVODTO, AccountOBJDTO accountOBJDTO) {
+		
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
+		AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartMsgLineCacheDAO(accountOBJDTO);
+		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartIllegalMsgLineCacheDAO(accountOBJDTO);
 		
 		AddShoppingCartResultDTO addShoppingCartResultDTO = new AddShoppingCartResultDTO();
 		

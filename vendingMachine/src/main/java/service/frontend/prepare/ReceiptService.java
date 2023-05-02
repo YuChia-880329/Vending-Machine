@@ -15,10 +15,9 @@ import bean.dto.frontend.vo.writeout.ReceiptContentVODTO;
 import bean.dto.frontend.vo.writeout.ReceiptVODTO;
 import bean.dto.frontend.vo.writeout.TotalPriceMsgVODTO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
-import enumeration.Has;
 
 public class ReceiptService {
-
+	
 	private static final ReceiptService INSTANCE = new ReceiptService();
 	
 	private ReceiptService() {
@@ -39,11 +38,11 @@ public class ReceiptService {
 			
 			ReceiptContentOBJDTO receiptContentOBJDTO = receiptContentOBJDTOs.get(0);
 			
-			receiptVODTO.setHasReceipt(Has.TRUE);
+			receiptVODTO.setHasReceipt(true);
 			receiptVODTO.setReceiptContent(receiptContentOBJToReceiptContentVO(receiptContentOBJDTO));
 		}else {
 			
-			receiptVODTO.setHasReceipt(Has.FALSE);
+			receiptVODTO.setHasReceipt(false);
 			receiptVODTO.setReceiptContent(null);
 		}
 		

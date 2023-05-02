@@ -1,7 +1,6 @@
 package memory.statusCache.frontend;
 
 import bean.obj.frontend.statusCache.clearShoppingCartMsg.ClearShoppingCartMsgHasMsgOBJ;
-import enumeration.Has;
 import template.memory.statusCache.StatusCacheTemplate;
 
 public class ClearShoppingCartMsgHasMsgStatusCache extends StatusCacheTemplate<ClearShoppingCartMsgHasMsgOBJ> {
@@ -9,6 +8,6 @@ public class ClearShoppingCartMsgHasMsgStatusCache extends StatusCacheTemplate<C
 	@Override
 	protected ClearShoppingCartMsgHasMsgOBJ initStatus() {
 		
-		return new ClearShoppingCartMsgHasMsgOBJ(Has.FALSE);
+		return new ClearShoppingCartMsgHasMsgOBJ(false);
 	}
 }

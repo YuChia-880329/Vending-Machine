@@ -2,17 +2,15 @@ package bean.dto.frontend.vo.writeout;
 
 import java.util.List;
 
-import enumeration.Has;
-
 public class AddShoppingCartIllegalMsgVODTO {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 	private List<AddShoppingCartIllegalMsgLineVODTO> lines;
 	
 	
 	public AddShoppingCartIllegalMsgVODTO() {
 	}
-	public AddShoppingCartIllegalMsgVODTO(Has hasMsg, List<AddShoppingCartIllegalMsgLineVODTO> lines) {
+	public AddShoppingCartIllegalMsgVODTO(boolean hasMsg, List<AddShoppingCartIllegalMsgLineVODTO> lines) {
 
 		this.hasMsg = hasMsg;
 		this.lines = lines;
@@ -20,7 +18,7 @@ public class AddShoppingCartIllegalMsgVODTO {
 	
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	public List<AddShoppingCartIllegalMsgLineVODTO> getLines() {
@@ -28,7 +26,7 @@ public class AddShoppingCartIllegalMsgVODTO {
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 	public void setLines(List<AddShoppingCartIllegalMsgLineVODTO> lines) {

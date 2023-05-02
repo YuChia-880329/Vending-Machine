@@ -7,7 +7,7 @@ import bean.dto.backend.goodsList.vo.writeout.GoodsTablePageVODTO;
 import controller.servlet.backend.go.GoBackendGoodsListServlet;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import service.backend.goodsList.UrlService;
-import service.vo.PaginationService;
+import service.prepare.PaginationService;
 
 public class GoodsTablePageService {
 
@@ -39,6 +39,7 @@ public class GoodsTablePageService {
 		
 		GoodsTablePagesInputOBJDTO goodsTablePagesInputOBJDTO = pageParameterVOToGoodsTablePagesInputOBJ(pageParameterVODTO);
 		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO =  goodsTablePagesRepositoryDAO.getObjDto(goodsTablePagesInputOBJDTO);
+		
 		int currentPage = pageParameterVODTO.getPage();
 		int maxPage = goodsTablePagesOBJDTO.getMaxPage();
 		

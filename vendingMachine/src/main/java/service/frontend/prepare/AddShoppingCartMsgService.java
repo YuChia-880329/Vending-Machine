@@ -7,10 +7,11 @@ import bean.dto.frontend.obj.cache.addShoppingCartMsgLine.AddShoppingCartMsgLine
 import bean.dto.frontend.vo.writeout.AddShoppingCartMsgLineVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartMsgVODTO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
-import enumeration.Has;
 
 public class AddShoppingCartMsgService {
 
+	
+	
 	private static final AddShoppingCartMsgService INSTANCE = new AddShoppingCartMsgService();
 	
 	private AddShoppingCartMsgService() {
@@ -27,7 +28,7 @@ public class AddShoppingCartMsgService {
 		
 		List<AddShoppingCartMsgLineOBJDTO> addShoppingCartMsgLineOBJDTOs = addShoppingCartMsgLineCacheDAO.use(true);
 	
-		addShoppingCartMsgVODTO.setHasMsg(addShoppingCartMsgLineOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
+		addShoppingCartMsgVODTO.setHasMsg(addShoppingCartMsgLineOBJDTOs.size()>0 ? true : false);
 		addShoppingCartMsgVODTO.setLines(addShoppingCartMsgLineOBJsToAddShoppingCartMsgLineVOs(addShoppingCartMsgLineOBJDTOs));
 		
 		return addShoppingCartMsgVODTO;

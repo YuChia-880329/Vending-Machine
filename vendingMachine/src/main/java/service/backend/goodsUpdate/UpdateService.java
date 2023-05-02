@@ -7,19 +7,20 @@ import bean.dto.backend.goodsUpdate.vo.writeout.UpdateMsgVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultFormVODTO;
 import bean.dto.backend.goodsUpdate.vo.writeout.UpdateResultVODTO;
 import bean.dto.model.GoodsModelDTO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import enumeration.Has;
+import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 import service.model.GoodsModelService;
 
 public class UpdateService {
 
 	private GoodsModelService goodsModelService;
+	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	private static final UpdateService INSTANCE = new UpdateService();
 	
 	private UpdateService() {
 		
 		goodsModelService = GoodsModelService.getInstance();
+		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
 	public static UpdateService getInstance() {
@@ -27,9 +28,7 @@ public class UpdateService {
 		return INSTANCE;
 	}
 	
-	public UpdateResultVODTO update(GoodsUpdateFormVODTO goodsUpdateFormVODTO, 
-			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
-			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO) {
+	public UpdateResultVODTO update(GoodsUpdateFormVODTO goodsUpdateFormVODTO) {
 		
 		int id = goodsUpdateFormVODTO.getId();
 		int result = 0;
@@ -39,8 +38,8 @@ public class UpdateService {
 		try {
 			
 			goodsModelDTO = goodsModelService.searchById(id);
-			goodsTablePagesRepositoryDAO.requireUpdate();
-			frontendGoodsTablePagesRepositoryDAO.requireUpdate();
+			memoryDAOKitVMDAO.requireUpdateGoodsTablePagesRepositoryDAO();
+			memoryDAOKitVMDAO.requireUpdateFrontendGoodsTablePagesRepositoryDAO();
 			goodsModelDTO = updateFormGoodsVOToGoodsModel(goodsUpdateFormVODTO, goodsModelDTO);
 			updateResultFormVODTO.setQuantity(goodsModelDTO.getQuantity());
 			result = goodsModelService.update(goodsModelDTO);
@@ -77,9 +76,9 @@ public class UpdateService {
 		UpdateMsgVODTO updateMsgVODTO = new UpdateMsgVODTO();
 		
 		if(result > 0)
-			updateMsgVODTO.setSuccess(Has.TRUE);
+			updateMsgVODTO.setSuccess(true);
 		else
-			updateMsgVODTO.setSuccess(Has.FALSE);
+			updateMsgVODTO.setSuccess(false);
 
 		updateMsgVODTO.setId(id);
 		updateMsgVODTO.setName(name);

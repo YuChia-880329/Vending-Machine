@@ -11,9 +11,16 @@ public class ClearShoppingCartMsgStatusCacheDAO extends StatusCacheDAOTemplate<C
 
 	public static final String SESSION_ATTR_DAO = "clearShoppingCartMsgLineStatusCacheDAO";
 	
-	public ClearShoppingCartMsgStatusCacheDAO(ClearShoppingCartMsgHasMsgStatusCache memory) {
+	public ClearShoppingCartMsgStatusCacheDAO() {
 		
-		super(memory);
+		super(getInitialStatusCache());
+	}
+	
+	private static ClearShoppingCartMsgHasMsgStatusCache getInitialStatusCache() {
+		
+		ClearShoppingCartMsgHasMsgStatusCache statusCache = new ClearShoppingCartMsgHasMsgStatusCache();
+		
+		return statusCache;
 	}
 	
 

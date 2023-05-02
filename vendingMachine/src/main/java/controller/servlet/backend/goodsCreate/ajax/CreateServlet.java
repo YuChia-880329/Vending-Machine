@@ -8,7 +8,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
@@ -17,14 +16,12 @@ import bean.dto.backend.goodsCreate.vo.readin.CreateFormVODTO;
 import bean.dto.backend.goodsCreate.vo.writeout.CreateResultVODTO;
 import bean.vo.backend.goodsCreate.readin.CreateFormVO;
 import bean.vo.backend.goodsCreate.writeout.CreateResultVO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import listener.ParameterContextListener;
+import listener.context.ParameterContextListener;
 import service.backend.goodsCreate.CreateService;
 import template.exception.CheckerException;
 import transformer.backend.goodsCreate.vo.readin.CreateFormVOTransformer;
 import transformer.backend.goodsCreate.vo.writeout.CreateResultVOTransformer;
 import util.GsonUtil;
-import util.ServletUtil;
 
 @SuppressWarnings("serial")
 @MultipartConfig
@@ -60,18 +57,14 @@ public class CreateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		ServletContext context = req.getServletContext();
-		HttpSession session = req.getSession();
 		
-		GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO = ServletUtil.getGoodsTablePagesRepositoryDAO(session);
-		dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO = ServletUtil.getFrontendGoodsTablePagesRepositoryDAO(session);
 		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
-		
 		
 		CreateFormVO createFormVO = getCreateFormVODTO(req);
 		try {
 			
 			CreateFormVODTO createFormVODTO = createFormVOTransformer.voToDto(createFormVO);
-			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, imagesDirectorySymbolicLinkName, goodsTablePagesRepositoryDAO, frontendGoodsTablePagesRepositoryDAO);
+			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, imagesDirectorySymbolicLinkName);
 			CreateResultVO createResultVO = createResultVOTransformer.dtoToVo(createResultVODTO);
 			resp.getWriter().append(gson.toJson(createResultVO));
 		} catch (CheckerException ex) {

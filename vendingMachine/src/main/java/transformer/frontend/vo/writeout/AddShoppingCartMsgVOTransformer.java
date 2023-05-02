@@ -27,7 +27,7 @@ public class AddShoppingCartMsgVOTransformer extends VOWriteOutTransformerTempla
 		
 		AddShoppingCartMsgVO vo = new AddShoppingCartMsgVO();
 		
-		vo.setHasMsg(dto.getHasMsg().getDescription());
+		vo.setHasMsg(String.valueOf(dto.getHasMsg()));
 		vo.setLines(addShoppingCartMsgLineVOTransformer.dtoListToVoArray(dto.getLines(), size -> new AddShoppingCartMsgLineVO[size]));
 		
 		return vo;

@@ -1,25 +1,23 @@
 package bean.dto.frontend.vo.writeout;
 
-import enumeration.Has;
-
 public class ClearShoppingCartMsgVODTO {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 
 	public ClearShoppingCartMsgVODTO() {
 	}
-	public ClearShoppingCartMsgVODTO(Has hasMsg) {
+	public ClearShoppingCartMsgVODTO(boolean hasMsg) {
 
 		this.hasMsg = hasMsg;
 	}
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 }

@@ -1,23 +1,21 @@
 package bean.dto.frontend.vo.writeout;
 
-import enumeration.Has;
-
 public class ReceiptVODTO {
 
-	private Has hasReceipt;
+	private boolean hasReceipt;
 	private ReceiptContentVODTO receiptContent;
 	
 	
 	public ReceiptVODTO() {
 	}
-	public ReceiptVODTO(Has hasReceipt, ReceiptContentVODTO receiptContent) {
+	public ReceiptVODTO(boolean hasReceipt, ReceiptContentVODTO receiptContent) {
 		
 		this.hasReceipt = hasReceipt;
 		this.receiptContent = receiptContent;
 	}
 	
 	
-	public Has getHasReceipt() {
+	public boolean getHasReceipt() {
 		return hasReceipt;
 	}
 	public ReceiptContentVODTO getReceiptContent() {
@@ -25,7 +23,7 @@ public class ReceiptVODTO {
 	}
 	
 	
-	public void setHasReceipt(Has hasReceipt) {
+	public void setHasReceipt(boolean hasReceipt) {
 		this.hasReceipt = hasReceipt;
 	}
 	public void setReceiptContent(ReceiptContentVODTO receiptContent) {

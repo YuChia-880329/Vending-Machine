@@ -1,4 +1,4 @@
-package service.vo;
+package service.prepare;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.function.Function;
 import bean.dto.vo.writeout.PageTurningVODTO;
 import bean.dto.vo.writeout.PageVODTO;
 import bean.dto.vo.writeout.PaginationVODTO;
-import enumeration.Has;
 import util.PaginationUtil;
 
 public class PaginationService {
@@ -48,11 +47,11 @@ public class PaginationService {
 		
 		if(page==1 || maxPage==0) {
 			
-			previousPage.setExistence(Has.FALSE);
+			previousPage.setExistence(false);
 			previousPage.setUrl(null);
 		}else {
 			
-			previousPage.setExistence(Has.TRUE);
+			previousPage.setExistence(true);
 			previousPage.setUrl(urlFctn.apply(page-1));
 		}
 		
@@ -82,11 +81,11 @@ public class PaginationService {
 		
 		if(page==maxPage || maxPage==0) {
 			
-			previousPage.setExistence(Has.FALSE);
+			previousPage.setExistence(false);
 			previousPage.setUrl(null);
 		}else {
 			
-			previousPage.setExistence(Has.TRUE);
+			previousPage.setExistence(true);
 			previousPage.setUrl(urlFctn.apply(page+1));
 		}
 		

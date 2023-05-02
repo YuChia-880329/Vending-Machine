@@ -7,7 +7,6 @@ import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCart
 import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgLineVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgVODTO;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
-import enumeration.Has;
 
 public class AddShoppingCartIllegalMsgService {
 
@@ -27,7 +26,7 @@ public class AddShoppingCartIllegalMsgService {
 		
 		List<AddShoppingCartIllegalMsgLineOBJDTO> addShoppingCartIllegalMsgLineOBJDTOs = addShoppingCartIllegalMsgLineCacheDAO.use(true);
 		
-		addShoppingCartIllegalMsgVODTO.setHasMsg(addShoppingCartIllegalMsgLineOBJDTOs.size()>0 ? Has.TRUE : Has.FALSE);
+		addShoppingCartIllegalMsgVODTO.setHasMsg(addShoppingCartIllegalMsgLineOBJDTOs.size()>0 ? true : false);
 		addShoppingCartIllegalMsgVODTO.setLines(addShoppingCartIllegalMsgLineOBJsToAddShoppingCartIllegalMsgLineVOs(addShoppingCartIllegalMsgLineOBJDTOs));
 		
 		return addShoppingCartIllegalMsgVODTO;

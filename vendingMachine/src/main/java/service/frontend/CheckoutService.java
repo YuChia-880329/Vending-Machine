@@ -21,13 +21,12 @@ import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.CheckoutVODTO;
 import bean.dto.model.GoodsModelDTO;
 import bean.dto.model.OrderModelDTO;
+import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
-import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
-import enumeration.Has;
+import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 import service.model.GoodsModelService;
 import service.model.OrderModelService;
 
@@ -36,6 +35,7 @@ public class CheckoutService {
 	private GoodsModelService goodsModelService;
 	private OrderModelService orderModelService;
 	private ShoppingCartService shoppingCartService;
+	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	
 	private static final CheckoutService INSTANCE = new CheckoutService();
@@ -45,6 +45,7 @@ public class CheckoutService {
 		goodsModelService = GoodsModelService.getInstance();
 		orderModelService = OrderModelService.getInstance();
 		shoppingCartService = ShoppingCartService.getInstance();
+		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
 	public static CheckoutService getInstance() {
@@ -52,11 +53,12 @@ public class CheckoutService {
 		return INSTANCE;
 	}
 	
-	public CheckoutResultDTO checkout(CheckoutVODTO checkoutVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, ReceiptContentCacheDAO receiptContentCacheDAO, 
-			GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO, 
-			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO, 
-			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO, CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO) {
+	public CheckoutResultDTO checkout(CheckoutVODTO checkoutVODTO, AccountOBJDTO accountOBJDTO) {
 		
+		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
+		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartIllegalMsgLineCacheDAO(accountOBJDTO);
+		CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO = memoryDAOKitVMDAO.getCheckoutMoneyIllegalMsgStatusCacheDAO(accountOBJDTO);
+		ReceiptContentCacheDAO receiptContentCacheDAO = memoryDAOKitVMDAO.getReceiptContentCacheDAO(accountOBJDTO);
 		
 		addShoppingCart(checkoutVODTO.getAddShoppingCartGoodsList(), shoppingCartMemoryDbDAO, 
 				addShoppingCartIllegalMsgLineCacheDAO);
@@ -76,7 +78,7 @@ public class CheckoutService {
 			
 			if(paidMoney < shouldPaid) {
 				
-				checkoutMoneyIllegalMsgStatusCacheDAO.setStatus(new CheckoutMoneyIllegalMsgHasMsgOBJDTO(Has.TRUE));
+				checkoutMoneyIllegalMsgStatusCacheDAO.setStatus(new CheckoutMoneyIllegalMsgHasMsgOBJDTO(true));
 			}
 			
 			ReceiptContentOBJDTO receiptOBJDTO = checkoutReceipt(paidMoney, shouldPaid, shoppingCartMemoryDbDAO, goodsModelDTOMap);
@@ -101,9 +103,9 @@ public class CheckoutService {
 				
 				shoppingCartMemoryDbDAO.deleteAll();
 				
-				goodsTablePagesRepositoryDAO.requireUpdate();
-				orderTablePagesRepositoryDAO.requireUpdate();
-				frontendGoodsTablePagesRepositoryDAO.requireUpdate();
+				memoryDAOKitVMDAO.requireUpdateGoodsTablePagesRepositoryDAO();
+				memoryDAOKitVMDAO.requireUpdateOrderTablePagesRepositoryDAO();
+				memoryDAOKitVMDAO.requireUpdateFrontendGoodsTablePagesRepositoryDAO();
 			}
 		} catch (SQLException ex) {
 			
@@ -164,7 +166,7 @@ public class CheckoutService {
 			
 			int change = paidMoney - shouldPaid;
 			
-			changeMsgOBJDTO.setHasMsg(Has.TRUE);
+			changeMsgOBJDTO.setHasMsg(true);
 			changeMsgOBJDTO.setChange(change);
 			
 			List<ShoppingCartOBJDTO> shoppingCartOBJDTOs = shoppingCartMemoryDbDAO.searchAll();
@@ -180,7 +182,7 @@ public class CheckoutService {
 			}
 		}else {
 			
-			changeMsgOBJDTO.setHasMsg(Has.FALSE);
+			changeMsgOBJDTO.setHasMsg(false);
 			changeMsgOBJDTO.setChange(0);
 		}
 		

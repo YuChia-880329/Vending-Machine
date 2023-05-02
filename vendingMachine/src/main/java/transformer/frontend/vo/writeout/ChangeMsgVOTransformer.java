@@ -21,7 +21,7 @@ public class ChangeMsgVOTransformer extends VOWriteOutTransformerTemplate<Change
 
 		ChangeMsgVO vo = new ChangeMsgVO();
 		
-		vo.setHasMsg(dto.getHasMsg().getDescription());
+		vo.setHasMsg(String.valueOf(dto.getHasMsg()));
 		vo.setChange(String.valueOf(dto.getChange()));
 		
 		return vo;

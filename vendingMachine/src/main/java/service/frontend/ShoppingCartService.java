@@ -38,4 +38,9 @@ public class ShoppingCartService {
 		else
 			shoppingCartMemoryDbDAO.insert(shoppingCartOBJDTO);
 	}
+	
+	public void clearShoppingCart(ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
+		
+		shoppingCartMemoryDbDAO.deleteAll();
+	}
 }

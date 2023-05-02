@@ -16,12 +16,19 @@ public class OrderTablePagesRepositoryDAO extends RepositoryDAOTemplate<OrderTab
 	public static final String SESSION_ATTR_DAO = "orderTablePagesRepositoryDAO";
 	
 	
-	public OrderTablePagesRepositoryDAO(OrderTablePagesRepository repository) {
+	public OrderTablePagesRepositoryDAO() {
 		
-		super(repository);
+		super(getInitialRepository());
+	}
+	
+	private static OrderTablePagesRepository getInitialRepository() {
+		
+		OrderTablePagesRepository repository = new OrderTablePagesRepository();
+		
+		return repository;
 	}
 
-	public void requireUpdate() {
+	public synchronized void requireUpdate() {
 		
 		repository.requireUpdate();
 	}

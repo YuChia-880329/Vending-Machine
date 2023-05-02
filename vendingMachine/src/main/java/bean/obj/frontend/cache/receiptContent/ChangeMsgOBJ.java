@@ -1,23 +1,21 @@
 package bean.obj.frontend.cache.receiptContent;
 
-import enumeration.Has;
-
 public class ChangeMsgOBJ {
 
-	private Has hasMsg;
+	private boolean hasMsg;
 	private int change;
 	
 	
 	public ChangeMsgOBJ() {
 	}
-	public ChangeMsgOBJ(Has hasMsg, int change) {
+	public ChangeMsgOBJ(boolean hasMsg, int change) {
 
 		this.hasMsg = hasMsg;
 		this.change = change;
 	}
 	
 	
-	public Has getHasMsg() {
+	public boolean getHasMsg() {
 		return hasMsg;
 	}
 	public int getChange() {
@@ -25,7 +23,7 @@ public class ChangeMsgOBJ {
 	}
 	
 	
-	public void setHasMsg(Has hasMsg) {
+	public void setHasMsg(boolean hasMsg) {
 		this.hasMsg = hasMsg;
 	}
 	public void setChange(int change) {

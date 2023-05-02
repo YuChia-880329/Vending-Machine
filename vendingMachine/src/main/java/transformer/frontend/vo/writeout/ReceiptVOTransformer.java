@@ -26,7 +26,7 @@ public class ReceiptVOTransformer extends VOWriteOutTransformerTemplate<ReceiptV
 		
 		ReceiptVO vo = new ReceiptVO();
 		
-		vo.setHasReceipt(dto.getHasReceipt().getDescription());
+		vo.setHasReceipt(String.valueOf(dto.getHasReceipt()));
 		vo.setReceiptContent(receiptContentVOTransformer.dtoToVo(dto.getReceiptContent()));
 		
 		return vo;
