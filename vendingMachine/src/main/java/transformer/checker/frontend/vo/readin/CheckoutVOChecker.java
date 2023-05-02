@@ -14,7 +14,6 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 	
 	
 	private CheckoutFormVOChecker checkoutFormVOChecker;
-	private AddShoppingCartGoodsVOChecker addShoppingCartGoodsVOChecker;
 	
 	
 	private static final CheckoutVOChecker INSTANCE = new CheckoutVOChecker();
@@ -22,7 +21,6 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 	private CheckoutVOChecker() {
 		
 		checkoutFormVOChecker = CheckoutFormVOChecker.getInstance();
-		addShoppingCartGoodsVOChecker = AddShoppingCartGoodsVOChecker.getInstance();
 	}
 	
 	public static CheckoutVOChecker getInstance() {
@@ -37,7 +35,6 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 		
 		checkQueryString(vo);
 		checkCheckoutForm(vo);
-		checkAddShoppingCartGoodsArray(vo);
 	}
 
 	private void checkVo(CheckoutVO vo) throws CheckerException {
@@ -56,14 +53,5 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 		CheckoutFormVO checkoutForm = vo.getCheckoutForm();
 		
 		checkoutFormVOChecker.check(checkoutForm);
-	}
-	private void checkAddShoppingCartGoodsArray(CheckoutVO vo) throws CheckerException {
-		
-		AddShoppingCartGoodsVO[] addShoppingCartGoodsVOs = vo.getAddShoppingCartGoodsArray();
-		
-		for(AddShoppingCartGoodsVO addShoppingCartGoodsVO : addShoppingCartGoodsVOs) {
-			
-			addShoppingCartGoodsVOChecker.check(addShoppingCartGoodsVO);
-		}
 	}
 }

@@ -4,16 +4,14 @@ public class CheckoutVO {
 
 	private String queryString;
 	private CheckoutFormVO checkoutForm;
-	private AddShoppingCartGoodsVO[] addShoppingCartGoodsArray;
 	
 	
 	public CheckoutVO() {
 	}
-	public CheckoutVO(String queryString, CheckoutFormVO checkoutForm, AddShoppingCartGoodsVO[] addShoppingCartGoodsArray) {
+	public CheckoutVO(String queryString, CheckoutFormVO checkoutForm) {
 
 		this.queryString = queryString;
 		this.checkoutForm = checkoutForm;
-		this.addShoppingCartGoodsArray = addShoppingCartGoodsArray;
 	}
 	
 	
@@ -23,9 +21,6 @@ public class CheckoutVO {
 	public CheckoutFormVO getCheckoutForm() {
 		return checkoutForm;
 	}
-	public AddShoppingCartGoodsVO[] getAddShoppingCartGoodsArray() {
-		return addShoppingCartGoodsArray;
-	}
 	
 	
 
@@ -34,8 +29,5 @@ public class CheckoutVO {
 	}
 	public void setCheckoutForm(CheckoutFormVO checkoutForm) {
 		this.checkoutForm = checkoutForm;
-	}
-	public void setAddShoppingCartGoodsArray(AddShoppingCartGoodsVO[] addShoppingCartGoodsArray) {
-		this.addShoppingCartGoodsArray = addShoppingCartGoodsArray;
 	}
 }

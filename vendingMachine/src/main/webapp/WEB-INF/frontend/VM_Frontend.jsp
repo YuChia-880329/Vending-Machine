@@ -87,6 +87,10 @@
 		let checkoutBtnId = 'checkout_btn';
 		let checkoutFormId = 'checkout_form';
 		let checkoutDataInputId = 'checkout_data_input';
+		let checkoutAddShoppingCartModalId = 'checkout_add_shopping_cart_modal';
+		let checkoutAddShoppingCartModalOkBtnId = 'checkout_add_shopping_cart_modal_ok_btn';
+		let checkoutAddShoppingCartModalCancelBtnId = 'checkout_add_shopping_cart_modal_cancel_btn';
+		
 		
 		let goBackendBtnId = 'go_backend_btn';
 		
@@ -327,94 +331,91 @@
 			
 			return pass;
 		}
-		
+
+
 		function checkoutBtnClicked(){
 
-			var checkoutConfirmModalFctn = function(addShoppingCartGoodsArray, hideEventListener){
-
-				var checkoutConfirmModalId = confirmModalId('即將進行結帳', function(){
-					
-					if(checkoutInputCheck()){
-						
-						var checkoutForm = {
-							paidMoney : $('#' + checkoutPaidMoneyInputId).val()
-						};
-						
-						var checkoutVO = {
-							queryString	: queryString,
-							checkoutForm : checkoutForm,
-							addShoppingCartGoodsArray : addShoppingCartGoodsArray
-						};
-						
-						$('#' + checkoutDataInputId).val(JSON.stringify(checkoutVO));
-						$('#' + checkoutFormId).submit();
-					}
-				});
-
-				if(hideEventListener != undefined){
-					
-					$('#' + checkoutConfirmModalId)[0].removeEventListener('hidden.bs.modal', hideEventListener);
-				}
-				
-				return new bootstrap.Modal('#' + checkoutConfirmModalId, {});
-			}
-			
-
 			var needAddShoppingCart = false;
+			var addShoppingCartGoodsArray = [];
+			var index = 0;
+			
 			for(i=1; i<=6; i++){
 
 				var addQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
+				
 				if(addQuantity!='' && addQuantity>0){
 
 					needAddShoppingCart = true;
-					break;
+					
+					var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
+					var quantity = $('#' + goodsEntryQuantityInputIdPrefix + i).val();
+					var id = $('#' + goodsEntryIdInputIdPrefix + i).val();
+
+					addShoppingCartGoodsArray[index] = {
+						id : id,
+						name : name,
+						addQuantity : addQuantity,
+						quantity : quantity
+					}
+					index++;
 				}
 			}
 
-			var addShoppingCartGoodsArray = [];
+			var checkoutAddShoppingCartVO = {
+				addShoppingCartGoodsArray : addShoppingCartGoodsArray
+			};
 
 			if(needAddShoppingCart){
 
-				var addShoppingCartConfirmModalId = confirmModalId('有商品尚未加入購物車，是否加入購物車?', function(){
+				var ajaxUrl = '/vendingMachine/machine/addShoppingCartAjax';
+				var dataJson = JSON.stringify(checkoutAddShoppingCartVO);
 
-					if(addShoppingCartInputChecked()){
-						
-						var index = 0;
-						for(i=1; i<=6; i++){
+				$('#' + checkoutAddShoppingCartModalOkBtnId).click(function(){
 
-							var addQuantity = $('#' + goodsEntryBuyQuantityInputIdPrefix + i).val();
-							if(addQuantity!='' && addQuantity>0){
+					$.ajax({
+						url : ajaxUrl,
+						method : 'POST',
+						data : dataJson,
+						contentType : 'text/plain',
+						success : function(){
 
-								var name = $('#' + goodsEntryNameInputIdPrefix + i).val();
-								var quantity = $('#' + goodsEntryQuantityInputIdPrefix + i).val();
-								var id = $('#' + goodsEntryIdInputIdPrefix + i).val();
-
-								addShoppingCartGoodsArray[index] = {
-									id : id,
-									name : name,
-									addQuantity : addQuantity,
-									quantity : quantity
-								}
-								index++;
-							}
+							showCheckoutShoppingCartModal();
 						}
-					}
-					
+					});
 				});
+				
 
-				var hideEventListener = function(){
+				$('#' + checkoutAddShoppingCartModalCancelBtnId).click(function(){
 
-					checkoutConfirmModalFctn(addShoppingCartGoodsArray, hideEventListener).show();
-				}
-				$('#' + addShoppingCartConfirmModalId)[0].addEventListener('hidden.bs.modal', hideEventListener);
-
-				new bootstrap.Modal('#' + addShoppingCartConfirmModalId, {}).show();
+					showCheckoutShoppingCartModal()
+				});
+				
+				new bootstrap.Modal('#' + checkoutAddShoppingCartModalId, {}).show();
 			}else{
 
-				checkoutConfirmModalFctn(addShoppingCartGoodsArray).show();
+				showCheckoutShoppingCartModal();
 			}
+		}
 
-			
+		function showCheckoutShoppingCartModal(){
+
+			confirmModal('即將進行結帳', function(){
+				
+				if(checkoutInputCheck()){
+					
+					var checkoutForm = {
+						paidMoney : $('#' + checkoutPaidMoneyInputId).val()
+					};
+					
+					var checkoutVO = {
+						queryString	: queryString,
+						checkoutForm : checkoutForm
+					};
+					
+					$('#' + checkoutDataInputId).val(JSON.stringify(checkoutVO));
+					$('#' + checkoutFormId).submit();
+				}
+			}).show();
 		}
 		function checkoutInputCheck(){
 			
@@ -422,12 +423,13 @@
 		}
 		
 		function goBackendBtnClicked(){
-			
-			confirmModal('前往後臺將清空購物車', function(){
-				
-				var ajaxUrl = '/vendingMachine/machine/goBackendAjax';
-				var redirectUrl = '/vendingMachine/machine/backend/goodsList';
-				
+
+			var redirectUrl = '/vendingMachine/machine/backend/goodsList';
+			var shoppingCartGoodsCount = $('#' + shoppingCartGoodsGoodsCountInputId).val();
+
+			var ajaxUrl = '/vendingMachine/machine/goBackendAjax';
+			var ajaxFctn = function(){
+
 				$.ajax({
 					url : ajaxUrl,
 					method : 'POST',
@@ -436,7 +438,19 @@
 						window.location.href = redirectUrl;
 					}
 				});
-			}).show();
+			}
+			
+			
+			if(shoppingCartGoodsCount > 0){
+				
+				confirmModal('前往後臺將清空購物車', function(){
+					
+					ajaxFctn();
+				}).show();
+			}else{
+
+				ajaxFctn();
+			}
 		}
 	</script>
 </head>
@@ -892,6 +906,24 @@
 			</div>
 		</div>
 	</template>
+	
+	<div class="modal fade" id="checkout_add_shopping_cart_modal">
+	  	<div class="modal-dialog msg-modal-dialog">
+	    	<div class="modal-content msg-modal-content">
+	      		<div class="modal-header msg-modal-header">
+	        		<h4 class="modal-title">Confirm</h4>
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+	      		<div class="modal-body msg-modal-body">
+	      			<p>有商品尚未加入購物車，是否加入購物車?</p>
+	      		</div>
+	      		<div class="modal-footer msg-modal-footer">
+	        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="checkout_add_shopping_cart_modal_cancel_btn">取消</button>
+	        		<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="checkout_add_shopping_cart_modal_ok_btn">確認</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
 	
 	
 	<%@ include file="../../modal.jsp" %>

@@ -6,7 +6,7 @@
 		var modalMsgId = 'confirm_modal_msg';
 		var okBtnId = 'confirm_modal_ok_btn';
 		
-		$('#' + modalMsgId).html(modalMsg);
+		$('#' + modalMsgId).text(modalMsg);
 		$('#' + okBtnId).off('click');
 		$('#' + okBtnId).click(okBtnFctn);
 		

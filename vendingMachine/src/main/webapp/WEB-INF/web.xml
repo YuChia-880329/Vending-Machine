@@ -86,6 +86,10 @@
 		<servlet-name>goBackendAjaxServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.ajax.GoBackendAjaxServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>checkoutAddShoppingCartAjaxServlet</servlet-name>
+		<servlet-class>controller.servlet.frontend.ajax.CheckoutAddShoppingCartServlet</servlet-class>
+	</servlet>
 
 
   	
@@ -163,6 +167,10 @@
 	<servlet-mapping>
 		<servlet-name>goBackendAjaxServlet</servlet-name>
 		<url-pattern>/machine/goBackendAjax</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>checkoutAddShoppingCartAjaxServlet</servlet-name>
+		<url-pattern>/machine/addShoppingCartAjax</url-pattern>
 	</servlet-mapping>
 
   	

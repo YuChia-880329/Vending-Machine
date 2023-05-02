@@ -9,7 +9,6 @@ import transformer.checker.frontend.vo.readin.CheckoutVOChecker;
 public class CheckoutVOTransformer extends VOReanInTransformerTemplate<CheckoutVO, CheckoutVODTO, CheckerException, CheckoutVOChecker> {
 
 	private CheckoutFormVOTransformer checkoutFormVOTransformer;
-	private AddShoppingCartGoodsVOTransformer addShoppingCartGoodsVOTransformer;
 	
 	
 	private static final CheckoutVOTransformer INSTANCE = new CheckoutVOTransformer();
@@ -17,7 +16,6 @@ public class CheckoutVOTransformer extends VOReanInTransformerTemplate<CheckoutV
 	private CheckoutVOTransformer() {
 		
 		checkoutFormVOTransformer = CheckoutFormVOTransformer.getInstance();
-		addShoppingCartGoodsVOTransformer = AddShoppingCartGoodsVOTransformer.getInstance();
 	}
 	
 	public static CheckoutVOTransformer getInstance() {
@@ -32,7 +30,6 @@ public class CheckoutVOTransformer extends VOReanInTransformerTemplate<CheckoutV
 		
 		dto.setQueryString(vo.getQueryString());
 		dto.setCheckoutForm(checkoutFormVOTransformer.voToDto(vo.getCheckoutForm()));
-		dto.setAddShoppingCartGoodsList(addShoppingCartGoodsVOTransformer.voArrayToDtoList(vo.getAddShoppingCartGoodsArray()));
 		
 		return dto;
 	}

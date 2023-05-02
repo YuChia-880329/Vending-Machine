@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 import bean.dto.frontend.CheckoutResultDTO;
-import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCartIllegalMsgLineOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.BoughtGoodsMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.ChangeMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.PaidMoneyMsgOBJDTO;
@@ -17,12 +15,10 @@ import bean.dto.frontend.obj.cache.receiptContent.ReceiptContentOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.TotalPriceMsgOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.obj.statusCache.checkoutMoneyIllegalMsgLineOBJ.CheckoutMoneyIllegalMsgHasMsgOBJDTO;
-import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.CheckoutVODTO;
 import bean.dto.model.GoodsModelDTO;
 import bean.dto.model.OrderModelDTO;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
@@ -34,7 +30,6 @@ public class CheckoutService {
 
 	private GoodsModelService goodsModelService;
 	private OrderModelService orderModelService;
-	private ShoppingCartService shoppingCartService;
 	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	
@@ -44,7 +39,6 @@ public class CheckoutService {
 		
 		goodsModelService = GoodsModelService.getInstance();
 		orderModelService = OrderModelService.getInstance();
-		shoppingCartService = ShoppingCartService.getInstance();
 		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
@@ -56,12 +50,8 @@ public class CheckoutService {
 	public CheckoutResultDTO checkout(CheckoutVODTO checkoutVODTO, AccountOBJDTO accountOBJDTO) {
 		
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
-		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartIllegalMsgLineCacheDAO(accountOBJDTO);
 		CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO = memoryDAOKitVMDAO.getCheckoutMoneyIllegalMsgStatusCacheDAO(accountOBJDTO);
 		ReceiptContentCacheDAO receiptContentCacheDAO = memoryDAOKitVMDAO.getReceiptContentCacheDAO(accountOBJDTO);
-		
-		addShoppingCart(checkoutVODTO.getAddShoppingCartGoodsList(), shoppingCartMemoryDbDAO, 
-				addShoppingCartIllegalMsgLineCacheDAO);
 		
 		List<ShoppingCartOBJDTO> shoppingCartOBJDTOs = shoppingCartMemoryDbDAO.searchAll();
 		Map<Integer, GoodsModelDTO> goodsModelDTOMap = new HashMap<>();
@@ -118,21 +108,7 @@ public class CheckoutService {
 		
 		return checkoutResultDTO;
 	}
-	private void addShoppingCart(List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsVODTOs, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, 
-			AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO) {
-		
-		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartGoodsVODTOs) {
-			
-			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
-				
-				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
-			}else {
-				
-				addShoppingCartIllegalMsgLineCacheDAO.save(new AddShoppingCartIllegalMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName()));
-			}
-				
-		}
-	}
+
 	
 	private int checkoutShoppingCart(int paidMoney, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, Map<Integer, GoodsModelDTO> goodsModelDTOMap) {
 		
@@ -218,28 +194,4 @@ public class CheckoutService {
 		return orderModelDTOs;
 	}
 	
-	private boolean isLegal(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
-		
-		int id = addShoppingCartGoodsVODTO.getId();
-		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
-		int quantity = addShoppingCartGoodsVODTO.getQuantity();
-		
-		return shoppingCartService.isLegal(id, quantity, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
-	}
-	private void addShoppingCartGoods(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
-		
-		int id = addShoppingCartGoodsVODTO.getId();
-		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
-		
-		shoppingCartService.saveShoppingCartGoods(id, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
-	}
-	
-	private Function<ShoppingCartOBJDTO, Integer> getBuyQuantityFctn(int addQuantity){
-		
-		return shoppingCartOBJDTO -> {
-			
-			int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
-			return originBuyQuantity + addQuantity;
-		};
-	}
 }
