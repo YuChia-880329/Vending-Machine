@@ -20,6 +20,10 @@ public abstract class StatusCacheDAOTemplate<O, C extends StatusCacheTemplate<O>
 		
 		cache.setStatus(transformer.dtoToObj(dto));
 	}
+	public void clearStatus() {
+		
+		cache.clearStatus();
+	}
 	
 	
 	

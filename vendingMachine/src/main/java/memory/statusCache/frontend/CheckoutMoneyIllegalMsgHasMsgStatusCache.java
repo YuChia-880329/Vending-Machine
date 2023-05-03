@@ -10,4 +10,5 @@ public class CheckoutMoneyIllegalMsgHasMsgStatusCache extends StatusCacheTemplat
 		
 		return new CheckoutMoneyIllegalMsgHasMsgOBJ(false);
 	}
+
 }

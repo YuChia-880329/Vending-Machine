@@ -2,22 +2,30 @@ package bean.vo.login.writeout;
 
 public class LoginResultVO {
 
-	private String msg;
+	private String hasAccount;
+	private String passwordCorrect;
 
 	public LoginResultVO() {
 	}
-	public LoginResultVO(String msg) {
-
-		this.msg = msg;
+	public LoginResultVO(String hasAccount, String passwordCorrect) {
+		
+		this.hasAccount = hasAccount;
+		this.passwordCorrect = passwordCorrect;
 	}
 	
 	
-	public String getMsg() {
-		return msg;
+	public String getHasAccount() {
+		return hasAccount;
+	}
+	public String getPasswordCorrect() {
+		return passwordCorrect;
 	}
 	
 	
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setHasAccount(String hasAccount) {
+		this.hasAccount = hasAccount;
+	}
+	public void setPasswordCorrect(String passwordCorrect) {
+		this.passwordCorrect = passwordCorrect;
 	}
 }

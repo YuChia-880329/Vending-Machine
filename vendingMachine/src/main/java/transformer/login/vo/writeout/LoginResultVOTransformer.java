@@ -21,7 +21,8 @@ public class LoginResultVOTransformer extends VOWriteOutTransformerTemplate<Logi
 		
 		LoginResultVO vo = new LoginResultVO();
 		
-		vo.setMsg(dto.getMsg());
+		vo.setHasAccount(String.valueOf(dto.getHasAccount()));
+		vo.setPasswordCorrect(String.valueOf(dto.getPasswordCorrect()));
 		
 		return vo;
 	}

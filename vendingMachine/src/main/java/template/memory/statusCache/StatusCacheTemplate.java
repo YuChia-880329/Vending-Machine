@@ -21,5 +21,10 @@ public abstract class StatusCacheTemplate<O> {
 		this.status = status;
 	}
 	
+	public void clearStatus() {
+		
+		status = null;
+	}
+	
 	protected abstract O ifNull();
 }

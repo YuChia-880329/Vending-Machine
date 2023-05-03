@@ -10,4 +10,5 @@ public class ClearShoppingCartMsgHasMsgStatusCache extends StatusCacheTemplate<C
 		
 		return new ClearShoppingCartMsgHasMsgOBJ(false);
 	}
+
 }
