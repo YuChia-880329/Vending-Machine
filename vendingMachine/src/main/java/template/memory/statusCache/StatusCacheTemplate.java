@@ -6,11 +6,13 @@ public abstract class StatusCacheTemplate<O> {
 	
 	protected StatusCacheTemplate() {
 		
-		status = initStatus();
+		status = null;
 	}
 	
 	public O getStatus() {
 		
+		if(status == null)
+			return ifNull();
 		return status;
 	}
 	
@@ -19,5 +21,5 @@ public abstract class StatusCacheTemplate<O> {
 		this.status = status;
 	}
 	
-	protected abstract O initStatus();
+	protected abstract O ifNull();
 }

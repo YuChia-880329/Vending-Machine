@@ -18,6 +18,7 @@ import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
+import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
 import transformer.virtualMachine.obj.memoryDAOKitVM.AccountOBJTransformer;
 import transformer.virtualMachine.obj.memoryDAOKitVM.MemoryDAOKitOBJTransformer;
 import virtualMachine.MemoryDAOKitVM;
@@ -122,6 +123,13 @@ public class MemoryDAOKitVMDAO {
 				getNewDAOSupClearShoppingCartMsgStatusCacheDAO(), 
 				(memoryDAOKitOBJDTO, dao) -> memoryDAOKitOBJDTO.setClearShoppingCartMsgStatusCacheDAO(dao));
 	}
+	public CurrentMemberStatusCacheDAO getCurrentMemberStatusCacheDAO(AccountOBJDTO accountOBJDTO) {
+		
+		return getDAO(accountOBJDTO, 
+				memoryDAOKitOBJDTO -> memoryDAOKitOBJDTO.getCurrentMemberStatusCacheDAO(), 
+				getNewDAOSupCurrentMemberStatusCacheDAO(), 
+				(memoryDAOKitOBJDTO, dao) -> memoryDAOKitOBJDTO.setCurrentMemberStatusCacheDAO(dao));
+	}
 	
 	
 	
@@ -223,5 +231,9 @@ public class MemoryDAOKitVMDAO {
 	private Supplier<ClearShoppingCartMsgStatusCacheDAO> getNewDAOSupClearShoppingCartMsgStatusCacheDAO() {
 		
 		return () -> new ClearShoppingCartMsgStatusCacheDAO();
+	}
+	private Supplier<CurrentMemberStatusCacheDAO> getNewDAOSupCurrentMemberStatusCacheDAO() {
+		
+		return () -> new CurrentMemberStatusCacheDAO();
 	}
 }

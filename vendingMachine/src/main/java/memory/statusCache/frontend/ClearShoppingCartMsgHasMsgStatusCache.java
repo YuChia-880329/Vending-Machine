@@ -6,7 +6,7 @@ import template.memory.statusCache.StatusCacheTemplate;
 public class ClearShoppingCartMsgHasMsgStatusCache extends StatusCacheTemplate<ClearShoppingCartMsgHasMsgOBJ> {
 
 	@Override
-	protected ClearShoppingCartMsgHasMsgOBJ initStatus() {
+	protected ClearShoppingCartMsgHasMsgOBJ ifNull() {
 		
 		return new ClearShoppingCartMsgHasMsgOBJ(false);
 	}

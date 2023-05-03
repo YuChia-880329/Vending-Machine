@@ -10,7 +10,7 @@ public abstract class BiTransformerTemplate<A, B> extends TransformerTemplate<A,
 	public List<A> bListToAList(List<B> bList){
 		
 		if(bList == null)
-			return  new ArrayList<>();
+			return new ArrayList<>();
 		
 		return bList.stream().map(b -> bToA(b)).collect(Collectors.toList());
 	}

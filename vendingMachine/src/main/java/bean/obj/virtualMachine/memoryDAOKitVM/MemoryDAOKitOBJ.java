@@ -10,6 +10,7 @@ import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
+import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
 
 public class MemoryDAOKitOBJ {
 
@@ -24,12 +25,11 @@ public class MemoryDAOKitOBJ {
 	private dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO;
 	private CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO;
 	private ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO;
+	private CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO;
 	
 	
 	public MemoryDAOKitOBJ() {
 	}
-
-
 	public MemoryDAOKitOBJ(AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO,
 			AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO,
 			ReceiptContentCacheDAO receiptContentCacheDAO,
@@ -39,7 +39,8 @@ public class MemoryDAOKitOBJ {
 			OrderTablePagesRepositoryDAO orderTablePagesRepositoryDAO,
 			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO,
 			CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO,
-			ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO) {
+			ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO,
+			CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO) {
 	
 		this.addShoppingCartIllegalMsgLineCacheDAO = addShoppingCartIllegalMsgLineCacheDAO;
 		this.addShoppingCartMsgLineCacheDAO = addShoppingCartMsgLineCacheDAO;
@@ -52,6 +53,7 @@ public class MemoryDAOKitOBJ {
 		this.frontendGoodsTablePagesRepositoryDAO = frontendGoodsTablePagesRepositoryDAO;
 		this.checkoutMoneyIllegalMsgStatusCacheDAO = checkoutMoneyIllegalMsgStatusCacheDAO;
 		this.clearShoppingCartMsgStatusCacheDAO = clearShoppingCartMsgStatusCacheDAO;
+		this.currentMemberStatusCacheDAO = currentMemberStatusCacheDAO;
 	}
 
 
@@ -88,6 +90,11 @@ public class MemoryDAOKitOBJ {
 	public ClearShoppingCartMsgStatusCacheDAO getClearShoppingCartMsgStatusCacheDAO() {
 		return clearShoppingCartMsgStatusCacheDAO;
 	}
+	public CurrentMemberStatusCacheDAO getCurrentMemberStatusCacheDAO() {
+		return currentMemberStatusCacheDAO;
+	}
+
+
 
 
 	public void setAddShoppingCartIllegalMsgLineCacheDAO(
@@ -127,5 +134,8 @@ public class MemoryDAOKitOBJ {
 	public void setClearShoppingCartMsgStatusCacheDAO(
 			ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO) {
 		this.clearShoppingCartMsgStatusCacheDAO = clearShoppingCartMsgStatusCacheDAO;
+	}
+	public void setCurrentMemberStatusCacheDAO(CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO) {
+		this.currentMemberStatusCacheDAO = currentMemberStatusCacheDAO;
 	}
 }

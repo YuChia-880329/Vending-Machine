@@ -32,6 +32,7 @@ public class MemoryDAOKitOBJTransformer extends OBJTransformerTemplate<MemoryDAO
 		dto.setFrontendGoodsTablePagesRepositoryDAO(obj.getFrontendGoodsTablePagesRepositoryDAO());
 		dto.setCheckoutMoneyIllegalMsgStatusCacheDAO(obj.getCheckoutMoneyIllegalMsgStatusCacheDAO());
 		dto.setClearShoppingCartMsgStatusCacheDAO(obj.getClearShoppingCartMsgStatusCacheDAO());
+		dto.setCurrentMemberStatusCacheDAO(obj.getCurrentMemberStatusCacheDAO());
 		
 		return dto;
 	}
@@ -52,6 +53,7 @@ public class MemoryDAOKitOBJTransformer extends OBJTransformerTemplate<MemoryDAO
 		obj.setFrontendGoodsTablePagesRepositoryDAO(dto.getFrontendGoodsTablePagesRepositoryDAO());
 		obj.setCheckoutMoneyIllegalMsgStatusCacheDAO(dto.getCheckoutMoneyIllegalMsgStatusCacheDAO());
 		obj.setClearShoppingCartMsgStatusCacheDAO(dto.getClearShoppingCartMsgStatusCacheDAO());
+		obj.setCurrentMemberStatusCacheDAO(dto.getCurrentMemberStatusCacheDAO());
 		
 		return obj;
 	}
