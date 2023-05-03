@@ -70,7 +70,7 @@ public class UpdateShoppingCartService {
 			}
 		}
 		
-		updateShoppingCartResultDTO.setQueryString(updateShoppingCartVODTO.getQueryString());
+		updateShoppingCartResultDTO.setRedirectUrl(updateShoppingCartVODTO.getCurrentUrl());
 		
 		return updateShoppingCartResultDTO;
 	}

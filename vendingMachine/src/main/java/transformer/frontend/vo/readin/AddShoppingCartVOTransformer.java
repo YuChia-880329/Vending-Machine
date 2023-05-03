@@ -29,7 +29,7 @@ public class AddShoppingCartVOTransformer extends VOReanInTransformerTemplate<Ad
 		AddShoppingCartVODTO dto = new AddShoppingCartVODTO();
 		
 		dto.setAddShoppingCartGoodsList(fscGoodsRIVOTransformer.voArrayToDtoList(vo.getAddShoppingCartGoodsArray()));
-		dto.setQueryString(vo.getQueryString());
+		dto.setCurrentUrl(vo.getCurrentUrl());
 		
 		return dto;
 	}

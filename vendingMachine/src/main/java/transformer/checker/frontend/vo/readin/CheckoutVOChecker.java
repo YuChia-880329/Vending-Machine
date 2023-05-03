@@ -1,6 +1,5 @@
 package transformer.checker.frontend.vo.readin;
 
-import bean.vo.frontend.readin.AddShoppingCartGoodsVO;
 import bean.vo.frontend.readin.CheckoutFormVO;
 import bean.vo.frontend.readin.CheckoutVO;
 import template.CheckerTemplate;
@@ -33,7 +32,7 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 		
 		checkVo(vo);
 		
-		checkQueryString(vo);
+		checkCurrentUrl(vo);
 		checkCheckoutForm(vo);
 	}
 
@@ -42,11 +41,11 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
 	
-	private void checkQueryString(CheckoutVO vo) throws CheckerException {
+	private void checkCurrentUrl(CheckoutVO vo) throws CheckerException {
 		
-		String queryString = vo.getQueryString();
+		String currentUrl = vo.getCurrentUrl();
 		
-		CheckUtil.checkString(queryString, StringConcatUtil.concate(NAME_PREFIX, "vo"));
+		CheckUtil.checkString(currentUrl, StringConcatUtil.concate(NAME_PREFIX, "currentUrl"));
 	}
 	private void checkCheckoutForm(CheckoutVO vo) throws CheckerException {
 		

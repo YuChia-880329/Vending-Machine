@@ -38,7 +38,7 @@ public class ClearShoppingCartService {
 		
 		clearShoppingCartMsgStatusCacheDAO.setStatus(new ClearShoppingCartMsgHasMsgOBJDTO(true));
 		
-		clearShoppingCartResultDTO.setQueryString(clearShoppingCartVODTO.getQueryString());
+		clearShoppingCartResultDTO.setRedirectUrl(clearShoppingCartVODTO.getCurrentUrl());
 		
 		return clearShoppingCartResultDTO;
 	}

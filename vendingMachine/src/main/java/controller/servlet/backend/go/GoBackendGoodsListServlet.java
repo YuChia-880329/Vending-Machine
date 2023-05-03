@@ -22,7 +22,7 @@ public class GoBackendGoodsListServlet extends HttpServlet {
 	
 	// url
 	public static final String URL = "/vendingMachine/machine/backend/goodsList";
-	private static final String FORWARD_URL = "../../WEB-INF/backend/VM_Backend_GoodsList.jsp";
+	private static final String FORWARD_URL = "../../WEB-INF/backend/backend_goodsList.jsp";
 	
 	// request parameter
 	public static final String REQ_PARAM_PAGE = "page";

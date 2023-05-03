@@ -56,7 +56,7 @@ public class AddShoppingCartService {
 				
 		}
 		
-		addShoppingCartResultDTO.setQueryString(addShoppingCartVODTO.getQueryString());
+		addShoppingCartResultDTO.setRedirectUrl(addShoppingCartVODTO.getCurrentUrl());
 		
 		return addShoppingCartResultDTO;
 	}

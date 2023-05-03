@@ -2,22 +2,22 @@ package bean.dto.frontend.vo.readin;
 
 public class ClearShoppingCartVODTO {
 
-	private String queryString;
+	private String currentUrl;
 
 	public ClearShoppingCartVODTO() {
 	}
-	public ClearShoppingCartVODTO(String queryString) {
+	public ClearShoppingCartVODTO(String currentUrl) {
 
-		this.queryString = queryString;
+		this.currentUrl = currentUrl;
 	}
 	
 	
-	public String getQueryString() {
-		return queryString;
+	public String getCurrentUrl() {
+		return currentUrl;
 	}
 	
 	
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
+	public void setCurrentUrl(String currentUrl) {
+		this.currentUrl = currentUrl;
 	}
 }

@@ -4,31 +4,31 @@ import java.util.List;
 
 public class UpdateShoppingCartVODTO {
 
+	private String currentUrl;
 	private List<UpdateShoppingCartGoodsVODTO> updateShoppingCartGoodsList;
-	private String queryString;
 	
 	
 	public UpdateShoppingCartVODTO() {
 	}
-	public UpdateShoppingCartVODTO(List<UpdateShoppingCartGoodsVODTO> updateShoppingCartGoodsList, String queryString) {
+	public UpdateShoppingCartVODTO(String currentUrl, List<UpdateShoppingCartGoodsVODTO> updateShoppingCartGoodsList) {
 
+		this.currentUrl = currentUrl;
 		this.updateShoppingCartGoodsList = updateShoppingCartGoodsList;
-		this.queryString = queryString;
 	}
 	
 	
+	public String getCurrentUrl() {
+		return currentUrl;
+	}
 	public List<UpdateShoppingCartGoodsVODTO> getUpdateShoppingCartGoodsList() {
 		return updateShoppingCartGoodsList;
 	}
-	public String getQueryString() {
-		return queryString;
+	
+	
+	public void setCurrentUrl(String currentUrl) {
+		this.currentUrl = currentUrl;
 	}
-	
-	
 	public void setUpdateShoppingCartGoodsList(List<UpdateShoppingCartGoodsVODTO> updateShoppingCartGoodsList) {
 		this.updateShoppingCartGoodsList = updateShoppingCartGoodsList;
-	}
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
 	}
 }

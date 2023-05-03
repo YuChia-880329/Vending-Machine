@@ -26,7 +26,7 @@ public class ClearShoppingCartVOChecker extends CheckerTemplate<ClearShoppingCar
 		
 		checkVo(vo);
 		
-		checkQueryString(vo);
+		checkCurrentUrl(vo);
 	}
 
 	private void checkVo(ClearShoppingCartVO vo) throws CheckerException {
@@ -34,10 +34,10 @@ public class ClearShoppingCartVOChecker extends CheckerTemplate<ClearShoppingCar
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
 	
-	private void checkQueryString(ClearShoppingCartVO vo) throws CheckerException {
+	private void checkCurrentUrl(ClearShoppingCartVO vo) throws CheckerException {
 		
-		String queryString = vo.getQueryString();
+		String currentUrl = vo.getCurrentUrl();
 		
-		CheckUtil.checkString(queryString, StringConcatUtil.concate(NAME_PREFIX, "queryString"));
+		CheckUtil.checkString(currentUrl, StringConcatUtil.concate(NAME_PREFIX, "currentUrl"));
 	}
 }

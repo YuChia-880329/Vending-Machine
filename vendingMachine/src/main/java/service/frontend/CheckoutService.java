@@ -104,7 +104,7 @@ public class CheckoutService {
 
 		CheckoutResultDTO checkoutResultDTO = new CheckoutResultDTO();
 		
-		checkoutResultDTO.setQueryString(checkoutVODTO.getQueryString());
+		checkoutResultDTO.setRedirectUrl(checkoutVODTO.getCurrentUrl());
 		
 		return checkoutResultDTO;
 	}

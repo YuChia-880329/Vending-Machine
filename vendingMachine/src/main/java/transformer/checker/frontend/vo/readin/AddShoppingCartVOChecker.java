@@ -31,8 +31,8 @@ public class AddShoppingCartVOChecker extends CheckerTemplate<AddShoppingCartVO,
 
 		checkVo(vo);
 		
+		checkCurrentUrl(vo);
 		checkShoppingCartGoodsArray(vo);
-		checkQueryString(vo);
 	}
 	
 	private void checkVo(AddShoppingCartVO vo) throws CheckerException {
@@ -40,6 +40,12 @@ public class AddShoppingCartVOChecker extends CheckerTemplate<AddShoppingCartVO,
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
 	
+	private void checkCurrentUrl(AddShoppingCartVO vo) throws CheckerException {
+		
+		String currentUrl = vo.getCurrentUrl();
+		
+		CheckUtil.checkString(currentUrl, StringConcatUtil.concate(NAME_PREFIX, "currentUrl"));
+	}
 	private void checkShoppingCartGoodsArray(AddShoppingCartVO vo) throws CheckerException {
 		
 		AddShoppingCartGoodsVO[] shoppingCartGoodsArray = vo.getAddShoppingCartGoodsArray();
@@ -50,11 +56,5 @@ public class AddShoppingCartVOChecker extends CheckerTemplate<AddShoppingCartVO,
 			
 			fscGoodsRIVOChecker.check(shoppingCartGoodsArray[i]);
 		}
-	}
-	private void checkQueryString(AddShoppingCartVO vo) throws CheckerException {
-		
-		String queryString = vo.getQueryString();
-		
-		CheckUtil.checkString(queryString, StringConcatUtil.concate(NAME_PREFIX, "queryString"));
 	}
 }

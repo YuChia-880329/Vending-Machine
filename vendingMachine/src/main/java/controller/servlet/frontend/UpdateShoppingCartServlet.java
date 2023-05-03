@@ -59,7 +59,7 @@ public class UpdateShoppingCartServlet extends HttpServlet {
 			UpdateShoppingCartResultDTO updateShoppingCartResultDTO = updateShoppingCartService.update(updateShoppingCartVODTO, accountOBJDTO);
 
 		
-			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, updateShoppingCartResultDTO.getQueryString()));
+			resp.sendRedirect(updateShoppingCartResultDTO.getRedirectUrl());
 		} catch (CheckerException ex) {
 			
 			ex.printStackTrace();

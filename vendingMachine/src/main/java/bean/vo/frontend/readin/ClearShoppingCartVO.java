@@ -2,22 +2,22 @@ package bean.vo.frontend.readin;
 
 public class ClearShoppingCartVO {
 
-	private String queryString;
+	private String currentUrl;
 
 	public ClearShoppingCartVO() {
 	}
-	public ClearShoppingCartVO(String queryString) {
+	public ClearShoppingCartVO(String currentUrl) {
 
-		this.queryString = queryString;
+		this.currentUrl = currentUrl;
 	}
 	
 	
-	public String getQueryString() {
-		return queryString;
+	public String getCurrentUrl() {
+		return currentUrl;
 	}
 	
 	
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
+	public void setCurrentUrl(String currentUrl) {
+		this.currentUrl = currentUrl;
 	}
 }

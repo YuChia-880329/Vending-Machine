@@ -23,7 +23,7 @@ public class ClearShoppingCartVOTransformer extends VOReanInTransformerTemplate<
 
 		ClearShoppingCartVODTO dto = new ClearShoppingCartVODTO();
 		
-		dto.setQueryString(vo.getQueryString());
+		dto.setCurrentUrl(vo.getCurrentUrl());
 		
 		return dto;
 	}

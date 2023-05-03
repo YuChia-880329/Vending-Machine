@@ -57,7 +57,7 @@ public class CheckoutServlet extends HttpServlet {
 			
 			CheckoutVODTO checkoutVODTO = checkoutVOTransformer.voToDto(checkoutVO);
 			CheckoutResultDTO checkoutResultDTO = checkoutService.checkout(checkoutVODTO, accountOBJDTO);
-			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, checkoutResultDTO.getQueryString()));
+			resp.sendRedirect(checkoutResultDTO.getRedirectUrl());
 		} catch (CheckerException ex) {
 
 			ex.printStackTrace();

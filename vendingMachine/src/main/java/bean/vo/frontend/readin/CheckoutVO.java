@@ -2,21 +2,21 @@ package bean.vo.frontend.readin;
 
 public class CheckoutVO {
 
-	private String queryString;
+	private String currentUrl;
 	private CheckoutFormVO checkoutForm;
 	
 	
 	public CheckoutVO() {
 	}
-	public CheckoutVO(String queryString, CheckoutFormVO checkoutForm) {
+	public CheckoutVO(String currentUrl, CheckoutFormVO checkoutForm) {
 
-		this.queryString = queryString;
+		this.currentUrl = currentUrl;
 		this.checkoutForm = checkoutForm;
 	}
 	
 	
-	public String getQueryString() {
-		return queryString;
+	public String getCurrentUrl() {
+		return currentUrl;
 	}
 	public CheckoutFormVO getCheckoutForm() {
 		return checkoutForm;
@@ -24,8 +24,8 @@ public class CheckoutVO {
 	
 	
 
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
+	public void setCurrentUrl(String currentUrl) {
+		this.currentUrl = currentUrl;
 	}
 	public void setCheckoutForm(CheckoutFormVO checkoutForm) {
 		this.checkoutForm = checkoutForm;

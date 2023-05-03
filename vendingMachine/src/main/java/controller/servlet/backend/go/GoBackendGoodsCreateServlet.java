@@ -12,7 +12,7 @@ public class GoBackendGoodsCreateServlet extends HttpServlet {
 	
 	public static final String URL = "/vendingMachine/machine/backend/goodsCreate";
 	
-	private static final String FORWARD_URL = "../../WEB-INF/backend/VM_Backend_GoodsCreate.jsp";
+	private static final String FORWARD_URL = "../../WEB-INF/backend/backend_goodsCreate.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

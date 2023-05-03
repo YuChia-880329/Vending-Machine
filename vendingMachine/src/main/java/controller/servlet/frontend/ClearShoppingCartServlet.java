@@ -57,7 +57,7 @@ public class ClearShoppingCartServlet extends HttpServlet {
 			
 			ClearShoppingCartVODTO clearShoppingCartVODTO = clearShoppingCartVOTransformer.voToDto(clearShoppingCartVO);
 			ClearShoppingCartResultDTO clearShoppingCartResultDTO = clearShoppingCartService.clear(clearShoppingCartVODTO, accountOBJDTO);
-			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, clearShoppingCartResultDTO.getQueryString()));
+			resp.sendRedirect(clearShoppingCartResultDTO.getRedirectUrl());
 		} catch (CheckerException ex) {
 
 			ex.printStackTrace();

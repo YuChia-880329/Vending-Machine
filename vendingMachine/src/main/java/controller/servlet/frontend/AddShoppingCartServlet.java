@@ -59,7 +59,7 @@ public class AddShoppingCartServlet extends HttpServlet {
 			AddShoppingCartVODTO shoppingCartVODTO = shoppingCartVOTransformer.voToDto(shoppingCartVO);
 			AddShoppingCartResultDTO addShoppingCartResultDTO = addShoppingCartService.add(shoppingCartVODTO, accountOBJDTO);
 			
-			resp.sendRedirect(ServletUtil.concatQueryString(REDIRECT_URL, addShoppingCartResultDTO.getQueryString()));
+			resp.sendRedirect(addShoppingCartResultDTO.getRedirectUrl());
 		} catch (CheckerException ex) {
 			
 			ex.printStackTrace();

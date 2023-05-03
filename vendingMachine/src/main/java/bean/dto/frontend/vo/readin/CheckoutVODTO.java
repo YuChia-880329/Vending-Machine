@@ -2,22 +2,22 @@ package bean.dto.frontend.vo.readin;
 
 public class CheckoutVODTO {
 
-	private String queryString;
+	private String currentUrl;
 	private CheckoutFormVODTO checkoutForm;
 	
 	
 	
 	public CheckoutVODTO() {
 	}
-	public CheckoutVODTO(String queryString, CheckoutFormVODTO checkoutForm) {
+	public CheckoutVODTO(String currentUrl, CheckoutFormVODTO checkoutForm) {
 
-		this.queryString = queryString;
+		this.currentUrl = currentUrl;
 		this.checkoutForm = checkoutForm;
 	}
 	
 	
-	public String getQueryString() {
-		return queryString;
+	public String getCurrentUrl() {
+		return currentUrl;
 	}
 	public CheckoutFormVODTO getCheckoutForm() {
 		return checkoutForm;
@@ -25,8 +25,8 @@ public class CheckoutVODTO {
 	
 	
 
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
+	public void setCurrentUrl(String currentUrl) {
+		this.currentUrl = currentUrl;
 	}
 	public void setCheckoutForm(CheckoutFormVODTO checkoutForm) {
 		this.checkoutForm = checkoutForm;

@@ -27,7 +27,7 @@ public class GoFrontendServlet extends HttpServlet {
 	
 	// url
 	public static final String URL = "/vendingMachine/machine";
-	private static final String FORWARD_URL = "WEB-INF/frontend/VM_Frontend.jsp";
+	private static final String FORWARD_URL = "WEB-INF/frontend/frontend.jsp";
 
 	// request parameter
 	public static final String REQ_PARAM_PAGE = "page";

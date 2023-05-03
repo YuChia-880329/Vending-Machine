@@ -2,23 +2,23 @@ package bean.dto.frontend;
 
 public class UpdateShoppingCartResultDTO {
 
-	private String queryString;
+	private String redirectUrl;
 
 	
 	public UpdateShoppingCartResultDTO() {
 	}
-	public UpdateShoppingCartResultDTO(String queryString) {
+	public UpdateShoppingCartResultDTO(String redirectUrl) {
 
-		this.queryString = queryString;
+		this.redirectUrl = redirectUrl;
 	}
 	
 	
-	public String getQueryString() {
-		return queryString;
+	public String getRedirectUrl() {
+		return redirectUrl;
 	}
 	
 	
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
+	public void setRedirectUrl(String redirectUrl) {
+		this.redirectUrl = redirectUrl;
 	}
 }

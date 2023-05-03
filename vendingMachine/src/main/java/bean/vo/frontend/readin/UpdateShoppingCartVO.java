@@ -2,31 +2,33 @@ package bean.vo.frontend.readin;
 
 public class UpdateShoppingCartVO {
 
+	private String currentUrl;
 	private UpdateShoppingCartGoodsVO[] updateShoppingCartGoodsArray;
-	private String queryString;
+
 	
 	
 	public UpdateShoppingCartVO() {
 	}
-	public UpdateShoppingCartVO(UpdateShoppingCartGoodsVO[] updateShoppingCartGoodsArray, String queryString) {
+	public UpdateShoppingCartVO(String currentUrl, UpdateShoppingCartGoodsVO[] updateShoppingCartGoodsArray) {
 
+		this.currentUrl = currentUrl;
 		this.updateShoppingCartGoodsArray = updateShoppingCartGoodsArray;
-		this.queryString = queryString;
 	}
 	
 	
+	public String getCurrentUrl() {
+		return currentUrl;
+	}
 	public UpdateShoppingCartGoodsVO[] getUpdateShoppingCartGoodsArray() {
 		return updateShoppingCartGoodsArray;
 	}
-	public String getQueryString() {
-		return queryString;
+
+	
+	
+	public void setCurrentUrl(String currentUrl) {
+		this.currentUrl = currentUrl;
 	}
-	
-	
 	public void setUpdateShoppingCartGoodsArray(UpdateShoppingCartGoodsVO[] updateShoppingCartGoodsArray) {
 		this.updateShoppingCartGoodsArray = updateShoppingCartGoodsArray;
-	}
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
 	}
 }
