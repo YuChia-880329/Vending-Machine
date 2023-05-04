@@ -35,13 +35,13 @@ public class GoodsTablePageService {
 		return INSTANCE;
 	}
 	
-	public GoodsTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectorySymbolicLinkName) {
+	public GoodsTablePageVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectoryName) {
 		
 		GoodsTablePageVODTO goodsTablePageVODTO = new GoodsTablePageVODTO();
 		
 		GoodsTablePagesOBJDTO goodsTablePagesOBJDTO = goodsTablePagesRepositoryDAO.getObjDto(pageParameterToGoodsTablePagesInput(pageParameterVODTO));
 		
-		goodsTablePageVODTO.setGoodsTable(goodsTableService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, shoppingCartMemoryDbDAO, imagesDirectorySymbolicLinkName));
+		goodsTablePageVODTO.setGoodsTable(goodsTableService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, shoppingCartMemoryDbDAO, imagesDirectoryName));
 		goodsTablePageVODTO.setPagination(preparePagination(pageParameterVODTO, goodsTablePagesOBJDTO));
 		
 		return goodsTablePageVODTO;

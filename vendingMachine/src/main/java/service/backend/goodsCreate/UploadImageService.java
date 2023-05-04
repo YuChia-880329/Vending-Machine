@@ -20,9 +20,9 @@ public class UploadImageService {
 		return INSTANCE;
 	}
 	
-	public void upload(Part imagePart, String imagesDirectorySymbolicLinkName) throws IOException {
+	public void upload(Part imagePart, String deployPath, String imagesDirectoryName) throws IOException {
 		
-		String imagePath = StringConcatUtil.concate(imagesDirectorySymbolicLinkName, File.separator, imagePart.getSubmittedFileName());
+		String imagePath = StringConcatUtil.concate(deployPath, File.separator, imagesDirectoryName, File.separator, imagePart.getSubmittedFileName());
 	
 		ImageUtil.uploadImage(imagePart.getInputStream(), imagePath);
 	}

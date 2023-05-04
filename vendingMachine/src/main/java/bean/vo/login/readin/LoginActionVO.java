@@ -1,12 +1,12 @@
 package bean.vo.login.readin;
 
-public class LoginVO {
+public class LoginActionVO {
 
 	private LoginFormVO loginForm;
 
-	public LoginVO() {
+	public LoginActionVO() {
 	}
-	public LoginVO(LoginFormVO loginForm) {
+	public LoginActionVO(LoginFormVO loginForm) {
 
 		this.loginForm = loginForm;
 	}

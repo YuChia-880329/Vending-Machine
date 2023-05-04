@@ -11,6 +11,7 @@ import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
+import dao.memory.statusCache.login.NotLoginMsgStatusCacheDAO;
 
 public class MemoryDAOKitOBJDTO {
 
@@ -26,6 +27,7 @@ public class MemoryDAOKitOBJDTO {
 	private CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO;
 	private ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO;
 	private CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO;
+	private NotLoginMsgStatusCacheDAO notLoginMsgStatusCacheDAO;
 	
 	
 	public MemoryDAOKitOBJDTO() {
@@ -40,7 +42,8 @@ public class MemoryDAOKitOBJDTO {
 			dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO frontendGoodsTablePagesRepositoryDAO,
 			CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO,
 			ClearShoppingCartMsgStatusCacheDAO clearShoppingCartMsgStatusCacheDAO,
-			CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO) {
+			CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO,
+			NotLoginMsgStatusCacheDAO notLoginMsgStatusCacheDAO) {
 	
 		this.addShoppingCartIllegalMsgLineCacheDAO = addShoppingCartIllegalMsgLineCacheDAO;
 		this.addShoppingCartMsgLineCacheDAO = addShoppingCartMsgLineCacheDAO;
@@ -54,6 +57,7 @@ public class MemoryDAOKitOBJDTO {
 		this.checkoutMoneyIllegalMsgStatusCacheDAO = checkoutMoneyIllegalMsgStatusCacheDAO;
 		this.clearShoppingCartMsgStatusCacheDAO = clearShoppingCartMsgStatusCacheDAO;
 		this.currentMemberStatusCacheDAO = currentMemberStatusCacheDAO;
+		this.notLoginMsgStatusCacheDAO = notLoginMsgStatusCacheDAO;
 	}
 
 
@@ -92,6 +96,9 @@ public class MemoryDAOKitOBJDTO {
 	}
 	public CurrentMemberStatusCacheDAO getCurrentMemberStatusCacheDAO() {
 		return currentMemberStatusCacheDAO;
+	}
+	public NotLoginMsgStatusCacheDAO getNotLoginMsgStatusCacheDAO() {
+		return notLoginMsgStatusCacheDAO;
 	}
 
 	
@@ -136,5 +143,8 @@ public class MemoryDAOKitOBJDTO {
 	}
 	public void setCurrentMemberStatusCacheDAO(CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO) {
 		this.currentMemberStatusCacheDAO = currentMemberStatusCacheDAO;
+	}
+	public void setNotLoginMsgStatusCacheDAO(NotLoginMsgStatusCacheDAO notLoginMsgStatusCacheDAO) {
+		this.notLoginMsgStatusCacheDAO = notLoginMsgStatusCacheDAO;
 	}
 }

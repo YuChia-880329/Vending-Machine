@@ -23,12 +23,12 @@ public class GoodsTableService {
 	}
 	
 	public GoodsTableVODTO prepare(PageParameterVODTO pageParameterVODTO, GoodsTablePagesRepositoryDAO goodsTablePagesRepositoryDAO, 
-			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectorySymbolicLinkName) {
+			ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, String imagesDirectoryName) {
 		
 		GoodsTableVODTO goodsTableVODTO = new GoodsTableVODTO();
 		
 		goodsTableVODTO.setGoodsTableEntries(goodsTableEntriesService.prepare(pageParameterVODTO, goodsTablePagesRepositoryDAO, 
-				shoppingCartMemoryDbDAO, imagesDirectorySymbolicLinkName));
+				shoppingCartMemoryDbDAO, imagesDirectoryName));
 		
 		return goodsTableVODTO;
 	}

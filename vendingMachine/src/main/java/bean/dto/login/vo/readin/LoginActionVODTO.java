@@ -1,12 +1,12 @@
 package bean.dto.login.vo.readin;
 
-public class LoginVODTO {
+public class LoginActionVODTO {
 
 	private LoginFormVODTO loginForm;
 
-	public LoginVODTO() {
+	public LoginActionVODTO() {
 	}
-	public LoginVODTO(LoginFormVODTO loginForm) {
+	public LoginActionVODTO(LoginFormVODTO loginForm) {
 		
 		this.loginForm = loginForm;
 	}

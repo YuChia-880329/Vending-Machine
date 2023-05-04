@@ -58,13 +58,14 @@ public class CreateServlet extends HttpServlet {
 		
 		ServletContext context = req.getServletContext();
 		
-		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
+		String deployPath = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_DEPLOY_PATH);
+		String imagesDirectoryName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_NAME);
 		
 		CreateFormVO createFormVO = getCreateFormVODTO(req);
 		try {
 			
 			CreateFormVODTO createFormVODTO = createFormVOTransformer.voToDto(createFormVO);
-			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, imagesDirectorySymbolicLinkName);
+			CreateResultVODTO createResultVODTO = createService.create(createFormVODTO, deployPath, imagesDirectoryName);
 			CreateResultVO createResultVO = createResultVOTransformer.dtoToVo(createResultVODTO);
 			resp.getWriter().append(gson.toJson(createResultVO));
 		} catch (CheckerException ex) {

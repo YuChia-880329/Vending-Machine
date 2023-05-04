@@ -2,22 +2,27 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   	<display-name>vendingMachine</display-name>
   	<welcome-file-list>
-    	<welcome-file>login.jsp</welcome-file>
+    	<welcome-file>login</welcome-file>
   	</welcome-file-list>
 
 
   	<!-- parameter -->
   	<context-param>
-  		<param-name>imagesDirectorySymbolicLinkName</param-name>
-  		<param-value>images_symbolicLink</param-value>
+  		<param-name>deployPath</param-name>
+  		<param-value>C:\Program Files\Apache Software Foundation\Tomcat 9.0\test_deploy\vendingMachine</param-value>
   	</context-param>
+  	<context-param>
+  		<param-name>imagesDirectoryName</param-name>
+  		<param-value>drinkImages</param-value>
+  	</context-param>
+
   	
   	
 	<!-- servlet -->
-	<!-- controller.servlet.login.ajax -->
+	<!-- controller.servlet.login.go -->
 	<servlet>
-		<servlet-name>loginServlet</servlet-name>
-		<servlet-class>controller.servlet.login.ajax.LoginServlet</servlet-class>
+		<servlet-name>goLoginServlet</servlet-name>
+		<servlet-class>controller.servlet.login.go.GoLoginServlet</servlet-class>
 	</servlet>
 	<!-- controller.servlet.backend.go -->
 	<servlet>
@@ -41,6 +46,7 @@
 		<servlet-name>goFrontendServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.go.GoFrontendServlet</servlet-class>
 	</servlet>
+	
 	<!-- controller.servlet.backend.goodsList -->
 	<servlet>
 		<servlet-name>goodsListSearchServlet</servlet-name>
@@ -72,6 +78,13 @@
 		<servlet-name>checkoutServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.CheckoutServlet</servlet-class>
 	</servlet>
+
+	
+	<!-- controller.servlet.login.ajax -->
+	<servlet>
+		<servlet-name>loginActionServlet</servlet-name>
+		<servlet-class>controller.servlet.login.ajax.LoginActionServlet</servlet-class>
+	</servlet>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet>
 		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
@@ -86,7 +99,7 @@
 		<servlet-name>createServlet</servlet-name>
 		<servlet-class>controller.servlet.backend.goodsCreate.ajax.CreateServlet</servlet-class>
 	</servlet>
-	<!-- controller.servlet.frontend -->
+	<!-- controller.servlet.frontend.ajax -->
 	<servlet>
 		<servlet-name>goBackendAjaxServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.ajax.GoBackendAjaxServlet</servlet-class>
@@ -95,15 +108,19 @@
 		<servlet-name>checkoutAddShoppingCartAjaxServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.ajax.CheckoutAddShoppingCartServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>logoutServlet</servlet-name>
+		<servlet-class>controller.servlet.frontend.ajax.LogoutServlet</servlet-class>
+	</servlet>
 
 
   	
   	
   	
 	<!-- servlet mapping -->
-	<!-- controller.servlet.login.ajax -->
+	<!-- controller.servlet.login.go -->
 	<servlet-mapping>
-		<servlet-name>loginServlet</servlet-name>
+		<servlet-name>goLoginServlet</servlet-name>
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<!-- controller.servlet.backend.go -->
@@ -128,6 +145,7 @@
 		<servlet-name>goFrontendServlet</servlet-name>
 		<url-pattern>/machine</url-pattern>
 	</servlet-mapping>
+	
 	<!-- controller.servlet.backend.goodsList -->
 	<servlet-mapping>
 		<servlet-name>goodsListSearchServlet</servlet-name>
@@ -159,6 +177,12 @@
 		<servlet-name>checkoutServlet</servlet-name>
 		<url-pattern>/machine/checkout</url-pattern>
 	</servlet-mapping>
+	
+	<!-- controller.servlet.login.ajax -->
+	<servlet-mapping>
+		<servlet-name>loginActionServlet</servlet-name>
+		<url-pattern>/loginAction</url-pattern>
+	</servlet-mapping>
 	<!-- controller.servlet.backend.goodsUpdate.ajax -->
 	<servlet-mapping>
 		<servlet-name>goodsUpdateUpdateServlet</servlet-name>
@@ -173,7 +197,7 @@
 		<servlet-name>createServlet</servlet-name>
 		<url-pattern>/machine/backend/goodsCreate/create</url-pattern>
 	</servlet-mapping>
-	<!-- controller.servlet.frontend -->
+	<!-- controller.servlet.frontend.ajax -->
 	<servlet-mapping>
 		<servlet-name>goBackendAjaxServlet</servlet-name>
 		<url-pattern>/machine/goBackendAjax</url-pattern>
@@ -181,6 +205,10 @@
 	<servlet-mapping>
 		<servlet-name>checkoutAddShoppingCartAjaxServlet</servlet-name>
 		<url-pattern>/machine/addShoppingCartAjax</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>logoutServlet</servlet-name>
+		<url-pattern>/machine/logout</url-pattern>
 	</servlet-mapping>
 
   	
@@ -202,10 +230,19 @@
   		<filter-name>contentTypeFilter</filter-name>
   		<filter-class>filter.ContentTypeFilter</filter-class>
   	</filter>
+  	  <filter>
+  		<filter-name>memberFilter</filter-name>
+  		<filter-class>filter.MemberFilter</filter-class>
+  	</filter>
+  	
   	
   	<!-- filter mapping -->
   	<filter-mapping>
   		<filter-name>contentTypeFilter</filter-name>
+  		<url-pattern>/machine/*</url-pattern>
+  	</filter-mapping>
+  	  <filter-mapping>
+  		<filter-name>memberFilter</filter-name>
   		<url-pattern>/machine/*</url-pattern>
   	</filter-mapping>
   	

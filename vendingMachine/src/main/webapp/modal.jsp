@@ -5,7 +5,7 @@
 	  	<div class="modal-dialog msg-modal-dialog">
 	    	<div class="modal-content msg-modal-content">
 	      		<div class="modal-header msg-modal-header">
-	        		<h4 class="modal-title">Confirm</h4>
+	        		<h4 class="modal-title">確認</h4>
 	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      		</div>
 	      		<div class="modal-body msg-modal-body">
@@ -24,7 +24,7 @@
 		<div class="modal-dialog msg-modal-dialog">
 	    	<div class="modal-content msg-modal-content">
 	      		<div class="modal-header msg-modal-header">
-	        		<h4 class="modal-title">Alert</h4>
+	        		<h4 class="modal-title">警告</h4>
 	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      		</div>
 	      		<div class="modal-body msg-modal-body">

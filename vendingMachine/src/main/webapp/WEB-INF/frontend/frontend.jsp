@@ -32,6 +32,7 @@
 			$('#' + updateShoppingCartBtnId).click(updateShoppingCartBtnClicked);
 			$('#' + checkoutBtnId).click(checkoutBtnClicked);
 			$('#' + goBackendBtnId).click(goBackendBtnClicked);
+			$('#' + logoutBtnId).click(logoutBtnClicked);
 		}
 
 	</script>
@@ -75,7 +76,7 @@
 					
 					<div class="mb-5">
 						<a href="#" class="link-primary h4" id="go_backend_btn">後臺頁面</a>&nbsp; &nbsp;
-						<a href="#" class="link-primary h4">登出</a>
+						<a href="#" class="link-primary h4" id="logout_btn">登出</a>
 					</div>
 					
 					<div class="mb-4">

@@ -11,12 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import bean.dto.frontend.vo.readin.PageParameterVODTO;
 import bean.dto.frontend.vo.writeout.FrontendVODTO;
-import bean.dto.model.MemberModelDTO;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.frontend.readin.PageParameterVO;
 import bean.vo.frontend.writeout.FrontendVO;
 import listener.context.ParameterContextListener;
-import service.frontend.prepare.FrontendService;
+import service.frontend.prepare.GoFrontendService;
 import template.exception.CheckerException;
 import transformer.frontend.vo.readin.PageParameterVOTransformer;
 import transformer.frontend.vo.writeout.FrontendVOTransformer;
@@ -37,14 +36,14 @@ public class GoFrontendServlet extends HttpServlet {
 	private static final String REQ_ATTR_VO = "vo";
 	
 	
-	private FrontendService frontendService;
+	private GoFrontendService goFrontendService;
 	private PageParameterVOTransformer pageParameterVOTransformer;
 	private FrontendVOTransformer frontendVOTransformer;
 	
 	@Override
 	public void init() throws ServletException {
 		
-		frontendService = FrontendService.getInstance();
+		goFrontendService = GoFrontendService.getInstance();
 		pageParameterVOTransformer = PageParameterVOTransformer.getInstance();
 		frontendVOTransformer = FrontendVOTransformer.getInstance();
 	}
@@ -57,14 +56,13 @@ public class GoFrontendServlet extends HttpServlet {
 		
 		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
 		
-		String imagesDirectorySymbolicLinkName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_SYMBOLIC_LINK_NAME);
-		MemberModelDTO memberModelDTO = new MemberModelDTO("test", "test", "test");
+		String imagesDirectoryName = (String)context.getAttribute(ParameterContextListener.CTX_ATTR_IMAGES_DIRECTORY_NAME);
 		PageParameterVO pageParameterVO = getPageParameterVO(req);
 		
 		try {
 
 			PageParameterVODTO pageParameterVODTO = pageParameterVOTransformer.voToDto(pageParameterVO);
-			FrontendVODTO frontendVODTO = frontendService.prepare(pageParameterVODTO, memberModelDTO, imagesDirectorySymbolicLinkName, accountOBJDTO);
+			FrontendVODTO frontendVODTO = goFrontendService.prepare(pageParameterVODTO, imagesDirectoryName, accountOBJDTO);
 			FrontendVO frontendVO = frontendVOTransformer.dtoToVo(frontendVODTO);
 			
 			req.setAttribute(REQ_ATTR_VO, frontendVO);

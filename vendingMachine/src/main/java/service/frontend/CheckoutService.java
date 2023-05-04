@@ -16,12 +16,14 @@ import bean.dto.frontend.obj.cache.receiptContent.TotalPriceMsgOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.obj.statusCache.checkoutMoneyIllegalMsgLineOBJ.CheckoutMoneyIllegalMsgHasMsgOBJDTO;
 import bean.dto.frontend.vo.readin.CheckoutVODTO;
+import bean.dto.login.obj.statusCache.currentMember.CurrentMemberOBJDTO;
 import bean.dto.model.GoodsModelDTO;
 import bean.dto.model.OrderModelDTO;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
+import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
 import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 import service.model.GoodsModelService;
 import service.model.OrderModelService;
@@ -52,6 +54,7 @@ public class CheckoutService {
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
 		CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO = memoryDAOKitVMDAO.getCheckoutMoneyIllegalMsgStatusCacheDAO(accountOBJDTO);
 		ReceiptContentCacheDAO receiptContentCacheDAO = memoryDAOKitVMDAO.getReceiptContentCacheDAO(accountOBJDTO);
+		CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO = memoryDAOKitVMDAO.getCurrentMemberStatusCacheDAO(accountOBJDTO);
 		
 		List<ShoppingCartOBJDTO> shoppingCartOBJDTOs = shoppingCartMemoryDbDAO.searchAll();
 		Map<Integer, GoodsModelDTO> goodsModelDTOMap = new HashMap<>();
@@ -79,7 +82,7 @@ public class CheckoutService {
 			if(paidMoney >= shouldPaid) {
 				
 
-				List<OrderModelDTO> orderModelDTOs = checkoutOrders(shoppingCartMemoryDbDAO, goodsModelDTOMap);
+				List<OrderModelDTO> orderModelDTOs = checkoutOrders(shoppingCartMemoryDbDAO, currentMemberStatusCacheDAO, goodsModelDTOMap);
 				
 				for(OrderModelDTO orderModelDTO : orderModelDTOs) {
 					
@@ -170,9 +173,11 @@ public class CheckoutService {
 		return receiptOBJDTO;
 	}
 	
-	private List<OrderModelDTO> checkoutOrders(ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, Map<Integer, GoodsModelDTO> goodsModelDTOMap) {
+	private List<OrderModelDTO> checkoutOrders(ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO, Map<Integer, GoodsModelDTO> goodsModelDTOMap) {
 		
 		List<OrderModelDTO> orderModelDTOs = new ArrayList<>();
+		
+		CurrentMemberOBJDTO currentMemberOBJDTO = currentMemberStatusCacheDAO.getStatus();
 		
 		List<ShoppingCartOBJDTO> shoppingCartOBJDTOs = shoppingCartMemoryDbDAO.searchAll();
 		for(ShoppingCartOBJDTO shoppingCartOBJDTO : shoppingCartOBJDTOs) {
@@ -183,7 +188,7 @@ public class CheckoutService {
 			OrderModelDTO orderModelDTO = new OrderModelDTO();
 			
 			orderModelDTO.setDateTime(LocalDateTime.now());
-			orderModelDTO.setCustomerId("A124243295");
+			orderModelDTO.setCustomerId(currentMemberOBJDTO.getId());
 			orderModelDTO.setGoodsId(id);
 			orderModelDTO.setGoodsPrice(goodsModelDTO.getPrice());
 			orderModelDTO.setBuyQuantity(shoppingCartOBJDTO.getBuyQuantity());

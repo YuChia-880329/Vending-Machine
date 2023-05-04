@@ -1,10 +1,10 @@
 package service.frontend.prepare;
 
-import java.io.File;
-
 import bean.dto.frontend.vo.writeout.WelcomeMsgVODTO;
 import bean.dto.frontend.vo.writeout.WelcomePartVODTO;
-import bean.dto.model.MemberModelDTO;
+import bean.dto.login.obj.statusCache.currentMember.CurrentMemberOBJDTO;
+import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
+import util.StringConcatUtil;
 
 public class WelcomePartService {
 
@@ -21,25 +21,27 @@ public class WelcomePartService {
 		return INSTANCE;
 	}
 	
-	public WelcomePartVODTO prepare(String imagesDirectorySymbolicLinkName, MemberModelDTO memberModelDTO) {
+	public WelcomePartVODTO prepare(String imagesDirectoryName, CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO) {
 		
 		WelcomePartVODTO welcomePartVODTO = new WelcomePartVODTO();
 		
-		welcomePartVODTO.setWelcomeImagePath(prepareWelcomeImagePath(imagesDirectorySymbolicLinkName));
-		welcomePartVODTO.setWelcomeMsg(prepareWelcomeMsg(memberModelDTO));
+		welcomePartVODTO.setWelcomeImagePath(prepareWelcomeImagePath(imagesDirectoryName));
+		welcomePartVODTO.setWelcomeMsg(prepareWelcomeMsg(currentMemberStatusCacheDAO));
 		
 		return welcomePartVODTO;
 	}
 	
-	private String prepareWelcomeImagePath(String imagesDirectorySymbolicLinkName) {
+	private String prepareWelcomeImagePath(String imagesDirectoryName) {
 		
-		return imagesDirectorySymbolicLinkName + File.separator + WELCOME_IMAGE_PATH;
+		return StringConcatUtil.concate(imagesDirectoryName, "/", WELCOME_IMAGE_PATH);
 	}
-	private WelcomeMsgVODTO prepareWelcomeMsg(MemberModelDTO memberModelDTO) {
+	private WelcomeMsgVODTO prepareWelcomeMsg(CurrentMemberStatusCacheDAO currentMemberStatusCacheDAO) {
+		
+		CurrentMemberOBJDTO currentMemberOBJDTO = currentMemberStatusCacheDAO.getStatus();
 		
 		WelcomeMsgVODTO welcomeMsgVODTO = new WelcomeMsgVODTO();
 		
-		welcomeMsgVODTO.setCustomerName(memberModelDTO.getName());
+		welcomeMsgVODTO.setCustomerName(currentMemberOBJDTO.getName());
 		
 		return welcomeMsgVODTO;
 	}

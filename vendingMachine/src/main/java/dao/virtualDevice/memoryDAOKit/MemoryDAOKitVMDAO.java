@@ -19,6 +19,7 @@ import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
 import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
+import dao.memory.statusCache.login.NotLoginMsgStatusCacheDAO;
 import transformer.virtualMachine.obj.memoryDAOKitVM.AccountOBJTransformer;
 import transformer.virtualMachine.obj.memoryDAOKitVM.MemoryDAOKitOBJTransformer;
 import virtualMachine.MemoryDAOKitVM;
@@ -130,6 +131,13 @@ public class MemoryDAOKitVMDAO {
 				getNewDAOSupCurrentMemberStatusCacheDAO(), 
 				(memoryDAOKitOBJDTO, dao) -> memoryDAOKitOBJDTO.setCurrentMemberStatusCacheDAO(dao));
 	}
+	public NotLoginMsgStatusCacheDAO getNotLoginMsgStatusCacheDAO(AccountOBJDTO accountOBJDTO) {
+		
+		return getDAO(accountOBJDTO, 
+				memoryDAOKitOBJDTO -> memoryDAOKitOBJDTO.getNotLoginMsgStatusCacheDAO(), 
+				getNewDAOSupNotLoginMsgStatusCacheDAO(), 
+				(memoryDAOKitOBJDTO, dao) -> memoryDAOKitOBJDTO.setNotLoginMsgStatusCacheDAO(dao));
+	}
 	
 	
 	
@@ -235,5 +243,9 @@ public class MemoryDAOKitVMDAO {
 	private Supplier<CurrentMemberStatusCacheDAO> getNewDAOSupCurrentMemberStatusCacheDAO() {
 		
 		return () -> new CurrentMemberStatusCacheDAO();
+	}
+	private Supplier<NotLoginMsgStatusCacheDAO> getNewDAOSupNotLoginMsgStatusCacheDAO() {
+		
+		return () -> new NotLoginMsgStatusCacheDAO();
 	}
 }

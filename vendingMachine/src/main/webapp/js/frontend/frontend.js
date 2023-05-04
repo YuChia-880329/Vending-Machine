@@ -73,6 +73,7 @@
 	
 	
 	let goBackendBtnId = 'go_backend_btn';
+	let logoutBtnId = 'logout_btn';
 	
 	
 	// show message
@@ -176,7 +177,7 @@
 	// add shopping cart
 	function addShoppingCartBtnClicked(){
 	
-		if(addShoppingCartInputChecked()){
+		if(addShoppingCartInputCheck()){
 			
 			$('#' + addShoppingCartBodyContentDivId).empty();
 			
@@ -230,7 +231,7 @@
 			new bootstrap.Modal('#' + addShoppingCartModalId, {}).show();
 		}
 	}
-	function addShoppingCartInputChecked(){
+	function addShoppingCartInputCheck(){
 		
 		var pass = true;
 		
@@ -445,6 +446,25 @@
 	
 			ajaxFctn();
 		}
+	}
+	
+	// logout
+	function logoutBtnClicked(){
+		
+		confirmModal('即將登出', function(){
+			
+			ajaxUrl = '/vendingMachine/machine/logout';
+			redirectUrl = '/vendingMachine/login';
+			
+			$.ajax({
+				url : ajaxUrl,
+				method : 'POST',
+				success : function(){
+					
+					window.location.href = redirectUrl;
+				}
+			});
+		}).show();
 	}
 	
 	

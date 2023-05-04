@@ -31,18 +31,18 @@ public class CreateService {
 		return INSTANCE;
 	}
 	
-	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String imagesDirectorySymbolicLinkName) {
+	public CreateResultVODTO create(CreateFormVODTO createFormVODTO, String deployPath, String imagesDirectoryName) {
 		
 		GoodsModelDTO goodsModelDTO = createFormVOToGoodsModel(createFormVODTO);
 		
 		CreateMsgVODTO createMsgVODTO = new CreateMsgVODTO();
 		try {
 			
+			uploadImageService.upload(createFormVODTO.getImagePart(), deployPath, imagesDirectoryName);
 			goodsModelDTO = goodsModelService.add(goodsModelDTO);
 			
 			if(goodsModelDTO != null) {
 				
-				uploadImageService.upload(createFormVODTO.getImagePart(), imagesDirectorySymbolicLinkName);
 				createMsgVODTO.setSuccess(true);
 				memoryDAOKitVMDAO.requireUpdateGoodsTablePagesRepositoryDAO();
 				memoryDAOKitVMDAO.requireUpdateFrontendGoodsTablePagesRepositoryDAO();

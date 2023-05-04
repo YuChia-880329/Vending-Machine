@@ -10,39 +10,39 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import bean.dto.login.vo.readin.LoginVODTO;
+import bean.dto.login.vo.readin.LoginActionVODTO;
 import bean.dto.login.vo.writeout.LoginResultVODTO;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.login.readin.LoginFormVO;
-import bean.vo.login.readin.LoginVO;
+import bean.vo.login.readin.LoginActionVO;
 import bean.vo.login.writeout.LoginResultVO;
-import service.login.LoginService;
+import service.login.LoginActionService;
 import template.exception.CheckerException;
-import transformer.login.vo.readin.LoginVOTransformer;
+import transformer.login.vo.readin.LoginActionVOTransformer;
 import transformer.login.vo.writeout.LoginResultVOTransformer;
 import util.GsonUtil;
 import util.ServletUtil;
 
 @SuppressWarnings("serial")
-public class LoginServlet extends HttpServlet {
+public class LoginActionServlet extends HttpServlet {
 
 	// url
-	public static final String URL = "/vendingMachine/login";
+	public static final String URL = "/vendingMachine/loginAction";
 	
 	// request parameter
 	public static final String REQ_PARAM_ACCOUNT = "account";
 	public static final String REQ_PARAM_PWD = "pwd";
 	
-	private LoginVOTransformer loginVOTransformer;
-	private LoginService loginService;
+	private LoginActionVOTransformer loginVOTransformer;
+	private LoginActionService loginService;
 	private LoginResultVOTransformer loginResultVOTransformer;
 	private Gson gson;
 	
 	@Override
 	public void init() throws ServletException {
 		
-		loginVOTransformer = LoginVOTransformer.getInstance();
-		loginService = LoginService.getInstance();
+		loginVOTransformer = LoginActionVOTransformer.getInstance();
+		loginService = LoginActionService.getInstance();
 		loginResultVOTransformer = LoginResultVOTransformer.getInstance();
 		gson = GsonUtil.getGson();
 	}
@@ -55,12 +55,12 @@ public class LoginServlet extends HttpServlet {
 		
 		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
 		
-		LoginVO loginVO = getLoginVO(req);
+		LoginActionVO loginActionVO = getLoginVO(req);
 		
 		try {
 			
-			LoginVODTO loginVODTO = loginVOTransformer.voToDto(loginVO);
-			LoginResultVODTO loginResultVODTO = loginService.login(loginVODTO, accountOBJDTO);
+			LoginActionVODTO loginActionVODTO = loginVOTransformer.voToDto(loginActionVO);
+			LoginResultVODTO loginResultVODTO = loginService.login(loginActionVODTO, accountOBJDTO);
 			LoginResultVO loginResultVO = loginResultVOTransformer.dtoToVo(loginResultVODTO);
 			resp.getWriter().append(gson.toJson(loginResultVO));
 		} catch (CheckerException ex) {
@@ -69,12 +69,12 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 	
-	private LoginVO getLoginVO(HttpServletRequest req) {
+	private LoginActionVO getLoginVO(HttpServletRequest req) {
 		
 		String account = req.getParameter(REQ_PARAM_ACCOUNT);
 		String pwd = req.getParameter(REQ_PARAM_PWD);
 		
-		LoginVO loginVO = new LoginVO();
+		LoginActionVO loginVO = new LoginActionVO();
 		
 		LoginFormVO loginFormVO = new LoginFormVO();
 		
