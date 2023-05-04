@@ -2,8 +2,8 @@ package service.frontend.prepare;
 
 import bean.dto.frontend.vo.writeout.WelcomeMsgVODTO;
 import bean.dto.frontend.vo.writeout.WelcomePartVODTO;
-import bean.dto.login.obj.statusCache.currentMember.CurrentMemberOBJDTO;
-import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
+import bean.dto.obj.statusCache.currentMember.CurrentMemberOBJDTO;
+import dao.memory.statusCache.CurrentMemberStatusCacheDAO;
 import util.StringConcatUtil;
 
 public class WelcomePartService {

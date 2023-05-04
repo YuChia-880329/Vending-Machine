@@ -7,10 +7,10 @@ import template.transformer.bean.vo.VOWriteOutTransformerTemplate;
 public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<FrontendVODTO, FrontendVO> {
 
 	private AddShoppingCartIllegalMsgVOTransformer addShoppingCartIllegalMsgVOTransformer;
-	private AddShoppingCartMsgVOTransformer addShoppingCartMsgVOTransformer;
+	private AddShoppingCartLegalMsgVOTransformer addShoppingCartMsgVOTransformer;
 	private ClearShoppingCartMsgVOTransformer clearShoppingCartMsgVOTransformer;
 	private UpdateShoppingCartIllegalMsgVOTransformer updateShoppingCartIllegalMsgVOTransformer;
-	private UpdateShoppingCartMsgVOTransformer updateShoppingCartMsgVOTransformer;
+	private UpdateShoppingCartLegalMsgVOTransformer updateShoppingCartMsgVOTransformer;
 	private CheckoutMoneyIllegalMsgVOTransformer checkoutMoneyIllegalMsgVOTransformer;
 	private ShoppingCartVOTransformer shoppingCartVOTransformer;
 	private WelcomePartVOTransformer welcomePartVOTransformer;
@@ -24,10 +24,10 @@ public class FrontendVOTransformer extends VOWriteOutTransformerTemplate<Fronten
 	private FrontendVOTransformer() {
 		
 		addShoppingCartIllegalMsgVOTransformer = AddShoppingCartIllegalMsgVOTransformer.getInstance();
-		addShoppingCartMsgVOTransformer = AddShoppingCartMsgVOTransformer.getInstance();
+		addShoppingCartMsgVOTransformer = AddShoppingCartLegalMsgVOTransformer.getInstance();
 		clearShoppingCartMsgVOTransformer = ClearShoppingCartMsgVOTransformer.getInstance();
 		updateShoppingCartIllegalMsgVOTransformer = UpdateShoppingCartIllegalMsgVOTransformer.getInstance();
-		updateShoppingCartMsgVOTransformer = UpdateShoppingCartMsgVOTransformer.getInstance();
+		updateShoppingCartMsgVOTransformer = UpdateShoppingCartLegalMsgVOTransformer.getInstance();
 		checkoutMoneyIllegalMsgVOTransformer = CheckoutMoneyIllegalMsgVOTransformer.getInstance();
 		shoppingCartVOTransformer = ShoppingCartVOTransformer.getInstance();
 		welcomePartVOTransformer = WelcomePartVOTransformer.getInstance();

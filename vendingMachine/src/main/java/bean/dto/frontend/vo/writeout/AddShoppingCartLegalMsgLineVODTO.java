@@ -1,14 +1,14 @@
 package bean.dto.frontend.vo.writeout;
 
-public class AddShoppingCartMsgLineVODTO {
+public class AddShoppingCartLegalMsgLineVODTO {
 
 	private String name;
 	private int addQuantity;
 	
 	
-	public AddShoppingCartMsgLineVODTO() {
+	public AddShoppingCartLegalMsgLineVODTO() {
 	}
-	public AddShoppingCartMsgLineVODTO(String name, int addQuantity) {
+	public AddShoppingCartLegalMsgLineVODTO(String name, int addQuantity) {
 
 		this.name = name;
 		this.addQuantity = addQuantity;

@@ -1,6 +1,6 @@
-package memory.statusCache.login;
+package memory.statusCache;
 
-import bean.obj.login.statusCache.currentMember.CurrentMemberOBJ;
+import bean.obj.statusCache.currentMember.CurrentMemberOBJ;
 import template.memory.statusCache.StatusCacheTemplate;
 
 public class CurrentMemberStatusCache extends StatusCacheTemplate<CurrentMemberOBJ> {

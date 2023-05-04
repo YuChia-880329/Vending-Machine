@@ -1,14 +1,14 @@
-package bean.obj.login.statusCache.currentMember;
+package bean.dto.obj.statusCache.currentMember;
 
-public class CurrentMemberOBJ {
+public class CurrentMemberOBJDTO {
 
 	private String id;
 	private String name;
 	
 	
-	public CurrentMemberOBJ() {
+	public CurrentMemberOBJDTO() {
 	}
-	public CurrentMemberOBJ(String id, String name) {
+	public CurrentMemberOBJDTO(String id, String name) {
 
 		this.id = id;
 		this.name = name;

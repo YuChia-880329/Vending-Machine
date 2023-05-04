@@ -10,9 +10,9 @@ import dao.memory.cache.frontend.UpdateShoppingCartIllegalMsgLineCacheDAO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.frontend.GoodsTablePagesRepositoryDAO;
+import dao.memory.statusCache.CurrentMemberStatusCacheDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
-import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
 import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
 public class GoFrontendService {

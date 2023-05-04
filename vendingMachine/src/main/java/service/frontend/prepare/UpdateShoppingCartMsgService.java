@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import bean.dto.frontend.obj.cache.updateShoppingCartMsgLine.UpdateShoppingCartMsgLineOBJDTO;
-import bean.dto.frontend.vo.writeout.UpdateShoppingCartMsgLineVODTO;
-import bean.dto.frontend.vo.writeout.UpdateShoppingCartMsgVODTO;
+import bean.dto.frontend.vo.writeout.UpdateShoppingCartLegalMsgLineVODTO;
+import bean.dto.frontend.vo.writeout.UpdateShoppingCartLegalMsgVODTO;
 import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 
 public class UpdateShoppingCartMsgService {
@@ -20,9 +20,9 @@ public class UpdateShoppingCartMsgService {
 		return INSTANCE;
 	}
 	
-	public UpdateShoppingCartMsgVODTO prepare(UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO) {
+	public UpdateShoppingCartLegalMsgVODTO prepare(UpdateShoppingCartMsgLineCacheDAO updateShoppingCartMsgLineCacheDAO) {
 		
-		UpdateShoppingCartMsgVODTO updateShoppingCartMsgVODTO = new UpdateShoppingCartMsgVODTO();
+		UpdateShoppingCartLegalMsgVODTO updateShoppingCartMsgVODTO = new UpdateShoppingCartLegalMsgVODTO();
 		
 		List<UpdateShoppingCartMsgLineOBJDTO> updateShoppingCartMsgLineOBJDTOs = updateShoppingCartMsgLineCacheDAO.use(true);
 		
@@ -32,15 +32,15 @@ public class UpdateShoppingCartMsgService {
 		return updateShoppingCartMsgVODTO;
 	}
 	
-	private List<UpdateShoppingCartMsgLineVODTO> updateShoppingCartMsgLineOBJsToUpdateShoppingCartMsgLineVOs(List<UpdateShoppingCartMsgLineOBJDTO> updateShoppingCartMsgLineOBJDTOs){
+	private List<UpdateShoppingCartLegalMsgLineVODTO> updateShoppingCartMsgLineOBJsToUpdateShoppingCartMsgLineVOs(List<UpdateShoppingCartMsgLineOBJDTO> updateShoppingCartMsgLineOBJDTOs){
 		
 		return updateShoppingCartMsgLineOBJDTOs.stream()
 				.map(updateShoppingCartMsgLineOBJDTO -> updateShoppingCartMsgLineOBJToUpdateShoppingCartMsgLineVO(updateShoppingCartMsgLineOBJDTO))
 				.collect(Collectors.toList());
 	}
-	private UpdateShoppingCartMsgLineVODTO updateShoppingCartMsgLineOBJToUpdateShoppingCartMsgLineVO(UpdateShoppingCartMsgLineOBJDTO updateShoppingCartMsgLineOBJDTO) {
+	private UpdateShoppingCartLegalMsgLineVODTO updateShoppingCartMsgLineOBJToUpdateShoppingCartMsgLineVO(UpdateShoppingCartMsgLineOBJDTO updateShoppingCartMsgLineOBJDTO) {
 		
-		UpdateShoppingCartMsgLineVODTO updateShoppingCartMsgLineVODTO = new UpdateShoppingCartMsgLineVODTO();
+		UpdateShoppingCartLegalMsgLineVODTO updateShoppingCartMsgLineVODTO = new UpdateShoppingCartLegalMsgLineVODTO();
 		
 		updateShoppingCartMsgLineVODTO.setName(updateShoppingCartMsgLineOBJDTO.getName());
 		updateShoppingCartMsgLineVODTO.setBuyQuantity(updateShoppingCartMsgLineOBJDTO.getBuyQuantity());

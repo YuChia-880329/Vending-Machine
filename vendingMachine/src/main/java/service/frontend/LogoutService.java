@@ -3,7 +3,7 @@ package service.frontend;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
-import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
+import dao.memory.statusCache.CurrentMemberStatusCacheDAO;
 import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
 public class LogoutService {

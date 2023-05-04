@@ -1,7 +1,7 @@
-package transformer.login.obj.statusCache.currentMemberOBJ;
+package transformer.obj.statusCache.currentMemberOBJ;
 
-import bean.dto.login.obj.statusCache.currentMember.CurrentMemberOBJDTO;
-import bean.obj.login.statusCache.currentMember.CurrentMemberOBJ;
+import bean.dto.obj.statusCache.currentMember.CurrentMemberOBJDTO;
+import bean.obj.statusCache.currentMember.CurrentMemberOBJ;
 import template.memory.statusCache.StatusCacheTransformerTemplate;
 
 public class CurrentMemberOBJTransformer extends StatusCacheTransformerTemplate<CurrentMemberOBJ, CurrentMemberOBJDTO> {

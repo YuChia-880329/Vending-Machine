@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import bean.dto.frontend.obj.cache.addShoppingCartMsgLine.AddShoppingCartMsgLineOBJDTO;
-import bean.dto.frontend.vo.writeout.AddShoppingCartMsgLineVODTO;
-import bean.dto.frontend.vo.writeout.AddShoppingCartMsgVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartLegalMsgLineVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartLegalMsgVODTO;
 import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 
 public class AddShoppingCartMsgService {
@@ -22,9 +22,9 @@ public class AddShoppingCartMsgService {
 		return INSTANCE;
 	}
 	
-	public AddShoppingCartMsgVODTO prepare(AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO) {
+	public AddShoppingCartLegalMsgVODTO prepare(AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO) {
 		
-		AddShoppingCartMsgVODTO addShoppingCartMsgVODTO = new AddShoppingCartMsgVODTO();
+		AddShoppingCartLegalMsgVODTO addShoppingCartMsgVODTO = new AddShoppingCartLegalMsgVODTO();
 		
 		List<AddShoppingCartMsgLineOBJDTO> addShoppingCartMsgLineOBJDTOs = addShoppingCartMsgLineCacheDAO.use(true);
 	
@@ -34,15 +34,15 @@ public class AddShoppingCartMsgService {
 		return addShoppingCartMsgVODTO;
 	}
 	
-	private List<AddShoppingCartMsgLineVODTO> addShoppingCartMsgLineOBJsToAddShoppingCartMsgLineVOs(List<AddShoppingCartMsgLineOBJDTO> addShoppingCartMsgLineOBJDTOs){
+	private List<AddShoppingCartLegalMsgLineVODTO> addShoppingCartMsgLineOBJsToAddShoppingCartMsgLineVOs(List<AddShoppingCartMsgLineOBJDTO> addShoppingCartMsgLineOBJDTOs){
 		
 		return addShoppingCartMsgLineOBJDTOs.stream()
 				.map(addShoppingCartMsgLineOBJDTO -> addShoppingCartMsgLineOBJToAddShoppingCartMsgLineVO(addShoppingCartMsgLineOBJDTO))
 				.collect(Collectors.toList());
 	}
-	private AddShoppingCartMsgLineVODTO addShoppingCartMsgLineOBJToAddShoppingCartMsgLineVO(AddShoppingCartMsgLineOBJDTO addShoppingCartMsgLineOBJDTO) {
+	private AddShoppingCartLegalMsgLineVODTO addShoppingCartMsgLineOBJToAddShoppingCartMsgLineVO(AddShoppingCartMsgLineOBJDTO addShoppingCartMsgLineOBJDTO) {
 		
-		AddShoppingCartMsgLineVODTO addShoppingCartMsgLineVODTO = new AddShoppingCartMsgLineVODTO();
+		AddShoppingCartLegalMsgLineVODTO addShoppingCartMsgLineVODTO = new AddShoppingCartLegalMsgLineVODTO();
 		
 		addShoppingCartMsgLineVODTO.setName(addShoppingCartMsgLineOBJDTO.getName());
 		addShoppingCartMsgLineVODTO.setAddQuantity(addShoppingCartMsgLineOBJDTO.getAddQuantity());

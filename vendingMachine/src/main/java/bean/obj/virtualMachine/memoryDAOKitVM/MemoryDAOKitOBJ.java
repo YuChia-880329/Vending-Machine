@@ -8,9 +8,9 @@ import dao.memory.cache.frontend.UpdateShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.memory.repository.backend.goodsList.GoodsTablePagesRepositoryDAO;
 import dao.memory.repository.backend.orderList.OrderTablePagesRepositoryDAO;
+import dao.memory.statusCache.CurrentMemberStatusCacheDAO;
 import dao.memory.statusCache.frontend.CheckoutMoneyIllegalMsgStatusCacheDAO;
 import dao.memory.statusCache.frontend.ClearShoppingCartMsgStatusCacheDAO;
-import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
 import dao.memory.statusCache.login.NotLoginMsgStatusCacheDAO;
 
 public class MemoryDAOKitOBJ {

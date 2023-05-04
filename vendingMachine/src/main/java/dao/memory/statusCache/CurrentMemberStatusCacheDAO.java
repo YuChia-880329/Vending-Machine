@@ -1,10 +1,10 @@
-package dao.memory.statusCache.login;
+package dao.memory.statusCache;
 
-import bean.dto.login.obj.statusCache.currentMember.CurrentMemberOBJDTO;
-import bean.obj.login.statusCache.currentMember.CurrentMemberOBJ;
-import memory.statusCache.login.CurrentMemberStatusCache;
+import bean.dto.obj.statusCache.currentMember.CurrentMemberOBJDTO;
+import bean.obj.statusCache.currentMember.CurrentMemberOBJ;
+import memory.statusCache.CurrentMemberStatusCache;
 import template.memory.statusCache.StatusCacheDAOTemplate;
-import transformer.login.obj.statusCache.currentMemberOBJ.CurrentMemberOBJTransformer;
+import transformer.obj.statusCache.currentMemberOBJ.CurrentMemberOBJTransformer;
 
 public class CurrentMemberStatusCacheDAO extends StatusCacheDAOTemplate<CurrentMemberOBJ, CurrentMemberStatusCache, CurrentMemberOBJDTO, CurrentMemberOBJTransformer> {
 

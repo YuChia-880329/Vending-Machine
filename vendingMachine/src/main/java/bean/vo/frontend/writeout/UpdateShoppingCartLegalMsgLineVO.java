@@ -1,14 +1,14 @@
 package bean.vo.frontend.writeout;
 
-public class UpdateShoppingCartMsgLineVO {
+public class UpdateShoppingCartLegalMsgLineVO {
 
 	private String name;
 	private String buyQuantity;
 	
 	
-	public UpdateShoppingCartMsgLineVO() {
+	public UpdateShoppingCartLegalMsgLineVO() {
 	}
-	public UpdateShoppingCartMsgLineVO(String name, String buyQuantity) {
+	public UpdateShoppingCartLegalMsgLineVO(String name, String buyQuantity) {
 
 		this.name = name;
 		this.buyQuantity = buyQuantity;

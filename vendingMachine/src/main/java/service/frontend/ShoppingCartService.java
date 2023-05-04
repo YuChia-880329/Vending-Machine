@@ -40,6 +40,24 @@ public class ShoppingCartService {
 	}
 	
 	
+	//
+	public void saveShoppingCartGoodsTemp(int id, int buyQuantity, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
+		
+		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(id);
+
+		int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
+
+		shoppingCartOBJDTO.setBuyQuantity(buyQuantity);
+		
+		if(originBuyQuantity > 0)
+			shoppingCartMemoryDbDAO.update(shoppingCartOBJDTO);
+		else
+			shoppingCartMemoryDbDAO.insert(shoppingCartOBJDTO);
+	}
+	
+	//
+	
+	
 	public void clearShoppingCart(ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
 		shoppingCartMemoryDbDAO.deleteAll();

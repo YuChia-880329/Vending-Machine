@@ -3,10 +3,10 @@ package bean.dto.frontend.vo.writeout;
 public class FrontendVODTO {
 
 	private AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsg;
-	private AddShoppingCartMsgVODTO addShoppingCartMsg;
+	private AddShoppingCartLegalMsgVODTO addShoppingCartMsg;
 	private ClearShoppingCartMsgVODTO clearShoppingCartMsg;
 	private UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg;
-	private UpdateShoppingCartMsgVODTO updateShoppingCartMsg;
+	private UpdateShoppingCartLegalMsgVODTO updateShoppingCartMsg;
 	private CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsg;
 	private ShoppingCartVODTO shoppingCart;
 	private WelcomePartVODTO welcomePart;
@@ -17,8 +17,8 @@ public class FrontendVODTO {
 	
 	public FrontendVODTO() {
 	}
-	public FrontendVODTO(AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsg, AddShoppingCartMsgVODTO addShoppingCartMsg, ClearShoppingCartMsgVODTO clearShoppingCartMsg, 
-			UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg, UpdateShoppingCartMsgVODTO updateShoppingCartMsg, CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsg, 
+	public FrontendVODTO(AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsg, AddShoppingCartLegalMsgVODTO addShoppingCartMsg, ClearShoppingCartMsgVODTO clearShoppingCartMsg, 
+			UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg, UpdateShoppingCartLegalMsgVODTO updateShoppingCartMsg, CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsg, 
 			ShoppingCartVODTO shoppingCart, WelcomePartVODTO welcomePart, GoodsTablePageVODTO goodsTablePage, FilterFormVODTO filterForm, ReceiptVODTO receipt) {
 
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
@@ -39,7 +39,7 @@ public class FrontendVODTO {
 	public AddShoppingCartIllegalMsgVODTO getAddShoppingCartIllegalMsg() {
 		return addShoppingCartIllegalMsg;
 	}
-	public AddShoppingCartMsgVODTO getAddShoppingCartMsg() {
+	public AddShoppingCartLegalMsgVODTO getAddShoppingCartMsg() {
 		return addShoppingCartMsg;
 	}
 	public ClearShoppingCartMsgVODTO getClearShoppingCartMsg() {
@@ -48,7 +48,7 @@ public class FrontendVODTO {
 	public UpdateShoppingCartIllegalMsgVODTO getUpdateShoppingCartIllegalMsg() {
 		return updateShoppingCartIllegalMsg;
 	}
-	public UpdateShoppingCartMsgVODTO getUpdateShoppingCartMsg() {
+	public UpdateShoppingCartLegalMsgVODTO getUpdateShoppingCartMsg() {
 		return updateShoppingCartMsg;
 	}
 	public CheckoutMoneyIllegalMsgVODTO getCheckoutMoneyIllegalMsg() {
@@ -74,7 +74,7 @@ public class FrontendVODTO {
 	public void setAddShoppingCartIllegalMsg(AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsg) {
 		this.addShoppingCartIllegalMsg = addShoppingCartIllegalMsg;
 	}
-	public void setAddShoppingCartMsg(AddShoppingCartMsgVODTO addShoppingCartMsg) {
+	public void setAddShoppingCartMsg(AddShoppingCartLegalMsgVODTO addShoppingCartMsg) {
 		this.addShoppingCartMsg = addShoppingCartMsg;
 	}
 	public void setClearShoppingCartMsg(ClearShoppingCartMsgVODTO clearShoppingCartMsg) {
@@ -83,7 +83,7 @@ public class FrontendVODTO {
 	public void setUpdateShoppingCartIllegalMsg(UpdateShoppingCartIllegalMsgVODTO updateShoppingCartIllegalMsg) {
 		this.updateShoppingCartIllegalMsg = updateShoppingCartIllegalMsg;
 	}
-	public void setUpdateShoppingCartMsg(UpdateShoppingCartMsgVODTO updateShoppingCartMsg) {
+	public void setUpdateShoppingCartMsg(UpdateShoppingCartLegalMsgVODTO updateShoppingCartMsg) {
 		this.updateShoppingCartMsg = updateShoppingCartMsg;
 	}
 	public void setCheckoutMoneyIllegalMsg(CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsg) {

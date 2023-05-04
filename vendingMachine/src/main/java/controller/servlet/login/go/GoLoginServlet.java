@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.dto.login.obj.statusCache.currentMember.CurrentMemberOBJDTO;
 import bean.dto.login.vo.writeout.LoginVODTO;
+import bean.dto.obj.statusCache.currentMember.CurrentMemberOBJDTO;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import bean.vo.login.writeout.LoginVO;
 import controller.servlet.frontend.go.GoFrontendServlet;
-import dao.memory.statusCache.login.CurrentMemberStatusCacheDAO;
+import dao.memory.statusCache.CurrentMemberStatusCacheDAO;
 import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 import listener.context.ParameterContextListener;
 import service.login.prepare.GoLoginService;
