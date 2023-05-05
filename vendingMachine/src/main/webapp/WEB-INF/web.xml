@@ -126,6 +126,10 @@
 		<servlet-name>tempClearShoppingCartServlet</servlet-name>
 		<servlet-class>temp.controller.servlet.frontend.ajax.ClearShoppingCartServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>tempCheckoutServlet</servlet-name>
+		<servlet-class>temp.controller.servlet.frontend.ajax.CheckoutServlet</servlet-class>
+	</servlet>
 
 
   	
@@ -236,6 +240,10 @@
 	<servlet-mapping>
 		<servlet-name>tempClearShoppingCartServlet</servlet-name>
 		<url-pattern>/machine/tempClearShoppingCart</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>tempCheckoutServlet</servlet-name>
+		<url-pattern>/machine/tempCheckout</url-pattern>
 	</servlet-mapping>
 
   	

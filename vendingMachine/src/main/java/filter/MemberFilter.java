@@ -30,8 +30,6 @@ public class MemberFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-	
-		Filter.super.init(filterConfig);
 		
 		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
@@ -62,6 +60,9 @@ public class MemberFilter implements Filter {
 			chain.doFilter(req, resp);
 		}
 	}
-	
 
+
+	@Override
+	public void destroy() {
+	}
 }

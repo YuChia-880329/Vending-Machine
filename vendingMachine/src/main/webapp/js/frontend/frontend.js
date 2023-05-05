@@ -706,18 +706,40 @@
 				};
 				
 				var checkoutVO = {
-					currentUrl	: currentUrl,
 					checkoutForm : checkoutForm
 				};
 				
-				$('#' + checkoutDataInputId).val(JSON.stringify(checkoutVO));
-				$('#' + checkoutFormId).submit();
+				
 			}
 		}).show();
+	}
+	function checkoutAjax(checkoutVO){
+		
+		var ajaxUrl = '/vendingMachine/machine/tempCheckout';
+		var dataJson = JSON.stringify(checkoutVO);
+		
+		$.ajax({
+			url : ajaxUrl,
+			method : 'POST',
+			data : dataJson,
+			contentType : 'text/plain',
+			dataType : 'json',
+			success : function(data){
+				
+				showCheckoutAjaxIllegalMoneyMsg(data.checkoutMoneyIllegalMsg);
+			}
+		});
 	}
 	function checkoutInputCheck(){
 		
 		return checkNotNullNonNegativeIntegerInput(checkoutPaidMoneyInputId, "結帳金額");
+	}
+	function showCheckoutAjaxIllegalMoneyMsg(checkoutMoneyIllegalMsg){
+		
+		if(checkoutMoneyIllegalMsg.hasMsg == 'true'){
+			
+			
+		}
 	}
 	
 	
