@@ -1,26 +1,42 @@
 	
 	// id
 	let currentUrl = window.location.href;
+	let templateSuffix = 'tmpl';
 	
-	let addShoppingCartIllegalMsgModalExistInputId = 'add_shopping_cart_illegal_msg_modal_exist_input';
-	let addShoppingCartIllegalMsgModalId = 'add_shopping_cart_illegal_msg_modal';
-	let addShoppingCartIllegalMsgOkBtnId = 'add_shopping_cart_illegal_msg_ok_btn';
-
-	let addShoppingCartMsgModalExistInputId = 'add_shopping_cart_msg_modal_exist_input';
-	let addShoppingCartMsgModalId = 'add_shopping_cart_msg_modal';
-	let addShoppingCartMsgOkBtnId = 'add_shopping_cart_msg_ok_btn';
 	
-	let clearShoppingCartMsgModalExistInputId = 'clear_shopping_cart_msg_modal_exist_input';
-	let clearShoppingCartMsgModalId = 'clear_shopping_cart_msg_modal';
-	let clearShoppingCartMsgOkBtnId = 'clear_shopping_cart_msg_ok_btn';
 
-	let updateShoppingCartIllegalMsgModalExistInputId = 'update_shopping_cart_illegal_msg_modal_exist_input';
-	let updateShoppingCartIllegalMsgModalId = 'update_shopping_cart_illegal_msg_modal';
-	let updateShoppingCartIllegalMsgOkBtnId = 'update_shopping_cart_illegal_msg_ok_btn';
 
-	let updateShoppingCartMsgModalExistInputId = 'update_shopping_cart_msg_modal_exist_input';
-	let updateShoppingCartMsgModalId = 'update_shopping_cart_msg_modal';
-	let updateShoppingCartMsgOkBtnId = 'update_shopping_cart_msg_ok_btn';
+	let addShoppingCartIllegalMsgModalId = 'addShoppingCart_illegalMsg_modal';
+	let addShoppingCartIllegalMsgBodyDivId = 'addShoppingCart_illegalMsg_bodyDiv';
+	let addShoppingCartIllegalMsgOkBtnId = 'addShoppingCart_illegalMsg_okBtn';
+	let addShoppingCartIllegalMsgBodyIdPrefix = 'addShoppingCart_illegalMsg_body_';
+	let addShoppingCartIllegalMsgBodyNameSpanIdPrefix = 'addShoppingCart_illegalMsg_body_nameSpan_';
+	
+	let addShoppingCartLegalMsgModalId = 'addShoppingCart_legalMsg_modal';
+	let addShoppingCartLegalMsgBodyDivId = 'addShoppingCart_legalMsg_bodyDiv';
+	let addShoppingCartLegalMsgOkBtnId = 'addShoppingCart_legalMsg_okBtn';
+	let addShoppingCartLegalMsgBodyIdPrefix = 'addShoppingCart_legalMsg_body_';
+	let addShoppingCartLegalMsgBodyNameSpanIdPrefix = 'addShoppingCart_legalMsg_body_nameSpan_';
+	let addShoppingCartLegalMsgBodyAddQuantitySpanIdPrefix = 'addShoppingCart_legalMsg_body_addQuantitySpan_';
+
+
+	let clearShoppingCartMsgModalId = 'clearShoppingCart_msg_modal';
+	let clearShoppingCartMsgOkBtnId = 'clearShoppingCart_msg_okBtn';
+	
+	
+	let updateShoppingCartIllegalMsgModalId = 'updateShoppingCart_illegalMsg_modal';
+	let updateShoppingCartIllegalMsgBodyDivId = 'updateShoppingCart_illegalMsg_bodyDiv';
+	let updateShoppingCartIllegalMsgOkBtnId = 'updateShoppingCart_illegalMsg_okBtn';
+	let updateShoppingCartIllegalMsgBodyIdPrefix = 'updateShoppingCart_illegalMsg_body_';
+	let updateShoppingCartIllegalMsgBodyNameSpanIdPrefix = 'updateShoppingCart_illegalMsg_body_nameSpan_';
+
+	let updateShoppingCartLegalMsgModalId = 'updateShoppingCart_legalMsg_modal';
+	let updateShoppingCartLegalMsgBodyDivId = 'updateShoppingCart_legalMsg_bodyDiv';
+	let updateShoppingCartLegalMsgOkBtnId = 'updateShoppingCart_legalMsg_okBtn';
+	let updateShoppingCartLegalMsgBodyIdPrefix = 'updateShoppingCart_legalMsg_body_';
+	let updateShoppingCartLegalMsgBodyNameSpanIdPrefix = 'updateShoppingCart_legalMsg_body_nameSpan_';
+	let updateShoppingCartLegalMsgBodyBuyQuantitySpanIdPrefix = 'updateShoppingCart_legalMsg_body_buyQuantitySpan_';
+	
 	
 	let checkoutMoneyIllegalMsgModalExistInputId = 'checkout_money_illegal_msg_modal_exist_input';
 	let checkoutMoneyIllegalMsgModalId = 'checkout_money_illegal_msg_modal';
@@ -37,22 +53,21 @@
 	let goodsEntryBuyQuantityInputIdPrefix = 'goods_entry_buy_quantity_';
 	let goodsEntryQuantityInputIdPrefix = 'goods_entry_quantity_';
 	
+	
+	let clearShoppingCartBtnId = 'clear_shopping_cart_btn';
+	let clearShoppingCartFormId = 'clear_shopping_cart_form';
+	let clearShoppingCartDataInputId = 'clear_shopping_cart_data_input';
+	
+	
 	let addShoppingCartBtnId = 'add_shopping_cart_btn';
 	let addShoppingCartModalId = 'add_shopping_cart_modal';
 	let addShoppingCartOkBtnId = 'add_shopping_cart_ok_btn';
-	
 	let addShoppingCartBodyContentDivId = 'add_shopping_cart_body_content_div';
 	let addShoppingCartBodyContentTmplId = 'add_shopping_cart_body_content_tmpl';
 	let addShoppingCartBodyContentNameSpanId = 'add_shopping_cart_body_content_name_span_';
 	let addShoppingCartBodyContentBuyQuantitySpanId = 'add_shopping_cart_body_content_buy_quantity_span_';
 	let addShoppingCartBodyContentPriceSpanId = 'add_shopping_cart_body_content_price_span_';
-
-	let addShoppingCartFormId = 'add_shopping_cart_form';
-	let addShoppingCartDataInputId = 'add_shopping_cart_data_input';
 	
-	let clearShoppingCartBtnId = 'clear_shopping_cart_btn';
-	let clearShoppingCartFormId = 'clear_shopping_cart_form';
-	let clearShoppingCartDataInputId = 'clear_shopping_cart_data_input';
 	
 	let shoppingCartGoodsGoodsCountInputId = 'shopping_cart_goods_goods_count_input';
 	let shoppingCartGoodsNameInputIdPrefix = 'shopping_cart_goods_name_input_';
@@ -60,8 +75,7 @@
 	let shoppingCartGoodsIdInputIdPrefix = 'shopping_cart_goods_id_input_';
 	let shoppingCartGoodsBuyQuantityInputIdPrefix = 'shopping_cart_goods_buy_quantity_input_';
 	let updateShoppingCartBtnId = 'update_shopping_cart_btn';
-	let updateShoppingCartFormId = 'update_shopping_cart_form';
-	let updateShoppingCartDataInputId = 'update_shopping_cart_data_input';
+	
 	
 	let checkoutPaidMoneyInputId = 'checkout_paid_money_input';
 	let checkoutBtnId = 'checkout_btn';
@@ -75,6 +89,7 @@
 	let goBackendBtnId = 'go_backend_btn';
 	let logoutBtnId = 'logout_btn';
 	
+
 	
 	// show message
 	function showMsgModal(){
@@ -89,35 +104,8 @@
 				okBtnId : okBtnId
 			};
 		};
-		modalIdObjs[0] = modalIdObjsFctn(
-			addShoppingCartIllegalMsgModalExistInputId,
-			addShoppingCartIllegalMsgModalId,
-			addShoppingCartIllegalMsgOkBtnId
-		);
-		
-		modalIdObjs[1] = modalIdObjsFctn(
-			addShoppingCartMsgModalExistInputId,
-			addShoppingCartMsgModalId,
-			addShoppingCartMsgOkBtnId
-		);
-		modalIdObjs[2] = modalIdObjsFctn(
-			clearShoppingCartMsgModalExistInputId,
-			clearShoppingCartMsgModalId,
-			clearShoppingCartMsgOkBtnId
-		);
-		modalIdObjs[3] = modalIdObjsFctn(
-			updateShoppingCartIllegalMsgModalExistInputId,
-			updateShoppingCartIllegalMsgModalId,
-			updateShoppingCartIllegalMsgOkBtnId
-		);
-		
-		modalIdObjs[4] = modalIdObjsFctn(
-			updateShoppingCartMsgModalExistInputId,
-			updateShoppingCartMsgModalId,
-			updateShoppingCartMsgOkBtnId
-		);
 	
-		modalIdObjs[5] = modalIdObjsFctn(
+		modalIdObjs[0] = modalIdObjsFctn(
 			checkoutMoneyIllegalMsgModalExistInputId,
 			checkoutMoneyIllegalMsgModalId,
 			checkoutMoneyIllegalMsgOkBtnId
@@ -221,12 +209,15 @@
 			}
 			
 			var addShoppingCartVO = {
-				currentUrl : currentUrl,
 				addShoppingCartGoodsArray : addShoppingCartGoodsArray
 			}
 	
-			$('#' + addShoppingCartDataInputId).val(JSON.stringify(addShoppingCartVO));
-	
+			
+			$('#' + addShoppingCartOkBtnId).off('click');
+			$('#' + addShoppingCartOkBtnId).click(function(){
+				
+				addShoppingCartAjax(addShoppingCartVO);
+			});
 			
 			new bootstrap.Modal('#' + addShoppingCartModalId, {}).show();
 		}
@@ -247,31 +238,150 @@
 		
 		return pass;
 	}
+	function addShoppingCartAjax(addShoppingCartVO){
 	
-	function addShoppingCartOkBtnClicked(){
-	
-		$('#' + addShoppingCartFormId).submit();
+		var ajaxUrl = '/vendingMachine/machine/tempAddShoppingCart';
+		var dataJson = JSON.stringify(addShoppingCartVO);
+		
+		$.ajax({
+			url : ajaxUrl,
+			method : 'POST',
+			data : dataJson,
+			contentType : 'text/plain',
+			dataType : 'json',
+			success : function(data){
+				
+				showAddShoppingMsgs(data.addShoppingCartIllegalMsg, data.addShoppingCartLegalMsg);
+			}
+		});
 	}
 	
-	
+	function showAddShoppingMsgs(addShoppingCartIllegalMsg, addShoppingCartLegalMsg){
+		
+		if(addShoppingCartIllegalMsg.hasMsg == 'true'){
+			
+			var generateElement = function(oldNameId, newNameId, nameValue){
+				
+				return {
+					contents : [
+						{
+							oldId : oldNameId,
+							newId : newNameId, 
+							value : nameValue
+						}
+					]
+				};
+			}
+			var elements = [];
+			for(i=0; i<addShoppingCartIllegalMsg.lines.length; i++){
+				
+				elements[i] = generateElement(
+					addShoppingCartIllegalMsgBodyNameSpanIdPrefix + templateSuffix,
+					addShoppingCartIllegalMsgBodyNameSpanIdPrefix + i,
+					addShoppingCartIllegalMsg.lines[i].name
+				);
+			}
+			modalPrepare(addShoppingCartIllegalMsgBodyIdPrefix + templateSuffix, 
+						addShoppingCartIllegalMsgBodyDivId,
+						elements,
+						addShoppingCartIllegalMsgOkBtnId,
+						function(){
+							showAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
+						});
+						
+			new bootstrap.Modal('#' + addShoppingCartIllegalMsgModalId, {}).show();
+		}else{
+			
+			showAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
+		}
+	}
+	function showAddShoppingCartLegalMsg(addShoppingCartLegalMsg){
+		
+		if(addShoppingCartLegalMsg.hasMsg == 'true'){
+			
+			var generateElement = function(oldNameId, newNameId, nameValue, oldAddQuantityId, newAddQuantityId, addQuantityValue){
+				
+				return {
+					contents : [
+						{
+							oldId : oldNameId,
+							newId : newNameId, 
+							value : nameValue
+						},
+						{
+							oldId : oldAddQuantityId,
+							newId : newAddQuantityId, 
+							value : addQuantityValue
+						}
+					]
+				};
+			}
+			var elements = [];
+			for(i=0; i<addShoppingCartLegalMsg.lines.length; i++){
+				
+				elements[i] = generateElement(
+					addShoppingCartLegalMsgBodyNameSpanIdPrefix + templateSuffix,
+					addShoppingCartLegalMsgBodyNameSpanIdPrefix + i,
+					addShoppingCartLegalMsg.lines[i].name,
+					addShoppingCartLegalMsgBodyAddQuantitySpanIdPrefix + templateSuffix,
+					addShoppingCartLegalMsgBodyAddQuantitySpanIdPrefix + i,
+					addShoppingCartLegalMsg.lines[i].addQuantity
+				);
+			}
+			modalPrepare(addShoppingCartLegalMsgBodyIdPrefix + templateSuffix, 
+						addShoppingCartLegalMsgBodyDivId,
+						elements,
+						addShoppingCartLegalMsgOkBtnId,
+						function(){
+							window.location.href = currentUrl;
+						});
+			
+			
+			new bootstrap.Modal('#' + addShoppingCartLegalMsgModalId, {}).show();
+		}else{
+			
+			window.location.href = currentUrl;
+		}
+	}
+
+
 	// clear shopping cart
 	function clearShoppingCartBtnClicked(){
 		
 		confirmModal('即將清空購物車', function(){
 			
-			var clearShoppingCartVO = {
-				currentUrl : currentUrl
-			}
-			
-			$('#' + clearShoppingCartDataInputId).val(JSON.stringify(clearShoppingCartVO));
-			$('#' + clearShoppingCartFormId).submit();
+			clearShoppingCartAjax()
 		}).show();
 	}
+	function clearShoppingCartAjax(){
+		
+		var ajaxUrl = '/vendingMachine/machine/tempClearShoppingCart';
+		
+		$.ajax({
+			url : ajaxUrl,
+			method : 'POST',
+			success : function(){
+				
+				showClearShoppingMsg();
+			}
+		});
+	}
+	function showClearShoppingMsg(){
+		
+		$('#' + clearShoppingCartMsgOkBtnId).click(function(){
+			
+			window.location.href = currentUrl;
+		});
+		
+		new bootstrap.Modal('#' + clearShoppingCartMsgModalId, {}).show();
+	}
+	
+
 	
 	
 	// update shopping cart
 	function updateShoppingCartBtnClicked(){
-		
+	
 		confirmModal('即將更新購物車', function(){
 	
 			var goodsFctn = function(id, name, buyQuantity, quantity){
@@ -300,11 +410,10 @@
 				}
 				
 				var updateShoppingCartVO = {
-					currentUrl : currentUrl,
 					updateShoppingCartGoodsArray : goodsList
 				}
-				$('#' + updateShoppingCartDataInputId).val(JSON.stringify(updateShoppingCartVO));
-				$('#' + updateShoppingCartFormId).submit();
+				
+				updateShoppingCartAjax(updateShoppingCartVO);
 			}
 		}).show();
 	}
@@ -320,9 +429,114 @@
 		
 		return pass;
 	}
+	function updateShoppingCartAjax(updateShoppingCartVO){
+	
+		var ajaxUrl = '/vendingMachine/machine/tempUpdateShoppingCart';
+		var dataJson = JSON.stringify(updateShoppingCartVO);
+		
+		$.ajax({
+			url : ajaxUrl,
+			method : 'POST',
+			data : dataJson,
+			contentType : 'text/plain',
+			dataType : 'json',
+			success : function(data){
+				
+				showUpdateShoppingMsgs(data.updateShoppingCartIllegalMsg, data.updateShoppingCartLegalMsg);
+			}
+		});
+	}
+	
+	function showUpdateShoppingMsgs(updateShoppingCartIllegalMsg, updateShoppingCartLegalMsg){
+		
+		if(updateShoppingCartIllegalMsg.hasMsg == 'true'){
+			
+			var generateElement = function(oldNameId, newNameId, nameValue){
+				
+				return {
+					contents : [
+						{
+							oldId : oldNameId,
+							newId : newNameId, 
+							value : nameValue
+						}
+					]
+				};
+			}
+			var elements = [];
+			for(i=0; i<updateShoppingCartIllegalMsg.lines.length; i++){
+				
+				elements[i] = generateElement(
+					updateShoppingCartIllegalMsgBodyNameSpanIdPrefix + templateSuffix,
+					updateShoppingCartIllegalMsgBodyNameSpanIdPrefix + i,
+					updateShoppingCartIllegalMsg.lines[i].name
+				);
+			}
+			modalPrepare(updateShoppingCartIllegalMsgBodyIdPrefix + templateSuffix, 
+						updateShoppingCartIllegalMsgBodyDivId,
+						elements,
+						updateShoppingCartIllegalMsgOkBtnId,
+						function(){
+							showUpdateShoppingCartLegalMsg(updateShoppingCartLegalMsg);
+						});
+						
+			new bootstrap.Modal('#' + updateShoppingCartIllegalMsgModalId, {}).show();
+		}else{
+			
+			showUpdateShoppingCartLegalMsg(updateShoppingCartLegalMsg);
+		}
+	}
+	function showUpdateShoppingCartLegalMsg(updateShoppingCartLegalMsg){
+		
+		if(updateShoppingCartLegalMsg.hasMsg == 'true'){
+			
+			var generateElement = function(oldNameId, newNameId, nameValue, oldBuyQuantityId, newBuyQuantityId, buyQuantityValue){
+				
+				return {
+					contents : [
+						{
+							oldId : oldNameId,
+							newId : newNameId, 
+							value : nameValue
+						},
+						{
+							oldId : oldBuyQuantityId,
+							newId : newBuyQuantityId, 
+							value : buyQuantityValue
+						}
+					]
+				};
+			}
+			var elements = [];
+			for(i=0; i<updateShoppingCartLegalMsg.lines.length; i++){
+				
+				elements[i] = generateElement(
+					updateShoppingCartLegalMsgBodyNameSpanIdPrefix + templateSuffix,
+					updateShoppingCartLegalMsgBodyNameSpanIdPrefix + i,
+					updateShoppingCartLegalMsg.lines[i].name,
+					updateShoppingCartLegalMsgBodyBuyQuantitySpanIdPrefix + templateSuffix,
+					updateShoppingCartLegalMsgBodyBuyQuantitySpanIdPrefix + i,
+					updateShoppingCartLegalMsg.lines[i].buyQuantity
+				);
+			}
+			modalPrepare(updateShoppingCartLegalMsgBodyIdPrefix + templateSuffix, 
+						updateShoppingCartLegalMsgBodyDivId,
+						elements,
+						updateShoppingCartLegalMsgOkBtnId,
+						function(){
+							window.location.href = currentUrl;
+						});
+			
+			
+			new bootstrap.Modal('#' + updateShoppingCartLegalMsgModalId, {}).show();
+		}else{
+			
+			window.location.href = currentUrl;
+		}
+	}
+	
+	
 
-	
-	
 	// checkout
 	function checkoutBtnClicked(){
 	
@@ -354,27 +568,15 @@
 			}
 		}
 	
-		var checkoutAddShoppingCartVO = {
+		var addShoppingCartVO = {
 			addShoppingCartGoodsArray : addShoppingCartGoodsArray
 		};
 	
 		if(needAddShoppingCart){
 	
-			var ajaxUrl = '/vendingMachine/machine/addShoppingCartAjax';
-			var dataJson = JSON.stringify(checkoutAddShoppingCartVO);
-	
 			$('#' + checkoutAddShoppingCartModalOkBtnId).click(function(){
 	
-				$.ajax({
-					url : ajaxUrl,
-					method : 'POST',
-					data : dataJson,
-					contentType : 'text/plain',
-					success : function(){
-	
-						showCheckoutShoppingCartModal();
-					}
-				});
+				checkoutAddShoppingCartAjax(addShoppingCartVO)
 			});
 			
 	
@@ -386,6 +588,109 @@
 			new bootstrap.Modal('#' + checkoutAddShoppingCartModalId, {}).show();
 		}else{
 	
+			showCheckoutShoppingCartModal();
+		}
+	}
+	function checkoutAddShoppingCartAjax(addShoppingCartVO){
+	
+		var ajaxUrl = '/vendingMachine/machine/tempAddShoppingCart';
+		var dataJson = JSON.stringify(addShoppingCartVO);
+		
+		$.ajax({
+			url : ajaxUrl,
+			method : 'POST',
+			data : dataJson,
+			contentType : 'text/plain',
+			dataType : 'json',
+			success : function(data){
+				
+				showCheckoutAddShoppingMsgs(data.addShoppingCartIllegalMsg, data.addShoppingCartLegalMsg);
+			}
+		});
+	}
+	function showCheckoutAddShoppingMsgs(addShoppingCartIllegalMsg, addShoppingCartLegalMsg){
+		
+		if(addShoppingCartIllegalMsg.hasMsg == 'true'){
+			
+			var generateElement = function(oldNameId, newNameId, nameValue){
+				
+				return {
+					contents : [
+						{
+							oldId : oldNameId,
+							newId : newNameId, 
+							value : nameValue
+						}
+					]
+				};
+			}
+			var elements = [];
+			for(i=0; i<addShoppingCartIllegalMsg.lines.length; i++){
+				
+				elements[i] = generateElement(
+					addShoppingCartIllegalMsgBodyNameSpanIdPrefix + templateSuffix,
+					addShoppingCartIllegalMsgBodyNameSpanIdPrefix + i,
+					addShoppingCartIllegalMsg.lines[i].name
+				);
+			}
+			modalPrepare(addShoppingCartIllegalMsgBodyIdPrefix + templateSuffix, 
+						addShoppingCartIllegalMsgBodyDivId,
+						elements,
+						addShoppingCartIllegalMsgOkBtnId,
+						function(){
+							showAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
+						});
+						
+			new bootstrap.Modal('#' + addShoppingCartIllegalMsgModalId, {}).show();
+		}else{
+			
+			showAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
+		}
+	}
+	function showCheckoutAddShoppingCartLegalMsg(addShoppingCartLegalMsg){
+		
+		if(addShoppingCartLegalMsg.hasMsg == 'true'){
+			
+			var generateElement = function(oldNameId, newNameId, nameValue, oldAddQuantityId, newAddQuantityId, addQuantityValue){
+				
+				return {
+					contents : [
+						{
+							oldId : oldNameId,
+							newId : newNameId, 
+							value : nameValue
+						},
+						{
+							oldId : oldAddQuantityId,
+							newId : newAddQuantityId, 
+							value : addQuantityValue
+						}
+					]
+				};
+			}
+			var elements = [];
+			for(i=0; i<addShoppingCartLegalMsg.lines.length; i++){
+				
+				elements[i] = generateElement(
+					addShoppingCartLegalMsgBodyNameSpanIdPrefix + templateSuffix,
+					addShoppingCartLegalMsgBodyNameSpanIdPrefix + i,
+					addShoppingCartLegalMsg.lines[i].name,
+					addShoppingCartLegalMsgBodyAddQuantitySpanIdPrefix + templateSuffix,
+					addShoppingCartLegalMsgBodyAddQuantitySpanIdPrefix + i,
+					addShoppingCartLegalMsg.lines[i].addQuantity
+				);
+			}
+			modalPrepare(addShoppingCartLegalMsgBodyIdPrefix + templateSuffix, 
+						addShoppingCartLegalMsgBodyDivId,
+						elements,
+						addShoppingCartLegalMsgOkBtnId,
+						function(){
+							showCheckoutShoppingCartModal();
+						});
+			
+			new bootstrap.Modal('#' + addShoppingCartLegalMsgModalId, {}).show();
+		}else{
+			
 			showCheckoutShoppingCartModal();
 		}
 	}
@@ -422,7 +727,7 @@
 		var redirectUrl = '/vendingMachine/machine/backend/goodsList';
 		var shoppingCartGoodsCount = $('#' + shoppingCartGoodsGoodsCountInputId).val();
 	
-		var ajaxUrl = '/vendingMachine/machine/goBackendAjax';
+		var ajaxUrl = '/vendingMachine/machine/goBackend';
 		var ajaxFctn = function(){
 	
 			$.ajax({
@@ -466,5 +771,7 @@
 			});
 		}).show();
 	}
+	
+	
 	
 	

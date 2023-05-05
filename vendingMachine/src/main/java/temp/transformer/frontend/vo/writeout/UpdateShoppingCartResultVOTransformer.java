@@ -15,6 +15,9 @@ public class UpdateShoppingCartResultVOTransformer extends VOWriteOutTransformer
 	private static final UpdateShoppingCartResultVOTransformer INSTANCE = new UpdateShoppingCartResultVOTransformer();
 	
 	private UpdateShoppingCartResultVOTransformer() {
+		
+		updateShoppingCartIllegalMsgVOTransformer = UpdateShoppingCartIllegalMsgVOTransformer.getInstance();
+		updateShoppingCartLegalMsgVOTransformer = UpdateShoppingCartLegalMsgVOTransformer.getInstance();
 	}
 	
 	public static UpdateShoppingCartResultVOTransformer getInstance() {

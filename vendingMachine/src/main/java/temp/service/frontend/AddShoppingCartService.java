@@ -5,7 +5,6 @@ import java.util.List;
 
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
-import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgLineVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgVODTO;
 import bean.dto.frontend.vo.writeout.AddShoppingCartLegalMsgLineVODTO;
@@ -13,6 +12,7 @@ import bean.dto.frontend.vo.writeout.AddShoppingCartLegalMsgVODTO;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
+import temp.bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
 import temp.bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
 
 public class AddShoppingCartService {
@@ -52,13 +52,13 @@ public class AddShoppingCartService {
 		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartGoodsVODTOs) {
 			
 			String name = addShoppingCartGoodsVODTO.getName();
-			int quantity = addShoppingCartGoodsVODTO.getQuantity();
+			int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
 			
 			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
 				
-				addShoppingCartLegalMsgVODTO.setHasMsg(true);
-				addShoppingCartLegalMsgLineVODTOs.add(new AddShoppingCartLegalMsgLineVODTO(name, quantity));
 				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
+				addShoppingCartLegalMsgVODTO.setHasMsg(true);
+				addShoppingCartLegalMsgLineVODTOs.add(new AddShoppingCartLegalMsgLineVODTO(name, addQuantity));
 			}else {
 				
 				addShoppingCartIllegalMsgVODTO.setHasMsg(true);

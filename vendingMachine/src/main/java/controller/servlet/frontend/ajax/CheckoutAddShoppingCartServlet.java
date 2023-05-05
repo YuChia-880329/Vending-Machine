@@ -24,7 +24,7 @@ import util.ServletUtil;
 public class CheckoutAddShoppingCartServlet extends HttpServlet {
 
 	// url
-	public static final String URL = "/vendingMachine/machine/addShoppingCartAjax";
+	public static final String URL = "/vendingMachine/machine/checkoutAddShoppingCart";
 	
 	private Gson gson;
 	private CheckoutAddShoppingCartService checkoutAddShoppingCartService;

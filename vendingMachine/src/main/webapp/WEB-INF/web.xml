@@ -101,16 +101,30 @@
 	</servlet>
 	<!-- controller.servlet.frontend.ajax -->
 	<servlet>
-		<servlet-name>goBackendAjaxServlet</servlet-name>
-		<servlet-class>controller.servlet.frontend.ajax.GoBackendAjaxServlet</servlet-class>
+		<servlet-name>goBackendServlet</servlet-name>
+		<servlet-class>controller.servlet.frontend.ajax.GoBackendServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>checkoutAddShoppingCartAjaxServlet</servlet-name>
+		<servlet-name>checkoutAddShoppingCartServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.ajax.CheckoutAddShoppingCartServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>logoutServlet</servlet-name>
 		<servlet-class>controller.servlet.frontend.ajax.LogoutServlet</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>tempAddShoppingCartServlet</servlet-name>
+		<servlet-class>temp.controller.servlet.frontend.ajax.AddShoppingCartServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>tempUpdateShoppingCartServlet</servlet-name>
+		<servlet-class>temp.controller.servlet.frontend.ajax.UpdateShoppingCartServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>tempClearShoppingCartServlet</servlet-name>
+		<servlet-class>temp.controller.servlet.frontend.ajax.ClearShoppingCartServlet</servlet-class>
 	</servlet>
 
 
@@ -199,19 +213,31 @@
 	</servlet-mapping>
 	<!-- controller.servlet.frontend.ajax -->
 	<servlet-mapping>
-		<servlet-name>goBackendAjaxServlet</servlet-name>
-		<url-pattern>/machine/goBackendAjax</url-pattern>
+		<servlet-name>goBackendServlet</servlet-name>
+		<url-pattern>/machine/goBackend</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>checkoutAddShoppingCartAjaxServlet</servlet-name>
-		<url-pattern>/machine/addShoppingCartAjax</url-pattern>
+		<servlet-name>checkoutAddShoppingCartServlet</servlet-name>
+		<url-pattern>/machine/checkoutAddShoppingCart</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>logoutServlet</servlet-name>
 		<url-pattern>/machine/logout</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>tempAddShoppingCartServlet</servlet-name>
+		<url-pattern>/machine/tempAddShoppingCart</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>tempUpdateShoppingCartServlet</servlet-name>
+		<url-pattern>/machine/tempUpdateShoppingCart</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>tempClearShoppingCartServlet</servlet-name>
+		<url-pattern>/machine/tempClearShoppingCart</url-pattern>
+	</servlet-mapping>
 
-  	
   	
   	
   	<!-- listener -->

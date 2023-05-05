@@ -27,7 +27,6 @@
 			$('#' + filterBtnId).click(filterBtnClicked);
 			$('#' + allGoodsBtnId).click(allGoodsBtnClicked);
 			$('#' + addShoppingCartBtnId).click(addShoppingCartBtnClicked);
-			$('#' + addShoppingCartOkBtnId).click(addShoppingCartOkBtnClicked);
 			$('#' + clearShoppingCartBtnId).click(clearShoppingCartBtnClicked);
 			$('#' + updateShoppingCartBtnId).click(updateShoppingCartBtnClicked);
 			$('#' + checkoutBtnId).click(checkoutBtnClicked);

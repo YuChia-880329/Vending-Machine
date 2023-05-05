@@ -232,3 +232,31 @@
 	}
 	
 	
+	// template message
+	function cloneTmpl(templateId, bodyId, contents){
+		
+		var clonedBody = $('#' + templateId).clone()[0].content;
+				
+		$('#' + bodyId).append(clonedBody);
+		
+		contents.forEach(function(currentValue){
+			
+			$('#' + bodyId + ' #' + currentValue.oldId).attr('id', currentValue.newId);
+			$('#' + currentValue.newId).text(currentValue.value);
+		});
+	}
+	
+	function modalPrepare(templateId, bodyId, elements, okBtnId, okBtnClickedFctn){
+		
+		$('#' + bodyId).empty();
+		
+		elements.forEach(function(currentValue){
+			
+			cloneTmpl(templateId, bodyId, currentValue.contents);
+		});
+		
+		$('#' + okBtnId).off('click');
+		$('#' + okBtnId).click(okBtnClickedFctn);
+	}
+
+	

@@ -25,13 +25,6 @@ public class ServletUtil {
 		
 		return map;
 	}
-	public static String concatQueryString(String url, String queryString) {
-		
-		if("".equals(queryString))
-			return url;
-		else
-			return StringConcatUtil.concate(url, "?", queryString);
-	}
 	
 	public static AccountOBJDTO getAccount(HttpSession session){
 		
@@ -45,6 +38,7 @@ public class ServletUtil {
 		
 		return accountOBJDTO;
 	}
+	
 	
 	private static AccountOBJDTO getNewAccount() {
 		

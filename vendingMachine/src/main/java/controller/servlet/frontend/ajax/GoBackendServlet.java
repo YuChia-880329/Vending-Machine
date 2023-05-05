@@ -13,10 +13,10 @@ import service.frontend.GoBackendAjaxService;
 import util.ServletUtil;
 
 @SuppressWarnings("serial")
-public class GoBackendAjaxServlet extends HttpServlet {
+public class GoBackendServlet extends HttpServlet {
 
 	// url
-	public static final String URL = "/vendingMachine/machine/goBackendAjax";
+	public static final String URL = "/vendingMachine/machine/goBackend";
 		
 
 	private GoBackendAjaxService goBackendAjaxService;

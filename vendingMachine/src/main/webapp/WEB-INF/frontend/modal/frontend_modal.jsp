@@ -20,9 +20,6 @@
   			</div>
 		</div>
 	</div>
-	<form action="/vendingMachine/machine/addShoppingCart" method="POST" id="add_shopping_cart_form">
-		<input type="hidden" name="dataJson" id="add_shopping_cart_data_input" />
-	</form>
 	
 	
 	<!-- shopping cart modal -->
@@ -72,144 +69,123 @@
   			</div>
 		</div>
 	</div>
-	<form action="/vendingMachine/machine/updateShoppingCart" method="POST" id="update_shopping_cart_form">
-		<input type="hidden" name="dataJson" id="update_shopping_cart_data_input" />
-	</form>
 	<form action="/vendingMachine/machine/clearShoppingCart" method="POST" id="clear_shopping_cart_form">
 		<input type="hidden" name="dataJson" id="clear_shopping_cart_data_input" />
 	</form>
 	
 	
 	<!-- add shopping cart message modal -->
-	<input type="hidden" value="${vo.addShoppingCartIllegalMsg.hasMsg}" id="add_shopping_cart_illegal_msg_modal_exist_input" />
-	<c:if test="${vo.addShoppingCartIllegalMsg.hasMsg == 'true'}">
-		<div class="modal fade" id="add_shopping_cart_illegal_msg_modal">
-	 		<div class="modal-dialog msg-modal-dialog">
-	   			<div class="modal-content msg-modal-content">
-	     			<div class="modal-header msg-modal-header">
-	       				<h4 class="modal-title">警告</h4>
-	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	     			</div>
-	     			<div class="modal-body msg-modal-body">
-	     				<div class="container">
-	     					<c:forEach var="line" items="${vo.addShoppingCartIllegalMsg.lines}">
-	     						<p>
-	     							商品 <span class="text-danger">${line.name}</span> 購買數量大於庫存數量
-	     						</p>
-	     					</c:forEach>
-						</div>
-	     			</div>
-	     			<div class="modal-footer msg-modal-footer">
-	  					<button type="button" class="btn btn-primary" id="add_shopping_cart_illegal_msg_ok_btn">確認</button>
-	     			</div>
-	   			</div>
-	 		</div>
-		</div>
-	</c:if>
+	<div class="modal fade" id="addShoppingCart_illegalMsg_modal">
+ 		<div class="modal-dialog msg-modal-dialog">
+   			<div class="modal-content msg-modal-content">
+     			<div class="modal-header msg-modal-header">
+       				<h4 class="modal-title">警告</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body msg-modal-body">
+     				<div class="container" id="addShoppingCart_illegalMsg_bodyDiv"></div>
+     			</div>
+     			<div class="modal-footer msg-modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="addShoppingCart_illegalMsg_okBtn">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	<template id="addShoppingCart_illegalMsg_body_tmpl">
+		<p>
+			商品 <span class="text-danger" id="addShoppingCart_illegalMsg_body_nameSpan_tmpl"></span> 購買數量大於庫存數量
+		</p>
+	</template>
 	
-	<input type="hidden" value="${vo.addShoppingCartMsg.hasMsg}" id="add_shopping_cart_msg_modal_exist_input" />
-	<c:if test="${vo.addShoppingCartMsg.hasMsg == 'true'}">
-		<div class="modal fade" id="add_shopping_cart_msg_modal">
-	 		<div class="modal-dialog msg-modal-dialog">
-	   			<div class="modal-content msg-modal-content">
-	     			<div class="modal-header msg-modal-header">
-	       				<h4 class="modal-title">訊息</h4>
-	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	     			</div>
-	     			<div class="modal-body msg-modal-body">
-	     				<div class="container">
-	     					<c:forEach var="line" items="${vo.addShoppingCartMsg.lines}">
-	     						<p>
-	     							已新增商品 <span class="mx-2 text-primary">${line.name}</span> <span class="mx-2 text-danger">${line.addQuantity}</span> 罐至購物車
-	     						</p>
-	     					</c:forEach>
-						</div>
-	     			</div>
-	     			<div class="modal-footer msg-modal-footer">
-	  					<button type="button" class="btn btn-primary" id="add_shopping_cart_msg_ok_btn">確認</button>
-	     			</div>
-	   			</div>
-	 		</div>
-		</div>
-	</c:if>
+	<div class="modal fade" id="addShoppingCart_legalMsg_modal">
+ 		<div class="modal-dialog msg-modal-dialog">
+   			<div class="modal-content msg-modal-content">
+     			<div class="modal-header msg-modal-header">
+       				<h4 class="modal-title">訊息</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body msg-modal-body">
+     				<div class="container" id="addShoppingCart_legalMsg_bodyDiv"></div>
+     			</div>
+     			<div class="modal-footer msg-modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="addShoppingCart_legalMsg_okBtn">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	<template id="addShoppingCart_legalMsg_body_tmpl">
+		<p>
+			已新增商品 <span class="mx-2 text-primary" id="addShoppingCart_legalMsg_body_nameSpan_tmpl"></span> <span class="mx-2 text-danger" id="addShoppingCart_legalMsg_body_addQuantitySpan_tmpl"></span> 罐至購物車
+		</p>
+	</template>
 	
 	
 	<!-- clear shopping cart message modal -->
-	<input type="hidden" value="${vo.clearShoppingCartMsg.hasMsg}" id="clear_shopping_cart_msg_modal_exist_input" />
-	<c:if test="${vo.clearShoppingCartMsg.hasMsg == 'true'}">
-		<div class="modal fade" id="clear_shopping_cart_msg_modal">
-	 		<div class="modal-dialog msg-modal-dialog">
-	   			<div class="modal-content msg-modal-content">
-	     			<div class="modal-header msg-modal-header">
-	       				<h4 class="modal-title">訊息</h4>
-	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	     			</div>
-	     			<div class="modal-body msg-modal-body">
-	     				<div class="container">
-	     					<p>已清空購物車</p>
-						</div>
-	     			</div>
-	     			<div class="modal-footer msg-modal-footer">
-	  					<button type="button" class="btn btn-primary" id="clear_shopping_cart_msg_ok_btn">確認</button>
-	     			</div>
-	   			</div>
-	 		</div>
-		</div>
-	</c:if>
+	<div class="modal fade" id="clearShoppingCart_msg_modal">
+ 		<div class="modal-dialog msg-modal-dialog">
+   			<div class="modal-content msg-modal-content">
+     			<div class="modal-header msg-modal-header">
+       				<h4 class="modal-title">訊息</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body msg-modal-body">
+     				<div class="container">
+     					<p>已清空購物車</p>
+					</div>
+     			</div>
+     			<div class="modal-footer msg-modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="clearShoppingCart_msg_okBtn">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
 	
 	
 	<!-- update shopping cart message modal -->
-	<input type="hidden" value="${vo.updateShoppingCartIllegalMsg.hasMsg}" id="update_shopping_cart_illegal_msg_modal_exist_input" />
-	<c:if test="${vo.updateShoppingCartIllegalMsg.hasMsg == 'true'}">
-		<div class="modal fade" id="update_shopping_cart_illegal_msg_modal">
-	 		<div class="modal-dialog msg-modal-dialog">
-	   			<div class="modal-content msg-modal-content">
-	     			<div class="modal-header msg-modal-header">
-	       				<h4 class="modal-title">警告</h4>
-	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	     			</div>
-	     			<div class="modal-body msg-modal-body">
-	     				<div class="container">
-	     					<c:forEach var="line" items="${vo.updateShoppingCartIllegalMsg.lines}">
-	     						<p>
-	     							商品 <span class="text-danger">${line.name}</span> 購買數量大於庫存數量
-	     						</p>
-	     					</c:forEach>
-						</div>
-	     			</div>
-	     			<div class="modal-footer msg-modal-footer">
-	  					<button type="button" class="btn btn-primary" id="update_shopping_cart_illegal_msg_ok_btn">確認</button>
-	     			</div>
-	   			</div>
-	 		</div>
-		</div>
-	</c:if>
+	<div class="modal fade" id="updateShoppingCart_illegalMsg_modal">
+ 		<div class="modal-dialog msg-modal-dialog">
+   			<div class="modal-content msg-modal-content">
+     			<div class="modal-header msg-modal-header">
+       				<h4 class="modal-title">警告</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body msg-modal-body">
+     				<div class="container" id="updateShoppingCart_illegalMsg_bodyDiv"></div>
+     			</div>
+     			<div class="modal-footer msg-modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateShoppingCart_illegalMsg_okBtn">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	<template id="updateShoppingCart_illegalMsg_body_tmpl">
+		<p>
+			商品 <span class="text-danger" id="updateShoppingCart_illegalMsg_body_nameSpan_tmpl"></span> 購買數量大於庫存數量
+		</p>
+	</template>
 	
-	<input type="hidden" value="${vo.updateShoppingCartMsg.hasMsg}" id="update_shopping_cart_msg_modal_exist_input" />
-	<c:if test="${vo.updateShoppingCartMsg.hasMsg == 'true'}">
-		<div class="modal fade" id="update_shopping_cart_msg_modal">
-	 		<div class="modal-dialog msg-modal-dialog">
-	   			<div class="modal-content msg-modal-content">
-	     			<div class="modal-header msg-modal-header">
-	       				<h4 class="modal-title">訊息</h4>
-	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	     			</div>
-	     			<div class="modal-body msg-modal-body">
-	     				<div class="container">
-	     					<c:forEach var="line" items="${vo.updateShoppingCartMsg.lines}">
-	     						<p>
-	     							已更新購物車  商品<span class="mx-2 text-primary">${line.name}</span> <span class="mx-2 text-danger">${line.buyQuantity}</span> 罐
-	     						</p>
-	     					</c:forEach>
-						</div>
-	     			</div>
-	     			<div class="modal-footer msg-modal-footer">
-	  					<button type="button" class="btn btn-primary" id="update_shopping_cart_msg_ok_btn">確認</button>
-	     			</div>
-	   			</div>
-	 		</div>
-		</div>
-	</c:if>
+	<div class="modal fade" id="updateShoppingCart_legalMsg_modal">
+ 		<div class="modal-dialog msg-modal-dialog">
+   			<div class="modal-content msg-modal-content">
+     			<div class="modal-header msg-modal-header">
+       				<h4 class="modal-title">警告</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body msg-modal-body">
+     				<div class="container" id="updateShoppingCart_legalMsg_bodyDiv"></div>
+     			</div>
+     			<div class="modal-footer msg-modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateShoppingCart_legalMsg_okBtn">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+	<template id="updateShoppingCart_legalMsg_body_tmpl">
+		<p>
+			已更新購物車  商品<span class="mx-2 text-primary" id="updateShoppingCart_legalMsg_body_nameSpan_tmpl"></span> <span class="mx-2 text-danger" id="updateShoppingCart_legalMsg_body_buyQuantitySpan_tmpl"></span> 罐
+		</p>
+	</template>
+	
 	
 	
 	<!-- checkout message modal -->
@@ -234,6 +210,26 @@
 	 		</div>
 		</div>
 	</c:if>
+	
+	<div class="modal fade" id="checkout_moneyIllegalMsg_modal">
+ 		<div class="modal-dialog msg-modal-dialog">
+   			<div class="modal-content msg-modal-content">
+     			<div class="modal-header msg-modal-header">
+       				<h4 class="modal-title">訊息</h4>
+       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+     			<div class="modal-body msg-modal-body">
+     				<div class="container">
+     					<p>投入的金額不足</p>
+					</div>
+     			</div>
+     			<div class="modal-footer msg-modal-footer">
+  					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="checkout_moneyIllegalMsg_okBtn">確認</button>
+     			</div>
+   			</div>
+ 		</div>
+	</div>
+
 
 
 
