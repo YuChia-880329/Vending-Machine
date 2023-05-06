@@ -28,7 +28,6 @@ public class CheckoutVOTransformer extends VOReanInTransformerTemplate<CheckoutV
 		
 		CheckoutVODTO dto = new CheckoutVODTO();
 		
-		dto.setCurrentUrl(vo.getCurrentUrl());
 		dto.setCheckoutForm(checkoutFormVOTransformer.voToDto(vo.getCheckoutForm()));
 		
 		return dto;

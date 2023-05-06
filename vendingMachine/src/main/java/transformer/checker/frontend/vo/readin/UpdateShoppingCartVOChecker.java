@@ -31,7 +31,6 @@ public class UpdateShoppingCartVOChecker extends CheckerTemplate<UpdateShoppingC
 		
 		checkVo(vo);
 		
-		checkCurrentUrl(vo);
 		checkShoppingCartGoodsArray(vo);
 	}
 
@@ -40,12 +39,7 @@ public class UpdateShoppingCartVOChecker extends CheckerTemplate<UpdateShoppingC
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
 	
-	private void checkCurrentUrl(UpdateShoppingCartVO vo) throws CheckerException {
-		
-		String currentUrl = vo.getCurrentUrl();
-		
-		CheckUtil.checkString(currentUrl, StringConcatUtil.concate(NAME_PREFIX, "currentUrl"));
-	}
+
 	private void checkShoppingCartGoodsArray(UpdateShoppingCartVO vo) throws CheckerException {
 		
 		UpdateShoppingCartGoodsVO[] updateShoppingCartGoodsArray = vo.getUpdateShoppingCartGoodsArray();

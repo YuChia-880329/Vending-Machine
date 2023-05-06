@@ -8,14 +8,14 @@ import transformer.checker.frontend.vo.readin.AddShoppingCartVOChecker;
 
 public class AddShoppingCartVOTransformer extends VOReanInTransformerTemplate<AddShoppingCartVO, AddShoppingCartVODTO, CheckerException, AddShoppingCartVOChecker>  {
 
-	private AddShoppingCartGoodsVOTransformer fscGoodsRIVOTransformer;
+	private AddShoppingCartGoodsVOTransformer addShoppingCartGoodsVOTransformer;
 	
 	
 	private static final AddShoppingCartVOTransformer INSTANCE = new AddShoppingCartVOTransformer();
 	
 	private AddShoppingCartVOTransformer() {
 		
-		fscGoodsRIVOTransformer = AddShoppingCartGoodsVOTransformer.getInstance();
+		addShoppingCartGoodsVOTransformer = AddShoppingCartGoodsVOTransformer.getInstance();
 	}
 	
 	public static AddShoppingCartVOTransformer getInstance() {
@@ -28,8 +28,7 @@ public class AddShoppingCartVOTransformer extends VOReanInTransformerTemplate<Ad
 
 		AddShoppingCartVODTO dto = new AddShoppingCartVODTO();
 		
-		dto.setAddShoppingCartGoodsList(fscGoodsRIVOTransformer.voArrayToDtoList(vo.getAddShoppingCartGoodsArray()));
-		dto.setCurrentUrl(vo.getCurrentUrl());
+		dto.setAddShoppingCartGoodsList(addShoppingCartGoodsVOTransformer.voArrayToDtoList(vo.getAddShoppingCartGoodsArray()));
 		
 		return dto;
 	}

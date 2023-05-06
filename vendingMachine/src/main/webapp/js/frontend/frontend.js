@@ -2,8 +2,6 @@
 	// id
 	let currentUrl = window.location.href;
 	let templateSuffix = 'tmpl';
-	
-	
 
 
 	let addShoppingCartIllegalMsgModalId = 'addShoppingCart_illegalMsg_modal';
@@ -36,11 +34,6 @@
 	let updateShoppingCartLegalMsgBodyIdPrefix = 'updateShoppingCart_legalMsg_body_';
 	let updateShoppingCartLegalMsgBodyNameSpanIdPrefix = 'updateShoppingCart_legalMsg_body_nameSpan_';
 	let updateShoppingCartLegalMsgBodyBuyQuantitySpanIdPrefix = 'updateShoppingCart_legalMsg_body_buyQuantitySpan_';
-	
-	
-	let checkoutMoneyIllegalMsgModalExistInputId = 'checkout_money_illegal_msg_modal_exist_input';
-	let checkoutMoneyIllegalMsgModalId = 'checkout_money_illegal_msg_modal';
-	let checkoutMoneyIllegalMsgOkBtnId = 'checkout_money_illegal_msg_ok_btn';
 	
 	
 	let filterForm = 'filter_form';
@@ -79,72 +72,20 @@
 	
 	let checkoutPaidMoneyInputId = 'checkout_paid_money_input';
 	let checkoutBtnId = 'checkout_btn';
-	let checkoutFormId = 'checkout_form';
-	let checkoutDataInputId = 'checkout_data_input';
 	let checkoutAddShoppingCartModalId = 'checkout_add_shopping_cart_modal';
 	let checkoutAddShoppingCartModalOkBtnId = 'checkout_add_shopping_cart_modal_ok_btn';
 	let checkoutAddShoppingCartModalCancelBtnId = 'checkout_add_shopping_cart_modal_cancel_btn';
-	
+	let checkoutMoneyIllegalMsgModalId = 'checkout_moneyIllegalMsg_modal';
+	let checkoutMoneyIllegalMsgOkBtnId = 'checkout_moneyIllegalMsg_okBtn';
+	let checkoutConfirmModalId = 'checkout_confirmModal';
+	let checkoutConfirmModalCancelBtnId = 'checkout_confirmModal_cancelBtn';
+	let checkoutConfirmModalOkBtnId = 'checkout_confirmModal_okBtn';
 	
 	let goBackendBtnId = 'go_backend_btn';
 	let logoutBtnId = 'logout_btn';
 	
 
-	
-	// show message
-	function showMsgModal(){
-	
-		modalIdObjs = [];
-		
-		var modalIdObjsFctn = function(existId, modalId, okBtnId){
-			
-			return {
-				existId : existId,
-				modalId : modalId,
-				okBtnId : okBtnId
-			};
-		};
-	
-		modalIdObjs[0] = modalIdObjsFctn(
-			checkoutMoneyIllegalMsgModalExistInputId,
-			checkoutMoneyIllegalMsgModalId,
-			checkoutMoneyIllegalMsgOkBtnId
-		);
-		showMsgModalArray(modalIdObjs);
-	}
-	function showMsgModalArray(modalIdObjs){
-		
-		var firstIndex = -1;
-		var lastIndex = -1;
-		modalIdObjs.forEach(function(element, index, array){
-			
-			if($('#' + element.existId).val() == 'true'){
-				
-				if(firstIndex <= -1)
-					firstIndex = index;
-				
-				if(lastIndex <= -1){
-					
-					lastIndex = index;
-				}else{
-					
-					var lastElement = array[lastIndex];
-					$('#' + lastElement.okBtnId).click(function(){
-						
-						new bootstrap.Modal('#' + element.modalId, {}).show();
-					});
-				}
-				
-				$('#' + element.okBtnId).attr('data-bs-dismiss', 'modal');
-			}
-		});
-	
-		
-		if(firstIndex >= 0)
-			new bootstrap.Modal('#' + modalIdObjs[firstIndex].modalId, {}).show();
-	}
-	
-	
+
 	// filter
 	function filterBtnClicked(){
 		
@@ -240,7 +181,7 @@
 	}
 	function addShoppingCartAjax(addShoppingCartVO){
 	
-		var ajaxUrl = '/vendingMachine/machine/tempAddShoppingCart';
+		var ajaxUrl = '/vendingMachine/machine/addShoppingCart';
 		var dataJson = JSON.stringify(addShoppingCartVO);
 		
 		$.ajax({
@@ -355,7 +296,7 @@
 	}
 	function clearShoppingCartAjax(){
 		
-		var ajaxUrl = '/vendingMachine/machine/tempClearShoppingCart';
+		var ajaxUrl = '/vendingMachine/machine/clearShoppingCart';
 		
 		$.ajax({
 			url : ajaxUrl,
@@ -431,7 +372,7 @@
 	}
 	function updateShoppingCartAjax(updateShoppingCartVO){
 	
-		var ajaxUrl = '/vendingMachine/machine/tempUpdateShoppingCart';
+		var ajaxUrl = '/vendingMachine/machine/updateShoppingCart';
 		var dataJson = JSON.stringify(updateShoppingCartVO);
 		
 		$.ajax({
@@ -582,18 +523,18 @@
 	
 			$('#' + checkoutAddShoppingCartModalCancelBtnId).click(function(){
 	
-				showCheckoutShoppingCartModal()
+				showCheckoutShoppingCartModal(false)
 			});
 			
 			new bootstrap.Modal('#' + checkoutAddShoppingCartModalId, {}).show();
 		}else{
 	
-			showCheckoutShoppingCartModal();
+			showCheckoutShoppingCartModal(false);
 		}
 	}
 	function checkoutAddShoppingCartAjax(addShoppingCartVO){
 	
-		var ajaxUrl = '/vendingMachine/machine/tempAddShoppingCart';
+		var ajaxUrl = '/vendingMachine/machine/addShoppingCart';
 		var dataJson = JSON.stringify(addShoppingCartVO);
 		
 		$.ajax({
@@ -638,13 +579,13 @@
 						elements,
 						addShoppingCartIllegalMsgOkBtnId,
 						function(){
-							showAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
+							showCheckoutAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
 						});
 						
 			new bootstrap.Modal('#' + addShoppingCartIllegalMsgModalId, {}).show();
 		}else{
 			
-			showAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
+			showCheckoutAddShoppingCartLegalMsg(addShoppingCartLegalMsg);
 		}
 	}
 	function showCheckoutAddShoppingCartLegalMsg(addShoppingCartLegalMsg){
@@ -685,19 +626,19 @@
 						elements,
 						addShoppingCartLegalMsgOkBtnId,
 						function(){
-							showCheckoutShoppingCartModal();
+							showCheckoutShoppingCartModal(true);
 						});
 			
 			new bootstrap.Modal('#' + addShoppingCartLegalMsgModalId, {}).show();
 		}else{
 			
-			showCheckoutShoppingCartModal();
+			showCheckoutShoppingCartModal(false);
 		}
 	}
+
+	function showCheckoutShoppingCartModal(hasAddedShoppingCart){
 	
-	function showCheckoutShoppingCartModal(){
-	
-		confirmModal('即將進行結帳', function(){
+		$('#' + checkoutConfirmModalOkBtnId).click(function(){
 			
 			if(checkoutInputCheck()){
 				
@@ -709,13 +650,31 @@
 					checkoutForm : checkoutForm
 				};
 				
+				checkoutAjax(checkoutVO);
+			}else{
 				
+				var clickEventListener = function(){
+					
+					$('#alertModal_okBtn').off('click');
+					
+					if(hasAddedShoppingCart)
+						window.location.href = currentUrl;
+				}
+				$('#alertModal_okBtn').click(clickEventListener);
 			}
-		}).show();
+		});
+		
+		$('#' + checkoutConfirmModalCancelBtnId).click(function(){
+			
+			if(hasAddedShoppingCart)
+				window.location.href = currentUrl;
+		});
+		
+		new bootstrap.Modal('#' + checkoutConfirmModalId, {}).show();
 	}
 	function checkoutAjax(checkoutVO){
 		
-		var ajaxUrl = '/vendingMachine/machine/tempCheckout';
+		var ajaxUrl = '/vendingMachine/machine/checkout';
 		var dataJson = JSON.stringify(checkoutVO);
 		
 		$.ajax({
@@ -738,9 +697,19 @@
 		
 		if(checkoutMoneyIllegalMsg.hasMsg == 'true'){
 			
+			$('#' + checkoutMoneyIllegalMsgOkBtnId).click(function(){
+				
+				window.location.href = currentUrl;
+			});
 			
+			new bootstrap.Modal('#' + checkoutMoneyIllegalMsgModalId, {}).show();
+		}else{
+			
+			window.location.href = currentUrl;
 		}
 	}
+	
+	
 	
 	
 	// go backend

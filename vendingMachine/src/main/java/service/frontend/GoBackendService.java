@@ -1,22 +1,22 @@
 package service.frontend;
 
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
+import dao.memory.cache.frontend.ReceiptContentCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
-public class ClearShoppingCartService {
+public class GoBackendService {
 
 	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
+	private static final GoBackendService INSTANCE = new GoBackendService();
 	
-	private static final ClearShoppingCartService INSTANCE = new ClearShoppingCartService();
-	
-	private ClearShoppingCartService() {
+	private GoBackendService() {
 		
 		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
-	public static ClearShoppingCartService getInstance() {
+	public static GoBackendService getInstance() {
 		
 		return INSTANCE;
 	}
@@ -24,7 +24,9 @@ public class ClearShoppingCartService {
 	public void clear(AccountOBJDTO accountOBJDTO) {
 		
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
-	
+		ReceiptContentCacheDAO receiptContentCacheDAO = memoryDAOKitVMDAO.getReceiptContentCacheDAO(accountOBJDTO);
+		
 		shoppingCartMemoryDbDAO.deleteAll();
+		receiptContentCacheDAO.clearCache();
 	}
 }

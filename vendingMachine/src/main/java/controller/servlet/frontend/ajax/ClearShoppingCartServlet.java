@@ -9,24 +9,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
-import service.frontend.GoBackendService;
+import service.frontend.ClearShoppingCartService;
 import util.ServletUtil;
 
 @SuppressWarnings("serial")
-public class GoBackendServlet extends HttpServlet {
+public class ClearShoppingCartServlet extends HttpServlet {
 
 	// url
-	public static final String URL = "/vendingMachine/machine/goBackend";
-		
-
-	private GoBackendService goBackendService;
+	public static final String URL = "/vendingMachine/machine/clearShoppingCart";
+	
+	
+	private ClearShoppingCartService clearShoppingCartService;
 	
 	@Override
 	public void init() throws ServletException {
 
-		goBackendService = GoBackendService.getInstance();
+		clearShoppingCartService = ClearShoppingCartService.getInstance();
 	}
-	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -34,6 +33,6 @@ public class GoBackendServlet extends HttpServlet {
 		
 		AccountOBJDTO accountOBJDTO = ServletUtil.getAccount(session);
 		
-		goBackendService.clear(accountOBJDTO);
+		clearShoppingCartService.clear(accountOBJDTO);
 	}
 }

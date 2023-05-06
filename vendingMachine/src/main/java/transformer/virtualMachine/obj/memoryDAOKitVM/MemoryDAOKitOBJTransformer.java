@@ -21,19 +21,14 @@ public class MemoryDAOKitOBJTransformer extends OBJTransformerTemplate<MemoryDAO
 		
 		MemoryDAOKitOBJDTO dto = new MemoryDAOKitOBJDTO();
 		
-		dto.setAddShoppingCartIllegalMsgLineCacheDAO(obj.getAddShoppingCartIllegalMsgLineCacheDAO());
-		dto.setAddShoppingCartMsgLineCacheDAO(obj.getAddShoppingCartMsgLineCacheDAO());
 		dto.setReceiptContentCacheDAO(obj.getReceiptContentCacheDAO());
-		dto.setUpdateShoppingCartIllegalMsgLineCacheDAO(obj.getUpdateShoppingCartIllegalMsgLineCacheDAO());
-		dto.setUpdateShoppingCartMsgLineCacheDAO(obj.getUpdateShoppingCartMsgLineCacheDAO());
 		dto.setShoppingCartMemoryDbDAO(obj.getShoppingCartMemoryDbDAO());
 		dto.setGoodsTablePagesRepositoryDAO(obj.getGoodsTablePagesRepositoryDAO());
 		dto.setOrderTablePagesRepositoryDAO(obj.getOrderTablePagesRepositoryDAO());
 		dto.setFrontendGoodsTablePagesRepositoryDAO(obj.getFrontendGoodsTablePagesRepositoryDAO());
-		dto.setCheckoutMoneyIllegalMsgStatusCacheDAO(obj.getCheckoutMoneyIllegalMsgStatusCacheDAO());
-		dto.setClearShoppingCartMsgStatusCacheDAO(obj.getClearShoppingCartMsgStatusCacheDAO());
 		dto.setCurrentMemberStatusCacheDAO(obj.getCurrentMemberStatusCacheDAO());
 		dto.setNotLoginMsgStatusCacheDAO(obj.getNotLoginMsgStatusCacheDAO());
+		dto.setCheckoutMoneyIllegalMsgStatusCacheDAO(obj.getCheckoutMoneyIllegalMsgStatusCacheDAO());
 		
 		return dto;
 	}
@@ -43,17 +38,11 @@ public class MemoryDAOKitOBJTransformer extends OBJTransformerTemplate<MemoryDAO
 		
 		MemoryDAOKitOBJ obj = new MemoryDAOKitOBJ();
 		
-		obj.setAddShoppingCartIllegalMsgLineCacheDAO(dto.getAddShoppingCartIllegalMsgLineCacheDAO());
-		obj.setAddShoppingCartMsgLineCacheDAO(dto.getAddShoppingCartMsgLineCacheDAO());
 		obj.setReceiptContentCacheDAO(dto.getReceiptContentCacheDAO());
-		obj.setUpdateShoppingCartIllegalMsgLineCacheDAO(dto.getUpdateShoppingCartIllegalMsgLineCacheDAO());
-		obj.setUpdateShoppingCartMsgLineCacheDAO(dto.getUpdateShoppingCartMsgLineCacheDAO());
 		obj.setShoppingCartMemoryDbDAO(dto.getShoppingCartMemoryDbDAO());
 		obj.setGoodsTablePagesRepositoryDAO(dto.getGoodsTablePagesRepositoryDAO());
 		obj.setOrderTablePagesRepositoryDAO(dto.getOrderTablePagesRepositoryDAO());
 		obj.setFrontendGoodsTablePagesRepositoryDAO(dto.getFrontendGoodsTablePagesRepositoryDAO());
-		obj.setCheckoutMoneyIllegalMsgStatusCacheDAO(dto.getCheckoutMoneyIllegalMsgStatusCacheDAO());
-		obj.setClearShoppingCartMsgStatusCacheDAO(dto.getClearShoppingCartMsgStatusCacheDAO());
 		obj.setCurrentMemberStatusCacheDAO(dto.getCurrentMemberStatusCacheDAO());
 		obj.setNotLoginMsgStatusCacheDAO(dto.getNotLoginMsgStatusCacheDAO());
 		

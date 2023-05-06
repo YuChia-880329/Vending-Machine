@@ -32,7 +32,6 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 		
 		checkVo(vo);
 		
-		checkCurrentUrl(vo);
 		checkCheckoutForm(vo);
 	}
 
@@ -40,13 +39,7 @@ public class CheckoutVOChecker extends CheckerTemplate<CheckoutVO, CheckerExcept
 		
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
-	
-	private void checkCurrentUrl(CheckoutVO vo) throws CheckerException {
-		
-		String currentUrl = vo.getCurrentUrl();
-		
-		CheckUtil.checkString(currentUrl, StringConcatUtil.concate(NAME_PREFIX, "currentUrl"));
-	}
+
 	private void checkCheckoutForm(CheckoutVO vo) throws CheckerException {
 		
 		CheckoutFormVO checkoutForm = vo.getCheckoutForm();

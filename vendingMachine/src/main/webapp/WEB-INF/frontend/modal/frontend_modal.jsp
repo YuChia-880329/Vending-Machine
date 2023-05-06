@@ -187,30 +187,45 @@
 	</template>
 	
 	
+	<!-- checkout add shopping cart modal -->
+	<div class="modal fade" id="checkout_add_shopping_cart_modal">
+	  	<div class="modal-dialog msg-modal-dialog">
+	    	<div class="modal-content msg-modal-content">
+	      		<div class="modal-header msg-modal-header">
+	        		<h4 class="modal-title">確認</h4>
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+	      		<div class="modal-body msg-modal-body">
+	      			<p>有商品尚未加入購物車，是否加入購物車?</p>
+	      		</div>
+	      		<div class="modal-footer msg-modal-footer">
+	        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="checkout_add_shopping_cart_modal_cancel_btn">取消</button>
+	        		<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="checkout_add_shopping_cart_modal_ok_btn">確認</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal fade" id="checkout_confirmModal">
+	  	<div class="modal-dialog msg-modal-dialog">
+	    	<div class="modal-content msg-modal-content">
+	      		<div class="modal-header msg-modal-header">
+	        		<h4 class="modal-title">確認</h4>
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+	      		<div class="modal-body msg-modal-body">
+	      			<p>即將進行結帳</p>
+	      		</div>
+	      		<div class="modal-footer msg-modal-footer">
+	        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="checkout_confirmModal_cancelBtn">取消</button>
+	        		<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="checkout_confirmModal_okBtn">確認</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+	
+	
 	
 	<!-- checkout message modal -->
-	<input type="hidden" value="${vo.checkoutMoneyIllegalMsg.hasMsg}" id="checkout_money_illegal_msg_modal_exist_input" />
-	<c:if test="${vo.checkoutMoneyIllegalMsg.hasMsg == 'true'}">
-		<div class="modal fade" id="checkout_money_illegal_msg_modal">
-	 		<div class="modal-dialog msg-modal-dialog">
-	   			<div class="modal-content msg-modal-content">
-	     			<div class="modal-header msg-modal-header">
-	       				<h4 class="modal-title">訊息</h4>
-	       				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	     			</div>
-	     			<div class="modal-body msg-modal-body">
-	     				<div class="container">
-	     					<p>投入的金額不足</p>
-						</div>
-	     			</div>
-	     			<div class="modal-footer msg-modal-footer">
-	  					<button type="button" class="btn btn-primary" id="checkout_money_illegal_msg_ok_btn">確認</button>
-	     			</div>
-	   			</div>
-	 		</div>
-		</div>
-	</c:if>
-	
 	<div class="modal fade" id="checkout_moneyIllegalMsg_modal">
  		<div class="modal-dialog msg-modal-dialog">
    			<div class="modal-content msg-modal-content">
@@ -287,26 +302,5 @@
 			</div>
 		</div>
 	</template>
-	
-	
-	
-	<!-- checkout add shopping cart modal -->
-	<div class="modal fade" id="checkout_add_shopping_cart_modal">
-	  	<div class="modal-dialog msg-modal-dialog">
-	    	<div class="modal-content msg-modal-content">
-	      		<div class="modal-header msg-modal-header">
-	        		<h4 class="modal-title">Confirm</h4>
-	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      		</div>
-	      		<div class="modal-body msg-modal-body">
-	      			<p>有商品尚未加入購物車，是否加入購物車?</p>
-	      		</div>
-	      		<div class="modal-footer msg-modal-footer">
-	        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="checkout_add_shopping_cart_modal_cancel_btn">取消</button>
-	        		<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="checkout_add_shopping_cart_modal_ok_btn">確認</button>
-	      		</div>
-	    	</div>
-	  	</div>
-	</div>
 	
 	

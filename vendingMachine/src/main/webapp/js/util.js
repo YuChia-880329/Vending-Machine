@@ -1,34 +1,84 @@
 
 	// modal
-	function confirmModalId(modalMsg, okBtnFctn){
+	function confirmModalId(modalMsg, okBtnFctn, cancelBtnFctn){
 		
-		var modalId = 'confirm_modal';
-		var modalMsgId = 'confirm_modal_msg';
-		var okBtnId = 'confirm_modal_ok_btn';
+		var modalId = 'confirmModal';
+		var modalMsgId = 'confirmModal_msg';
+		var okBtnId = 'confirmModal_okBtn';
+		var cancelBtnId = 'confirmModal_cancelBtn';
 		
 		$('#' + modalMsgId).text(modalMsg);
-		$('#' + okBtnId).off('click');
-		$('#' + okBtnId).click(okBtnFctn);
+		
+		if(okBtnFctn!=undefined && okBtnFctn!=null){
+			
+			$('#' + okBtnId).off('click');
+			$('#' + okBtnId).click(okBtnFctn);
+		}
+
+		if(cancelBtnFctn != undefined){
+			
+			$('#' + cancelBtnId).off('click');
+			$('#' + cancelBtnId).click(cancelBtnFctn);
+		}
 		
 		return modalId;
 	}
-	function confirmModal(modalMsg, okBtnFctn){
+	function confirmModal(modalMsg, okBtnFctn, cancelBtnFctn){
 		
-		return new bootstrap.Modal('#' + confirmModalId(modalMsg, okBtnFctn), {});
+		var modalId = 'confirmModal';
+		var modalMsgId = 'confirmModal_msg';
+		var okBtnId = 'confirmModal_okBtn';
+		var cancelBtnId = 'confirmModal_cancelBtn';
+		
+		$('#' + modalMsgId).text(modalMsg);
+		
+		if(okBtnFctn!=undefined && okBtnFctn!=null){
+			
+			$('#' + okBtnId).off('click');
+			$('#' + okBtnId).click(okBtnFctn);
+		}
+
+		if(cancelBtnFctn != undefined){
+			
+			$('#' + cancelBtnId).off('click');
+			$('#' + cancelBtnId).click(cancelBtnFctn);
+		}
+
+		
+		return new bootstrap.Modal('#' + modalId, {});
 	}
 	
-	function alertModalId(modalMsg){
+	function alertModalId(modalMsg, okBtnFctn){
 		
-		var modalId = 'alert_modal';
-		var modalMsgPId = 'alert_modal_msg';
+		var modalId = 'alertModal';
+		var modalMsgId = 'alertModal_msg';
+		var okBtnId = 'alertModal_okBtn';
 		
-		$('#' + modalMsgPId).html(modalMsg);
+		$('#' + modalMsgId).text(modalMsg);
+		
+		if(okBtnFctn != undefined){
+			
+			$('#' + okBtnId).off('click');
+			$('#' + okBtnId).click(okBtnFctn);
+		}
 		
 		return modalId;
 	}
-	function alertModal(modalMsg){
+	function alertModal(modalMsg, okBtnFctn){
 		
-		return new bootstrap.Modal('#' + alertModalId(modalMsg), {});
+		var modalId = 'alertModal';
+		var modalMsgId = 'alertModal_msg';
+		var okBtnId = 'alertModal_okBtn';
+		
+		$('#' + modalMsgId).text(modalMsg);
+		
+		if(okBtnFctn != undefined){
+			
+			$('#' + okBtnId).off('click');
+			$('#' + okBtnId).click(okBtnFctn);
+		}
+		
+		return new bootstrap.Modal('#' + modalId, {});
 	}
 	
 	

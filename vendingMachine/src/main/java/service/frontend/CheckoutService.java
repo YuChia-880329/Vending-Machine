@@ -7,15 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bean.dto.frontend.CheckoutResultDTO;
 import bean.dto.frontend.obj.cache.receiptContent.BoughtGoodsMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.ChangeMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.PaidMoneyMsgOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.ReceiptContentOBJDTO;
 import bean.dto.frontend.obj.cache.receiptContent.TotalPriceMsgOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
-import bean.dto.frontend.obj.statusCache.checkoutMoneyIllegalMsgLineOBJ.CheckoutMoneyIllegalMsgHasMsgOBJDTO;
+import bean.dto.frontend.obj.statusCache.checkoutMoneyIllegalMsgHasMsg.CheckoutMoneyIllegalMsgHasMsgOBJDTO;
 import bean.dto.frontend.vo.readin.CheckoutVODTO;
+import bean.dto.frontend.vo.writeout.CheckoutMoneyIllegalMsgVODTO;
+import bean.dto.frontend.vo.writeout.CheckoutResultVODTO;
 import bean.dto.model.GoodsModelDTO;
 import bean.dto.model.OrderModelDTO;
 import bean.dto.obj.statusCache.currentMember.CurrentMemberOBJDTO;
@@ -34,7 +35,6 @@ public class CheckoutService {
 	private OrderModelService orderModelService;
 	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
-	
 	private static final CheckoutService INSTANCE = new CheckoutService();
 	
 	private CheckoutService() {
@@ -49,7 +49,7 @@ public class CheckoutService {
 		return INSTANCE;
 	}
 	
-	public CheckoutResultDTO checkout(CheckoutVODTO checkoutVODTO, AccountOBJDTO accountOBJDTO) {
+	public CheckoutResultVODTO checkout(CheckoutVODTO checkoutVODTO, AccountOBJDTO accountOBJDTO) {
 		
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
 		CheckoutMoneyIllegalMsgStatusCacheDAO checkoutMoneyIllegalMsgStatusCacheDAO = memoryDAOKitVMDAO.getCheckoutMoneyIllegalMsgStatusCacheDAO(accountOBJDTO);
@@ -59,11 +59,33 @@ public class CheckoutService {
 		List<ShoppingCartOBJDTO> shoppingCartOBJDTOs = shoppingCartMemoryDbDAO.searchAll();
 		Map<Integer, GoodsModelDTO> goodsModelDTOMap = new HashMap<>();
 		
+		
+		
+		CheckoutMoneyIllegalMsgVODTO checkoutMoneyIllegalMsgVODTO = new CheckoutMoneyIllegalMsgVODTO();
+		
 		try {
+			
 			for(ShoppingCartOBJDTO shoppingCartOBJDTO : shoppingCartOBJDTOs) {
 				
 				int id = shoppingCartOBJDTO.getId();
-				goodsModelDTOMap.put(id, goodsModelService.searchById(id));
+				GoodsModelDTO goodsModelDTO = goodsModelService.searchById(id);
+				
+				int buyQuantity = shoppingCartOBJDTO.getBuyQuantity();
+				int quantity = goodsModelDTO.getQuantity();
+				
+				if(quantity <= 0) {
+					
+					shoppingCartOBJDTOs.remove(shoppingCartOBJDTO);
+				}else if(quantity <= buyQuantity) {
+					
+					shoppingCartOBJDTO.setBuyQuantity(quantity);
+					goodsModelDTOMap.put(id, goodsModelDTO);
+				}else {
+					
+					goodsModelDTOMap.put(id, goodsModelDTO);
+				}
+					
+					
 			}
 			
 			int paidMoney = checkoutVODTO.getCheckoutForm().getPaidMoney();
@@ -99,19 +121,24 @@ public class CheckoutService {
 				memoryDAOKitVMDAO.requireUpdateGoodsTablePagesRepositoryDAO();
 				memoryDAOKitVMDAO.requireUpdateOrderTablePagesRepositoryDAO();
 				memoryDAOKitVMDAO.requireUpdateFrontendGoodsTablePagesRepositoryDAO();
+				
+				checkoutMoneyIllegalMsgVODTO.setHasMsg(false);
+			}else {
+				
+				checkoutMoneyIllegalMsgVODTO.setHasMsg(true);
 			}
 		} catch (SQLException ex) {
 			
 			ex.printStackTrace();
 		}
-
-		CheckoutResultDTO checkoutResultDTO = new CheckoutResultDTO();
 		
-		checkoutResultDTO.setRedirectUrl(checkoutVODTO.getCurrentUrl());
+		CheckoutResultVODTO checkoutResultVODTO = new CheckoutResultVODTO();
 		
-		return checkoutResultDTO;
+		checkoutResultVODTO.setCheckoutMoneyIllegalMsg(checkoutMoneyIllegalMsgVODTO);
+		
+		return checkoutResultVODTO;
 	}
-
+	
 	
 	private int checkoutShoppingCart(int paidMoney, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO, Map<Integer, GoodsModelDTO> goodsModelDTOMap) {
 		
@@ -198,5 +225,4 @@ public class CheckoutService {
 		
 		return orderModelDTOs;
 	}
-	
 }

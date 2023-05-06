@@ -1,23 +1,22 @@
 package service.frontend;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
-import bean.dto.frontend.AddShoppingCartResultDTO;
-import bean.dto.frontend.obj.cache.addShoppingCartIllegalMsgLine.AddShoppingCartIllegalMsgLineOBJDTO;
-import bean.dto.frontend.obj.cache.addShoppingCartMsgLine.AddShoppingCartMsgLineOBJDTO;
 import bean.dto.frontend.obj.memoryDb.shoppingCart.ShoppingCartOBJDTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartGoodsVODTO;
 import bean.dto.frontend.vo.readin.AddShoppingCartVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgLineVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartIllegalMsgVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartLegalMsgLineVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartLegalMsgVODTO;
+import bean.dto.frontend.vo.writeout.AddShoppingCartResultVODTO;
 import bean.dto.virtualMachine.obj.memoryDAOKitVM.AccountOBJDTO;
-import dao.memory.cache.frontend.AddShoppingCartIllegalMsgLineCacheDAO;
-import dao.memory.cache.frontend.AddShoppingCartMsgLineCacheDAO;
 import dao.memory.memoryDb.frontend.ShoppingCartMemoryDbDAO;
 import dao.virtualDevice.memoryDAOKit.MemoryDAOKitVMDAO;
 
 public class AddShoppingCartService {
 
-	private ShoppingCartService shoppingCartService;
 	private MemoryDAOKitVMDAO memoryDAOKitVMDAO;
 	
 	
@@ -25,7 +24,6 @@ public class AddShoppingCartService {
 	
 	private AddShoppingCartService() {
 		
-		shoppingCartService = ShoppingCartService.getInstance();
 		memoryDAOKitVMDAO = MemoryDAOKitVMDAO.getInstance();
 	}
 	
@@ -34,31 +32,47 @@ public class AddShoppingCartService {
 		return INSTANCE;
 	}
 	
-	public AddShoppingCartResultDTO add(AddShoppingCartVODTO addShoppingCartVODTO, AccountOBJDTO accountOBJDTO) {
+	public AddShoppingCartResultVODTO add(AddShoppingCartVODTO addShoppingCartVODTO, AccountOBJDTO accountOBJDTO) {
 		
 		ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO = memoryDAOKitVMDAO.getShoppingCartMemoryDbDAO(accountOBJDTO);
-		AddShoppingCartMsgLineCacheDAO addShoppingCartMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartMsgLineCacheDAO(accountOBJDTO);
-		AddShoppingCartIllegalMsgLineCacheDAO addShoppingCartIllegalMsgLineCacheDAO = memoryDAOKitVMDAO.getAddShoppingCartIllegalMsgLineCacheDAO(accountOBJDTO);
 		
-		AddShoppingCartResultDTO addShoppingCartResultDTO = new AddShoppingCartResultDTO();
+		AddShoppingCartResultVODTO addShoppingCartResultVODTO = new AddShoppingCartResultVODTO();
+		
+		AddShoppingCartIllegalMsgVODTO addShoppingCartIllegalMsgVODTO = new AddShoppingCartIllegalMsgVODTO();
+		AddShoppingCartLegalMsgVODTO addShoppingCartLegalMsgVODTO = new AddShoppingCartLegalMsgVODTO();
+		
+		addShoppingCartIllegalMsgVODTO.setHasMsg(false);
+		addShoppingCartLegalMsgVODTO.setHasMsg(false);
+		
+		List<AddShoppingCartIllegalMsgLineVODTO> addShoppingCartIllegalMsgLineVODTOs = new ArrayList<>();
+		List<AddShoppingCartLegalMsgLineVODTO> addShoppingCartLegalMsgLineVODTOs = new ArrayList<>();
+		
 		
 		List<AddShoppingCartGoodsVODTO> addShoppingCartGoodsVODTOs = addShoppingCartVODTO.getAddShoppingCartGoodsList();
 		for(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO : addShoppingCartGoodsVODTOs) {
 			
+			String name = addShoppingCartGoodsVODTO.getName();
+			int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
+			
 			if(isLegal(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO)) {
 				
-				addShoppingCartMsgLineCacheDAO.save(new AddShoppingCartMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName(), addShoppingCartGoodsVODTO.getAddQuantity()));
 				addShoppingCartGoods(addShoppingCartGoodsVODTO, shoppingCartMemoryDbDAO);
+				addShoppingCartLegalMsgVODTO.setHasMsg(true);
+				addShoppingCartLegalMsgLineVODTOs.add(new AddShoppingCartLegalMsgLineVODTO(name, addQuantity));
 			}else {
 				
-				addShoppingCartIllegalMsgLineCacheDAO.save(new AddShoppingCartIllegalMsgLineOBJDTO(addShoppingCartGoodsVODTO.getName()));
-			}
-				
+				addShoppingCartIllegalMsgVODTO.setHasMsg(true);
+				addShoppingCartIllegalMsgLineVODTOs.add(new AddShoppingCartIllegalMsgLineVODTO(name));
+			}	
 		}
 		
-		addShoppingCartResultDTO.setRedirectUrl(addShoppingCartVODTO.getCurrentUrl());
+		addShoppingCartIllegalMsgVODTO.setLines(addShoppingCartIllegalMsgLineVODTOs);
+		addShoppingCartLegalMsgVODTO.setLines(addShoppingCartLegalMsgLineVODTOs);
 		
-		return addShoppingCartResultDTO;
+		addShoppingCartResultVODTO.setAddShoppingCartIllegalMsg(addShoppingCartIllegalMsgVODTO);
+		addShoppingCartResultVODTO.setAddShoppingCartLegalMsg(addShoppingCartLegalMsgVODTO);
+		
+		return addShoppingCartResultVODTO;
 	}
 	private boolean isLegal(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
@@ -66,22 +80,26 @@ public class AddShoppingCartService {
 		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
 		int quantity = addShoppingCartGoodsVODTO.getQuantity();
 		
-		return shoppingCartService.isLegal(id, quantity, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
+		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(id);
+		int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
+		int buyQuantity = addQuantity + originBuyQuantity;
+		
+		return buyQuantity <= quantity;
 	}
 	private void addShoppingCartGoods(AddShoppingCartGoodsVODTO addShoppingCartGoodsVODTO, ShoppingCartMemoryDbDAO shoppingCartMemoryDbDAO) {
 		
 		int id = addShoppingCartGoodsVODTO.getId();
 		int addQuantity = addShoppingCartGoodsVODTO.getAddQuantity();
 		
-		shoppingCartService.saveShoppingCartGoods(id, getBuyQuantityFctn(addQuantity), shoppingCartMemoryDbDAO);
-	}
-	
-	private Function<ShoppingCartOBJDTO, Integer> getBuyQuantityFctn(int addQuantity){
+		ShoppingCartOBJDTO shoppingCartOBJDTO = shoppingCartMemoryDbDAO.searchByPk(id);
+		int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
+		int buyQuantity = addQuantity + originBuyQuantity;
 		
-		return shoppingCartOBJDTO -> {
-			
-			int originBuyQuantity = shoppingCartOBJDTO.getBuyQuantity();
-			return originBuyQuantity + addQuantity;
-		};
+		shoppingCartOBJDTO.setBuyQuantity(buyQuantity);
+		
+		if(originBuyQuantity > 0)
+			shoppingCartMemoryDbDAO.update(shoppingCartOBJDTO);
+		else
+			shoppingCartMemoryDbDAO.insert(shoppingCartOBJDTO);
 	}
 }

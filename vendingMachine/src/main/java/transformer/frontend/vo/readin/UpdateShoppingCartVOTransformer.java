@@ -28,7 +28,6 @@ public class UpdateShoppingCartVOTransformer extends VOReanInTransformerTemplate
 		
 		UpdateShoppingCartVODTO dto = new UpdateShoppingCartVODTO();
 		
-		dto.setCurrentUrl(vo.getCurrentUrl());
 		dto.setUpdateShoppingCartGoodsList(updateShoppingCartGoodsVOTransformer.voArrayToDtoList(vo.getUpdateShoppingCartGoodsArray()));
 		
 		return dto;

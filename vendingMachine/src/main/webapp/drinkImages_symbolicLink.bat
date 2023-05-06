@@ -1,1 +1,1 @@
-mklink /d "drinkImages" "C:\Users\RD04\Desktop\vending machine\images"
+mklink /d "drinkImages" "C:\Users\USER\Desktop\java\images\vending_machine"

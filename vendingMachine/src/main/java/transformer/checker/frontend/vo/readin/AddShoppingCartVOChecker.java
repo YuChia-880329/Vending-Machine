@@ -11,14 +11,14 @@ public class AddShoppingCartVOChecker extends CheckerTemplate<AddShoppingCartVO,
 
 	private static final String NAME_PREFIX = "frontend, shopping cart form, ";
 	
-	private AddShoppingCartGoodsVOChecker fscGoodsRIVOChecker;
+	private AddShoppingCartGoodsVOChecker addShoppingCartGoodsVOChecker;
 	
 	
 	private static final AddShoppingCartVOChecker INSTANCE = new AddShoppingCartVOChecker();
 	
 	private AddShoppingCartVOChecker() {
 		
-		fscGoodsRIVOChecker = AddShoppingCartGoodsVOChecker.getInstance();
+		addShoppingCartGoodsVOChecker = AddShoppingCartGoodsVOChecker.getInstance();
 	}
 	
 	public static AddShoppingCartVOChecker getInstance() {
@@ -31,7 +31,6 @@ public class AddShoppingCartVOChecker extends CheckerTemplate<AddShoppingCartVO,
 
 		checkVo(vo);
 		
-		checkCurrentUrl(vo);
 		checkShoppingCartGoodsArray(vo);
 	}
 	
@@ -40,12 +39,6 @@ public class AddShoppingCartVOChecker extends CheckerTemplate<AddShoppingCartVO,
 		CheckUtil.checkOther(vo, StringConcatUtil.concate(NAME_PREFIX, "vo"));
 	}
 	
-	private void checkCurrentUrl(AddShoppingCartVO vo) throws CheckerException {
-		
-		String currentUrl = vo.getCurrentUrl();
-		
-		CheckUtil.checkString(currentUrl, StringConcatUtil.concate(NAME_PREFIX, "currentUrl"));
-	}
 	private void checkShoppingCartGoodsArray(AddShoppingCartVO vo) throws CheckerException {
 		
 		AddShoppingCartGoodsVO[] shoppingCartGoodsArray = vo.getAddShoppingCartGoodsArray();
@@ -54,7 +47,7 @@ public class AddShoppingCartVOChecker extends CheckerTemplate<AddShoppingCartVO,
 	
 		for(int i=0; i<shoppingCartGoodsArray.length; i++) {
 			
-			fscGoodsRIVOChecker.check(shoppingCartGoodsArray[i]);
+			addShoppingCartGoodsVOChecker.check(shoppingCartGoodsArray[i]);
 		}
 	}
 }

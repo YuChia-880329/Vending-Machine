@@ -23,7 +23,6 @@
 		
 		function readyFctn(){
 			
-			showMsgModal();
 			$('#' + filterBtnId).click(filterBtnClicked);
 			$('#' + allGoodsBtnId).click(allGoodsBtnClicked);
 			$('#' + addShoppingCartBtnId).click(addShoppingCartBtnClicked);
